@@ -109,8 +109,8 @@
     load('link', { rel: 'stylesheet', href: `https://fonts.googleapis.com/css2?${style.fonts}&display=swap` }).catch(() => {});
     return Promise.all([
       config,
-      load('link', { rel: 'stylesheet', href: `styles/${style.id}/style.css` }),
-      load('link', { rel: 'stylesheet', href: '../interaction.css' }),
+      load('link', { rel: 'stylesheet', href: `styles/${style.id}/style.css` }).catch(() => {}),
+      load('link', { rel: 'stylesheet', href: '../interaction.css' }).catch(() => {}),
       load('script', { src: `styles/${style.id}/style.js` }),
       customP.then(card => {
         const localCard = cardId && readJSON(`everafter:card:${cardId}`, null);
