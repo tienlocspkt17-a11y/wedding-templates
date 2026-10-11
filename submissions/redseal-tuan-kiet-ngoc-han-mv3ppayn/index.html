@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="vi" id="top" data-style="redseal" class="rs-page"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Thiệp mời cưới</title>
+  <meta name="description" content="Thiệp mời lễ thành hôn">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Thiệp mời cưới">
+  <meta property="og:description" content="Trân trọng kính mời bạn đến chung vui cùng chúng mình.">
+  <!-- og:image: add an absolute URL to a 1200x630 image when deploying -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link rel="stylesheet" href="https://wedding-templates-lyart.vercel.app/everafter_UI_UX_edit/core/core.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=Noto+Serif+TC:wght@700&amp;display=swap"><link rel="stylesheet" href="https://wedding-templates-lyart.vercel.app/everafter_UI_UX_edit/styles/redseal/style.css"><link rel="stylesheet" href="https://wedding-templates-lyart.vercel.app/interaction.css"><script src="styles/redseal/style.js"></script></head>
+<body class="ready"><div class="hearts" aria-hidden="true"><span class="fh o" style="--x:0%;--d:10s;--delay:-0s;--s:0.45"></span><span class="fh " style="--x:47%;--d:11s;--delay:-1.9s;--s:0.67"></span><span class="fh " style="--x:94%;--d:12s;--delay:-3.8s;--s:0.89"></span><span class="fh " style="--x:41%;--d:13s;--delay:-5.699999999999999s;--s:1.11"></span><span class="fh o" style="--x:88%;--d:14s;--delay:-7.6s;--s:1.33"></span><span class="fh " style="--x:35%;--d:15s;--delay:-9.5s;--s:0.45"></span><span class="fh " style="--x:82%;--d:16s;--delay:-11.399999999999999s;--s:0.67"></span><span class="fh " style="--x:29%;--d:10s;--delay:-13.299999999999999s;--s:0.89"></span><span class="fh o" style="--x:76%;--d:11s;--delay:-1.1999999999999993s;--s:1.11"></span><span class="fh " style="--x:23%;--d:12s;--delay:-3.099999999999998s;--s:1.33"></span><span class="fh " style="--x:70%;--d:13s;--delay:-5s;--s:0.45"></span><span class="fh " style="--x:17%;--d:14s;--delay:-6.899999999999999s;--s:0.67"></span><span class="fh o" style="--x:64%;--d:15s;--delay:-8.799999999999997s;--s:0.89"></span><span class="fh " style="--x:11%;--d:16s;--delay:-10.7s;--s:1.11"></span><span class="fh " style="--x:58%;--d:10s;--delay:-12.599999999999998s;--s:1.33"></span><span class="fh " style="--x:5%;--d:11s;--delay:-0.5s;--s:0.45"></span><span class="fh o" style="--x:52%;--d:12s;--delay:-2.3999999999999986s;--s:0.67"></span><span class="fh " style="--x:99%;--d:13s;--delay:-4.299999999999997s;--s:0.89"></span><span class="fh " style="--x:46%;--d:14s;--delay:-6.199999999999996s;--s:1.11"></span><span class="fh " style="--x:93%;--d:15s;--delay:-8.100000000000001s;--s:1.33"></span><span class="fh o" style="--x:40%;--d:16s;--delay:-10s;--s:0.45"></span><span class="fh " style="--x:87%;--d:10s;--delay:-11.899999999999999s;--s:0.67"></span></div><p class="load-error">Không tải được thiệp. Vui lòng thử lại.</p>
+  <div id="cover" class="cover" hidden=""></div>
+  <main id="inv" class="inv"></main>
+
+  <nav id="dock" class="dock" aria-label="Điều hướng nhanh" hidden="">
+    <div id="dock-nav" class="dock-nav"></div>
+    <div class="dock-music">
+      <button id="music-btn" class="music-btn" type="button" aria-pressed="false" aria-label="Bật nhạc">
+        <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+      <input id="music-vol" class="music-vol" type="range" min="0" max="1" step="0.05" aria-label="Âm lượng">
+    </div>
+  </nav>
+
+  <dialog id="lightbox" class="lightbox">
+    <button class="close" type="button" aria-label="Đóng">×</button>
+    <img alt="">
+  </dialog>
+  
+  
+
+
+
+<script id="ea-standalone-runtime">
+(function() {
+  // 1. Envelope opening interaction
+  const envBtn = document.querySelector('.env-btn, .envelope-seal, #envelope, [data-action="open-envelope"]');
+  if (envBtn) {
+    envBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const topSec = document.querySelector('.rs-top, .envelope-wrapper, #envelope-scene, #cover');
+      if (topSec) topSec.classList.add('opened');
+      const photo = document.querySelector('.env-photo');
+      if (photo) photo.style.height = '140%';
+      this.style.pointerEvents = 'none';
+      setTimeout(function() {
+        const next = document.querySelector('.sec:not(.m-hero), .module:not(.m-hero)');
+        if (next) next.scrollIntoView({ behavior: 'smooth' });
+      }, 900);
+    });
+  }
+
+  // 2. Audio control
+  const musicBtn = document.querySelector('.music-btn, #music-btn, .btn-audio');
+  const audio = document.querySelector('audio');
+  if (musicBtn && audio) {
+    musicBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (audio.paused) {
+        audio.play().then(function() {
+          musicBtn.classList.add('is-playing', 'playing');
+        }).catch(function() {});
+      } else {
+        audio.pause();
+        musicBtn.classList.remove('is-playing', 'playing');
+      }
+    });
+    var autoPlayOnTouch = function() {
+      if (audio.paused) {
+        audio.play().then(function() { musicBtn.classList.add('is-playing', 'playing'); }).catch(function() {});
+      }
+      document.removeEventListener('click', autoPlayOnTouch);
+      document.removeEventListener('touchstart', autoPlayOnTouch);
+    };
+    document.addEventListener('click', autoPlayOnTouch, { once: true });
+    document.addEventListener('touchstart', autoPlayOnTouch, { once: true });
+  }
+
+  // 3. Side switcher (Nhà trai / Nhà gái / Chung)
+  const sides = document.querySelectorAll('.sides a, .side-toggle button');
+  sides.forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      sides.forEach(function(b) { b.removeAttribute('aria-current'); });
+      this.setAttribute('aria-current', 'true');
+      const side = (this.dataset.side || this.textContent).toLowerCase();
+      document.querySelectorAll('.when-groom, .groom-info').forEach(function(el) {
+        el.style.display = (side.includes('trai') || side.includes('chung')) ? '' : 'none';
+      });
+      document.querySelectorAll('.when-bride, .bride-info').forEach(function(el) {
+        el.style.display = (side.includes('gái') || side.includes('chung')) ? '' : 'none';
+      });
+    });
+  });
+})();
+</script>
+
+</body></html>
