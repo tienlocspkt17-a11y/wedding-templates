@@ -1,0 +1,227 @@
+/*
+   UX / motion pass for Concepts 01, 02 and 04–10.
+   Each scene keeps one hero gesture, one readable copy zone and one CTA.
+   Concept 03 is intentionally overridden later by intro-geometric-prototype.
+*/
+.wedding-opening .scene-copy strong{ text-wrap:balance; }
+.wedding-opening .opening-trigger{min-width:52px;min-height:52px;touch-action:manipulation}
+.wedding-opening .intro-control .control-label{max-width:22ch;text-wrap:balance}
+.wedding-opening .intro-control .scene-prompt{max-width:25ch;text-wrap:pretty}
+
+/* 01 — Morning Vow: one silk canopy lifts away from a quiet title block. */
+.wedding-opening--curtain10 .opening-stage{
+  background:linear-gradient(145deg,#efe3d8 0%,#e8d7ca 57%,#d2b09d 100%);
+}
+.wedding-opening--curtain10 .opening-vignette{
+  background:linear-gradient(180deg,#fff7ef33,transparent 43%,#65443528 100%);
+}
+.mechanism-curtain10{background:transparent}
+.mechanism-curtain10 .fabric-canopy{
+  inset:-6% -4% 38%;
+  background:
+    linear-gradient(90deg,#b97964cc,#ecd9cf 22%,#c88976 46%,#f0e0d6 72%,#b97964d9),
+    repeating-linear-gradient(90deg,transparent 0 23px,#ffffff22 24px 28px);
+  clip-path:polygon(0 0,100% 0,100% 86%,88% 92%,76% 87%,63% 94%,49% 87%,36% 93%,22% 87%,10% 92%,0 86%);
+  box-shadow:inset 0 -32px 38px #7147372a,0 14px 32px #70463018;
+  transform-origin:50% 0;
+}
+.mechanism-curtain10 .sun-slice{
+  left:-14%;top:46%;width:128%;height:18%;
+  background:linear-gradient(90deg,transparent,#fff4d69a 47%,#fff9e8bb 54%,transparent);
+  filter:blur(12px);opacity:.6;
+}
+.mechanism-curtain10 .fabric-thread{right:14%;height:60%;opacity:.78}
+.scene-copy--curtain10{
+  left:11%;top:16%;width:min(360px,34vw);padding:16px 20px 17px 21px;
+  border-left:2px solid #bb8068;border-radius:0 16px 16px 0;
+  background:linear-gradient(105deg,#f9efe8ec,#f9efe8a6 78%,transparent);
+  box-shadow:0 14px 30px #70463016;
+}
+.scene-copy--curtain10 strong{color:#4f3b34}
+.intro-control--curtain10{left:11%;bottom:13%;width:min(320px,36vw);color:#60473d}
+.intro-control--curtain10::before{content:"";position:absolute;left:32px;top:-52px;width:1px;height:43px;background:linear-gradient(#bb806800,#bb8068aa)}
+.wedding-opening--curtain10.is-opening .fabric-canopy{animation:ux-silk-lift 1.74s cubic-bezier(.65,0,.2,1) both}
+.wedding-opening--curtain10.is-opening .sun-slice{animation:ux-sun-sweep 1.32s ease both}
+.wedding-opening--curtain10.is-opening .fabric-thread{animation:ux-thread-pull .78s ease-in both}
+@keyframes ux-silk-lift{0%{transform:translateY(0)}58%{transform:translateY(-8vh) rotate(-1deg)}100%{transform:translateY(-112%) rotate(-5deg);opacity:0}}
+@keyframes ux-sun-sweep{to{transform:translate(40vw,8vh);opacity:0}}
+@keyframes ux-thread-pull{to{transform:translate(23vw,-34vh) rotate(22deg);opacity:0}}
+
+/* 02 — Herbarium: a specimen sheet peels like paper, not a six-piece shatter. */
+.wedding-opening--herbarium10 .opening-stage{background:linear-gradient(145deg,#eeece3,#d9dfd1 67%,#b5c2aa)}
+.wedding-opening--herbarium10 .opening-vignette{background:linear-gradient(180deg,#fffef777,transparent 54%,#4d5e461e)}
+.mechanism-herbarium10{background:transparent}
+.mechanism-herbarium10 .specimen-film{
+  inset:8% 12% 14%;border:1px solid #aeb99d;background:linear-gradient(130deg,#fffdf5e8,#d4dfd0b8 64%,#91a78466);
+  box-shadow:inset 0 0 0 8px #fff7,0 18px 42px #52604722;transform:rotate(-1.4deg);
+}
+.mechanism-herbarium10 .specimen-shard{display:none}
+.mechanism-herbarium10 .specimen-shard--one,.mechanism-herbarium10 .specimen-shard--two{display:block;width:32%;height:62%;opacity:.28}
+.mechanism-herbarium10 .specimen-shard--one{left:4%;top:6%;clip-path:polygon(0 0,100% 0,78% 52%,100% 100%,0 90%)}
+.mechanism-herbarium10 .specimen-shard--two{right:4%;top:4%;clip-path:polygon(0 0,100% 0,100% 91%,18% 100%,36% 49%)}
+.art-herbarium10 .glass-pane{inset:11% 15% 13%;background:#ffffff18;box-shadow:inset 0 0 0 5px #fff5,0 20px 35px #52604718}
+.art-herbarium10 .leaf-sprig--one{left:14%;top:31%;height:39%;opacity:.56}
+.art-herbarium10 .leaf-sprig--two{right:14%;top:24%;height:32%;opacity:.32}
+.art-herbarium10 .leaf-sprig--three{display:none}
+.scene-copy--herbarium10{
+  left:11%;top:14%;width:min(360px,33vw);padding:16px 20px;
+  background:#f8f4e9e8;border:1px solid #9eaa8b;box-shadow:9px 11px 0 #9b9e7c2b;
+}
+.scene-copy--herbarium10 strong{color:#3f5141}
+.intro-control--herbarium10{right:11%;bottom:13%;width:min(300px,34vw);color:#4f664f}
+.wedding-opening--herbarium10.is-opening .specimen-film{animation:ux-specimen-peel 1.32s cubic-bezier(.2,.78,.2,1) both}
+.wedding-opening--herbarium10.is-opening .specimen-shard--one{animation:ux-specimen-left 1.42s cubic-bezier(.2,.85,.2,1) both}
+.wedding-opening--herbarium10.is-opening .specimen-shard--two{animation:ux-specimen-right 1.48s cubic-bezier(.2,.85,.2,1) .04s both}
+@keyframes ux-specimen-peel{to{transform:translateY(-9vh) rotate(4deg) scale(1.04);opacity:0;filter:blur(8px)}}
+@keyframes ux-specimen-left{to{transform:translate(-42vw,-8vh) rotate(-18deg) scale(.2);opacity:0}}
+@keyframes ux-specimen-right{to{transform:translate(42vw,-12vh) rotate(18deg) scale(.2);opacity:0}}
+
+/* 04 — Quiet Crossing: a red sun and a single shoji axis. */
+.wedding-opening--washi10 .opening-stage{background:linear-gradient(145deg,#f5f0e5,#e8dfcf 64%,#d6c2a9)}
+.wedding-opening--washi10 .opening-vignette{background:linear-gradient(180deg,#fffdf933,transparent 45%,#6d564026)}
+.mechanism-washi10{background:transparent}
+.mechanism-washi10 .washi-iris{
+  inset:-10%;background:#f1eadc;
+  background-image:linear-gradient(90deg,transparent 49.7%,#867b6c27 50%,transparent 50.3%),linear-gradient(0deg,transparent 49.7%,#867b6c20 50%,transparent 50.3%);
+  clip-path:circle(68% at 19% 34%);
+}
+.mechanism-washi10 .washi-ripple{left:19%;top:34%;border-color:#aa3d38}
+.mechanism-washi10 .washi-ripple--one{width:13vw;opacity:.62}.mechanism-washi10 .washi-ripple--two{width:25vw;opacity:.18}
+.art-washi10 .shoji-grid{inset:12% 18% 12% 40%;opacity:.19}
+.art-washi10 .washi-moon{left:17%;top:21%;width:clamp(96px,12vw,160px);box-shadow:0 0 0 4px #f1eadc}
+.art-washi10 .koi-shadow{opacity:.08;transform:rotate(-12deg) scale(.74)}
+.scene-copy--washi10{
+  left:10%;right:auto;top:14%;width:min(360px,34vw);min-height:0;
+  padding:15px 20px;border-left:1px solid #aa3d38;background:#f6f0e4c9;
+  writing-mode:horizontal-tb;text-align:left;
+}
+.scene-copy--washi10 strong{font-size:clamp(39px,5.3vw,76px);letter-spacing:-.05em;color:#3f403b}
+.scene-copy--washi10 span,.scene-copy--washi10 small,.scene-copy--washi10 em{color:#a13e39}
+.intro-control--washi10{right:8%;left:auto;top:auto;bottom:12%;width:235px;color:#514a3d}
+.intro-control--washi10 .opening-trigger{width:48px;height:82px;min-width:48px;min-height:82px}
+.opening-trigger--washi10{padding:5px;border:1px solid #756b57;background:linear-gradient(90deg,#927d5b,#d8c39c,#857151);box-shadow:2px 0 9px #29241d44}
+.wood-grip{width:8px;height:34px;border-radius:5px;background:#493f32}
+.wedding-opening--washi10.is-opening .washi-iris{animation:ux-washi-slide 1.62s cubic-bezier(.55,0,.22,1) both}
+.wedding-opening--washi10.is-opening .washi-ripple--one{animation:ux-washi-ripple 1.1s ease both}
+.wedding-opening--washi10.is-opening .washi-ripple--two{animation:ux-washi-ripple 1.42s ease .08s both}
+@keyframes ux-washi-slide{to{clip-path:circle(0 at 19% 34%);opacity:0;filter:blur(4px)}}
+@keyframes ux-washi-ripple{to{transform:translate(-50%,-50%) scale(3.5);opacity:0}}
+
+/* 05 — Ink Tide: pigment blooms outward from one touch point. */
+.wedding-opening--ink10 .opening-stage{background:#fcf8f0}
+.wedding-opening--ink10 .opening-vignette{background:radial-gradient(ellipse at 50% 50%,transparent 22%,#76515b16 100%)}
+.mechanism-ink10{background:transparent}
+.mechanism-ink10 .ink-cover{inset:-8%;background:radial-gradient(ellipse at 16% 74%,#d78999 0 9%,transparent 32%),radial-gradient(ellipse at 79% 18%,#9bc9c9 0 10%,transparent 36%),#fcf8f0;filter:saturate(.85)}
+.mechanism-ink10 .ink-ring--one{width:110px;height:80px;opacity:.36}.mechanism-ink10 .ink-ring--two{width:220px;height:158px;opacity:.16!important}
+.scene-copy--ink10{left:10%;top:15%;width:min(390px,35vw);padding:16px 21px;background:#fffaf0db;border-left:2px solid #bd7182;box-shadow:0 13px 28px #74505b16}
+.scene-copy--ink10 strong{color:#56434d}
+.intro-control--ink10{left:11%;bottom:12%;width:min(315px,35vw);color:#654d5b}
+.intro-control--ink10 .opening-trigger{transform:rotate(-8deg)}
+.wedding-opening--ink10.is-opening .ink-cover{animation:ux-ink-bloom 1.74s cubic-bezier(.2,.85,.16,1) both}
+.wedding-opening--ink10.is-opening .ink-ring{animation:ux-ink-ring 1.16s ease both}
+@keyframes ux-ink-bloom{0%{opacity:1;filter:saturate(.85) blur(0)}50%{filter:saturate(1.35) blur(1px);transform:scale(1.08)}100%{opacity:0;filter:saturate(1.7) blur(28px);transform:scale(1.55) rotate(-8deg)}}
+@keyframes ux-ink-ring{to{transform:translate(-50%,-50%) scale(6) rotate(24deg);opacity:0}}
+
+/* 06 — Message to Shore: one bottle rises as the tide falls. */
+.wedding-opening--bottle10 .opening-stage{background:linear-gradient(180deg,#dff2eb,#acd8d3 54%,#347f87)}
+.wedding-opening--bottle10 .opening-vignette{background:linear-gradient(180deg,#ffffff22,transparent 42%,#073c4728)}
+.mechanism-bottle10{background:transparent}
+.mechanism-bottle10 .water-cover{background:linear-gradient(180deg,#e6f4e8,#8ecbc7 57%,#2b7781);clip-path:polygon(0 0,100% 0,100% 82%,85% 87%,69% 84%,52% 89%,36% 85%,19% 89%,0 84%)}
+.mechanism-bottle10 .waterline{opacity:.48}.mechanism-bottle10 .waterline--two{display:none}.mechanism-bottle10 .foam-burst{opacity:.36}
+.art-bottle10 .tide-line--two{display:none}.art-bottle10 .sun-glint{right:14%;top:13%;opacity:.46}
+.scene-copy--bottle10{left:10%;top:18%;max-width:330px;padding:16px 20px;color:#133f47;background:#e9f8f0d9;border-left:2px solid #438f91}
+.intro-control--bottle10{right:12%;top:43%;width:min(295px,33vw);color:#174f56}
+.intro-control--bottle10 .opening-trigger{transform:rotate(-6deg)}
+.wedding-opening--bottle10.is-opening .water-cover{animation:ux-tide-drain 1.72s cubic-bezier(.6,0,.22,1) both}
+.wedding-opening--bottle10.is-opening .waterline{animation:ux-waterline-fall 1.22s ease both}
+.wedding-opening--bottle10.is-opening .foam-burst{animation:ux-foam-pop 1.05s ease both}
+@keyframes ux-tide-drain{to{transform:translateY(111%) rotate(-3deg);opacity:0}}
+@keyframes ux-waterline-fall{to{transform:translate(14vw,62vh) rotate(-5deg);opacity:0}}
+@keyframes ux-foam-pop{to{transform:translate(-50%,-17vh) scale(2.7);opacity:0}}
+
+/* 07 — One Take: the film gate unspools on a vertical axis. */
+.wedding-opening--super8 .opening-stage{background:#171513}
+.wedding-opening--super8 .opening-vignette{background:linear-gradient(180deg,#0005,transparent 45%,#0009)}
+.mechanism-super8{background:transparent}
+.mechanism-super8 .film-gate{inset:7% 15%;border-color:#eadfc8aa;background:linear-gradient(145deg,#f0d7ad18,#fff5dc04);box-shadow:inset 0 0 0 8px #fff0,0 0 0 1px #a9947666}
+.mechanism-super8 .film-reel{width:clamp(54px,7vw,92px);opacity:.6}.film-reel--one{left:8%;top:11%}.film-reel--two{right:8%;top:11%}
+.scene-copy--super8{left:50%;top:17%;width:min(520px,58vw);max-width:58vw;transform:translateX(-50%);text-align:center;align-items:center;color:#f0e5d0}
+.scene-copy--super8 strong{color:#f6e6c2}
+.intro-control--super8{left:8%;bottom:12%;width:min(315px,34vw);color:#f0e3c9}
+.wedding-opening--super8.is-opening .film-gate{animation:ux-film-unspool 1.66s cubic-bezier(.64,0,.24,1) both}
+.wedding-opening--super8.is-opening .film-reel{animation:ux-reel-spin 1.24s linear both}
+.wedding-opening--super8.is-opening .projector-flash{animation:ux-projector-flare .8s ease both}
+@keyframes ux-film-unspool{to{transform:translateY(-112%) rotate(3deg);opacity:0}}
+@keyframes ux-reel-spin{to{transform:rotate(540deg) scale(.3);opacity:0}}
+@keyframes ux-projector-flare{35%{transform:translate(-50%,-50%) scale(22);opacity:.95}100%{transform:translate(-50%,-50%) scale(42);opacity:0}}
+
+/* 08 — Giấy Dó Shadow Theatre: the lantern reveals the paper screen. */
+.wedding-opening--shadow10 .opening-stage{background:linear-gradient(145deg,#ebdfca,#dbc5a5)}
+.wedding-opening--shadow10 .opening-vignette{background:radial-gradient(ellipse at 50% 30%,transparent 22%,#60412828 100%)}
+.mechanism-shadow10{background:transparent}
+.mechanism-shadow10 .paper-screen-cover{inset:7% 14%;border:1px solid #ad8056;background:#f5e7cf;box-shadow:0 0 0 9px #a5795224,inset 0 0 55px #a56f441c}
+.mechanism-shadow10 .lantern-flare{width:105px;opacity:.52}.mechanism-shadow10 .shadow-bloom{width:170px;height:115px;opacity:.16}
+.art-shadow10 .paper-screen{left:25%;top:12%;width:50%;height:76%;box-shadow:0 0 0 7px #a5795220,inset 0 0 35px #a56f441a}
+.art-shadow10 .shadow-lotus{font-size:76px;opacity:.09}.art-shadow10 .shadow-couple{font-size:28px;opacity:.15}.art-shadow10 .lantern-glow{width:88px;opacity:.28}
+.scene-copy--shadow10{left:50%;top:14%;width:min(500px,51vw);padding:15px 21px;transform:translateX(-50%);background:#f7e9d7c4;color:#6e262b;text-align:center;align-items:center}
+.intro-control--shadow10{right:11%;bottom:12%;width:min(295px,33vw);color:#7c2a2b}
+.wedding-opening--shadow10.is-opening .paper-screen-cover{animation:ux-paper-translucency 1.7s ease both}
+.wedding-opening--shadow10.is-opening .lantern-flare{animation:ux-lantern-bloom 1.18s ease both}
+.wedding-opening--shadow10.is-opening .shadow-bloom{animation:ux-shadow-away 1.16s ease both}
+@keyframes ux-paper-translucency{45%{filter:brightness(1.22)}100%{opacity:0;filter:brightness(1.8) blur(17px);transform:scale(1.18)}}
+@keyframes ux-lantern-bloom{to{transform:translate(-50%,-50%) scale(9);opacity:0}}
+@keyframes ux-shadow-away{to{transform:translate(-50%,-50%) scale(3);opacity:0}}
+
+/* 09 — Astrolabe Promise: three measured rings contract to a point. */
+.wedding-opening--astrolabe10 .opening-stage{background:radial-gradient(circle at 58% 54%,#18355e 0 8%,transparent 34%),linear-gradient(145deg,#071630,#0c2345 58%,#040b18)}
+.wedding-opening--astrolabe10 .opening-vignette{background:radial-gradient(ellipse at 55% 52%,transparent 16%,#020a1b99 100%)}
+.mechanism-astrolabe10{background:transparent}
+.mechanism-astrolabe10 .astro-iris{background:radial-gradient(circle at 50% 50%,#294a7d 0 9%,#071630 58%,#040a18 100%)}
+.mechanism-astrolabe10 .astro-ring--one{width:21vw;max-width:240px}.mechanism-astrolabe10 .astro-ring--two{width:38vw;max-width:420px;opacity:.42}.mechanism-astrolabe10 .astro-ring--three{width:58vw;max-width:620px;opacity:.16}
+.art-astrolabe10{opacity:.17}.art-astrolabe10 path{stroke-dasharray:1 18}
+.scene-copy--astrolabe10{left:10%;top:15%;max-width:330px;padding:16px 20px;color:#eff0d3;background:#0b2149c7;border-left:1px solid #d7bc78}
+.intro-control--astrolabe10{right:12%;top:51%;width:min(295px,33vw);color:#cfd9ed}
+.wedding-opening--astrolabe10.is-opening .astro-iris{animation:ux-astro-contract 1.8s cubic-bezier(.46,0,.2,1) both}
+.wedding-opening--astrolabe10.is-opening .astro-ring{animation:ux-astro-ring 1.5s ease both}
+.wedding-opening--astrolabe10.is-opening .astro-ring--two{animation-delay:.08s}.wedding-opening--astrolabe10.is-opening .astro-ring--three{animation-delay:.15s}
+@keyframes ux-astro-contract{to{clip-path:circle(0 at 50% 50%);opacity:0}}
+@keyframes ux-astro-ring{to{transform:translate(-50%,-50%) rotate(210deg) scale(.12);opacity:0}}
+
+/* 10 — Seoul Rain: one diagonal wiper clears the only window. */
+.wedding-opening--rain10 .opening-stage{background:linear-gradient(145deg,#aebfc6,#526b78 58%,#26343e)}
+.wedding-opening--rain10 .opening-vignette{background:linear-gradient(180deg,#10222b22,transparent 42%,#07121870)}
+.mechanism-rain10{background:transparent}
+.mechanism-rain10 .fog-glass{inset:-5%;background:#dcebed20;backdrop-filter:blur(13px) saturate(.7);filter:blur(4px)}
+.mechanism-rain10 .rain-film{opacity:.3}.mechanism-rain10 .neon-smear{width:17vw;height:13vh;opacity:.32}
+.art-rain10 .rain-streaks{opacity:.28}.art-rain10 .city-glow{width:13vw;height:11vh;opacity:.36}.art-rain10 .window-condensation{opacity:.22}
+.scene-copy--rain10{left:10%;top:15%;max-width:370px;padding:16px 20px;background:#30444ce0;border-left:1px solid #ef91a9;color:#f0f5f1}
+.intro-control--rain10{right:10%;bottom:12%;width:min(325px,36vw);color:#d7e6e7}
+.wedding-opening--rain10.is-opening .fog-glass{animation:ux-fog-clear 1.58s cubic-bezier(.4,0,.2,1) both}
+.wedding-opening--rain10.is-opening .rain-film{animation:ux-rain-swipe 1.12s ease both}
+.wedding-opening--rain10.is-opening .neon-smear{animation:ux-neon-bloom 1.34s ease both}
+@keyframes ux-fog-clear{to{opacity:0;filter:blur(0);backdrop-filter:blur(0);transform:scale(1.05)}}
+@keyframes ux-rain-swipe{to{transform:translate(43vw,-18vh) rotate(4deg);opacity:0}}
+@keyframes ux-neon-bloom{to{transform:scale(2.8);opacity:0}}
+
+@media(max-width:760px){
+  .scene-copy--curtain10{left:8%;top:12%;width:72vw}.intro-control--curtain10{left:8%;bottom:12%;width:260px}
+  .scene-copy--herbarium10{left:7%;top:11%;width:68vw}.intro-control--herbarium10{right:7%;bottom:12%;width:250px}
+  .scene-copy--washi10{left:8%;right:auto;top:11%;width:70vw}.intro-control--washi10{right:6%;bottom:10%;width:220px}
+  .scene-copy--ink10{left:7%;top:12%;width:70vw}.intro-control--ink10{left:8%;bottom:11%;width:250px}
+  .scene-copy--bottle10{left:7%;top:12%;width:66vw}.intro-control--bottle10{right:8%;top:43%;width:240px}
+  .scene-copy--super8{left:50%;top:12%;width:74vw;max-width:74vw}.intro-control--super8{left:6%;bottom:12%;width:250px}
+  .scene-copy--shadow10{left:50%;top:12%;width:78vw}.intro-control--shadow10{right:5%;bottom:11%;width:240px}
+  .scene-copy--astrolabe10{left:7%;top:12%;width:64vw}.intro-control--astrolabe10{right:5%;top:49%;width:230px}
+  .scene-copy--rain10{left:7%;top:12%;width:70vw}.intro-control--rain10{right:5%;bottom:11%;width:250px}
+}
+@media(max-width:760px) and (max-height:560px) and (orientation:landscape){
+  .scene-copy--curtain10{left:7%;top:7%;width:45vw}.intro-control--curtain10{left:7%;top:51%;bottom:auto;width:225px}
+  .scene-copy--herbarium10{left:7%;top:7%;width:43vw}.intro-control--herbarium10{right:7%;top:49%;bottom:auto;width:220px}
+  .scene-copy--washi10{left:7%;top:7%;width:42vw}.intro-control--washi10{right:6%;top:51%;bottom:auto;width:220px}
+  .scene-copy--ink10{left:7%;top:7%;width:44vw}.intro-control--ink10{left:7%;top:48%;bottom:auto;width:220px}
+  .scene-copy--bottle10{left:7%;top:7%;width:44vw}.intro-control--bottle10{right:7%;top:50%;width:220px}
+  .scene-copy--super8{left:50%;top:7%;width:48vw;max-width:48vw}.intro-control--super8{left:6%;top:53%;bottom:auto;width:220px}
+  .scene-copy--shadow10{left:50%;top:7%;width:58vw}.intro-control--shadow10{right:6%;top:47%;bottom:auto;width:220px}
+  .scene-copy--astrolabe10{left:7%;top:7%;width:42vw}.intro-control--astrolabe10{right:7%;top:49%;width:220px}
+  .scene-copy--rain10{left:7%;top:7%;width:44vw}.intro-control--rain10{right:6%;top:52%;bottom:auto;width:225px}
+}

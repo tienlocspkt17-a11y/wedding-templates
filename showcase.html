@@ -1,0 +1,1711 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bộ Sưu Tập 38 Mẫu Thiệp Cưới Điện Tử Cao Cấp — EverAfter Showcase</title>
+  <meta name="description" content="Khám phá 38 mẫu thiệp cưới online cao cấp: 8 Mẫu Mới EverAfter (Ghim Thiệp Hồng Hoàng Gia), 10 Mẫu Cinematic 3s, 10 Mẫu EverAfter Cổ Điển, và 10 Mẫu Suite Hiện Đại.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c0f12;
+      --surface: #14191f;
+      --card: #181f26;
+      --card-hover: #1f2933;
+      --line: rgba(255, 255, 255, 0.08);
+      --line-gold: rgba(212, 175, 55, 0.3);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent-gold: #d4af37;
+      --accent-gold-light: #f3e5ab;
+      --accent-rose: #e07a5f;
+      --accent-emerald: #2a9d8f;
+      --accent-blue: #457b9d;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; color-scheme: dark; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      selection-background-color: var(--accent-gold);
+      selection-color: #000;
+    }
+
+    /* Ambient luxury grain background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 15% 15%, rgba(212, 175, 55, 0.04) 0%, transparent 40%),
+                  radial-gradient(circle at 85% 85%, rgba(224, 122, 95, 0.03) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Top Sticky Brand Bar */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(12, 15, 18, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--line);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid var(--accent-gold);
+      display: grid;
+      place-items: center;
+      color: var(--accent-gold);
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 15px;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+    }
+    .brand-name {
+      font-family: 'Cinzel', serif;
+      font-size: 17px;
+      letter-spacing: 0.18em;
+      font-weight: 700;
+      color: #fff;
+    }
+    .brand-tag {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+    .nav-stats {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .nav-stats strong {
+      color: var(--accent-gold-light);
+      font-weight: 600;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      z-index: 1;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: clamp(48px, 8vw, 84px) 24px 32px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px solid rgba(212, 175, 55, 0.24);
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 22px;
+      font-weight: 600;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(34px, 5.8vw, 68px);
+      line-height: 1.12;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      max-width: 920px;
+      margin: 0 auto 20px;
+      color: #fff;
+    }
+    .hero-title em {
+      font-style: italic;
+      background: linear-gradient(135deg, #fff 20%, var(--accent-gold-light) 60%, var(--accent-gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-desc {
+      font-size: clamp(14px, 1.8vw, 17px);
+      line-height: 1.7;
+      color: var(--text-muted);
+      max-width: 740px;
+      margin: 0 auto 36px;
+    }
+
+    /* Filter & Search Bar */
+    .controls {
+      position: sticky;
+      top: 61px;
+      z-index: 35;
+      background: rgba(12, 15, 18, 0.94);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+      padding: 16px 24px;
+      margin-bottom: 36px;
+    }
+    .controls-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .collection-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tab-btn {
+      appearance: none;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      color: var(--text-muted);
+      padding: 9px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tab-btn:hover {
+      background: var(--card);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .tab-btn.is-active {
+      background: var(--accent-gold);
+      border-color: var(--accent-gold);
+      color: #0c0f12;
+      font-weight: 700;
+      box-shadow: 0 4px 18px rgba(212, 175, 55, 0.25);
+    }
+    .tab-count {
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.2);
+    }
+    .tab-btn.is-active .tab-count {
+      background: rgba(0, 0, 0, 0.25);
+      color: #fff;
+    }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .style-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .chip-btn {
+      appearance: none;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .chip-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+    }
+    .chip-btn.is-active {
+      background: rgba(212, 175, 55, 0.15);
+      border-color: var(--accent-gold);
+      color: var(--accent-gold-light);
+      font-weight: 600;
+    }
+
+    .search-box {
+      position: relative;
+      min-width: 260px;
+    }
+    .search-input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px 14px 8px 36px;
+      color: #fff;
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-input:focus {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+    }
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 14px;
+      pointer-events: none;
+    }
+
+    /* Template Grid */
+    .grid-section {
+      position: relative;
+      z-index: 1;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px 96px;
+    }
+    .grid-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .template-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr));
+      gap: 28px;
+    }
+
+    /* Template Card */
+    .card {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.28s ease, box-shadow 0.28s ease;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: var(--line-gold);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45), 0 0 20px rgba(212, 175, 55, 0.08);
+    }
+    .card-thumb {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      background: #0f1418;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+    .card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.5s ease;
+    }
+    .card:hover .card-thumb img {
+      transform: scale(1.04);
+    }
+    .card-thumb-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(12, 15, 18, 0.82);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      padding: 4px 11px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .card-collection-tag {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(12, 15, 18, 0.82);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #e2e8f0;
+    }
+    .tag-cinematic { color: #f6ad55; border-color: rgba(246, 173, 85, 0.3); }
+    .tag-suite { color: #68d391; border-color: rgba(104, 211, 145, 0.3); }
+    .tag-classic { color: #63b3ed; border-color: rgba(99, 179, 237, 0.3); }
+    .tag-signature { color: #f472b6; border-color: rgba(244, 114, 182, 0.35); }
+
+    .card.is-pinned {
+      border: 1.5px solid rgba(212, 175, 55, 0.7);
+      box-shadow: 0 12px 32px rgba(194, 22, 47, 0.22), 0 0 24px rgba(212, 175, 55, 0.2);
+    }
+    .card-pinned-tag {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: linear-gradient(135deg, #c2162f 0%, #8b0000 100%);
+      border: 1px solid rgba(255, 215, 0, 0.7);
+      border-radius: 999px;
+      padding: 4px 11px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      z-index: 2;
+    }
+
+    .card-body {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .card-title-group h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 21px;
+      line-height: 1.3;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+    .card-vn-name {
+      font-size: 13px;
+      color: var(--accent-gold-light);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .card-tagline {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+    .color-swatches {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .swatch-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .gesture-pill {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 4px 9px;
+      border-radius: 6px;
+    }
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+    }
+    .btn-preview {
+      appearance: none;
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #fff;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .card:hover .btn-preview {
+      background: var(--accent-gold);
+      color: #0c0f12;
+      border-color: var(--accent-gold);
+      font-weight: 700;
+    }
+    .btn-external {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 10px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+    .btn-external:hover {
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.3);
+      background: var(--card-hover);
+    }
+    .btn-edit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      color: var(--accent-gold);
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0 12px;
+      height: 42px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn-edit:hover {
+      background: var(--accent-gold);
+      color: #0c0f12;
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 14px rgba(212, 175, 55, 0.35);
+    }
+    .btn-customize-glow {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(194, 65, 75, 0.2));
+      border-color: var(--accent-gold);
+      color: var(--accent-gold-light);
+      font-weight: 600;
+    }
+    .btn-customize-glow:hover {
+      background: var(--accent-gold);
+      color: #0c0f12;
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+    }
+
+    /* Modal Device Preview */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(5, 7, 9, 0.85);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .modal-overlay.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 24px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(12, 15, 18, 0.95);
+      shrink-0: 0;
+    }
+    .modal-template-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .modal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent-gold);
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.28);
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .modal-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 18px;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .modal-device-toggles {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--surface);
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+    }
+    .device-btn {
+      appearance: none;
+      background: transparent;
+      border: 0;
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.16s ease;
+    }
+    .device-btn:hover { color: #fff; }
+    .device-btn.is-active {
+      background: var(--card-hover);
+      color: var(--accent-gold);
+    }
+    .modal-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .modal-btn {
+      appearance: none;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      color: var(--text-muted);
+      height: 38px;
+      padding: 0 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .modal-btn:hover {
+      background: var(--card-hover);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .btn-close {
+      width: 38px;
+      padding: 0;
+      justify-content: center;
+      font-size: 20px;
+      color: #fff;
+    }
+
+    /* Modal Stage & Viewport */
+    .modal-stage {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px 24px;
+      overflow: hidden;
+      position: relative;
+    }
+    .viewport-frame {
+      width: 100%;
+      height: 100%;
+      background: #000;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      position: relative;
+    }
+    .viewport-frame.mode-mobile {
+      width: 390px;
+      max-height: 844px;
+      border: 10px solid #1f2937;
+      border-radius: 46px;
+      box-shadow: 0 0 0 2px #374151, 0 25px 60px rgba(0, 0, 0, 0.8);
+    }
+    .viewport-frame.mode-mobile::before {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110px;
+      height: 25px;
+      background: #000;
+      border-radius: 20px;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .viewport-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #fff;
+    }
+
+    /* Modal Footer */
+    .modal-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 10px 24px;
+      background: rgba(12, 15, 18, 0.95);
+      border-top: 1px solid var(--line);
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .nav-pager {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pager-btn {
+      appearance: none;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.18s;
+    }
+    .pager-btn:hover:not(:disabled) {
+      background: var(--accent-gold);
+      color: #0c0f12;
+      border-color: var(--accent-gold);
+      font-weight: 700;
+    }
+    .pager-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    /* Empty state */
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 64px 20px;
+      color: var(--text-muted);
+    }
+    .empty-state h4 {
+      font-size: 18px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .top-nav { padding: 12px 16px; }
+      .brand-name { font-size: 15px; }
+      .nav-stats { display: none; }
+      .controls { padding: 12px 16px; }
+      .grid-section { padding: 0 16px 64px; }
+      .template-grid { grid-template-columns: 1fr; }
+      .modal-header { padding: 10px 14px; }
+      .modal-stage { padding: 8px; }
+      .viewport-frame.mode-mobile {
+        width: 100%;
+        max-height: 100%;
+        border-width: 6px;
+        border-radius: 28px;
+      }
+      .viewport-frame.mode-mobile::before { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Brand Navigation -->
+  <nav class="top-nav" aria-label="Thanh thương hiệu">
+    <a href="#" class="brand">
+      <span class="brand-mark">E</span>
+      <span class="brand-name">EVERAFTER</span>
+      <span class="brand-tag">38 Masterpieces</span>
+    </a>
+    <div class="nav-stats">
+      <span>Đã kiểm định: <strong>38/38 Mẫu Sẵn Sàng</strong></span>
+      <span>Độ tương thích: <strong>100% Mobile & Desktop</strong></span>
+    </div>
+  </nav>
+
+  <!-- Hero Header -->
+  <header class="hero">
+    <div class="hero-badge">✦ Signature Wedding Invitation Collection · 2026</div>
+    <h1 class="hero-title">Tuyển tập <em>38 Kiệt Tác Thiệp Cưới Điện Tử</em> cao cấp</h1>
+    <p class="hero-desc">
+      Mỗi mẫu thiệp là một ngôn ngữ nghệ thuật riêng biệt, kết hợp hoàn hảo giữa công nghệ tương tác chạm hiện đại, hệ thống 17 module lễ cưới chuẩn mực và thẩm mỹ thị giác chuẩn luxury.
+    </p>
+  </header>
+
+  <!-- Filter & Search Controls -->
+  <section class="controls" aria-label="Bộ lọc và tìm kiếm thiệp">
+    <div class="controls-inner">
+      <!-- Collection Tabs -->
+      <div class="collection-tabs" role="tablist">
+        <button class="tab-btn is-active" data-filter-col="all">
+          <span>Tất Cả</span>
+          <span class="tab-count">38</span>
+        </button>
+        <button class="tab-btn" data-filter-col="signature">
+          <span>✦ 8 Mẫu Mới (EverAfter)</span>
+          <span class="tab-count">8</span>
+        </button>
+        <button class="tab-btn" data-filter-col="cinematic">
+          <span>🎬 Cinematic 3s Gestures</span>
+          <span class="tab-count">10</span>
+        </button>
+        <button class="tab-btn" data-filter-col="suite">
+          <span>💎 EverAfter Suite (17 Module)</span>
+          <span class="tab-count">10</span>
+        </button>
+        <button class="tab-btn" data-filter-col="classic">
+          <span>📜 Art & Poetry Classic</span>
+          <span class="tab-count">10</span>
+        </button>
+      </div>
+
+      <!-- Filter Row: Style chips & Search -->
+      <div class="filter-row">
+        <div class="style-chips">
+          <button class="chip-btn is-active" data-filter-style="all">Tất cả phong cách</button>
+          <button class="chip-btn" data-filter-style="redseal">📌 Thiệp Hồng (Pinned)</button>
+          <button class="chip-btn" data-filter-style="school">Học Đường</button>
+          <button class="chip-btn" data-filter-style="ancient">Cổ Trang</button>
+          <button class="chip-btn" data-filter-style="cosmic">8 Tỉ Người</button>
+          <button class="chip-btn" data-filter-style="moonlight">Bạch Nguyệt Quang</button>
+          <button class="chip-btn" data-filter-style="sol-luna">Nhật Nguyệt</button>
+          <button class="chip-btn" data-filter-style="anime">Anime</button>
+          <button class="chip-btn" data-filter-style="threejs">3D Không Gian</button>
+          <button class="chip-btn" data-filter-style="traditional">Hoàng gia & Dân gian</button>
+          <button class="chip-btn" data-filter-style="minimalist">Tối giản Minimalist</button>
+          <button class="chip-btn" data-filter-style="luxury">Ép kim & Quý tộc</button>
+          <button class="chip-btn" data-filter-style="botanical">Hoa ép & Thảo mộc</button>
+          <button class="chip-btn" data-filter-style="vintage">Hoài niệm & Vintage</button>
+          <button class="chip-btn" data-filter-style="zen">Zen & Washi</button>
+          <button class="chip-btn" data-filter-style="ocean">Biển & Lãng mạn</button>
+        </div>
+
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-input" class="search-input" placeholder="Tìm theo tên, phong cách, màu..." autocomplete="off">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Grid Section -->
+  <main class="grid-section">
+    <div class="grid-meta">
+      <span id="result-count">Đang hiển thị <strong>37</strong> mẫu thiệp</span>
+      <span>Nhấp vào bất kỳ mẫu nào để trải nghiệm tương tác trực tiếp</span>
+    </div>
+
+    <div class="template-grid" id="template-grid">
+      <!-- Templates will be rendered here dynamically -->
+    </div>
+  </main>
+
+  <!-- Modal Interactive Device Preview -->
+  <div class="modal-overlay" id="preview-modal" role="dialog" aria-modal="true" aria-label="Xem trước thiệp cưới">
+    <header class="modal-header">
+      <div class="modal-template-info">
+        <span class="modal-badge" id="modal-badge">#01 Cinematic 3s</span>
+        <h2 class="modal-title" id="modal-title">Tên Mẫu Thiệp</h2>
+      </div>
+
+      <!-- Device Frame Toggles -->
+      <div class="modal-device-toggles">
+        <button class="device-btn is-active" data-device="mobile" title="Chế độ xem điện thoại (Phím tắt: 1)">
+          <span>📱 Mobile (390px)</span>
+        </button>
+        <button class="device-btn" data-device="desktop" title="Chế độ xem máy tính (Phím tắt: 2)">
+          <span>💻 Desktop (Toàn Cảnh)</span>
+        </button>
+      </div>
+
+      <!-- External Actions -->
+      <div class="modal-controls">
+        <a href="#" id="modal-customize-btn" target="_blank" rel="noopener noreferrer" class="modal-btn btn-customize-glow" title="Tự thiết kế / Chỉnh sửa trực quan mẫu này trong Universal Studio">
+          <span>✏️ Tự Thiết Kế Mẫu Này</span>
+        </a>
+        <a href="#" id="modal-external-link" target="_blank" rel="noopener noreferrer" class="modal-btn" title="Mở trang thiệp này trong tab mới">
+          <span>Mở Tab Mới ↗</span>
+        </a>
+        <button class="modal-btn" id="modal-copy-link" title="Sao chép liên kết mẫu thiệp này">
+          <span>Sao chép Link 📋</span>
+        </button>
+        <button class="modal-btn btn-close" id="modal-close-btn" aria-label="Đóng (Phím Esc)">×</button>
+      </div>
+    </header>
+
+    <!-- Interactive Iframe Stage -->
+    <div class="modal-stage">
+      <div class="viewport-frame mode-mobile" id="viewport-frame">
+        <iframe id="preview-iframe" src="about:blank" title="Trình xem thiệp cưới tương tác" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <!-- Modal Footer Controls -->
+    <footer class="modal-footer">
+      <div class="nav-pager">
+        <button class="pager-btn" id="prev-template-btn" title="Mẫu trước (Phím ←)">← Mẫu Trước</button>
+        <button class="pager-btn" id="next-template-btn" title="Mẫu kế tiếp (Phím →)">Mẫu Tiếp Theo →</button>
+      </div>
+      <div id="modal-pager-indicator">Mẫu 01 / 38</div>
+      <div>Nhấn <strong>Esc</strong> để thoát · Dùng phím <strong>← / →</strong> để đổi mẫu</div>
+    </footer>
+  </div>
+
+  <!-- Template Data Registry -->
+  <script>
+    const TEMPLATES_DATA = [
+      // ==========================================
+      // NHÓM 1: CINEMATIC SOURCE (10 MẪU ĐỘC LẬP)
+      // ==========================================
+      {
+        id: "cinematic-01",
+        number: "01",
+        name: "The Morning Vow",
+        vnName: "Rèm Lụa Ban Mai",
+        collection: "cinematic",
+        collectionLabel: "Cinematic 3s",
+        tagline: "Kéo dây lụa vàng mở rèm voan đón ánh nắng mai",
+        gesture: "Kéo dây lụa (Curtain Draw)",
+        colors: ["#7f202d", "#d5ae65", "#fbf3e7"],
+        url: "Wedding_Invitation_10_Cinematic_Source (1)/templates/01-morning-vow.html",
+        thumb: "assets/images/previews/01-morning-vow_desktop_hero.png",
+        tags: ["traditional", "luxury"]
+      },
+      {
+        id: "cinematic-02",
+        number: "02",
+        name: "Herbarium of Us",
+        vnName: "Tiêu Bản Kính Sương",
+        collection: "cinematic",
+        collectionLabel: "Cinematic 3s",
+        tagline: "Chạm giọt sương bóc tách 6 phiến kính hoa ép khô",
+        gesture: "Chạm giọt sương (Specimen Peel)",
+        colors: ["#3e5c46", "#c8b995", "#f5f0e7"],
+        url: "Wedding_Invitation_10_Cinematic_Source (1)/templates/02-herbarium-of-us.html",
+        thumb: "assets/images/previews/02-herbarium-of-us_desktop_hero.png",
+        tags: ["botanical", "minimalist"]
+      },
+      {
+        id: "cinematic-03",
+        number: "03",
+        name: "Geometric Camera",
+        vnName: "Ống Kính Khẩu Độ",
+        collection: "cinematic",
+        collectionLabel: "Cinematic 3s",
+        tagline: "Bấm nút chụp khóa nét ống kính kim loại và khẩu độ đồng",
+        gesture: "Bấm khóa nét (Perspective Lock)",
+        colors: ["#0d191d", "#b78b48", "#f2ddaa"],
+        url: "Wedding_Invitation_10_Cinematic_Source (1)/templates/03-forever-floor.html",
+        thumb: "assets/images/previews/03-forever-floor_desktop_hero.png",
+        tags: ["luxury", "vintage"]
+      },
+      {
+        id: "cinematic-04",
+        number: "04",
+        name: "Quiet Crossing",
+        vnName: "Cửa Trượt Washi Shoji",
+        collection: "cinematic",
+        collectionLabel: "Cinematic 3s",
+        tagline: "Trượt tay nắm gỗ đón trăng rằm Washi và bóng cá Koi thiền tịnh",
+        gesture: "Trượt tay nắm (Shoji Crossing)",
+        colors: ["#a9423c", "#aa9d87", "#f0ece3"],
+        url: "Wedding_Invitation_10_Cinematic_Source (1)/templates/04-quiet-crossing.html",
+        thumb: "assets/images/previews/04-quiet-crossing_desktop_hero.png",
+        tags: ["zen", "minimalist"]
+      },
+      {
+        id: "cinematic-05",
+        number: "05",
+        name: "Ink Tide",
+        vnName: "Loang Màu Thủy Mặc",
+        collection: "cinematic",
+        collectionLabel: "Cinematic 3s",
+        tagline: "Chạm giọt mực tím loang màu nước nghệ thuật trên giấy điệp",
+        gesture: "Chạm giọt mực (Pigment Bloom)",
+        colors: ["#5c4559", "#d58992", "#fbf6ef"],
+        url: "Wedding_Invitation_10_Cinematic_Source (1)/templates/05-ink-tide.html",
+        thumb: "assets/images/previews/05-ink-tide_desktop_hero.png",
+        tags: ["romantic"]
+      },
+      {
+        id: "cinematic-06",
+        number: "06",
+        name: "Message to Shore",
+        vnName: "Thư Trong Chai Biển",
+        collection: "cinematic",
+        collectionLabel: "Cinematic 3s",
+        tagline: "Rút nút bấc mở bức thư thủy tinh trôi dạt bờ sóng cát trắng",
+        gesture: "Mở nút bấc (Tide Curtains)",
+        colors: ["#2f8190", "#b7ded8", "#eaf8f6"],
+        url: "Wedding_Invitation_10_Cinematic_Source (1)/templates/06-message-to-shore.html",
+        thumb: "assets/images/previews/06-message-to-shore_desktop_hero.png",
+        tags: ["ocean", "romantic"]
+      },
+      {
+        id: "cinematic-07",
+        number: "07",
+        name: "One Take",
+        vnName: "Thước Phim Super 8",
+        collection: "cinematic",
+        collectionLabel: "Cinematic 3s",
+        tagline: "Bật công tắc máy chiếu cuộn qua từng thước phim nhựa cổ điển",
+        gesture: "Bật máy chiếu (Super 8 Gate)",
+        colors: ["#201c18", "#c79d5e", "#d8c9aa"],
+        url: "Wedding_Invitation_10_Cinematic_Source (1)/templates/07-one-take.html",
+        thumb: "assets/images/previews/07-one-take_desktop_hero.png",
+        tags: ["vintage"]
+      },
+      {
+        id: "cinematic-08",
+        number: "08",
+        name: "Giấy Dó Shadow Theatre",
+        vnName: "Bóng Lồng Đèn Giấy Dó",
+        collection: "cinematic",
+        collectionLabel: "Cinematic 3s",
+        tagline: "Kéo tua đỏ thắp sáng hoa sen bóng trăng trên giấy Dó thủ công",
+        gesture: "Kéo tua đỏ (Lantern Shadow)",
+        colors: ["#7d2026", "#d0a65e", "#f0e3cc"],
+        url: "Wedding_Invitation_10_Cinematic_Source (1)/templates/08-giay-do-shadow.html",
+        thumb: "assets/images/previews/08-giay-do-shadow_desktop_hero.png",
+        tags: ["traditional"]
+      },
+      {
+        id: "cinematic-09",
+        number: "09",
+        name: "Astrolabe Promise",
+        vnName: "Thước Đo Thiên Văn",
+        collection: "cinematic",
+        collectionLabel: "Cinematic 3s",
+        tagline: "Chạm hai vì sao giao nhau trên bản đồ chiêm tinh bầu trời đêm",
+        gesture: "Nối hai vì sao (Star Map)",
+        colors: ["#071630", "#c8d3a0", "#8da8d0"],
+        url: "Wedding_Invitation_10_Cinematic_Source (1)/templates/09-astrolabe-promise.html",
+        thumb: "assets/images/previews/09-astrolabe-promise_desktop_hero.png",
+        tags: ["ocean", "luxury"]
+      },
+      {
+        id: "cinematic-10",
+        number: "10",
+        name: "Seoul Rain Window",
+        vnName: "Ô Kính Mưa Phố Seoul",
+        collection: "cinematic",
+        collectionLabel: "Cinematic 3s",
+        tagline: "Gạt cần nước lau mờ vệt mưa đêm phản chiếu ánh đèn neon",
+        gesture: "Gạt mặt kính (Rain Wipe)",
+        colors: ["#202a31", "#f0a8bd", "#dce4e8"],
+        url: "Wedding_Invitation_10_Cinematic_Source (1)/templates/10-seoul-rain.html",
+        thumb: "assets/images/previews/10-seoul-rain_desktop_hero.png",
+        tags: ["minimalist", "romantic"]
+      },
+
+      // ==========================================
+      // NHÓM 2: EVERAFTER SUITE (10 MẪU 17 MODULE)
+      // ==========================================
+      {
+        id: "suite-11",
+        number: "11",
+        name: "Vietnamese Heritage",
+        vnName: "Hoàng Thành Son Sắc",
+        collection: "suite",
+        collectionLabel: "EverAfter Suite",
+        tagline: "Cổng cung đình 3D mở cánh, nét son hoàng triều & dấu ấn Song Hỷ",
+        gesture: "17 Module Tương Tác",
+        colors: ["#9B1B1E", "#D89F38", "#F9F3E3"],
+        url: "index.html?template=vietnamese-heritage&clean=true",
+        thumb: "assets/images/previews/suite-vietnamese-heritage.png",
+        tags: ["traditional", "luxury"]
+      },
+      {
+        id: "suite-12",
+        number: "12",
+        name: "Minimalist Modern",
+        vnName: "Vách Kính Gân Sọc",
+        collection: "suite",
+        collectionLabel: "EverAfter Suite",
+        tagline: "Cửa kính Fluted Glass, tay nắm đồng khối, kiến trúc hiện đại",
+        gesture: "17 Module Tương Tác",
+        colors: ["#111111", "#888884", "#F9F9F8"],
+        url: "index.html?template=minimalist-modern&clean=true",
+        thumb: "assets/images/previews/suite-minimalist-modern.png",
+        tags: ["minimalist", "luxury"]
+      },
+      {
+        id: "suite-13",
+        number: "13",
+        name: "Luxury Gold Foil",
+        vnName: "Phong Bì Nhung Ép Kim",
+        collection: "suite",
+        collectionLabel: "EverAfter Suite",
+        tagline: "Nắp phong bì nhung ép kim vàng lá, sáp niêm phong quý tộc",
+        gesture: "17 Module Tương Tác",
+        colors: ["#1A1714", "#D4AF37", "#FAF7F2"],
+        url: "index.html?template=luxury-gold-foil&clean=true",
+        thumb: "assets/images/previews/suite-luxury-gold-foil.png",
+        tags: ["luxury"]
+      },
+      {
+        id: "suite-14",
+        number: "14",
+        name: "Pressed Botanical",
+        vnName: "Bàn Ép Hoa Thảo Mộc",
+        collection: "suite",
+        collectionLabel: "EverAfter Suite",
+        tagline: "Thực vật sấy khô trên giấy tái chế mộc mạc, gần gũi thiên nhiên",
+        gesture: "17 Module Tương Tác",
+        colors: ["#2E4036", "#879788", "#F5F2EB"],
+        url: "index.html?template=pressed-botanical&clean=true",
+        thumb: "assets/images/previews/suite-pressed-botanical.png",
+        tags: ["botanical", "minimalist"]
+      },
+      {
+        id: "suite-15",
+        number: "15",
+        name: "Bohemian Rustic",
+        vnName: "Đĩa Than Vinyl Thảo Nguyên",
+        collection: "suite",
+        collectionLabel: "EverAfter Suite",
+        tagline: "Đĩa than mộc mạc quay ngân nga, chất thảo nguyên hoang dã",
+        gesture: "17 Module Tương Tác",
+        colors: ["#8C4F39", "#D99B66", "#F7F1E8"],
+        url: "index.html?template=bohemian-rustic&clean=true",
+        thumb: "assets/images/previews/suite-bohemian-rustic.png",
+        tags: ["vintage", "romantic"]
+      },
+      {
+        id: "suite-16",
+        number: "16",
+        name: "Washi Ikebana Zen",
+        vnName: "Họa Bút Ensō Thiền Định",
+        collection: "suite",
+        collectionLabel: "EverAfter Suite",
+        tagline: "Vòng tròn Ensō mực tàu, nét tinh tế thanh tịnh Nhật Bản",
+        gesture: "17 Module Tương Tác",
+        colors: ["#262624", "#B04A41", "#EDE8DF"],
+        url: "index.html?template=washi-ikebana-zen&clean=true",
+        thumb: "assets/images/previews/suite-washi-ikebana-zen.png",
+        tags: ["zen", "minimalist"]
+      },
+      {
+        id: "suite-17",
+        number: "17",
+        name: "Art Deco 1920s",
+        vnName: "Gatsby Hoàng Kim",
+        collection: "suite",
+        collectionLabel: "EverAfter Suite",
+        tagline: "Họa tiết kỷ hà đối xứng, lộng lẫy xa hoa New York 1920",
+        gesture: "17 Module Tương Tác",
+        colors: ["#151C24", "#D1A751", "#ECE7DC"],
+        url: "index.html?template=art-deco-1920s&clean=true",
+        thumb: "assets/images/previews/suite-art-deco-1920s.png",
+        tags: ["luxury", "vintage"]
+      },
+      {
+        id: "suite-18",
+        number: "18",
+        name: "Tropical Destination",
+        vnName: "Chuyến Bay Nhiệt Đới",
+        collection: "suite",
+        collectionLabel: "EverAfter Suite",
+        tagline: "Cuống vé máy bay & hộ chiếu đưa khách đến đám cưới biển nhiệt đới",
+        gesture: "17 Module Tương Tác",
+        colors: ["#1B4947", "#E07A5F", "#F4F1EA"],
+        url: "index.html?template=tropical-destination&clean=true",
+        thumb: "assets/images/previews/suite-tropical-destination.png",
+        tags: ["ocean", "romantic"]
+      },
+      {
+        id: "suite-19",
+        number: "19",
+        name: "K-Wedding Minimal",
+        vnName: "Album Vải Linen Hàn Quốc",
+        collection: "suite",
+        collectionLabel: "EverAfter Suite",
+        tagline: "Bìa vải dệt tự nhiên, phong cách Hàn Quốc dịu dàng tinh khôi",
+        gesture: "17 Module Tương Tác",
+        colors: ["#383B3E", "#9E8B83", "#F8F6F4"],
+        url: "index.html?template=k-wedding-minimal&clean=true",
+        thumb: "assets/images/previews/suite-k-wedding-minimal.png",
+        tags: ["minimalist", "romantic"]
+      },
+      {
+        id: "suite-20",
+        number: "20",
+        name: "Watercolor Romance",
+        vnName: "Loang Màu Nước Thơ Mộng",
+        collection: "suite",
+        collectionLabel: "EverAfter Suite",
+        tagline: "Vệt loang màu nước bay bổng, tông màu ngọt ngào hạnh phúc",
+        gesture: "17 Module Tương Tác",
+        colors: ["#543D46", "#D6899A", "#FAF5F3"],
+        url: "index.html?template=watercolor-romance&clean=true",
+        thumb: "assets/images/previews/suite-watercolor-romance.png",
+        tags: ["romantic"]
+      },
+
+      // ==========================================
+      // NHÓM 3: EVERAFTER CLASSIC & ART (10 MẪU)
+      // ==========================================
+      {
+        id: "classic-21",
+        number: "21",
+        name: "Editorial Vogue",
+        vnName: "Bìa Tạp Chí Hiện Đại",
+        collection: "classic",
+        collectionLabel: "Art Classic",
+        tagline: "Bìa tạp chí thời trang, typography ấn tượng, giàu khoảng trắng",
+        gesture: "Thơ Mộng & Tinh Tế",
+        colors: ["#111111", "#C8102E", "#FFFFFF"],
+        url: "everafter/invitation.html?style=editorial",
+        thumb: "assets/images/previews/classic-editorial.png",
+        tags: ["minimalist"]
+      },
+      {
+        id: "classic-22",
+        number: "22",
+        name: "Lacquer & Gold",
+        vnName: "Sơn Mài Hỷ Sự",
+        collection: "classic",
+        collectionLabel: "Art Classic",
+        tagline: "Sơn mài đỏ thắm bóng bẩy, dát vàng chữ Hỷ thủ công truyền thống",
+        gesture: "Thơ Mộng & Tinh Tế",
+        colors: ["#8E1B1B", "#C9A24B", "#1E1410"],
+        url: "everafter/invitation.html?style=lacquer",
+        thumb: "assets/images/previews/classic-lacquer.png",
+        tags: ["traditional"]
+      },
+      {
+        id: "classic-23",
+        number: "23",
+        name: "Polaroid Nostalgia",
+        vnName: "Ký Ức Polaroid",
+        collection: "classic",
+        collectionLabel: "Art Classic",
+        tagline: "Ảnh viền phim lấy ngay, chữ viết tay lưu giữ thanh xuân hoài niệm",
+        gesture: "Thơ Mộng & Tinh Tế",
+        colors: ["#3A3330", "#D98E4A", "#F2EDE3"],
+        url: "everafter/invitation.html?style=polaroid",
+        thumb: "assets/images/previews/classic-polaroid.png",
+        tags: ["vintage", "romantic"]
+      },
+      {
+        id: "classic-24",
+        number: "24",
+        name: "Postal Postcard",
+        vnName: "Bưu Thiếp Thư Tay",
+        collection: "classic",
+        collectionLabel: "Art Classic",
+        tagline: "Tem thư, dấu mộc bưu điện, phong vị những phong thư phương xa",
+        gesture: "Thơ Mộng & Tinh Tế",
+        colors: ["#2F4A8A", "#C0392B", "#F4EBDD"],
+        url: "everafter/invitation.html?style=postal",
+        thumb: "assets/images/previews/classic-postal.png",
+        tags: ["vintage", "romantic"]
+      },
+      {
+        id: "classic-25",
+        number: "25",
+        name: "Indochine 1930",
+        vnName: "Đông Dương Sài Gòn",
+        collection: "classic",
+        collectionLabel: "Art Classic",
+        tagline: "Gạch bông hoa văn cổ kính, mây tre đan, phong vị hoài cổ Sài Gòn",
+        gesture: "Thơ Mộng & Tinh Tế",
+        colors: ["#1F4D45", "#B8863B", "#EFE6D2"],
+        url: "everafter/invitation.html?style=indochine",
+        thumb: "assets/images/previews/classic-indochine.png",
+        tags: ["traditional", "vintage"]
+      },
+      {
+        id: "classic-26",
+        number: "26",
+        name: "Botanical Delicate",
+        vnName: "Hoa Ép Dịu Dàng",
+        collection: "classic",
+        collectionLabel: "Art Classic",
+        tagline: "Màu nước trong suốt, cánh hoa ép khô, nhẹ nhàng và e ấp",
+        gesture: "Thơ Mộng & Tinh Tế",
+        colors: ["#8FA67A", "#E3A8A0", "#FAF7F0"],
+        url: "everafter/invitation.html?style=botanical",
+        thumb: "assets/images/previews/classic-botanical.png",
+        tags: ["botanical", "romantic"]
+      },
+      {
+        id: "classic-27",
+        number: "27",
+        name: "Starry Night",
+        vnName: "Ngưu Lang Chức Nữ",
+        collection: "classic",
+        collectionLabel: "Art Classic",
+        tagline: "Bầu trời sao lấp lánh, cầu Ô Thước nối liền hai bến bờ yêu thương",
+        gesture: "Thơ Mộng & Tinh Tế",
+        colors: ["#0E1633", "#7A86C2", "#E8D9A8"],
+        url: "everafter/invitation.html?style=starry",
+        thumb: "assets/images/previews/classic-starry.png",
+        tags: ["ocean", "romantic"]
+      },
+      {
+        id: "classic-28",
+        number: "28",
+        name: "Dong Ho Woodcut",
+        vnName: "Tranh Khắc Gỗ Đông Hồ",
+        collection: "classic",
+        collectionLabel: "Art Classic",
+        tagline: "Mộc bản dân gian giấy điệp, hồn quê đậm đà bản sắc Việt",
+        gesture: "Thơ Mộng & Tinh Tế",
+        colors: ["#B23A2A", "#2E2A24", "#EDE3C8"],
+        url: "everafter/invitation.html?style=dongho",
+        thumb: "assets/images/previews/classic-dongho.png",
+        tags: ["traditional"]
+      },
+      {
+        id: "classic-29",
+        number: "29",
+        name: "Classic Cinema",
+        vnName: "Rạp Chiếu Phim Cổ Điển",
+        collection: "classic",
+        collectionLabel: "Art Classic",
+        tagline: "Tấm vé xem phim hoài niệm, bản tình ca bất hủ vượt thời gian",
+        gesture: "Thơ Mộng & Tinh Tế",
+        colors: ["#1A1A1A", "#E9C46A", "#9B2226"],
+        url: "everafter/invitation.html?style=cinema",
+        thumb: "assets/images/previews/classic-cinema.png",
+        tags: ["vintage"]
+      },
+      {
+        id: "classic-30",
+        number: "30",
+        name: "Message In A Bottle",
+        vnName: "Bình Thủy Tinh Cát Trắng",
+        collection: "classic",
+        collectionLabel: "Art Classic",
+        tagline: "Biển xanh, cát vàng, thông điệp tình yêu trôi dạt vô tận",
+        gesture: "Thơ Mộng & Tinh Tế",
+        colors: ["#5FA8B8", "#D9B38C", "#F6F1E7"],
+        url: "everafter/invitation.html?style=bottle",
+        thumb: "assets/images/previews/classic-bottle.png",
+        tags: ["ocean", "romantic"]
+      },
+      // ==========================================
+      // NHÓM 4: 8 MẪU MỚI (EVERAFTER SIGNATURE)
+      // ==========================================
+      {
+        id: "signature-31",
+        number: "31",
+        name: "Red Seal & Wax Royal",
+        vnName: "Thiệp Hồng Hoàng Gia",
+        collection: "signature",
+        collectionLabel: "Signature",
+        tagline: "Phong bì đỏ truyền thống, sáp vàng niêm phong, chữ Hỷ dát kim",
+        gesture: "Mở phong bì sáp đỏ (Wax Seal Flap)",
+        colors: ["#C2162F", "#C9A45C", "#FBF7F6"],
+        url: "everafter_add_7_template/invitation.html?style=redseal",
+        thumb: "assets/images/previews/signature-31-redseal.png",
+        tags: ["signature", "redseal", "traditional", "luxury", "pinned"],
+        isPinned: true
+      },
+      {
+        id: "signature-32",
+        number: "32",
+        name: "Classroom to Forever",
+        vnName: "Áo Trắng Học Đường",
+        collection: "signature",
+        collectionLabel: "Signature",
+        tagline: "Từ bàn học đến lễ đường trăm năm, mối tình đầu thanh xuân",
+        gesture: "Mở trang lưu bút (School Book)",
+        colors: ["#2B5AA8", "#D6453D", "#FBF8EF"],
+        url: "everafter_add_7_template/invitation.html?style=school",
+        thumb: "assets/images/previews/signature-32-school.png",
+        tags: ["signature", "school", "youth", "minimalist"]
+      },
+      {
+        id: "signature-33",
+        number: "33",
+        name: "Imperial Ink Romance",
+        vnName: "Cổ Trang Hoàng Triều",
+        collection: "signature",
+        collectionLabel: "Signature",
+        tagline: "Thuỷ mặc truyền thống, hôn thư ước nguyện, chữ thư pháp viết dọc",
+        gesture: "Mở cuốn hôn thư cổ (Scroll Reveal)",
+        colors: ["#A4262C", "#C9A45C", "#F3EBDD"],
+        url: "everafter_add_7_template/invitation.html?style=ancient",
+        thumb: "assets/images/previews/signature-33-ancient.png",
+        tags: ["signature", "ancient", "guofeng", "traditional"]
+      },
+      {
+        id: "signature-34",
+        number: "34",
+        name: "One in 8 Billion",
+        vnName: "Kỳ Tích Giữa 8 Tỉ Người",
+        collection: "signature",
+        collectionLabel: "Signature",
+        tagline: "Hàng tỷ chấm nhỏ giữa vũ trụ, chỉ hai chấm tìm thấy và thuộc về nhau",
+        gesture: "Chạm điểm giao vũ trụ (Cosmic Connect)",
+        colors: ["#FF5A4E", "#2F6BFF", "#F7F7F4"],
+        url: "everafter_add_7_template/invitation.html?style=billions",
+        thumb: "assets/images/previews/signature-34-billions.png",
+        tags: ["signature", "cosmic", "modern", "minimalist"]
+      },
+      {
+        id: "signature-35",
+        number: "35",
+        name: "Moonlight & Cinnabar",
+        vnName: "Bạch Nguyệt Quang & Nốt Chu Sa",
+        collection: "signature",
+        collectionLabel: "Signature",
+        tagline: "Ánh trăng trắng thanh thuần và một nốt chu sa khắc sâu trong tâm khảm",
+        gesture: "Chạm điểm chu sa (Cinnabar Drop)",
+        colors: ["#B3261E", "#C9CED6", "#F4F2EE"],
+        url: "everafter_add_7_template/invitation.html?style=moonlight",
+        thumb: "assets/images/previews/signature-35-moonlight.png",
+        tags: ["signature", "moonlight", "poetic", "luxury"]
+      },
+      {
+        id: "signature-36",
+        number: "36",
+        name: "Sol & Luna Harmony",
+        vnName: "Mặt Trời & Mặt Trăng",
+        collection: "signature",
+        collectionLabel: "Signature",
+        tagline: "Hai thế giới khác biệt, ngày và đêm, cùng hòa chung một bầu trời hạnh phúc",
+        gesture: "Kéo nhật nguyệt giao điểm (Eclipse)",
+        colors: ["#F6C35B", "#1E2A4A", "#E9E6DA"],
+        url: "everafter_add_7_template/invitation.html?style=sunmoon",
+        thumb: "assets/images/previews/signature-36-sunmoon.png",
+        tags: ["signature", "sol-luna", "astrology", "modern"]
+      },
+      {
+        id: "signature-37",
+        number: "37",
+        name: "Twilight Romance Anime",
+        vnName: "Anime Hoàng Hôn & Cánh Đào",
+        collection: "signature",
+        collectionLabel: "Signature",
+        tagline: "Trời xanh, gió nhẹ, cánh hoa anh đào bay và tập cuối viên mãn của thanh xuân",
+        gesture: "Gió thổi cánh hoa đào (Petal Wind)",
+        colors: ["#7EC8F2", "#FFB7C9", "#22324A"],
+        url: "everafter_add_7_template/invitation.html?style=anime",
+        thumb: "assets/images/previews/signature-37-anime.png",
+        tags: ["signature", "anime", "romantic", "twilight"]
+      },
+      {
+        id: "signature-38",
+        number: "38",
+        name: "Eternal 3D Rings",
+        vnName: "Nhẫn Cưới Không Gian 3D",
+        collection: "signature",
+        collectionLabel: "Signature",
+        tagline: "Hai chiếc nhẫn cưới 3D lồng vào nhau, biểu tượng vĩnh cửu của tình yêu bất diệt",
+        gesture: "Xoay nhẫn không gian 3D (3D Orbit Drag)",
+        colors: ["#D9B26F", "#15110E", "#F5EFE6"],
+        url: "everafter_add_7_template/invitation.html?style=rings3d",
+        thumb: "assets/images/previews/signature-38-rings3d.png",
+        tags: ["signature", "threejs", "3d", "technology", "luxury"]
+      }
+    ];
+
+    // State
+    let activeCollection = 'all';
+    let activeStyle = 'all';
+    let searchQuery = '';
+    let currentModalIndex = 0;
+    let filteredTemplates = [...TEMPLATES_DATA];
+
+    // DOM Elements
+    const gridEl = document.getElementById('template-grid');
+    const resultCountEl = document.getElementById('result-count');
+    const searchInput = document.getElementById('search-input');
+    const modalEl = document.getElementById('preview-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBadge = document.getElementById('modal-badge');
+    const modalCustomizeBtn = document.getElementById('modal-customize-btn');
+    const modalExternalLink = document.getElementById('modal-external-link');
+    const modalCopyLink = document.getElementById('modal-copy-link');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+    const previewIframe = document.getElementById('preview-iframe');
+    const viewportFrame = document.getElementById('viewport-frame');
+    const prevTemplateBtn = document.getElementById('prev-template-btn');
+    const nextTemplateBtn = document.getElementById('next-template-btn');
+    const modalPagerIndicator = document.getElementById('modal-pager-indicator');
+
+    // Render Grid
+    function renderGrid() {
+      filteredTemplates = TEMPLATES_DATA.filter(item => {
+        const matchesCol = activeCollection === 'all' || item.collection === activeCollection;
+        const matchesStyle = activeStyle === 'all' || (item.tags && item.tags.includes(activeStyle));
+        const q = searchQuery.toLowerCase().trim();
+        const matchesSearch = !q || 
+          item.name.toLowerCase().includes(q) || 
+          item.vnName.toLowerCase().includes(q) || 
+          item.tagline.toLowerCase().includes(q) || 
+          item.number.includes(q);
+        return matchesCol && matchesStyle && matchesSearch;
+      });
+
+      resultCountEl.innerHTML = `Đang hiển thị <strong>${filteredTemplates.length}</strong> / ${TEMPLATES_DATA.length} mẫu thiệp`;
+
+      if (filteredTemplates.length === 0) {
+        gridEl.innerHTML = `
+          <div class="empty-state">
+            <h4>Không tìm thấy mẫu thiệp phù hợp</h4>
+            <p>Hãy thử tìm kiếm bằng từ khóa khác hoặc xóa bộ lọc để xem lại tất cả ${TEMPLATES_DATA.length} mẫu.</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Pin Thiệp Hồng to the very top of the list when viewing all
+      const displayTemplates = (activeCollection === 'all' && activeStyle === 'all' && !searchQuery)
+        ? [...filteredTemplates].sort((a, b) => (b.isPinned ? 1 : 0) - (a.isPinned ? 1 : 0))
+        : filteredTemplates;
+
+      gridEl.innerHTML = displayTemplates.map((t, idx) => `
+        <article class="card ${t.isPinned ? 'is-pinned' : ''}" onclick="openPreviewModal('${t.id}')">
+          <div class="card-thumb">
+            <img src="${t.thumb}" alt="${t.name} - ${t.vnName}" loading="lazy">
+            <span class="card-thumb-badge">#${t.number}</span>
+            ${t.isPinned 
+              ? `<span class="card-pinned-tag">📌 ĐÃ GHIM</span>` 
+              : `<span class="card-collection-tag tag-${t.collection}">${t.collectionLabel}</span>`
+            }
+          </div>
+          <div class="card-body">
+            <div class="card-title-group">
+              <h3>${t.name}</h3>
+              <div class="card-vn-name">${t.vnName}</div>
+              <p class="card-tagline">${t.tagline}</p>
+            </div>
+            <div class="card-meta-row">
+              <div class="color-swatches" title="Bảng màu chủ đạo">
+                ${t.colors.map(c => `<span class="swatch-dot" style="background:${c}"></span>`).join('')}
+              </div>
+              <div class="gesture-pill">
+                <span>✦</span>
+                <span>${t.gesture}</span>
+              </div>
+            </div>
+            <div class="card-actions" onclick="event.stopPropagation()">
+              <button class="btn-preview" onclick="openPreviewModal('${t.id}')" title="Trải nghiệm mẫu này">
+                <span>Xem Thử</span>
+                <span>→</span>
+              </button>
+              <a href="everafter_UI_UX_edit/customize.html?id=${encodeURIComponent(t.id)}" target="_blank" class="btn-edit" title="Tự thiết kế / Chỉnh sửa trực quan mẫu này trong Universal Studio">
+                <span>✏️ Tự Thiết Kế</span>
+              </a>
+              <a href="${t.url}" target="_blank" rel="noopener noreferrer" class="btn-external" title="Mở trang thiệp này trong tab mới">
+                ↗
+              </a>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    // Modal Handlers
+    window.openPreviewModal = function(id) {
+      const idx = TEMPLATES_DATA.findIndex(t => t.id === id);
+      if (idx === -1) return;
+      currentModalIndex = idx;
+      updateModalContent();
+      modalEl.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    };
+
+    function closeModal() {
+      modalEl.classList.remove('is-open');
+      previewIframe.src = 'about:blank';
+      document.body.style.overflow = '';
+    }
+
+    function updateModalContent() {
+      const item = TEMPLATES_DATA[currentModalIndex];
+      modalTitle.textContent = `${item.name} · ${item.vnName}`;
+      modalBadge.textContent = `#${item.number} ${item.collectionLabel}`;
+      modalExternalLink.href = item.url;
+      modalCustomizeBtn.href = `everafter_UI_UX_edit/customize.html?id=${encodeURIComponent(item.id)}`;
+      previewIframe.src = item.url;
+      modalPagerIndicator.textContent = `Mẫu ${String(currentModalIndex + 1).padStart(2, '0')} / ${TEMPLATES_DATA.length}`;
+
+      prevTemplateBtn.disabled = currentModalIndex === 0;
+      nextTemplateBtn.disabled = currentModalIndex === TEMPLATES_DATA.length - 1;
+    }
+
+    function prevTemplate() {
+      if (currentModalIndex > 0) {
+        currentModalIndex -= 1;
+        updateModalContent();
+      }
+    }
+
+    function nextTemplate() {
+      if (currentModalIndex < TEMPLATES_DATA.length - 1) {
+        currentModalIndex += 1;
+        updateModalContent();
+      }
+    }
+
+    // Filter Buttons Event Listeners
+    document.querySelectorAll('[data-filter-col]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-filter-col]').forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        activeCollection = btn.dataset.filterCol;
+        renderGrid();
+      });
+    });
+
+    document.querySelectorAll('[data-filter-style]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-filter-style]').forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        activeStyle = btn.dataset.filterStyle;
+        renderGrid();
+      });
+    });
+
+    // Search Input
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      renderGrid();
+    });
+
+    // Device Frame Toggles
+    document.querySelectorAll('[data-device]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-device]').forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        const mode = btn.dataset.device;
+        if (mode === 'desktop') {
+          viewportFrame.classList.remove('mode-mobile');
+          viewportFrame.classList.add('mode-desktop');
+        } else {
+          viewportFrame.classList.remove('mode-desktop');
+          viewportFrame.classList.add('mode-mobile');
+        }
+      });
+    });
+
+    // Modal Controls
+    modalCloseBtn.addEventListener('click', closeModal);
+    prevTemplateBtn.addEventListener('click', prevTemplate);
+    nextTemplateBtn.addEventListener('click', nextTemplate);
+
+    modalOverlayClick = (e) => {
+      if (e.target === modalEl) closeModal();
+    };
+    modalEl.addEventListener('click', modalOverlayClick);
+
+    modalCopyLink.addEventListener('click', () => {
+      const item = TEMPLATES_DATA[currentModalIndex];
+      const absoluteUrl = new URL(item.url, window.location.href).href;
+      navigator.clipboard.writeText(absoluteUrl).then(() => {
+        const originalText = modalCopyLink.querySelector('span').textContent;
+        modalCopyLink.querySelector('span').textContent = 'Đã sao chép! ✓';
+        setTimeout(() => {
+          modalCopyLink.querySelector('span').textContent = originalText;
+        }, 2200);
+      });
+    });
+
+    // Keyboard Navigation
+    window.addEventListener('keydown', (e) => {
+      if (!modalEl.classList.contains('is-open')) return;
+      if (e.key === 'Escape') closeModal();
+      if (e.key === 'ArrowLeft') prevTemplate();
+      if (e.key === 'ArrowRight') nextTemplate();
+      if (e.key === '1') document.querySelector('[data-device="mobile"]')?.click();
+      if (e.key === '2') document.querySelector('[data-device="desktop"]')?.click();
+    });
+
+    // Check URL parameters for direct modal opening (?open=cinematic-04 or ?id=14)
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetId = urlParams.get('open') || urlParams.get('id');
+    if (targetId) {
+      setTimeout(() => {
+        const found = TEMPLATES_DATA.find(t => t.id === targetId || t.number === String(targetId).padStart(2, '0'));
+        if (found) openPreviewModal(found.id);
+      }, 300);
+    }
+
+    // Initial render
+    renderGrid();
+  </script>
+</body>
+</html>

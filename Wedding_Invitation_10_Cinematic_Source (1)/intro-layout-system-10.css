@@ -1,0 +1,79 @@
+/* Final intro layout system.
+   Copy, control, action label and prompt now share one explicit coordinate system.
+   This file intentionally comes last so legacy per-mode coordinates cannot fight it. */
+.wedding-opening .intro-control{position:absolute;z-index:30;display:grid;align-items:center;column-gap:14px;row-gap:3px;pointer-events:none}
+.wedding-opening .intro-control .opening-trigger{position:relative!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;z-index:31;grid-area:button;pointer-events:auto}
+.wedding-opening .intro-control .opening-trigger [data-field="introAction"]{display:none!important}
+.wedding-opening .intro-control .opening-trigger b:has([data-field="introAction"]),
+.wedding-opening .intro-control .opening-trigger small:has([data-field="introAction"]){display:none!important}
+.wedding-opening .intro-control .control-label{grid-area:label;display:block;align-self:end;min-width:0;color:currentColor;font:700 9px/1.35 var(--body);letter-spacing:.12em;text-transform:uppercase;white-space:normal}
+.wedding-opening .intro-control .scene-prompt{position:static!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;grid-area:prompt;width:auto;max-width:none;margin:0;color:currentColor;font:500 9px/1.4 var(--body);letter-spacing:.08em;text-transform:uppercase;text-align:left;opacity:.86}
+.wedding-opening.is-opening .intro-control{opacity:0;pointer-events:none}
+.wedding-opening .intro-control .opening-trigger:focus-visible{outline-offset:6px}
+.wedding-opening .scene-copy strong{max-width:100%;overflow-wrap:anywhere;text-wrap:balance}
+
+/* Copy anchors: one readable text block per cover. */
+.scene-copy--curtain10{left:11%;top:17%;bottom:auto;width:min(34vw,390px);max-width:390px}
+.scene-copy--herbarium10{left:11%;top:15%;right:auto;bottom:auto;width:min(32vw,370px);max-width:370px}
+.scene-copy--elevator10{left:10%;top:14%;right:auto;bottom:auto;width:min(300px,34vw);max-width:300px}
+.scene-copy--washi10{right:12%;top:15%;left:auto;bottom:auto;width:17vw;max-width:210px}
+.scene-copy--ink10{left:11%;top:17%;right:auto;bottom:auto;width:min(35vw,410px);max-width:410px}
+.scene-copy--bottle10{left:10%;top:19%;right:auto;bottom:auto;width:min(330px,34vw);max-width:330px}
+.scene-copy--super8{left:23%;top:22%;right:auto;bottom:auto;width:min(54vw,600px);max-width:600px}
+.scene-copy--shadow10{left:50%;top:18%;right:auto;bottom:auto;width:min(52vw,560px);max-width:560px;transform:translateX(-50%)}
+.scene-copy--astrolabe10{left:11%;top:18%;right:auto;bottom:auto;width:min(330px,34vw);max-width:330px}
+.scene-copy--rain10{left:11%;top:18%;right:auto;bottom:auto;width:min(370px,36vw);max-width:370px}
+
+/* Desktop control zones. Each zone is a compact two-line cluster: physical button + label/prompt. */
+.intro-control--curtain10{left:11%;bottom:15%;width:min(320px,36vw);grid-template-columns:66px 1fr;grid-template-rows:auto auto;grid-template-areas:"button label" "button prompt";color:#5b4339}
+.intro-control--curtain10 .opening-trigger{width:64px;height:64px;min-width:64px;min-height:64px;padding:0}
+.intro-control--herbarium10{right:11%;bottom:15%;width:min(300px,34vw);grid-template-columns:58px 1fr;grid-template-rows:auto auto;grid-template-areas:"button label" "button prompt";color:#54684f}
+.intro-control--herbarium10 .opening-trigger{width:56px;height:66px;min-width:56px;min-height:66px;padding:0}
+.intro-control--elevator10{right:11%;bottom:14%;width:min(310px,35vw);grid-template-columns:60px 1fr;grid-template-rows:auto auto;grid-template-areas:"button label" "button prompt";color:#e6cf95}
+.intro-control--elevator10 .opening-trigger{width:58px;height:58px;min-width:58px;min-height:58px;padding:0}
+.intro-control--washi10{right:5%;bottom:9%;top:auto;width:222px;grid-template-columns:46px 1fr;grid-template-rows:auto auto;grid-template-areas:"button label" "button prompt";color:#514a3d}
+.intro-control--washi10 .opening-trigger{width:44px;height:22vh;min-width:44px;min-height:126px;padding:4px}
+.intro-control--ink10{left:12%;bottom:15%;width:min(310px,35vw);grid-template-columns:76px 1fr;grid-template-rows:auto auto;grid-template-areas:"button label" "button prompt";color:#644e5b}
+.intro-control--ink10 .opening-trigger{width:72px;height:72px;min-width:72px;min-height:72px;padding:0}
+.intro-control--bottle10{right:14%;top:44%;width:min(285px,32vw);grid-template-columns:68px 1fr;grid-template-rows:auto auto;grid-template-areas:"button label" "button prompt";color:#144650}
+.intro-control--bottle10 .opening-trigger{width:64px;height:124px;min-width:64px;min-height:124px;padding:0}
+.intro-control--super8{left:8%;bottom:15%;width:min(300px,34vw);grid-template-columns:64px 1fr;grid-template-rows:auto auto;grid-template-areas:"button label" "button prompt";color:#eee3cf}
+.intro-control--super8 .opening-trigger{width:60px;height:60px;min-width:60px;min-height:60px;padding:0}
+.intro-control--shadow10{right:12%;bottom:15%;width:min(285px,32vw);grid-template-columns:54px 1fr;grid-template-rows:auto auto;grid-template-areas:"button label" "button prompt";color:#7c2a2b}
+.intro-control--shadow10 .opening-trigger{width:50px;height:90px;min-width:50px;min-height:90px;padding:0}
+.intro-control--astrolabe10{right:14%;top:49%;width:min(285px,32vw);grid-template-columns:60px 1fr;grid-template-rows:auto auto;grid-template-areas:"button label" "button prompt";color:#cfd9ed}
+.intro-control--astrolabe10 .opening-trigger{width:56px;height:56px;min-width:56px;min-height:56px;padding:0}
+.intro-control--rain10{right:11%;bottom:15%;width:min(315px,36vw);grid-template-columns:145px 1fr;grid-template-rows:auto auto;grid-template-areas:"button label" "button prompt";color:#d7e6e7}
+.intro-control--rain10 .opening-trigger{width:138px;height:48px;min-width:138px;min-height:48px;padding:0;justify-content:flex-end}
+
+/* Portrait phones: copy remains in the upper reading band, controls in the lower band. */
+@media(max-width:760px){
+  .wedding-opening .intro-control .control-label{font-size:8px;letter-spacing:.09em}
+  .wedding-opening .intro-control .scene-prompt{font-size:8px;line-height:1.35;letter-spacing:.065em}
+  .scene-copy--curtain10{left:8%;top:13%;width:72vw}.intro-control--curtain10{left:8%;bottom:16%;width:260px}
+  .scene-copy--herbarium10{left:7%;top:12%;width:68vw}.intro-control--herbarium10{right:7%;bottom:16%;width:250px}
+  .scene-copy--elevator10{left:7%;top:12%;width:46vw}.intro-control--elevator10{right:7%;bottom:16%;width:245px}
+  .scene-copy--washi10{right:10%;top:12%;width:25vw;min-height:46vh}.intro-control--washi10{right:5%;bottom:8%;top:auto;width:190px}
+  .scene-copy--ink10{left:7%;top:13%;width:67vw}.intro-control--ink10{left:8%;bottom:16%;width:250px}
+  .scene-copy--bottle10{left:7%;top:13%;width:64vw}.intro-control--bottle10{right:8%;top:43%;width:240px}
+  .scene-copy--super8{left:16%;top:13%;width:66vw}.intro-control--super8{left:6%;bottom:16%;width:250px}
+  .scene-copy--shadow10{left:50%;top:14%;width:76vw}.intro-control--shadow10{right:4%;bottom:16%;width:240px}
+  .scene-copy--astrolabe10{left:7%;top:13%;width:61vw}.intro-control--astrolabe10{right:5%;top:50%;width:230px}
+  .scene-copy--rain10{left:7%;top:13%;width:68vw}.intro-control--rain10{right:4%;bottom:16%;width:250px}
+}
+
+/* Short landscape: all controls sit in a middle-lower band above the decorative edge. */
+@media(max-width:760px) and (max-height:560px) and (orientation:landscape){
+  .wedding-opening .scene-copy{top:8%;max-width:46vw}.wedding-opening .scene-copy strong{font-size:clamp(29px,6.4vw,54px)}
+  .wedding-opening .intro-control{bottom:auto}
+  .intro-control--curtain10{left:8%;top:52%;width:245px}.scene-copy--curtain10{left:8%;top:7%;width:70vw}
+  .intro-control--herbarium10{right:7%;top:50%;width:225px}.scene-copy--herbarium10{left:7%;top:7%;width:46vw}
+  .intro-control--elevator10{right:7%;top:50%;width:225px}.scene-copy--elevator10{left:7%;top:7%;width:41vw}
+  .intro-control--washi10{right:5%;top:auto;bottom:8%;width:190px}.scene-copy--washi10{right:11%;top:7%;width:23vw;min-height:42vh}
+  .intro-control--ink10{left:7%;top:46%;width:225px}.scene-copy--ink10{left:7%;top:8%;width:47vw}
+  .intro-control--bottle10{right:7%;top:49%;width:220px}.scene-copy--bottle10{left:7%;top:8%;width:46vw}
+  .intro-control--super8{left:6%;top:53%;width:225px}.scene-copy--super8{left:15%;top:7%;width:49vw}
+  .intro-control--shadow10{right:6%;top:46%;width:220px}.scene-copy--shadow10{left:50%;top:7%;width:58vw}
+  .intro-control--astrolabe10{right:7%;top:49%;width:220px}.scene-copy--astrolabe10{left:7%;top:8%;width:43vw}
+  .intro-control--rain10{right:5%;top:53%;width:235px}.scene-copy--rain10{left:7%;top:8%;width:47vw}
+}

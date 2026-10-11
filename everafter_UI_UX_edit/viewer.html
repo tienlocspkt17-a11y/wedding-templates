@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; frame-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none';">
+  <title>Thiệp cưới điện tử</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+    #view-frame { width: 100%; height: 100%; border: 0; display: block; background: #fff; }
+    .loading-overlay {
+      position: fixed; inset: 0; z-index: 100;
+      background: #121010; color: #f5e6d3;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 12px; font-family: system-ui, -apple-system, sans-serif;
+      transition: opacity 0.4s ease, visibility 0.4s;
+    }
+    .loading-overlay.is-done { opacity: 0; visibility: hidden; pointer-events: none; }
+    .spinner {
+      width: 44px; height: 44px; border: 3px solid rgba(212,175,55,0.25);
+      border-top-color: #d4af37; border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .err-box {
+      max-width: 420px; text-align: center; padding: 24px;
+      background: #1f1b1a; border: 1px solid #3d2c2d; border-radius: 16px;
+    }
+    .err-box h2 { font-size: 18px; margin-bottom: 8px; color: #ff8e88; }
+    .err-box p { font-size: 14px; color: #cbb4b0; line-height: 1.5; margin-bottom: 16px; }
+    .err-box a {
+      display: inline-block; padding: 8px 18px; border-radius: 99px;
+      background: #d4af37; color: #1a120b; text-decoration: none; font-weight: 600; font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-overlay" id="loading">
+    <div class="spinner"></div>
+    <div style="font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase;">Đang mở thiệp cưới...</div>
+  </div>
+
+  <iframe id="view-frame" title="Thiệp cưới điện tử"></iframe>
+
+  <script src="core/styles.js"></script>
+  <script>
+    (async () => {
+      const params = new URLSearchParams(location.search);
+      const cardId = params.get('card');
+      const loader = document.getElementById('loading');
+      const frame = document.getElementById('view-frame');
+
+      if (!cardId) {
+        showError('Không tìm thấy mã thiệp cưới', 'Đường dẫn chưa chứa mã thiệp hợp lệ.');
+        return;
+      }
+
+      // Try local storage first, then remote API
+      let cardData = null;
+      try {
+        const raw = localStorage.getItem('everafter:card:' + cardId);
+        if (raw) cardData = JSON.parse(raw);
+      } catch (e) {}
+
+      if (!cardData) {
+        try {
+          const res = await fetch('api/store?k=card&id=' + encodeURIComponent(cardId), { cache: 'no-store' });
+          if (res.ok) cardData = await res.json();
+        } catch (e) {}
+      }
+
+      if (!cardData) {
+        // Fallback: check if cardId is a standard style or custom string
+        showError('Thiệp chưa được lưu trên thiết bị này', 'Vui lòng kiểm tra lại đường dẫn hoặc mở lại từ trình thiết kế.');
+        return;
+      }
+
+      document.title = (cardData.templateName || 'Thiệp Cưới') + ' — Lễ Thành Hôn';
+
+      // Only first-party templates are valid targets. The card snapshot is
+      // user-controlled data and must never turn the viewer into an arbitrary
+      // iframe proxy.
+      const fallbackTarget = 'invitation.html?style=' + encodeURIComponent(cardData.templateId || 'redseal');
+      const safeTemplateTarget = (value) => {
+        try {
+          const candidate = new URL(String(value || fallbackTarget), location.href);
+          if (candidate.origin !== location.origin || !candidate.pathname.startsWith('/invite-templates-38/')) return fallbackTarget;
+          return candidate.pathname + candidate.search;
+        } catch {
+          return fallbackTarget;
+        }
+      };
+      const targetUrl = safeTemplateTarget(cardData.templateUrl);
+      const sep = targetUrl.includes('?') ? '&' : '?';
+      const contextParam = cardData.context ? '&context=' + encodeURIComponent(JSON.stringify(cardData.context)) : '';
+      frame.src = targetUrl + sep + 'custom=' + encodeURIComponent(cardId) + contextParam;
+
+      function sanitizeSnapshot(html) {
+        const template = document.createElement('template');
+        template.innerHTML = String(html || '').slice(0, 2000000);
+        // RSVP and guestbook forms are part of the invitation design and are
+        // wired by the template renderer after the snapshot is mounted. Keep
+        // the visual document, but remove every executable/navigation sink.
+        template.content.querySelectorAll('script, iframe, object, embed, base, meta, link, style').forEach((node) => node.remove());
+        template.content.querySelectorAll('form').forEach((node) => {
+          node.removeAttribute('action');
+          node.removeAttribute('target');
+        });
+        template.content.querySelectorAll('*').forEach((node) => {
+          [...node.attributes].forEach((attribute) => {
+            const name = attribute.name.toLowerCase();
+            const value = attribute.value.trim();
+            if (name.startsWith('on') || ['srcdoc', 'srcset', 'formaction', 'ping'].includes(name)) {
+              node.removeAttribute(attribute.name);
+              return;
+            }
+            if (['href', 'src', 'action', 'poster', 'background', 'cite', 'xlink:href'].includes(name)
+              && (/^(?:javascript|vbscript|blob|file):/i.test(value)
+                || (/^data:/i.test(value) && !(name === 'src' && /^data:image\/(?:png|jpeg|gif|webp);/i.test(value))))) {
+              node.removeAttribute(attribute.name);
+              return;
+            }
+            if (name === 'style' && /(?:url\s*\(|expression\s*\(|@import|javascript:|-moz-binding)/i.test(value)) node.removeAttribute(attribute.name);
+          });
+        });
+        return template.innerHTML.slice(0, 2000000);
+      }
+
+      function copyNodeMarkup(target, source) {
+        if (!target || !source) return;
+        [...target.attributes].forEach((attribute) => target.removeAttribute(attribute.name));
+        [...source.attributes].forEach((attribute) => target.setAttribute(attribute.name, attribute.value));
+        target.innerHTML = source.innerHTML;
+      }
+
+      function restoreSnapshot(doc, main, html) {
+        const holder = doc.createElement('template');
+        holder.innerHTML = sanitizeSnapshot(html);
+        const snapshot = holder.content.querySelector('[data-everafter-snapshot="2"]');
+        if (!snapshot) {
+          main.innerHTML = sanitizeSnapshot(html);
+          return;
+        }
+        const mainSlot = snapshot.querySelector(':scope > [data-everafter-main]');
+        if (mainSlot) main.innerHTML = mainSlot.innerHTML;
+        const findTarget = (slot) => {
+          if (slot === 'opening') return doc.querySelector('#cover, #envelope-scene, .wedding-opening, .gate, .cinematic-gate');
+          if (slot === 'navigation') return doc.querySelector('.journey-nav, #dock, .dock');
+          if (slot === 'sides') return doc.querySelector('.sides');
+          return null;
+        };
+        snapshot.querySelectorAll(':scope > [data-everafter-chrome] > [data-everafter-slot]').forEach((slot) => {
+          const source = slot.firstElementChild;
+          const target = findTarget(slot.dataset.everafterSlot);
+          if (source && target) copyNodeMarkup(target, source);
+          else if (source && main.parentElement) main.parentElement.insertBefore(source, main);
+        });
+      }
+
+      function applyContext(doc, context) {
+        const fields = context?.fields || {};
+        doc.querySelectorAll('[data-field]').forEach((node) => {
+          const key = node.dataset.field;
+          if (key && fields[key] !== undefined && fields[key] !== null) node.textContent = String(fields[key]);
+        });
+        if (context?.dateISO) {
+          doc.querySelectorAll('[data-countdown]').forEach((node) => {
+            node.dataset.countdownTarget = context.dateISO;
+          });
+        }
+      }
+
+      function polishInvitationScrollbar(doc) {
+        if (!doc?.head || doc.getElementById('everafter-invitation-scrollbar')) return;
+        const style = doc.createElement('style');
+        style.id = 'everafter-invitation-scrollbar';
+        style.textContent = `
+          html, body { scrollbar-width: thin !important; scrollbar-color: rgba(201,118,138,.62) transparent !important; }
+          html::-webkit-scrollbar, body::-webkit-scrollbar { width: 6px !important; height: 6px !important; }
+          html::-webkit-scrollbar-track, body::-webkit-scrollbar-track { background: transparent !important; }
+          html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb { min-height: 42px; border: 2px solid transparent !important; border-radius: 999px !important; background: rgba(201,118,138,.62) !important; background-clip: padding-box !important; }
+          html::-webkit-scrollbar-thumb:hover, body::-webkit-scrollbar-thumb:hover { border-width: 1px !important; background: rgba(157,83,106,.86) !important; background-clip: padding-box !important; }
+          select { appearance: none !important; padding-right: 32px !important; background-image: linear-gradient(45deg, transparent 50%, #c9768a 50%), linear-gradient(135deg, #c9768a 50%, transparent 50%) !important; background-position: calc(100% - 15px) 50%, calc(100% - 10px) 50% !important; background-size: 5px 5px, 5px 5px !important; background-repeat: no-repeat !important; }
+          select:focus-visible { outline: 0 !important; box-shadow: 0 0 0 3px rgba(201,118,138,.18) !important; }
+          input[type=radio]:not(.sr-only), input[type=checkbox]:not(.sr-only) { appearance: none !important; -webkit-appearance: none !important; display: inline-grid !important; place-content: center; width: 18px; height: 18px; flex: 0 0 18px; margin: 0; padding: 0; border: 1.5px solid color-mix(in srgb, #c9768a 68%, currentColor); background: rgba(255,255,255,.72); cursor: pointer; transition: background .18s ease, border-color .18s ease, box-shadow .18s ease; }
+          input[type=radio]:not(.sr-only) { border-radius: 50%; }
+          input[type=checkbox]:not(.sr-only) { border-radius: 5px; }
+          input[type=radio]:not(.sr-only)::after { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #c9768a; transform: scale(0); transition: transform .16s ease; }
+          input[type=checkbox]:not(.sr-only)::after { content: '✓'; color: #fff; font: 800 11px/1 system-ui, sans-serif; opacity: 0; transform: scale(.6); transition: opacity .14s ease, transform .14s ease; }
+          input[type=radio]:not(.sr-only):checked { border-color: #c9768a; background: rgba(201,118,138,.12); }
+          input[type=radio]:not(.sr-only):checked::after { transform: scale(1); }
+          input[type=checkbox]:not(.sr-only):checked { border-color: #c9768a; background: #c9768a; }
+          input[type=checkbox]:not(.sr-only):checked::after { opacity: 1; transform: scale(1); }
+          input[type=radio]:not(.sr-only):focus-visible, input[type=checkbox]:not(.sr-only):focus-visible { outline: 0 !important; box-shadow: 0 0 0 3px rgba(201,118,138,.2) !important; }
+          input[type=range] { appearance: none !important; -webkit-appearance: none !important; width: 100%; height: 24px; margin: 0; padding: 0; border: 0; background: transparent; accent-color: #c9768a; cursor: pointer; }
+          input[type=range]::-webkit-slider-runnable-track { height: 4px; border-radius: 999px; background: rgba(201,118,138,.24); }
+          input[type=range]::-moz-range-track { height: 4px; border-radius: 999px; background: rgba(201,118,138,.24); }
+          input[type=range]::-webkit-slider-thumb { width: 16px; height: 16px; margin-top: -6px; appearance: none; border: 2px solid #fff; border-radius: 50%; background: #c9768a; box-shadow: 0 2px 6px rgba(0,0,0,.18); }
+          input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border: 2px solid #fff; border-radius: 50%; background: #c9768a; box-shadow: 0 2px 6px rgba(0,0,0,.18); }
+          input[type=range]:focus-visible { outline: 0 !important; border-radius: 999px; box-shadow: 0 0 0 3px rgba(201,118,138,.2) !important; }
+        `;
+        doc.head.appendChild(style);
+      }
+
+      frame.addEventListener('load', () => {
+        try {
+          const doc = frame.contentDocument;
+          polishInvitationScrollbar(doc);
+          // Core restores the snapshot before it wires its module listeners;
+          // applying it a second time here would detach those listeners. The
+          // standalone Cinematic/Suite renderers are restored by this viewer.
+          const rendererHandlesSnapshot = targetUrl.includes('/editor/invitation.html');
+          if (doc && cardData.customHTML && !rendererHandlesSnapshot) {
+            const main = doc.getElementById('app-viewport')
+              || doc.getElementById('invitation')
+              || doc.getElementById('inv')
+              || doc.querySelector('#root > div')
+              || doc.querySelector('main.invite')
+              || doc.querySelector('main');
+            if (main) {
+              restoreSnapshot(doc, main, cardData.customHTML);
+              applyContext(doc, cardData.context);
+              // Re-enable reveals
+              doc.querySelectorAll('.scroll-reveal').forEach(el => el.classList.add('is-revealed'));
+            }
+          }
+          // A demo card intentionally has no custom snapshot, but it still
+          // needs the couple/event context from EverAfter. Core and Cinematic
+          // renderers expose the same data-field contract; Suite has its own
+          // bridge, so applying this once more is harmless. Core may finish
+          // its async data render just after iframe load, hence the retries.
+          const applyWorkspaceContext = () => {
+            try {
+              const currentDoc = frame.contentDocument;
+              if (currentDoc && cardData.context) applyContext(currentDoc, cardData.context);
+            } catch {
+              // The viewer remains usable with the template's sample data.
+            }
+          };
+          applyWorkspaceContext();
+          [180, 520, 1000].forEach((delay) => window.setTimeout(applyWorkspaceContext, delay));
+        } catch (err) {
+          console.warn('Cross-origin frame notice:', err);
+        }
+        setTimeout(() => loader.classList.add('is-done'), 300);
+      });
+
+      function showError(title, msg) {
+        loader.innerHTML = `
+          <div class="err-box">
+            <h2>${title}</h2>
+            <p>${msg}</p>
+            <a href="../showcase.html">Xem 38 Mẫu Thiệp Showcase</a>
+          </div>
+        `;
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+/*
+   Prototype quality pass — Concept 03 / Geometric Camera.
+   This is intentionally a new art direction layer, not a patch on the old
+   elevator treatment: one viewfinder, one focus point, one readable CTA.
+*/
+.wedding-opening--elevator10 .opening-stage{
+  --gc-night:#0b171b;
+  --gc-night-soft:#13282c;
+  --gc-gold:#e6c77c;
+  --gc-gold-soft:#b89554;
+  --gc-copy:#f5e7c3;
+  background:
+    radial-gradient(circle at 57% 54%,#19383d 0 10%,transparent 34%),
+    radial-gradient(circle at 20% 11%,#2c4a4d55 0 1px,transparent 1.5px),
+    linear-gradient(145deg,var(--gc-night),var(--gc-night-soft) 58%,#071115);
+}
+.wedding-opening--elevator10 .opening-photo{
+  background:
+    radial-gradient(circle at 57% 54%,#386c6d 0 2%,#16353a 10%,transparent 30%),
+    linear-gradient(145deg,#0b171b,#172d31 60%,#071115);
+  filter:saturate(.72) brightness(.54);
+}
+.wedding-opening--elevator10 .opening-vignette{
+  background:radial-gradient(ellipse at 56% 53%,transparent 17%,#020708aa 84%),linear-gradient(180deg,#02070835 0%,transparent 46%,#020708aa 100%);
+}
+
+/* The visual hierarchy is deliberate: title upper-left, viewfinder centre,
+   one physical control lower-right. No competing diamond stack. */
+.mechanism-elevator10{background:transparent;perspective:1100px;overflow:hidden}
+.mechanism-elevator10 .camera-grid{
+  inset:-22%;
+  background:
+    linear-gradient(90deg,transparent 49.75%,#d8b66d2e 50%,transparent 50.25%),
+    linear-gradient(0deg,transparent 49.75%,#d8b66d22 50%,transparent 50.25%);
+  background-size:118px 118px;
+  transform:perspective(800px) rotateX(54deg) rotateZ(-14deg) scale(1.24);
+  transform-origin:50% 58%;
+  opacity:.34;
+  animation:gc-grid-breathe 4.5s ease-in-out infinite;
+}
+.mechanism-elevator10 .camera-grid::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,transparent 0 46%,#f4d99622 50%,transparent 54%);
+  transform:translateY(-9%);
+  animation:gc-scanline 3.4s ease-in-out infinite;
+}
+.mechanism-elevator10 .camera-frame{
+  left:56%;top:53%;
+  width:min(46vw,620px);height:min(30vw,400px);
+  border:1px solid #e6c77c;
+  border-radius:2px;
+  transform:translate(-50%,-50%) perspective(950px) rotateX(48deg) rotateZ(-8deg);
+  transform-style:preserve-3d;
+  box-shadow:inset 0 0 0 7px #d1a85812,0 0 0 1px #f3d9903d,0 16px 48px #02070855;
+  animation:gc-frame-breathe 5.2s ease-in-out infinite;
+}
+.mechanism-elevator10 .camera-frame::before{
+  content:"";position:absolute;inset:13%;
+  border:1px solid #cba96188;
+  box-shadow:inset 0 0 0 1px #f6de9c1c;
+}
+.mechanism-elevator10 .camera-frame::after{
+  content:"";position:absolute;inset:35%;
+  border:1px solid #e8c97a99;border-radius:50%;
+  box-shadow:0 0 0 10px #e5c27510;
+}
+.mechanism-elevator10 .camera-lens{
+  left:56%;top:53%;
+  width:clamp(112px,13vw,188px);aspect-ratio:1;
+  border:1px solid #f1d58a;border-radius:50%;
+  background:
+    radial-gradient(circle at 35% 27%,#fff0b5 0 2%,transparent 3%),
+    radial-gradient(circle at 42% 35%,#755936 0 7%,#0c2025 15% 45%,#d2ad61 46% 47%,#18343a 49% 100%);
+  transform:translate(-50%,-50%) perspective(950px) rotateX(48deg) rotateZ(-8deg);
+  box-shadow:0 0 0 8px #d0a75d22,0 0 0 18px #d0a75d12,0 20px 48px #02070877;
+  animation:gc-lens-breathe 3.8s ease-in-out infinite;
+}
+.mechanism-elevator10 .camera-lens::after{
+  content:"";position:absolute;inset:13%;border:1px solid #f9e5ad77;border-radius:50%;
+  background:linear-gradient(135deg,transparent 44%,#fff3b122 45% 49%,transparent 50%);
+}
+.mechanism-elevator10 .camera-crosshair{
+  left:56%;top:53%;width:230px;height:230px;
+  border:1px solid #f2d98f66;border-radius:50%;
+  transform:translate(-50%,-50%);opacity:.72;
+}
+.mechanism-elevator10 .camera-crosshair::before,
+.mechanism-elevator10 .camera-crosshair::after{
+  content:"";position:absolute;left:50%;top:50%;background:#f2d98f88;transform:translate(-50%,-50%);
+}
+.mechanism-elevator10 .camera-crosshair::before{width:100%;height:1px}
+.mechanism-elevator10 .camera-crosshair::after{width:1px;height:100%}
+.mechanism-elevator10 .camera-shutter{
+  left:56%;top:53%;width:10px;height:10px;border-radius:50%;
+  background:#fff0b0;transform:translate(-50%,-50%);
+  box-shadow:0 0 0 5px #f3d98c1a,0 0 18px 5px #f3d98c66;
+}
+.art-elevator10 .elevator-grille,.art-elevator10 .elevator-floor{display:none}
+.art-elevator10 .elevator-light{
+  left:56%;bottom:12%;width:7px;height:7px;
+  border:1px solid #f1d58a;border-radius:50%;background:#ffe7a0;
+  transform:translateX(-50%);box-shadow:0 0 20px 5px #e9be5d55;
+}
+
+/* Editorial copy block: names are the primary message; the monogram is a
+   small system label instead of an oversized unexplained letter. */
+.scene-copy--elevator10{
+  left:clamp(26px,8vw,120px);top:clamp(34px,11vh,112px);
+  width:min(330px,27vw);max-width:330px;
+  padding:0 0 0 18px;gap:8px;color:var(--gc-copy);
+  border-left:1px solid #e6c77c;
+}
+.scene-copy--elevator10::before{
+  content:"VIEWFINDER / 03";
+  display:block;margin-bottom:2px;
+  color:#c4a664;font:600 8px/1 var(--body);letter-spacing:.24em;
+}
+.scene-copy--elevator10 small{color:#d9bf7a}
+.scene-copy--elevator10 strong{
+  font-size:clamp(42px,5.4vw,78px);line-height:.88;
+  letter-spacing:-.055em;color:#f4e5bd;text-wrap:balance;
+}
+.scene-copy--elevator10 strong>i{color:#e6c77c}
+.scene-copy--elevator10>span{
+  font:600 10px/1.4 var(--body);letter-spacing:.22em;
+  color:#d2b56d;text-transform:uppercase;
+}
+.scene-copy--elevator10 em{color:#b9a776;font-style:normal}
+
+/* CTA is a compact camera control with an external readable label. */
+.intro-control--elevator10{
+  right:clamp(26px,8vw,120px);bottom:clamp(30px,9vh,92px);
+  width:min(330px,35vw);grid-template-columns:64px 1fr;
+  grid-template-rows:auto auto;grid-template-areas:"button label" "button prompt";
+  column-gap:16px;color:#efd796;
+}
+.intro-control--elevator10::before{
+  content:"";position:absolute;left:-20px;top:-18px;width:1px;height:92px;
+  background:linear-gradient(180deg,transparent,#d8b66d88 22%,#d8b66d88 78%,transparent);
+}
+.intro-control--elevator10 .opening-trigger{
+  width:60px;height:60px;min-width:60px;min-height:60px;padding:0;
+}
+.elevator-button{
+  display:grid;place-items:center;width:58px;height:58px;
+  border:1px solid #f1d58a;border-radius:50%;
+  background:radial-gradient(circle at 35% 27%,#fdf0b8 0 2%,#c99c4d 4% 17%,#604522 67%,#261e16 100%);
+  box-shadow:0 0 0 5px #d0a75d1e,0 7px 18px #02070877, inset 0 0 0 1px #fff1b544;
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.elevator-button b{font:400 25px/1 var(--display);color:#211b13;text-shadow:0 1px #fbeab0}
+.elevator-button i{position:absolute;width:7px;height:7px;border-radius:50%;background:#ffe9a7;box-shadow:0 0 12px 4px #f4d078}
+.intro-control--elevator10 .opening-trigger:hover .elevator-button,
+.intro-control--elevator10 .opening-trigger:focus-visible .elevator-button{transform:scale(1.06);box-shadow:0 0 0 7px #d0a75d2e,0 9px 22px #02070888,inset 0 0 0 1px #fff1b566}
+.intro-control--elevator10 .control-label{color:#f0d58e}
+.intro-control--elevator10 .scene-prompt{color:#bcae8e;text-transform:none;letter-spacing:.08em}
+
+/* Three-second choreography: grid drifts, frame aligns, lens exposes. */
+.wedding-opening--elevator10.is-opening .camera-grid{animation:gc-grid-lock 1.62s cubic-bezier(.62,0,.2,1) both}
+.wedding-opening--elevator10.is-opening .camera-frame{animation:gc-frame-lock 1.68s cubic-bezier(.62,0,.2,1) both}
+.wedding-opening--elevator10.is-opening .camera-lens{animation:gc-lens-expose 1.52s cubic-bezier(.18,.86,.2,1) both}
+.wedding-opening--elevator10.is-opening .camera-crosshair{animation:gc-crosshair-lock 1.18s ease both}
+.wedding-opening--elevator10.is-opening .camera-shutter{animation:gc-shutter-flash .78s ease both}
+.wedding-opening--elevator10.is-opening .scene-copy{animation:gc-copy-release .72s ease .08s both}
+.wedding-opening--elevator10.is-opening .intro-control{animation:gc-control-release .62s ease .12s both}
+@keyframes gc-grid-breathe{0%,100%{opacity:.25;transform:perspective(800px) rotateX(54deg) rotateZ(-14deg) scale(1.22)}50%{opacity:.39;transform:perspective(800px) rotateX(54deg) rotateZ(-13deg) scale(1.27)}}
+@keyframes gc-scanline{0%,100%{transform:translateY(-12%);opacity:.1}50%{transform:translateY(12%);opacity:.42}}
+@keyframes gc-frame-breathe{0%,100%{transform:translate(-50%,-50%) perspective(950px) rotateX(48deg) rotateZ(-8deg) translateY(0)}50%{transform:translate(-50%,-50%) perspective(950px) rotateX(48deg) rotateZ(-8deg) translateY(-5px)}}
+@keyframes gc-lens-breathe{0%,100%{filter:brightness(.94);box-shadow:0 0 0 8px #d0a75d22,0 0 0 18px #d0a75d12,0 20px 48px #02070877}50%{filter:brightness(1.1);box-shadow:0 0 0 10px #d0a75d2e,0 0 0 22px #d0a75d18,0 20px 54px #02070888}}
+@keyframes gc-grid-lock{0%{transform:perspective(800px) rotateX(54deg) rotateZ(-14deg) scale(1.24);opacity:.34}100%{transform:perspective(800px) rotateX(54deg) rotateZ(-14deg) scale(3.3);opacity:0}}
+@keyframes gc-frame-lock{0%{transform:translate(-50%,-50%) perspective(950px) rotateX(48deg) rotateZ(-8deg) scale(1);opacity:1}48%{transform:translate(-50%,-50%) perspective(950px) rotateX(10deg) rotateZ(0) scale(1.02);opacity:1}100%{transform:translate(-50%,-50%) perspective(950px) rotateX(10deg) rotateZ(0) scale(2.15);opacity:0}}
+@keyframes gc-lens-expose{0%{transform:translate(-50%,-50%) perspective(950px) rotateX(48deg) rotateZ(-8deg) scale(1)}42%{transform:translate(-50%,-50%) perspective(950px) rotateX(0) rotateZ(0) scale(1.08)}100%{transform:translate(-50%,-50%) perspective(950px) rotateX(0) rotateZ(0) scale(5.5);opacity:0}}
+@keyframes gc-crosshair-lock{0%{transform:translate(-50%,-50%) scale(1);opacity:.72}100%{transform:translate(-50%,-50%) scale(2.65) rotate(9deg);opacity:0}}
+@keyframes gc-shutter-flash{0%{transform:translate(-50%,-50%) scale(1);opacity:.9}28%{transform:translate(-50%,-50%) scale(13);opacity:1;box-shadow:0 0 54px 34px #fff0c9}100%{transform:translate(-50%,-50%) scale(31);opacity:0}}
+@keyframes gc-copy-release{0%{opacity:1;transform:translateX(0);filter:blur(0)}100%{opacity:0;transform:translateX(-18px);filter:blur(4px)}}
+@keyframes gc-control-release{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(12px)}}
+
+@media(max-width:760px){
+  .mechanism-elevator10 .camera-frame{left:56%;top:53%;width:72vw;height:46vw}
+  .mechanism-elevator10 .camera-lens{left:56%;top:53%;width:31vw}
+  .mechanism-elevator10 .camera-crosshair{left:56%;top:53%;width:43vw;height:43vw}
+  .mechanism-elevator10 .camera-shutter{left:56%;top:53%}
+  .scene-copy--elevator10{left:8%;top:11%;width:62vw;max-width:280px;padding-left:14px}
+  .scene-copy--elevator10 strong{font-size:clamp(36px,11vw,58px)}
+  .intro-control--elevator10{right:6%;bottom:10%;width:235px;grid-template-columns:60px 1fr;column-gap:12px}
+  .intro-control--elevator10 .opening-trigger{width:56px;height:56px;min-width:56px;min-height:56px}
+  .intro-control--elevator10::before{left:-14px;height:86px}
+}
+@media(max-width:760px) and (max-height:560px) and (orientation:landscape){
+  .scene-copy--elevator10{left:7%;top:7%;width:39vw;max-width:210px}
+  .scene-copy--elevator10 strong{font-size:clamp(25px,5.7vw,40px)}
+  .scene-copy--elevator10::before{font-size:6px}
+  .intro-control--elevator10{right:6%;top:53%;bottom:auto;width:220px}
+  .mechanism-elevator10 .camera-frame{left:56%;top:55%;width:56vw;height:36vw}
+  .mechanism-elevator10 .camera-lens{left:56%;top:55%;width:27vw}
+  .mechanism-elevator10 .camera-crosshair{left:56%;top:55%;width:38vw;height:38vw}
+  .mechanism-elevator10 .camera-shutter{left:56%;top:55%}
+}
+@media(prefers-reduced-motion:reduce){
+  .mechanism-elevator10 .camera-grid,.mechanism-elevator10 .camera-grid::after,.mechanism-elevator10 .camera-frame,.mechanism-elevator10 .camera-lens{animation:none!important}
+}

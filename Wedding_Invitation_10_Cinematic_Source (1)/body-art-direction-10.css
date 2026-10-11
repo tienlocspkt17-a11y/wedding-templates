@@ -1,0 +1,1157 @@
+/* Final body art direction pass. The HTML schema stays intentionally boring so the
+   editor can keep using module ids, data-field paths and the wedding-config JSON. */
+
+:root {
+  --line-soft: color-mix(in srgb, var(--ink) 15%, transparent);
+  --line-strong: color-mix(in srgb, var(--accent) 52%, transparent);
+  --shadow-soft: 0 22px 60px color-mix(in srgb, var(--ink) 16%, transparent);
+}
+
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; }
+body.gate-open { height: 100dvh; overflow: hidden; }
+[hidden] { display: none !important; }
+
+button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible,
+select:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+.skip-link {
+  position: fixed;
+  left: 14px;
+  top: 12px;
+  z-index: 200;
+  transform: translateY(-180%);
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 12px;
+  text-decoration: none;
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* Base wedding system: one quiet rhythm, then each concept overrides its skeleton. */
+.invite {
+  position: relative;
+  isolation: isolate;
+  width: min(1240px, 100%);
+  overflow: clip;
+}
+.invite .module {
+  padding: clamp(64px, 8vw, 118px) clamp(22px, 7vw, 108px);
+}
+.invite .module + .module { border-top: 1px solid var(--line-soft); }
+.section-title { margin-bottom: clamp(28px, 4vw, 52px); }
+.section-title h2 { text-wrap: balance; }
+.section-title p { max-width: 58ch; }
+.couple {
+  min-height: min(900px, 100dvh);
+  align-items: center;
+  gap: clamp(32px, 6vw, 96px);
+}
+.hero-copy { position: relative; z-index: 2; }
+.hero-copy h1 { max-width: 8ch; text-wrap: balance; }
+.hero-copy > p:nth-of-type(2) { max-width: 35ch; }
+.photo {
+  position: relative;
+  min-height: clamp(290px, 42vw, 620px);
+  border: 1px solid color-mix(in srgb, var(--accent) 42%, transparent);
+  box-shadow: var(--shadow-soft);
+}
+.photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, transparent 50%, color-mix(in srgb, var(--ink) 18%, transparent));
+  pointer-events: none;
+}
+.photo.has-asset::after { opacity: .28; }
+.photo figcaption { position: relative; z-index: 1; }
+.hero-ornament { z-index: 1; pointer-events: none; }
+.families { background: color-mix(in srgb, var(--soft) 40%, var(--paper)); }
+.family-pair article { min-height: 168px; display: grid; align-content: center; }
+.family-pair .lines { white-space: pre-line; }
+.invitation-letter { position: relative; }
+.story-path { margin: 0; padding: 0; list-style: none; }
+.story-path li { min-height: 70px; display: grid; grid-template-columns: 96px 1fr; gap: 18px; align-items: center; }
+.story-path li + li { border-top: 1px solid var(--line-soft); }
+.story-path li b { font: 500 28px/1 var(--display); color: var(--accent); }
+.events { background: color-mix(in srgb, var(--soft) 36%, var(--paper)); }
+.event-list article { min-height: 148px; }
+.event-list article button, .calendar button, .registry button, .gifts button,
+.rsvp button, .guestbook form button {
+  min-height: 44px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 10px 17px;
+  background: transparent;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .05em;
+}
+.event-list article button:hover, .calendar button:hover, .registry button:hover,
+.gifts button:hover, .rsvp button:hover, .guestbook form button:hover { background: var(--ink); color: var(--paper); }
+.calendar { text-align: center; }
+.date-heart { margin: 26px auto; }
+.party-list { display: flex; flex-wrap: wrap; gap: 10px; }
+.party-list span { min-height: 38px; display: grid; place-items: center; padding: 8px 14px; border: 1px solid var(--line-strong); border-radius: 999px; }
+.video-play { min-height: 150px; width: min(100%, 720px); display: flex; align-items: center; gap: 18px; border: 1px solid currentColor; border-radius: 18px; background: transparent; color: inherit; padding: 22px; text-align: left; }
+.video-play i { display: grid; place-items: center; width: 56px; height: 56px; flex: 0 0 56px; border: 1px solid currentColor; border-radius: 50%; font-style: normal; }
+.video-play span { display: grid; gap: 4px; font: 500 25px/1.1 var(--display); }
+.video-play small { font: 700 10px/1.4 var(--body); letter-spacing: .14em; text-transform: uppercase; opacity: .68; }
+.gallery-grid { gap: 14px; }
+.gallery-grid .photo { min-height: 270px; }
+.dress .swatches { gap: 10px; }
+.dress .swatches i { width: 44px; height: 44px; border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent); border-radius: 50%; }
+.faq-list details { border-top: 1px solid var(--line-soft); }
+.faq-list details:last-child { border-bottom: 1px solid var(--line-soft); }
+.faq-list summary { min-height: 58px; display: grid; grid-template-columns: 42px 1fr 28px; gap: 10px; align-items: center; cursor: pointer; list-style: none; }
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary b { color: var(--accent); font-size: 20px; }
+.faq-list details p { max-width: 58ch; padding: 0 42px 20px 52px; }
+.rsvp form, .guestbook form { gap: 14px; }
+.rsvp input, .rsvp select, .guestbook input, .guestbook textarea { min-height: 48px; border: 1px solid var(--line-strong); border-radius: 10px; padding: 11px 13px; background: color-mix(in srgb, var(--paper) 74%, transparent); color: inherit; }
+.guestbook textarea { min-height: 126px; }
+.rsvp label, .guestbook label { display: grid; gap: 7px; font-size: 12px; font-weight: 700; }
+.rsvp form button { justify-self: start; }
+.gifts, .registry { display: block; width: auto; min-height: 0; }
+.gift-card { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 18px; max-width: 680px; }
+.gift-card > b { display: grid; place-items: center; width: 58px; height: 58px; border: 1px solid currentColor; }
+.wish-stage { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(230px, .85fr); gap: clamp(22px, 4vw, 54px); align-items: start; }
+.wish-sky { min-height: 330px; }
+.wish-stage form { align-self: center; }
+.thanks { min-height: 560px; }
+.wish-note { border: 0; background: none; color: var(--accent); font: 28px var(--display); margin: 5px; cursor: pointer; animation: wish-note-pop .45s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes wish-note-pop { from { opacity: 0; transform: scale(.45) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+.invite-curtain10 .hero-ornament { animation: morning-thread 8s ease-in-out infinite; }
+.invite-herbarium10 .hero-ornament { animation: leaf-sway 7s ease-in-out infinite; }
+.invite-elevator10 .hero-ornament { animation: lens-breathe 5s ease-in-out infinite; }
+.invite-washi10 .hero-ornament { animation: moon-breathe 6s ease-in-out infinite; }
+.invite-ink10 .hero-ornament { animation: pigment-drift 8s ease-in-out infinite; }
+.invite-bottle10 .hero-ornament { animation: tide-drift 6s ease-in-out infinite; }
+.invite-super8 .hero-ornament { animation: film-jitter 4s steps(3, end) infinite; }
+.invite-shadow10 .hero-ornament { animation: lantern-breathe 5.5s ease-in-out infinite; }
+.invite-astrolabe10 .hero-ornament { animation: orbit-pulse 9s linear infinite; }
+.invite-rain10 .hero-ornament { animation: neon-flicker 4.5s ease-in-out infinite; }
+@keyframes morning-thread { 0%,100% { transform: translateY(0) rotate(-2deg); opacity: .3; } 50% { transform: translateY(10px) rotate(2deg); opacity: .58; } }
+@keyframes leaf-sway { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(4deg) translateY(4px); } }
+@keyframes lens-breathe { 0%,100% { transform: scale(1); opacity: .28; } 50% { transform: scale(1.06); opacity: .62; } }
+@keyframes moon-breathe { 0%,100% { transform: translateY(0); opacity: .25; } 50% { transform: translateY(-6px); opacity: .52; } }
+@keyframes pigment-drift { 0%,100% { transform: translate(0,0) rotate(-1deg); } 50% { transform: translate(8px,7px) rotate(3deg); } }
+@keyframes tide-drift { 0%,100% { transform: translateY(0); } 50% { transform: translateY(9px); } }
+@keyframes film-jitter { 0%,100% { transform: translate(0,0); } 30% { transform: translate(1px,-1px); } 60% { transform: translate(-1px,1px); } }
+@keyframes lantern-breathe { 0%,100% { transform: scale(.98); opacity: .3; } 50% { transform: scale(1.05); opacity: .66; } }
+@keyframes orbit-pulse { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes neon-flicker { 0%,100% { opacity: .28; } 48% { opacity: .58; } 53% { opacity: .38; } 58% { opacity: .7; } }
+
+/* 01 The Morning Vow: a calm left-to-right ceremony, silk edge and red-ink schedule. */
+.invite-curtain10 { max-width: 1160px; background: var(--paper); }
+.invite-curtain10::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(90deg, transparent 0 13%, color-mix(in srgb, var(--accent) 8%, transparent) 13.1% 13.25%); opacity: .55; }
+.invite-curtain10 .couple { grid-template-columns: .78fr 1.22fr; padding-top: clamp(120px, 15vw, 180px); }
+.invite-curtain10 .hero-copy { padding-left: clamp(0px, 3vw, 44px); }
+.invite-curtain10 .hero-copy h1 { font-size: clamp(78px, 11vw, 156px); }
+.invite-curtain10 .hero-photo { min-height: clamp(420px, 55vw, 700px); clip-path: polygon(9% 0, 100% 0, 94% 90%, 10% 100%, 0 12%); }
+.invite-curtain10 .hero-ornament { right: 5%; top: 18%; font-size: 110px; }
+.invite-curtain10 .families { background: #7f202d; color: #fbf3e7; }
+.invite-curtain10 .families .section-title small, .invite-curtain10 .families .family-pair>i { color: #e2bb81; }
+.invite-curtain10 .families .family-pair article { border-color: #d7a67b88; }
+.invite-curtain10 .invitation { display: grid; grid-template-columns: .8fr 1.2fr; gap: 40px; align-items: center; }
+.invite-curtain10 .invitation-letter { margin-left: 0; border-color: #b57e63; box-shadow: 14px 14px 0 #ded0c0; }
+.invite-curtain10 .story { display: grid; grid-template-columns: .65fr 1.35fr; gap: 50px; }
+.invite-curtain10 .events { background: #f2e8dc; }
+.invite-curtain10 .events .event-list article { border-left: 3px solid #8f2631; }
+.invite-curtain10 .gallery-grid { grid-template-columns: 1.15fr .85fr; }
+.invite-curtain10 .gallery-grid .photo:first-child { grid-row: span 2; min-height: 560px; }
+.invite-curtain10 .guestbook { background: #eee5d8; }
+
+/* 02 Herbarium of Us: specimen sheet with quiet margins and a tilted botanical contact sheet. */
+.invite-herbarium10 { max-width: 1160px; background: #f4f0e5; }
+.invite-herbarium10 .module { margin: 0 14px; border-color: #b1b69d; }
+.invite-herbarium10 .couple { grid-template-columns: 1fr; text-align: center; padding-top: clamp(125px, 15vw, 185px); }
+.invite-herbarium10 .hero-copy { max-width: 760px; margin: auto; }
+.invite-herbarium10 .hero-copy h1 { max-width: none; font-size: clamp(70px, 12vw, 164px); }
+.invite-herbarium10 .hero-copy > p:nth-of-type(2) { margin-inline: auto; }
+.invite-herbarium10 .hero-photo { width: min(76vw, 760px); min-height: clamp(360px, 50vw, 620px); margin: 30px auto 0; clip-path: polygon(5% 7%, 30% 1%, 63% 8%, 96% 3%, 99% 74%, 92% 95%, 57% 98%, 21% 93%, 2% 99%, 0 33%); box-shadow: 12px 14px 0 #c7c5a5; }
+.invite-herbarium10 .hero-ornament { left: 5%; right: auto; top: 22%; font-size: 92px; color: #788b6e; }
+.invite-herbarium10 .families { background: transparent; }
+.invite-herbarium10 .family-pair article { background: #eef0e2; border-color: #9da98d; box-shadow: 5px 5px 0 #d2d2bd; }
+.invite-herbarium10 .invitation-letter { background: #eef0e2; border-color: #9da98d; box-shadow: 7px 8px 0 #ced2bd; }
+.invite-herbarium10 .story { display: grid; grid-template-columns: 1.1fr .9fr; gap: 54px; }
+.invite-herbarium10 .story-path li { grid-template-columns: 110px 1fr; }
+.invite-herbarium10 .events { background: #e8ecdf; }
+.invite-herbarium10 .gallery-grid { grid-template-columns: repeat(3, 1fr); align-items: start; }
+.invite-herbarium10 .gallery-grid .photo { min-height: 340px; border-radius: 2px; }
+.invite-herbarium10 .gallery-grid .photo:nth-child(2) { margin-top: 40px; transform: rotate(2.2deg); }
+.invite-herbarium10 .gallery-grid .photo:nth-child(3) { margin-top: 16px; transform: rotate(-1.3deg); }
+.invite-herbarium10 .guestbook { background: #e3e8da; }
+
+/* 03 Geometric Camera: names-first editorial composition, a brass viewfinder and one-column events. */
+.invite-elevator10 { max-width: 1240px; background: #111d21; color: #edf0de; }
+.invite-elevator10 .module + .module { border-color: #c49a55; }
+.invite-elevator10 .couple { grid-template-columns: .72fr 1.28fr; min-height: min(940px, 100dvh); padding-top: clamp(130px, 15vw, 190px); }
+.invite-elevator10 .hero-copy h1 { max-width: none; font-size: clamp(72px, 12vw, 168px); color: #e5c47e; }
+.invite-elevator10 .hero-copy h1 i { color: #b88645; }
+.invite-elevator10 .hero-copy > p:nth-of-type(2) { color: #b7bca9; }
+.invite-elevator10 .hero-copy>b { color: #d7b770; }
+.invite-elevator10 .hero-photo { min-height: clamp(380px, 52vw, 650px); border-color: #d4af69; background: #172d32; box-shadow: inset 0 0 0 16px #102124, 0 0 0 1px #e3c77e; }
+.invite-elevator10 .hero-photo::before { inset: 9%; border-color: #d4af69aa; background: linear-gradient(90deg, transparent 49.8%, #d4af6966 50%, transparent 50.2%), linear-gradient(0deg, transparent 49.8%, #d4af6966 50%, transparent 50.2%); }
+.invite-elevator10 .hero-photo::after { background: radial-gradient(circle at 50% 50%, transparent 0 12%, #d4af6920 12.2% 12.7%, transparent 13%), linear-gradient(145deg, transparent, #0006); }
+.invite-elevator10 .hero-ornament { right: 4%; top: 11%; font-family: var(--body); color: #d5ae65; opacity: .52; }
+.invite-elevator10 .families, .invite-elevator10 .invitation { background: #14272c; }
+.invite-elevator10 .family-pair article { border-color: #d5ae6588; }
+.invite-elevator10 .invitation-letter { border-color: #d5ae65; box-shadow: 11px 11px 0 #263b40; }
+.invite-elevator10 .story { display: grid; grid-template-columns: .7fr 1.3fr; gap: 60px; }
+.invite-elevator10 .story-path li { grid-template-columns: 130px 1fr; min-height: 92px; }
+.invite-elevator10 .events { background: #0d191d; }
+.invite-elevator10 .event-list { max-width: 860px; }
+.invite-elevator10 .event-list article { border: 1px solid #b78b48; background: #14272c; }
+.invite-elevator10 .event-list article>span { font-family: var(--display); color: #d8b66f; }
+.invite-elevator10 .gallery-grid { grid-template-columns: 1.7fr 1fr 1fr; }
+.invite-elevator10 .gallery-grid .photo:first-child { grid-row: span 2; min-height: 560px; }
+.invite-elevator10 .gallery-grid .photo { border-color: #d4af69; filter: saturate(.72); }
+.invite-elevator10 .rsvp, .invite-elevator10 .guestbook { background: #0d191d; }
+.invite-elevator10 .rsvp input, .invite-elevator10 .rsvp select, .invite-elevator10 .guestbook input, .invite-elevator10 .guestbook textarea { background: #14272c; border-color: #d4af69; }
+
+/* 04 Quiet Crossing: shoji columns, horizontal ink rules and a soft moon-led pace. */
+.invite-washi10 { max-width: 1080px; background: #f0ece3; }
+.invite-washi10 .couple { grid-template-columns: .92fr 1.08fr; padding-top: clamp(126px, 16vw, 188px); }
+.invite-washi10 .hero-copy { writing-mode: vertical-rl; min-height: 420px; justify-self: center; text-align: center; }
+.invite-washi10 .hero-copy h1 { max-width: none; font-size: clamp(64px, 9vw, 126px); letter-spacing: .02em; }
+.invite-washi10 .hero-copy > p:nth-of-type(2) { max-width: 17ch; }
+.invite-washi10 .hero-photo { min-height: clamp(380px, 54vw, 640px); border-radius: 49% 51% 4% 4% / 23% 23% 4% 4%; border-color: #a9423c; box-shadow: 0 0 0 12px #e1d7c7, 0 22px 42px #67584822; }
+.invite-washi10 .hero-ornament { left: 5%; right: auto; top: 18%; color: #b13d37; }
+.invite-washi10 .families { background: #e5ded1; }
+.invite-washi10 .family-pair article { border-radius: 2px; border-color: #aa9d87; }
+.invite-washi10 .invitation { display: grid; grid-template-columns: .9fr 1.1fr; gap: 48px; background: #e7e0d3; }
+.invite-washi10 .invitation-letter { border-color: #b13d37; box-shadow: none; }
+.invite-washi10 .story { display: grid; grid-template-columns: .8fr 1.2fr; gap: 52px; }
+.invite-washi10 .story-path { border-left: 1px solid #ab9580; padding-left: 28px; }
+.invite-washi10 .events { background: #dfe5df; }
+.invite-washi10 .events .event-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.invite-washi10 .events .event-list article { border: 1px solid #a39480; background: #eef0e9; }
+.invite-washi10 .gallery-grid { grid-template-columns: repeat(4, 1fr); align-items: end; }
+.invite-washi10 .gallery-grid .photo { min-height: 260px; border-radius: 55% 45% 10% 10%; }
+.invite-washi10 .gallery-grid .photo:nth-child(2) { min-height: 350px; }
+.invite-washi10 .gallery-grid .photo:nth-child(3) { min-height: 300px; }
+.invite-washi10 .guestbook { background: #e6dfd3; }
+
+/* 05 Ink Tide: broad watercolor pools, irregular image masks and fluid story spacing. */
+.invite-ink10 { max-width: 1220px; background: #fbf6ef; }
+.invite-ink10 .module { border: 0; }
+.invite-ink10 .couple { grid-template-columns: 1.08fr .92fr; padding-top: clamp(122px, 15vw, 184px); }
+.invite-ink10 .hero-copy h1 { max-width: none; font-size: clamp(75px, 12vw, 168px); color: #5b465a; }
+.invite-ink10 .hero-copy h1 i { color: #d58791; }
+.invite-ink10 .hero-copy > p:nth-of-type(2) { color: #6f5968; }
+.invite-ink10 .hero-photo { min-height: clamp(380px, 50vw, 620px); border: 0; clip-path: polygon(7% 10%, 31% 1%, 58% 7%, 88% 0, 100% 23%, 94% 58%, 100% 87%, 68% 96%, 35% 91%, 8% 100%, 0 64%); box-shadow: none; }
+.invite-ink10 .hero-photo::before { inset: 0; border: 18px solid #d5899238; mix-blend-mode: multiply; }
+.invite-ink10 .hero-ornament { right: 8%; top: 12%; color: #9ec9c8; }
+.invite-ink10 .families { background: radial-gradient(circle at 12% 18%, #d5899238 0 12%, transparent 13%), radial-gradient(circle at 88% 82%, #9dc8c866 0 16%, transparent 17%), #faf4eb; }
+.invite-ink10 .family-pair article { border: 0; border-radius: 24px 58px 34px 46px; background: #f6e7de; box-shadow: 0 15px 35px #84637518; }
+.invite-ink10 .family-pair article:nth-child(3) { border-radius: 52px 28px 50px 30px; background: #e1efeb; }
+.invite-ink10 .invitation { background: #f5e7de; }
+.invite-ink10 .invitation-letter { border: 0; box-shadow: none; background: #fffaf1aa; border-radius: 30px 8px 42px 18px; }
+.invite-ink10 .story { display: grid; grid-template-columns: 1fr 1.3fr; gap: 60px; background: #f1e8f1; }
+.invite-ink10 .story-path li { grid-template-columns: 116px 1fr; }
+.invite-ink10 .events { background: #dfeeee; }
+.invite-ink10 .events .event-list article { border: 0; border-radius: 38px 9px 45px 14px; background: #eef7f4; box-shadow: 0 12px 30px #577a7a20; }
+.invite-ink10 .gallery-grid { grid-template-columns: 1.1fr .9fr 1.1fr; align-items: center; }
+.invite-ink10 .gallery-grid .photo { border: 0; box-shadow: none; min-height: 320px; clip-path: polygon(8% 8%, 52% 0, 93% 9%, 100% 50%, 92% 92%, 48% 100%, 6% 90%, 0 48%); }
+.invite-ink10 .gallery-grid .photo:nth-child(2) { min-height: 440px; }
+.invite-ink10 .gallery-grid .photo:nth-child(3) { transform: translateY(28px); }
+.invite-ink10 .guestbook { background: #f4e3eb; }
+
+/* 06 Message to Shore: a horizon line, bottle-shaped hero and itinerary blocks. */
+.invite-bottle10 { max-width: 1240px; background: #eaf6ee; }
+.invite-bottle10 .module { border-color: #82c8c3; }
+.invite-bottle10 .couple { grid-template-columns: .9fr 1.1fr; padding-top: clamp(122px, 15vw, 182px); background: linear-gradient(180deg, #eaf6ee 0 70%, #9ed4d0 70% 100%); }
+.invite-bottle10 .hero-copy h1 { max-width: none; font-size: clamp(74px, 11vw, 160px); color: #133f48; }
+.invite-bottle10 .hero-copy > p:nth-of-type(2) { color: #2e6b72; }
+.invite-bottle10 .hero-photo { min-height: clamp(420px, 58vw, 720px); border-radius: 48% 48% 13% 13% / 16% 16% 5% 5%; border-color: #438f91; box-shadow: 0 22px 0 #65aeb0aa, 0 38px 60px #235b6330; }
+.invite-bottle10 .hero-ornament { right: 4%; top: 14%; color: #e27458; }
+.invite-bottle10 .families { background: #cfe8e0; }
+.invite-bottle10 .family-pair article { border-color: #438f9188; background: #eaf8f0aa; }
+.invite-bottle10 .invitation { display: grid; grid-template-columns: 1.15fr .85fr; gap: 50px; background: #dff0e8; }
+.invite-bottle10 .invitation-letter { border-color: #e27458; box-shadow: 12px 12px 0 #9ed4d066; }
+.invite-bottle10 .story { background: #c9e8e6; }
+.invite-bottle10 .events { background: #2b7983; color: #f3fbec; }
+.invite-bottle10 .events .section-title small { color: #ffd08d; }
+.invite-bottle10 .events .event-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.invite-bottle10 .events .event-list article { border: 1px solid #d6f0d2aa; background: #246b76; border-radius: 28px 28px 7px 7px; }
+.invite-bottle10 .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+.invite-bottle10 .gallery-grid .photo { min-height: 310px; border-radius: 44% 44% 9% 9%; }
+.invite-bottle10 .gallery-grid .photo:first-child { grid-column: span 2; min-height: 440px; }
+.invite-bottle10 .guestbook { background: #d7eee8; }
+
+/* 07 One Take: film title card, perforated module separators and a stills-first gallery. */
+.invite-super8 { max-width: 1220px; background: #211d19; color: #f1e6d0; }
+.invite-super8 .module + .module { border-color: #b99c70; border-top-width: 4px; border-top-style: dotted; }
+.invite-super8 .couple { grid-template-columns: 1fr; text-align: center; padding-top: clamp(128px, 16vw, 190px); }
+.invite-super8 .hero-copy h1 { max-width: none; font: 500 clamp(80px, 14vw, 190px)/.84 var(--display); text-transform: uppercase; letter-spacing: .015em; }
+.invite-super8 .hero-copy > p:nth-of-type(2) { margin-inline: auto; color: #d2c4ab; }
+.invite-super8 .hero-photo { width: min(92vw, 940px); min-height: clamp(350px, 48vw, 560px); margin: 32px auto 0; border: 12px solid #f1e6d0; outline: 2px solid #b99c70; outline-offset: 7px; filter: sepia(.58) contrast(1.08); }
+.invite-super8 .hero-ornament { left: 4%; right: auto; top: 20%; font-family: var(--body); color: #b99c70; }
+.invite-super8 .families, .invite-super8 .invitation { background: #302820; }
+.invite-super8 .family-pair article { border-color: #b99c70; }
+.invite-super8 .invitation-letter { border-color: #b99c70; box-shadow: 9px 9px 0 #51443a; }
+.invite-super8 .story { display: grid; grid-template-columns: .7fr 1.3fr; gap: 52px; background: #2a241f; }
+.invite-super8 .events { background: #171411; }
+.invite-super8 .event-list article { border: 1px solid #b99c70; background: #2c251f; }
+.invite-super8 .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+.invite-super8 .gallery-grid .photo { min-height: 360px; border: 10px solid #f1e6d0; outline: 1px solid #b99c70; outline-offset: 5px; filter: sepia(.72) contrast(1.08); }
+.invite-super8 .gallery-grid .photo:first-child { grid-column: span 2; min-height: 520px; }
+.invite-super8 .rsvp input, .invite-super8 .rsvp select, .invite-super8 .guestbook input, .invite-super8 .guestbook textarea { background: #2b241f; border-color: #b99c70; color: #f1e6d0; }
+
+/* 08 Giấy Dó Shadow Theatre: red double rules, paper stage and warm lantern pools. */
+.invite-shadow10 { max-width: 1180px; background: #f0e3cc; color: #332b27; }
+.invite-shadow10 .module { border-color: #7d2026; }
+.invite-shadow10 .couple { grid-template-columns: 1fr; text-align: center; padding-top: clamp(125px, 16vw, 188px); }
+.invite-shadow10 .hero-copy h1 { max-width: none; font-size: clamp(74px, 12vw, 166px); color: #7d2026; }
+.invite-shadow10 .hero-copy h1 i { color: #d0a65e; }
+.invite-shadow10 .hero-copy > p:nth-of-type(2) { max-width: 48ch; margin-inline: auto; }
+.invite-shadow10 .hero-photo { width: min(82vw, 780px); min-height: clamp(350px, 50vw, 600px); margin: 24px auto 0; border: 10px solid #f8ead8; outline: 4px double #7d2026; outline-offset: 9px; box-shadow: 0 22px 40px #5b24222e; }
+.invite-shadow10 .hero-ornament { left: 4%; right: auto; top: 12%; color: #7d2026; }
+.invite-shadow10 .families { background: #7d2026; color: #f7e5ca; }
+.invite-shadow10 .families .section-title small { color: #e1bd70; }
+.invite-shadow10 .family-pair article { border-color: #d0a65e; }
+.invite-shadow10 .invitation-letter { border: 4px double #7d2026; box-shadow: none; background: #f8ead8; }
+.invite-shadow10 .story { background: #e6d0b1; }
+.invite-shadow10 .story-path { border-left: 2px solid #7d2026; padding-left: 28px; }
+.invite-shadow10 .events { background: #8d292b; color: #f9e9d0; }
+.invite-shadow10 .events .section-title small { color: #e1bd70; }
+.invite-shadow10 .event-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.invite-shadow10 .event-list article { border: 1px solid #d0a65e; background: #7d2026; }
+.invite-shadow10 .gallery-grid { grid-template-columns: 1fr 1fr 1fr; }
+.invite-shadow10 .gallery-grid .photo { border: 7px solid #f8ead8; outline: 2px solid #7d2026; outline-offset: 3px; }
+.invite-shadow10 .gallery-grid .photo:first-child { grid-column: span 2; min-height: 470px; }
+.invite-shadow10 .guestbook { background: #e7d2b5; }
+
+/* 09 Astrolabe Promise: orbit-led dark page with circular hero and constellation notes. */
+.invite-astrolabe10 { max-width: 1240px; background: #071630; color: #eef0d8; }
+.invite-astrolabe10 .module + .module { border-color: #8da8d0; }
+.invite-astrolabe10 .module { background-image: radial-gradient(circle at 13% 18%, #ffffffb5 0 1px, transparent 2px), radial-gradient(circle at 86% 72%, #ffffff80 0 1px, transparent 2px); background-size: 84px 84px, 132px 132px; }
+.invite-astrolabe10 .couple { grid-template-columns: .82fr 1.18fr; padding-top: clamp(126px, 16vw, 190px); }
+.invite-astrolabe10 .hero-copy h1 { max-width: none; font-size: clamp(72px, 11vw, 154px); color: #eef0d8; }
+.invite-astrolabe10 .hero-copy h1 i { color: #8da8d0; }
+.invite-astrolabe10 .hero-copy > p:nth-of-type(2) { color: #b9c9df; }
+.invite-astrolabe10 .hero-photo { min-height: clamp(380px, 52vw, 640px); border-radius: 50%; border-color: #c8d3a0; box-shadow: 0 0 0 14px #8da8d022, 0 0 0 15px #8da8d066, 0 24px 70px #0008; }
+.invite-astrolabe10 .hero-photo::before { inset: 7%; border-radius: 50%; border-color: #c8d3a088; background: linear-gradient(90deg, transparent 49.8%, #c8d3a066 50%, transparent 50.2%), linear-gradient(0deg, transparent 49.8%, #c8d3a066 50%, transparent 50.2%); }
+.invite-astrolabe10 .hero-ornament { right: 5%; top: 12%; color: #c8d3a0; }
+.invite-astrolabe10 .families, .invite-astrolabe10 .invitation { background: #0c2246; }
+.invite-astrolabe10 .family-pair article { border-color: #8da8d0; border-radius: 50%; min-height: 180px; }
+.invite-astrolabe10 .invitation-letter { border-color: #8da8d0; box-shadow: 0 0 0 8px #8da8d022; }
+.invite-astrolabe10 .story { display: grid; grid-template-columns: .8fr 1.2fr; gap: 54px; background: #081a39; }
+.invite-astrolabe10 .story-path li { grid-template-columns: 120px 1fr; }
+.invite-astrolabe10 .events { background: #061126; }
+.invite-astrolabe10 .event-list article { border: 1px solid #8da8d0; background: #0e2851; border-radius: 999px 18px 18px 999px; }
+.invite-astrolabe10 .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+.invite-astrolabe10 .gallery-grid .photo { min-height: 340px; border-radius: 50%; border-color: #8da8d0; }
+.invite-astrolabe10 .gallery-grid .photo:first-child { grid-column: span 2; min-height: 500px; }
+.invite-astrolabe10 .rsvp input, .invite-astrolabe10 .rsvp select, .invite-astrolabe10 .guestbook input, .invite-astrolabe10 .guestbook textarea { background: #0c2246; border-color: #8da8d0; color: #eef0d8; }
+
+/* 10 Seoul Rain Window: glass surfaces, diagonal rain cue and neon sticker accents. */
+.invite-rain10 { max-width: 1240px; background: #dce4e8; color: #202a31; }
+.invite-rain10 .module + .module { border-color: #8cabb8; }
+.invite-rain10 .module { background-image: linear-gradient(126deg, transparent 0 48%, #ffffff3d 48.1% 48.4%, transparent 48.5% 100%); }
+.invite-rain10 .couple { grid-template-columns: 1.1fr .9fr; padding-top: clamp(122px, 15vw, 184px); }
+.invite-rain10 .hero-copy h1 { max-width: none; font-size: clamp(74px, 11vw, 156px); color: #26353d; }
+.invite-rain10 .hero-copy h1 i { color: #ef91a9; }
+.invite-rain10 .hero-copy > p:nth-of-type(2) { color: #48616d; }
+.invite-rain10 .hero-photo { min-height: clamp(400px, 54vw, 680px); border: 10px solid #f4f8f8aa; outline: 1px solid #8cabb8; outline-offset: -18px; background-color: #78909b; box-shadow: 16px 17px 0 #ef91a944; }
+.invite-rain10 .hero-ornament { right: 6%; top: 13%; color: #ef91a9; font-family: var(--body); }
+.invite-rain10 .families { background: #e8eef0; }
+.invite-rain10 .family-pair article { border-color: #8cabb8; background: #f8fbfb99; backdrop-filter: blur(10px); }
+.invite-rain10 .invitation { display: grid; grid-template-columns: .9fr 1.1fr; gap: 50px; background: #d3e0e4; }
+.invite-rain10 .invitation-letter { border-color: #ef91a9; box-shadow: 10px 10px 0 #8cabb855; background: #f6f8f8cc; }
+.invite-rain10 .story { display: grid; grid-template-columns: 1.2fr .8fr; gap: 56px; background: #c7d8de; }
+.invite-rain10 .events { background: #344953; color: #f1f6f5; }
+.invite-rain10 .events .section-title small { color: #ef91a9; }
+.invite-rain10 .event-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.invite-rain10 .event-list article { border: 1px solid #ef91a9; background: #405b66; border-radius: 8px; box-shadow: 8px 8px 0 #1f343f44; }
+.invite-rain10 .gallery-grid { grid-template-columns: 1.1fr .9fr 1.1fr; align-items: start; }
+.invite-rain10 .gallery-grid .photo { min-height: 320px; border-radius: 8px; border-color: #8cabb8; }
+.invite-rain10 .gallery-grid .photo:nth-child(2) { margin-top: 54px; transform: rotate(2.5deg); }
+.invite-rain10 .gallery-grid .photo:nth-child(3) { margin-top: 15px; transform: rotate(-1.8deg); }
+.invite-rain10 .guestbook { background: #c9dce1; }
+
+@media (max-width: 760px) {
+  html { scroll-padding-top: 26px; }
+  .journey-nav {
+    left: 10px;
+    right: 10px;
+    top: auto;
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    justify-content: space-between;
+    gap: 4px;
+    padding: 5px;
+    border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+    border-radius: 18px;
+    background: color-mix(in srgb, var(--paper) 90%, transparent);
+    backdrop-filter: blur(18px);
+  }
+  .journey-nav a, .journey-nav button { min-width: 44px; min-height: 44px; flex: 1 1 0; padding: 8px 5px; font-size: 10px; letter-spacing: .02em; }
+  .journey-nav a:nth-of-type(2) { display: inline-flex; }
+  .invite .module { padding: 64px 20px; }
+  .couple { min-height: auto; padding-top: 126px; }
+  .hero-copy h1 { font-size: clamp(66px, 20vw, 110px); }
+  .photo { min-height: 330px; }
+  .hero-photo { min-height: 390px; margin-top: 28px; }
+  .families, .invitation, .story, .wish-stage { display: block; }
+  .family-pair { grid-template-columns: 1fr; gap: 12px; }
+  .family-pair>i { display: block; text-align: center; }
+  .story-path { margin-top: 30px; }
+  .story-path li { grid-template-columns: 78px 1fr; gap: 12px; min-height: 66px; }
+  .events .event-list, .invite-washi10 .events .event-list, .invite-bottle10 .events .event-list,
+  .invite-shadow10 .event-list, .invite-rain10 .event-list { display: block; }
+  .event-list article { margin-bottom: 12px; }
+  .gallery-grid, .invite-herbarium10 .gallery-grid, .invite-washi10 .gallery-grid,
+  .invite-bottle10 .gallery-grid, .invite-super8 .gallery-grid, .invite-shadow10 .gallery-grid,
+  .invite-astrolabe10 .gallery-grid, .invite-rain10 .gallery-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-grid .photo, .invite-herbarium10 .gallery-grid .photo,
+  .invite-washi10 .gallery-grid .photo, .invite-shadow10 .gallery-grid .photo { min-height: 240px; }
+  .gallery-grid .photo:first-child { grid-column: 1 / -1; grid-row: auto; min-height: 310px !important; }
+  .invite-curtain10 .couple, .invite-ink10 .couple, .invite-bottle10 .couple,
+  .invite-rain10 .couple, .invite-elevator10 .couple, .invite-astrolabe10 .couple { display: block; }
+  .invite-curtain10 .hero-copy, .invite-ink10 .hero-copy, .invite-bottle10 .hero-copy,
+  .invite-rain10 .hero-copy, .invite-elevator10 .hero-copy, .invite-astrolabe10 .hero-copy { padding-left: 0; }
+  .invite-washi10 .hero-copy { writing-mode: horizontal-tb; min-height: 0; }
+  .invite-washi10 .hero-copy h1 { letter-spacing: -.05em; }
+  .invite-washi10 .hero-photo { margin-top: 28px; }
+  .invite-herbarium10 .couple, .invite-shadow10 .couple, .invite-super8 .couple { display: block; }
+  .invite-super8 .hero-photo { width: 88vw; border-width: 7px; }
+  .invite-astrolabe10 .hero-photo { width: min(82vw, 430px); margin-inline: auto; }
+  .invite-ink10 .gallery-grid .photo:nth-child(3), .invite-rain10 .gallery-grid .photo:nth-child(2), .invite-rain10 .gallery-grid .photo:nth-child(3) { margin-top: 0; transform: none; }
+  .gift-card { grid-template-columns: auto 1fr; }
+  .gift-card button { grid-column: 1 / -1; justify-self: start; }
+  .video-play { min-height: 128px; }
+  .video-play span { font-size: 22px; }
+  .faq-list summary { grid-template-columns: 30px 1fr 22px; }
+  .faq-list details p { padding: 0 10px 20px 40px; }
+  .wish-stage { display: block; }
+  .wish-stage form { margin-top: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero-ornament, .wish-note { animation: none !important; }
+}
+
+/* Final UX/UI polish — body surfaces, type contrast and interaction states. */
+body.theme-morning-vow { --ui-ink: #3e302d; --ui-muted: #6d5750; --ui-accent: #8f3f4a; --ui-surface: #fbf7ef; --ui-surface-alt: #f1e5d9; --ui-line: #c58e79; --ui-on-strong: #fff8ef; --ui-on-photo: #fff9ef; --ui-field: #fffdf8; }
+body.theme-herbarium-us { --ui-ink: #2f4438; --ui-muted: #5f7065; --ui-accent: #557550; --ui-surface: #f8f5ea; --ui-surface-alt: #edf0e3; --ui-line: #aebba2; --ui-on-strong: #fbf9ee; --ui-on-photo: #fbf9ee; --ui-field: #fdfcf4; }
+body.theme-forever-floor { --ui-ink: #eef0de; --ui-muted: #bbc5bb; --ui-accent: #d7ac5c; --ui-surface: #111d21; --ui-surface-alt: #14272c; --ui-line: #9c8251; --ui-on-strong: #f7f1dc; --ui-on-photo: #f7efd1; --ui-field: #14272c; }
+body.theme-quiet-crossing { --ui-ink: #263a35; --ui-muted: #5c6b63; --ui-accent: #a73937; --ui-surface: #f7f2e8; --ui-surface-alt: #e7e0d3; --ui-line: #a79883; --ui-on-strong: #fff8ed; --ui-on-photo: #fff9ef; --ui-field: #fdf9f0; }
+body.theme-ink-tide { --ui-ink: #594254; --ui-muted: #765f6f; --ui-accent: #a64f6c; --ui-surface: #fbf6ef; --ui-surface-alt: #f3e5e1; --ui-line: #c7929d; --ui-on-strong: #fff7f0; --ui-on-photo: #fff8f0; --ui-field: #fffaf3; }
+body.theme-message-shore { --ui-ink: #164b57; --ui-muted: #356b72; --ui-accent: #b44d3e; --ui-surface: #eaf6ee; --ui-surface-alt: #d4ece5; --ui-line: #5faaa8; --ui-on-strong: #f4fbef; --ui-on-photo: #fff3d0; --ui-field: #f8fffa; }
+body.theme-one-take { --ui-ink: #f4e6d0; --ui-muted: #d0c0a7; --ui-accent: #ddb47b; --ui-surface: #211d19; --ui-surface-alt: #302820; --ui-line: #b99c70; --ui-on-strong: #f8ead4; --ui-on-photo: #f8ead4; --ui-field: #2b241f; }
+body.theme-giay-do-shadow { --ui-ink: #3a2c28; --ui-muted: #6b5047; --ui-accent: #8b2932; --ui-surface: #f0e3cc; --ui-surface-alt: #f8ead8; --ui-line: #b47b42; --ui-on-strong: #fff1dc; --ui-on-photo: #fff2dc; --ui-field: #fff7e8; }
+body.theme-astrolabe-promise { --ui-ink: #eef0d8; --ui-muted: #bac9df; --ui-accent: #c8d3a0; --ui-surface: #071630; --ui-surface-alt: #0c2246; --ui-line: #8da8d0; --ui-on-strong: #f3f5e3; --ui-on-photo: #f2f3dc; --ui-field: #0c2246; }
+body.theme-seoul-rain { --ui-ink: #24343b; --ui-muted: #4b6571; --ui-accent: #9c3f58; --ui-surface: #dce4e8; --ui-surface-alt: #eef3f4; --ui-line: #8cabb8; --ui-on-strong: #f3f7f5; --ui-on-photo: #f7fbf8; --ui-field: #f9fcfc; }
+
+.invite { color: var(--ui-ink, var(--ink)); }
+.invite .module { color: var(--ui-ink, var(--ink)); }
+.invite .module + .module { border-top-color: var(--ui-line, var(--line-soft)); }
+.invite .section-title small,
+.invite .hero-copy > p:first-child { color: var(--ui-accent, var(--accent)); }
+.invite .section-title h2 { color: inherit; }
+.invite .section-title p,
+.invite .hero-copy > p:nth-of-type(2),
+.invite .faq-list details p,
+.invite .wish-hint { color: var(--ui-muted, var(--ink)); }
+.invite .photo { color: var(--ui-on-photo, var(--paper)); border-color: var(--ui-line, var(--line-strong)); }
+.invite .photo figcaption { color: inherit; opacity: .86; }
+.invite .family-pair article,
+.invite .event-list article,
+.invite .gift-card,
+.invite .invitation-letter,
+.invite .video-play { border-color: var(--ui-line, var(--line-strong)); }
+.invite .event-list article > span,
+.invite .story-path li b,
+.invite .faq-list summary span { color: var(--ui-accent, var(--accent)); }
+.invite .story-path li + li,
+.invite .faq-list details { border-color: var(--ui-line, var(--line-soft)); }
+.invite .event-list article > div { min-width: 0; }
+.invite .event-list article p { color: inherit; text-wrap: pretty; }
+.invite .event-list article button,
+.invite .calendar button,
+.invite .registry button,
+.invite .gifts button,
+.invite .rsvp button,
+.invite .guestbook form button,
+.invite .thanks button { min-height: 46px; transition: transform .2s ease, background-color .2s ease, color .2s ease, border-color .2s ease; }
+.invite .event-list article button:hover,
+.invite .calendar button:hover,
+.invite .registry button:hover,
+.invite .gifts button:hover,
+.invite .rsvp button:hover,
+.invite .guestbook form button:hover { background: var(--ui-accent, var(--accent)); color: var(--ui-surface, var(--paper)); border-color: var(--ui-accent, var(--accent)); transform: translateY(-2px); }
+.invite .event-list article button:active,
+.invite .calendar button:active,
+.invite .registry button:active,
+.invite .gifts button:active,
+.invite .rsvp button:active,
+.invite .guestbook form button:active { transform: translateY(0) scale(.98); }
+.invite .rsvp input,
+.invite .rsvp select,
+.invite .guestbook input,
+.invite .guestbook textarea { border-color: var(--ui-line, var(--line-strong)); background: var(--ui-field, color-mix(in srgb, var(--paper) 74%, transparent)); color: var(--ui-ink, var(--ink)); }
+.invite .rsvp input::placeholder,
+.invite .guestbook input::placeholder,
+.invite .guestbook textarea::placeholder { color: color-mix(in srgb, var(--ui-ink, var(--ink)) 58%, transparent); opacity: 1; }
+.invite .rsvp select option { background: var(--ui-field, var(--paper)); color: var(--ui-ink, var(--ink)); }
+.invite .rsvp button,
+.invite .guestbook form button { background: var(--ui-accent, var(--accent)); color: var(--ui-surface, var(--paper)); border-color: var(--ui-accent, var(--accent)); }
+.invite .faq-list summary { min-height: 64px; color: inherit; }
+.invite .faq-list summary b { transition: transform .2s ease; }
+.invite .faq-list details[open] summary b { transform: rotate(45deg); }
+.invite .gallery-grid .photo { transition: transform .28s ease, box-shadow .28s ease; }
+.invite .gallery-grid .photo:hover { z-index: 3; transform: translateY(-5px) rotate(0deg); box-shadow: 0 20px 44px color-mix(in srgb, var(--ui-ink) 18%, transparent); }
+.invite .gift-card > b { background: var(--ui-accent, var(--accent)); color: var(--ui-surface, var(--paper)); }
+.journey-nav { box-shadow: 0 10px 28px color-mix(in srgb, var(--ink) 12%, transparent); }
+.journey-nav a:focus-visible, .journey-nav button:focus-visible { outline-color: var(--ui-accent, var(--accent)); }
+
+/* 01 Morning Vow — a quiet ivory invitation with a single red-ink ceremony rail. */
+.invite-curtain10 .families { --ui-ink: #fff8ef; --ui-muted: #f4dfcf; --ui-accent: #e6bc82; background: #7f202d; }
+.invite-curtain10 .families .family-pair article { background: #8e2d38; border-color: #e6bc82; }
+.invite-curtain10 .invitation,
+.invite-curtain10 .story,
+.invite-curtain10 .calendar,
+.invite-curtain10 .gallery,
+.invite-curtain10 .guestbook { background: var(--ui-surface-alt); }
+.invite-curtain10 .invitation-letter { background: #fffaf2; color: var(--ui-ink); }
+.invite-curtain10 .story-path li { padding-block: 24px; }
+.invite-curtain10 .events { --ui-ink: #3e302d; --ui-muted: #6d5750; --ui-accent: #8f3f4a; background: #f2e8dc; color: var(--ui-ink); }
+.invite-curtain10 .events .event-list article { border-left: 4px solid #8f3f4a; border-top: 0; border-right: 0; border-bottom: 0; border-radius: 0 14px 14px 0; background: #fffaf2; }
+.invite-curtain10 .rsvp { --ui-ink: #fff8ef; --ui-muted: #f5dfd0; --ui-accent: #e6bc82; background: #8f3f4a; color: var(--ui-ink); }
+.invite-curtain10 .rsvp input, .invite-curtain10 .rsvp select { color: #fff8ef; background: #7f202d; border-color: #e6bc82; }
+.invite-curtain10 .rsvp input::placeholder { color: #f4dfcf; }
+
+/* 02 Herbarium — margins and specimen labels replace generic cards. */
+.invite-herbarium10 .module { background: var(--ui-surface); color: var(--ui-ink); }
+.invite-herbarium10 .couple { background: linear-gradient(180deg, #f8f5ea, #edf0e3); }
+.invite-herbarium10 .families,
+.invite-herbarium10 .invitation,
+.invite-herbarium10 .story,
+.invite-herbarium10 .calendar,
+.invite-herbarium10 .gallery,
+.invite-herbarium10 .guestbook { background: #edf0e3; }
+.invite-herbarium10 .family-pair article { border-radius: 2px 16px 2px 16px; }
+.invite-herbarium10 .invitation-letter { background: #fdfcf4; border-left: 5px solid #557550; }
+.invite-herbarium10 .story-path li { grid-template-columns: 96px 1fr; border-bottom: 1px dashed #aebba2; }
+.invite-herbarium10 .events { --ui-ink: #2f4438; --ui-muted: #5f7065; --ui-accent: #557550; background: #e6ecdf; }
+.invite-herbarium10 .events .event-list article { border: 1px solid #aebba2; border-radius: 0 18px 0 18px; background: #f8f5ea; }
+.invite-herbarium10 .rsvp { --ui-ink: #fbf9ee; --ui-muted: #e4f0dc; --ui-accent: #c8d69a; background: #355943; color: var(--ui-ink); }
+.invite-herbarium10 .rsvp input, .invite-herbarium10 .rsvp select { background: #2f4d3b; border-color: #c8d69a; color: #fbf9ee; }
+
+/* 03 Geometric Camera — dark observatory surfaces, brass measurements and names-first hierarchy. */
+.invite-elevator10 .module { background: #111d21; color: var(--ui-ink); }
+.invite-elevator10 .couple { background: linear-gradient(135deg, #111d21 0 55%, #14272c 55%); }
+.invite-elevator10 .families,
+.invite-elevator10 .invitation,
+.invite-elevator10 .story,
+.invite-elevator10 .calendar,
+.invite-elevator10 .gallery,
+.invite-elevator10 .video,
+.invite-elevator10 .dress,
+.invite-elevator10 .faq,
+.invite-elevator10 .gifts,
+.invite-elevator10 .registry,
+.invite-elevator10 .thanks { background: #111d21; }
+.invite-elevator10 .family-pair article,
+.invite-elevator10 .invitation-letter,
+.invite-elevator10 .video-play,
+.invite-elevator10 .gift-card { background: #14272c; }
+.invite-elevator10 .events { --ui-ink: #eef0de; --ui-muted: #bbc5bb; --ui-accent: #d7ac5c; background: #0d191d; color: var(--ui-ink); }
+.invite-elevator10 .events .event-list article { border-color: #9c8251; background: #14272c; }
+.invite-elevator10 .rsvp { --ui-ink: #101b1f; --ui-muted: #17282c; --ui-accent: #f2d589; background: #b1844a; color: var(--ui-ink); }
+.invite-elevator10 .rsvp input, .invite-elevator10 .rsvp select { background: #14272c; color: #eef0de; border-color: #d7ac5c; }
+.invite-elevator10 .rsvp input::placeholder { color: #bbc5bb; }
+.invite-elevator10 .faq-list summary, .invite-elevator10 .faq-list details p { color: #eef0de; }
+
+/* 04 Quiet Crossing — washi whites, vertical reading column and red seal actions. */
+.invite-washi10 .module { color: var(--ui-ink); }
+.invite-washi10 .couple { background: #f7f2e8; }
+.invite-washi10 .families,
+.invite-washi10 .invitation,
+.invite-washi10 .story,
+.invite-washi10 .calendar,
+.invite-washi10 .gallery,
+.invite-washi10 .guestbook { background: #e7e0d3; }
+.invite-washi10 .invitation-letter { background: #fdf9f0; border-left: 4px solid #a73937; }
+.invite-washi10 .events { --ui-ink: #263a35; --ui-muted: #5c6b63; --ui-accent: #a73937; background: #dfe5df; color: var(--ui-ink); }
+.invite-washi10 .events .event-list article { border-color: #a79883; border-radius: 2px 2px 16px 16px; background: #f7f2e8; }
+.invite-washi10 .rsvp { --ui-ink: #fff8ed; --ui-muted: #f2d8d0; --ui-accent: #e6bd78; background: #a73937; color: var(--ui-ink); }
+.invite-washi10 .rsvp input, .invite-washi10 .rsvp select { background: #8e302f; border-color: #e6bd78; color: #fff8ed; }
+.invite-washi10 .gallery-grid .photo:hover { transform: translateY(-5px) rotate(0deg) scale(1.015); }
+
+/* 05 Ink Tide — readable plum copy on warm paper, with watercolor only at the edges. */
+.invite-ink10 .module { color: var(--ui-ink); }
+.invite-ink10 .couple { background: #fbf6ef; }
+.invite-ink10 .families,
+.invite-ink10 .invitation,
+.invite-ink10 .story,
+.invite-ink10 .calendar,
+.invite-ink10 .gallery,
+.invite-ink10 .guestbook { background: #f3e5e1; }
+.invite-ink10 .family-pair article { color: #594254; border: 1px solid #c7929d; }
+.invite-ink10 .invitation-letter { background: #fffaf3; border: 1px solid #c7929d; }
+.invite-ink10 .events { --ui-ink: #fff7f0; --ui-muted: #f0d7d5; --ui-accent: #f0b4ba; background: #5c4559; color: var(--ui-ink); }
+.invite-ink10 .events .event-list article { background: #eef7f4; color: #594254; border-color: #c7929d; }
+.invite-ink10 .rsvp { --ui-ink: #fff7f0; --ui-muted: #f0d7d5; --ui-accent: #f0b4ba; background: #a64f6c; color: var(--ui-ink); }
+.invite-ink10 .rsvp input, .invite-ink10 .rsvp select { background: #8b415c; border-color: #f0b4ba; color: #fff7f0; }
+.invite-ink10 .gallery-grid .photo:hover { transform: translateY(-5px) rotate(0deg) scale(1.02); }
+
+/* 06 Message to Shore — sea-glass surfaces, clear itinerary cards and a coral action colour. */
+.invite-bottle10 .module { color: var(--ui-ink); }
+.invite-bottle10 .couple { background: linear-gradient(180deg, #f8fffa 0 70%, #b7ded8 70% 100%); }
+.invite-bottle10 .families,
+.invite-bottle10 .invitation,
+.invite-bottle10 .story,
+.invite-bottle10 .calendar,
+.invite-bottle10 .gallery,
+.invite-bottle10 .guestbook { background: #d4ece5; }
+.invite-bottle10 .invitation-letter { background: #f8fffa; border-left: 5px solid #b44d3e; }
+.invite-bottle10 .events { --ui-ink: #f4fbef; --ui-muted: #dcefe4; --ui-accent: #ffd08d; background: #2b7983; color: var(--ui-ink); }
+.invite-bottle10 .events .event-list article { border-color: #d6f0d2; background: #246b76; }
+.invite-bottle10 .rsvp { --ui-ink: #fff4e9; --ui-muted: #ffe0cf; --ui-accent: #ffd08d; background: #b44d3e; color: var(--ui-ink); }
+.invite-bottle10 .rsvp input, .invite-bottle10 .rsvp select { background: #963f38; border-color: #ffd08d; color: #fff4e9; }
+.invite-bottle10 .gallery-grid .photo:hover { transform: translateY(-5px) rotate(0deg) scale(1.015); }
+
+/* 07 One Take — film metadata, high-contrast cream type and unambiguous frame controls. */
+.invite-super8 .module { color: var(--ui-ink); background: #211d19; }
+.invite-super8 .couple { background: linear-gradient(180deg, #211d19, #302820); }
+.invite-super8 .families,
+.invite-super8 .invitation,
+.invite-super8 .story,
+.invite-super8 .calendar,
+.invite-super8 .gallery,
+.invite-super8 .video,
+.invite-super8 .dress,
+.invite-super8 .faq,
+.invite-super8 .gifts,
+.invite-super8 .registry,
+.invite-super8 .thanks { background: #211d19; }
+.invite-super8 .invitation-letter,
+.invite-super8 .video-play,
+.invite-super8 .gift-card { background: #302820; }
+.invite-super8 .events { --ui-ink: #f4e6d0; --ui-muted: #d0c0a7; --ui-accent: #ddb47b; background: #171411; color: var(--ui-ink); }
+.invite-super8 .events .event-list article { background: #2c251f; border-color: #b99c70; }
+.invite-super8 .rsvp { --ui-ink: #211d19; --ui-muted: #302820; --ui-accent: #f1d19b; background: #ddb47b; color: var(--ui-ink); }
+.invite-super8 .rsvp input, .invite-super8 .rsvp select { background: #2b241f; border-color: #f1d19b; color: #f4e6d0; }
+.invite-super8 .rsvp input::placeholder { color: #d0c0a7; }
+.invite-super8 .gallery-grid .photo:hover { transform: translateY(-5px) rotate(0deg) scale(1.012); }
+
+/* 08 Giấy Dó Shadow Theatre — red field notes, gold rules and paper-stage breathing room. */
+.invite-shadow10 .module { color: var(--ui-ink); }
+.invite-shadow10 .couple { background: #f0e3cc; }
+.invite-shadow10 .invitation,
+.invite-shadow10 .story,
+.invite-shadow10 .calendar,
+.invite-shadow10 .gallery,
+.invite-shadow10 .guestbook { background: #e6d0b1; }
+.invite-shadow10 .families { --ui-ink: #fff1dc; --ui-muted: #f0d8b4; --ui-accent: #e1bd70; background: #7d2026; color: var(--ui-ink); }
+.invite-shadow10 .families .family-pair article { background: #8d292b; border-color: #e1bd70; }
+.invite-shadow10 .invitation-letter { background: #fff7e8; }
+.invite-shadow10 .events { --ui-ink: #fff1dc; --ui-muted: #f0d8b4; --ui-accent: #e1bd70; background: #8d292b; color: var(--ui-ink); }
+.invite-shadow10 .events .event-list article { background: #7d2026; border-color: #e1bd70; }
+.invite-shadow10 .rsvp { --ui-ink: #fff1dc; --ui-muted: #f0d8b4; --ui-accent: #e1bd70; background: #7d2026; color: var(--ui-ink); }
+.invite-shadow10 .rsvp input, .invite-shadow10 .rsvp select { background: #652027; border-color: #e1bd70; color: #fff1dc; }
+.invite-shadow10 .gallery-grid .photo:hover { transform: translateY(-5px) rotate(0deg) scale(1.015); }
+
+/* 09 Astrolabe Promise — dark celestial canvas with blue secondary copy and brass-white controls. */
+.invite-astrolabe10 .module { color: var(--ui-ink); background-color: #071630; }
+.invite-astrolabe10 .couple { background: radial-gradient(circle at 60% 42%, #183a68, #071630 65%); }
+.invite-astrolabe10 .families,
+.invite-astrolabe10 .invitation,
+.invite-astrolabe10 .story,
+.invite-astrolabe10 .calendar,
+.invite-astrolabe10 .gallery,
+.invite-astrolabe10 .video,
+.invite-astrolabe10 .dress,
+.invite-astrolabe10 .faq,
+.invite-astrolabe10 .gifts,
+.invite-astrolabe10 .registry,
+.invite-astrolabe10 .thanks { background-color: #071630; }
+.invite-astrolabe10 .families { background-color: #0c2246; }
+.invite-astrolabe10 .invitation-letter,
+.invite-astrolabe10 .video-play,
+.invite-astrolabe10 .gift-card { background: #0c2246; }
+.invite-astrolabe10 .events { --ui-ink: #eef0d8; --ui-muted: #bac9df; --ui-accent: #c8d3a0; background: #061126; color: var(--ui-ink); }
+.invite-astrolabe10 .events .event-list article { background: #0e2851; border-color: #8da8d0; }
+.invite-astrolabe10 .rsvp { --ui-ink: #071630; --ui-muted: #0c2246; --ui-accent: #eef0d8; background: #c8d3a0; color: var(--ui-ink); }
+.invite-astrolabe10 .rsvp input, .invite-astrolabe10 .rsvp select { background: #0c2246; border-color: #c8d3a0; color: #eef0d8; }
+.invite-astrolabe10 .rsvp input::placeholder { color: #bac9df; }
+.invite-astrolabe10 .gallery-grid .photo:hover { transform: translateY(-5px) rotate(0deg) scale(1.015); }
+
+/* 10 Seoul Rain Window — frosted light surfaces, dark glass text and pink transit signals. */
+.invite-rain10 .module { color: var(--ui-ink); }
+.invite-rain10 .couple { background: linear-gradient(126deg, #dce4e8, #eef3f4); }
+.invite-rain10 .families,
+.invite-rain10 .invitation,
+.invite-rain10 .story,
+.invite-rain10 .calendar,
+.invite-rain10 .gallery,
+.invite-rain10 .guestbook { background: #e8eef0; }
+.invite-rain10 .families .family-pair article { background: #f8fbfb; border-color: #8cabb8; }
+.invite-rain10 .invitation-letter { background: #f6f8f8; }
+.invite-rain10 .events { --ui-ink: #f3f7f5; --ui-muted: #d8e8e7; --ui-accent: #f0a8bd; background: #344953; color: var(--ui-ink); }
+.invite-rain10 .events .event-list article { background: #405b66; border-color: #ef91a9; }
+.invite-rain10 .rsvp { --ui-ink: #f3f7f5; --ui-muted: #d8e8e7; --ui-accent: #f0a8bd; background: #344953; color: var(--ui-ink); }
+.invite-rain10 .rsvp input, .invite-rain10 .rsvp select { background: #2a414c; border-color: #f0a8bd; color: #f3f7f5; }
+.invite-rain10 .rsvp input::placeholder { color: #d8e8e7; }
+.invite-rain10 .gallery-grid .photo:hover { transform: translateY(-5px) rotate(0deg) scale(1.015); }
+
+@media (max-width: 760px) {
+  html { scroll-padding: 24px 0 calc(96px + env(safe-area-inset-bottom)); }
+  .invite .module { padding: 62px 20px; }
+  .invite .section-title { margin-bottom: 28px; }
+  .invite .section-title h2 { font-size: clamp(34px, 11vw, 54px); line-height: .98; }
+  .invite .section-title p { font-size: 14px; line-height: 1.55; }
+  .invite .hero-copy h1 { line-height: .84; letter-spacing: -.07em; }
+  .invite .hero-copy > p:nth-of-type(2) { max-width: 31ch; font-size: 14px; line-height: 1.55; }
+  .invite .family-pair { gap: 10px; }
+  .invite .family-pair article { min-height: 132px; padding: 22px 16px; }
+  .invite .family-pair strong { margin: 10px 0; font-size: 22px; }
+  .invite .invitation-letter { padding: 28px 22px; font-size: 22px; line-height: 1.42; }
+  .invite .story-path li { grid-template-columns: 72px 1fr; gap: 12px; min-height: 70px; }
+  .invite .story-path li b { font-size: 25px; }
+  .invite .event-list article { grid-template-columns: 34px 1fr; gap: 10px; padding: 18px 15px; }
+  .invite .event-list article > span { font-size: 25px; }
+  .invite .event-list article button { grid-column: 2; justify-self: start; margin-top: 3px; }
+  .invite .event-list b { font-size: 29px; }
+  .invite .event-list p { font-size: 12px; line-height: 1.45; }
+  .invite .gallery-grid { gap: 10px; }
+  .invite .gallery-grid .photo { min-height: 220px; }
+  .invite .gallery-grid .photo:first-child { min-height: 290px !important; }
+  .invite .video-play { min-height: 128px; gap: 12px; padding: 18px; }
+  .invite .video-play span { font-size: 21px; }
+  .invite .video-play i { width: 48px; height: 48px; flex-basis: 48px; }
+  .invite .dress { gap: 24px; }
+  .invite .dress .swatches { margin-top: 22px; }
+  .invite .dress .swatches i { width: 38px; height: 38px; }
+  .invite .faq-list summary { grid-template-columns: 30px 1fr 22px; gap: 8px; font-size: 14px; }
+  .invite .faq-list details p { padding: 0 10px 20px 38px; font-size: 14px; line-height: 1.55; }
+  .invite .rsvp input, .invite .rsvp select, .invite .guestbook input, .invite .guestbook textarea { min-height: 50px; font-size: 16px; }
+  .invite .gift-card { grid-template-columns: auto 1fr; gap: 12px; padding: 16px; }
+  .invite .gift-card button { grid-column: 1 / -1; justify-self: start; }
+  .invite .wish-stage { gap: 20px; }
+  .invite .wish-sky { min-height: 245px; }
+  .invite .journey-nav { box-shadow: 0 8px 24px #0003; }
+  .invite-herbarium10 .gallery-grid { transform: none; }
+  .invite-washi10 .gallery-grid .photo:nth-child(n) { min-height: 220px; }
+  .invite-super8 .module + .module { border-top-width: 3px; border-bottom-width: 3px; }
+  .invite-elevator10 .gallery-grid .photo:first-child,
+  .invite-astrolabe10 .gallery-grid .photo:first-child { min-height: 290px !important; }
+  .invite-shadow10 .gallery-grid .photo:first-child { min-height: 300px; }
+  .invite-rain10 .gallery-grid .photo:first-child { min-height: 300px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .invite .gallery-grid .photo,
+  .invite .event-list article button,
+  .invite .calendar button,
+  .invite .registry button,
+  .invite .gifts button,
+  .invite .rsvp button,
+  .invite .guestbook form button { transition: none; }
+  .invite .gallery-grid .photo:hover { transform: none; }
+}
+
+/* ================================================================
+   2026 body rework — countdown, calendar, invitation letter,
+   wish carousel and scroll choreography. These primitives are shared
+   structurally, then skinned below per design DNA.
+   ================================================================ */
+.invite { padding-bottom: calc(88px + env(safe-area-inset-bottom)); }
+.invite .module { isolation: isolate; }
+.scroll-reveal { opacity: 0; transform: translateY(30px); transition: opacity .72s cubic-bezier(.2,.75,.25,1) var(--reveal-delay,0s), transform .72s cubic-bezier(.2,.75,.25,1) var(--reveal-delay,0s); }
+.scroll-reveal.is-revealed { opacity: 1; transform: none; }
+.scroll-reveal.is-revealed > .section-title,
+.scroll-reveal.is-revealed > .hero-copy,
+.scroll-reveal.is-revealed > .photo,
+.scroll-reveal.is-revealed > .invitation-letter,
+.scroll-reveal.is-revealed > .family-pair,
+.scroll-reveal.is-revealed > .story-path,
+.scroll-reveal.is-revealed > .event-list,
+.scroll-reveal.is-revealed > .calendar-widget,
+.scroll-reveal.is-revealed > .wish-stage,
+.scroll-reveal.is-revealed > .thanks-inner { animation: module-content-in .72s cubic-bezier(.2,.75,.25,1) both; animation-delay: calc(var(--reveal-delay, 0s) + .06s); }
+@keyframes module-content-in { from { opacity: .01; transform: translateY(16px) scale(.99); } to { opacity: 1; transform: none; } }
+.invite .module:focus-within { outline: 2px solid color-mix(in srgb,var(--accent) 70%,transparent); outline-offset: -2px; }
+.invite button:focus-visible, .invite a:focus-visible, .invite input:focus-visible, .invite textarea:focus-visible, .invite select:focus-visible, .invite summary:focus-visible { outline: 3px solid color-mix(in srgb,var(--accent) 68%,white); outline-offset: 3px; }
+
+/* Countdown */
+.hero-countdown { width: min(100%, 440px); margin-top: 28px; padding: 15px 16px 13px; border: 1px solid color-mix(in srgb,var(--accent) 62%,transparent); background: color-mix(in srgb,var(--paper) 58%,transparent); backdrop-filter: blur(14px); box-shadow: 0 18px 42px #00000012; }
+.hero-countdown__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: color-mix(in srgb,var(--ink) 68%,transparent); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; }
+.hero-countdown__head i { color: var(--accent); font: 22px var(--display); font-style: normal; }
+.hero-countdown__grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 8px; margin-top: 11px; }
+.hero-countdown__grid span { min-width: 0; display: grid; gap: 2px; text-align: center; padding: 8px 4px 6px; border-left: 1px solid color-mix(in srgb,var(--accent) 40%,transparent); }
+.hero-countdown__grid span:first-child { border-left: 0; }
+.hero-countdown__grid b { font: 600 clamp(24px,3.3vw,36px)/1 var(--display); letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.hero-countdown__grid small { color: color-mix(in srgb,var(--ink) 62%,transparent); font-size: 8px; letter-spacing: .14em; text-transform: uppercase; }
+.hero-countdown__status { margin: 10px 0 0; color: color-mix(in srgb,var(--ink) 65%,transparent); font-size: 11px; }
+
+/* Invitation letter: a real object with metadata, seal and signature. */
+.invitation-letter { position: relative; overflow: hidden; display: grid; gap: 18px; font-style: normal; isolation: isolate; }
+.invitation-letter::before, .invitation-letter::after { content: ''; position: absolute; pointer-events: none; z-index: -1; }
+.invitation-letter::before { inset: 10px; border: 1px solid color-mix(in srgb,var(--accent) 48%,transparent); }
+.invitation-letter::after { width: 170px; height: 170px; right: -68px; bottom: -82px; border-radius: 50%; background: color-mix(in srgb,var(--accent) 13%,transparent); }
+.invitation-letter__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: color-mix(in srgb,var(--ink) 62%,transparent); font: 9px/1.2 var(--body); letter-spacing: .16em; text-transform: uppercase; }
+.invitation-letter__top i { color: var(--accent); font-size: 18px; font-style: normal; }
+.invitation-letter__seal { width: 54px; height: 54px; display: grid; place-items: center; margin: 7px auto 0; border: 1px solid var(--accent); border-radius: 50%; color: var(--accent); font: 27px var(--display); }
+.invitation-letter__quote { position: absolute; left: 20px; top: 77px; color: var(--accent); font: 76px/.6 var(--display); font-style: normal; }
+.invitation-letter > p { max-width: 32ch; margin: 4px auto 0; text-align: center; font: italic clamp(21px,2.6vw,31px)/1.45 var(--display); }
+.invitation-letter__signature { display: grid; gap: 4px; margin-top: 6px; text-align: center; }
+.invitation-letter__signature small { color: color-mix(in srgb,var(--ink) 60%,transparent); font: 9px var(--body); letter-spacing: .18em; text-transform: uppercase; }
+.invitation-letter__signature b { margin: 0; text-align: center; font: 500 clamp(22px,2.4vw,30px)/1.1 var(--display); }
+.invitation-letter__signature b em { color: var(--accent); font-size: .7em; font-style: normal; }
+.invitation-letter__signature > span { color: color-mix(in srgb,var(--ink) 62%,transparent); font-size: 11px; }
+
+/* Calendar */
+.calendar-widget { width: min(100%, 520px); margin: 24px auto 18px; padding: 22px 24px 18px; border: 1px solid color-mix(in srgb,var(--accent) 58%,transparent); background: color-mix(in srgb,var(--paper) 70%,transparent); box-shadow: 0 24px 60px #00000014; text-align: left; }
+.calendar-widget__head { display: flex; align-items: baseline; justify-content: space-between; border-bottom: 1px solid color-mix(in srgb,var(--ink) 18%,transparent); padding-bottom: 13px; }
+.calendar-widget__month { color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+.calendar-widget__year { font: 500 28px/1 var(--display); }
+.calendar-weekdays, .calendar-grid { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); gap: 6px; }
+.calendar-weekdays { margin-top: 16px; color: color-mix(in srgb,var(--ink) 52%,transparent); font-size: 9px; letter-spacing: .1em; text-align: center; text-transform: uppercase; }
+.calendar-grid { margin-top: 8px; }
+.calendar-day { position: relative; min-height: 38px; display: grid; place-items: center; color: color-mix(in srgb,var(--ink) 80%,transparent); font-size: 13px; }
+.calendar-day.is-empty { opacity: 0; }
+.calendar-day time { position: relative; z-index: 1; display: grid; place-items: center; width: 31px; height: 31px; border-radius: 50%; font-variant-numeric: tabular-nums; }
+.calendar-day.is-wedding-day time { color: var(--paper); font-weight: 800; }
+.calendar-day.is-wedding-day::before { content: ''; position: absolute; width: 35px; height: 35px; border-radius: 50%; background: var(--accent); box-shadow: 0 7px 18px color-mix(in srgb,var(--accent) 35%,transparent); }
+.calendar-day.is-wedding-day i { position: absolute; z-index: 2; top: -7px; right: calc(50% - 21px); color: var(--accent); font-size: 13px; font-style: normal; transform: rotate(-12deg); }
+.calendar-widget__foot { display: flex; align-items: center; gap: 10px; margin-top: 15px; padding-top: 13px; border-top: 1px solid color-mix(in srgb,var(--ink) 18%,transparent); }
+.calendar-heart { color: var(--accent); font-size: 20px; line-height: 1; animation: calendar-heartbeat 2.5s ease-in-out infinite; }
+.calendar-widget__foot p { margin: 0; color: color-mix(in srgb,var(--ink) 66%,transparent); font-size: 11px; }
+.calendar-note { margin: 4px auto 18px; color: color-mix(in srgb,var(--ink) 68%,transparent); font-size: 13px; }
+.calendar > [data-action="calendar"] { border: 1px solid currentColor; border-radius: 999px; padding: 11px 18px; background: transparent; color: inherit; font-size: 11px; letter-spacing: .04em; transition: background .25s ease, color .25s ease, transform .25s ease; }
+.calendar > [data-action="calendar"]:hover { background: var(--accent); color: var(--paper); transform: translateY(-2px); }
+@keyframes calendar-heartbeat { 0%,100% { transform: scale(1); } 8% { transform: scale(1.14); } 16% { transform: scale(1); } }
+
+/* Guestbook carousel */
+.wish-stage { align-items: stretch; }
+.wish-carousel { min-width: 0; display: grid; gap: 13px; }
+.wish-carousel__meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: color-mix(in srgb,var(--paper) 64%,transparent); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; }
+.wish-carousel__meta b { color: var(--accent); font: 500 15px/1 var(--display); letter-spacing: .04em; }
+.wish-carousel__viewport { min-width: 0; overflow: hidden; border: 1px solid color-mix(in srgb,var(--paper) 28%,transparent); background: color-mix(in srgb,var(--paper) 5%,transparent); }
+.wish-carousel__track { display: flex; width: 100%; transition: transform .72s cubic-bezier(.2,.75,.25,1); will-change: transform; }
+.wish-slide { min-width: 100%; min-height: 290px; display: grid; align-content: center; justify-items: center; gap: 13px; padding: 34px clamp(24px,5vw,62px); text-align: center; }
+.wish-slide > i { color: var(--accent); font: 44px/1 var(--display); font-style: normal; }
+.wish-slide blockquote { max-width: 31ch; margin: 0; color: var(--paper); font: italic clamp(20px,2.6vw,30px)/1.32 var(--display); }
+.wish-slide cite { color: color-mix(in srgb,var(--paper) 64%,transparent); font: 10px var(--body); letter-spacing: .18em; text-transform: uppercase; }
+.wish-slide[aria-hidden="true"] { visibility: hidden; }
+.wish-carousel__controls { display: flex; justify-content: center; gap: 8px; }
+.wish-carousel__controls button { width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid color-mix(in srgb,var(--paper) 35%,transparent); border-radius: 50%; background: transparent; color: var(--paper); font-size: 16px; line-height: 1; transition: background .25s ease, color .25s ease, transform .25s ease; }
+.wish-carousel__controls button[data-wish-toggle] { border-color: var(--accent); color: var(--accent); font-size: 11px; }
+.wish-carousel__controls button:hover { background: var(--accent); color: var(--ink); transform: translateY(-2px); }
+.wish-stage > form { min-width: 0; }
+.wish-hint { grid-column: 1/-1; margin: -8px 0 0; }
+
+/* Per-template motion accents for module reveals. */
+.invite-curtain10 .scroll-reveal { transform: translateY(24px) scale(.985); }
+.invite-herbarium10 .scroll-reveal { transform: translateY(22px) rotate(-.4deg); }
+.invite-elevator10 .scroll-reveal { transform: translateY(14px) scale(.97); }
+.invite-washi10 .scroll-reveal { transform: translateX(-22px); }
+.invite-ink10 .scroll-reveal { transform: translateY(26px) scale(.98); }
+.invite-bottle10 .scroll-reveal { transform: translateY(28px); }
+.invite-super8 .scroll-reveal { transform: translateY(18px); }
+.invite-shadow10 .scroll-reveal { transform: translateY(25px) rotate(.4deg); }
+.invite-astrolabe10 .scroll-reveal { transform: translateY(18px) scale(.96); }
+.invite-rain10 .scroll-reveal { transform: translateY(21px) translateX(8px); }
+.invite-curtain10 .scroll-reveal.is-revealed,
+.invite-herbarium10 .scroll-reveal.is-revealed,
+.invite-elevator10 .scroll-reveal.is-revealed,
+.invite-washi10 .scroll-reveal.is-revealed,
+.invite-ink10 .scroll-reveal.is-revealed,
+.invite-bottle10 .scroll-reveal.is-revealed,
+.invite-super8 .scroll-reveal.is-revealed,
+.invite-shadow10 .scroll-reveal.is-revealed,
+.invite-astrolabe10 .scroll-reveal.is-revealed,
+.invite-rain10 .scroll-reveal.is-revealed { transform: none; }
+
+/* 01 Morning Vow — ribbon stationery */
+.invite-curtain10 .hero-countdown { border-radius: 4px 24px 4px 24px; border-color: #a97558; }
+.invite-curtain10 .invitation-letter { border: 0; border-top: 7px solid #a97558; border-bottom: 1px solid #a97558; background: #fbf7ef; box-shadow: 14px 16px 0 #d6c6b4; }
+.invite-curtain10 .invitation-letter::before { inset: 15px; border-style: dashed; }
+.invite-curtain10 .wish-slide { background: linear-gradient(145deg,#2f3732,#202723); }
+
+/* 02 Herbarium — field notebook and pressed specimen */
+.invite-herbarium10 .hero-countdown { border-radius: 2px; background: #f5f1e5; box-shadow: 5px 5px 0 #c9b995; }
+.invite-herbarium10 .invitation-letter { border-color: #8b9870; background: #f8f3e7; box-shadow: 7px 9px 0 #c6b89c; }
+.invite-herbarium10 .invitation-letter__seal { border-radius: 2px 50% 2px 50%; transform: rotate(-8deg); }
+.invite-herbarium10 .wish-slide { background: linear-gradient(135deg,#394d3d,#27372d); }
+
+/* 03 Geometric Camera — black glass, measurement lines and hard edges */
+.invite-elevator10 .hero-countdown { border-color: #efcf8b; background: #111a1d; box-shadow: inset 0 0 0 1px #efcf8b66; }
+.invite-elevator10 .hero-countdown__grid span { border-color: #efcf8b66; }
+.invite-elevator10 .invitation-letter { color: #f5db9b; border-color: #efcf8b; background: linear-gradient(135deg,#172328,#0f171a); box-shadow: 10px 10px 0 #8e5f36; }
+.invite-elevator10 .invitation-letter::before { border-color: #efcf8b88; }
+.invite-elevator10 .invitation-letter__top, .invite-elevator10 .invitation-letter__signature small, .invite-elevator10 .invitation-letter__signature > span { color: #b7c5c5; }
+.invite-elevator10 .wish-slide { background: #0d171b; background-image: linear-gradient(#efcf8b22 1px,transparent 1px),linear-gradient(90deg,#efcf8b22 1px,transparent 1px); background-size: 34px 34px; }
+
+/* 04 Quiet Crossing — washi card, vertical seal and soft paper */
+.invite-washi10 .hero-countdown { border-radius: 0; border-color: #a58f73; background: #f8f4eb; }
+.invite-washi10 .invitation-letter { border: 0; background: #faf7ee; box-shadow: 0 14px 0 #ded3c3; }
+.invite-washi10 .invitation-letter__seal { border-radius: 3px; background: #b13d37; color: #f2eee5; border: 0; transform: rotate(4deg); }
+.invite-washi10 .wish-slide { background: #202c2b; background-image: radial-gradient(circle at 20% 25%,#b13d37 0 2px,transparent 3px),radial-gradient(circle at 80% 72%,#bca889 0 2px,transparent 3px); }
+
+/* 05 Ink Tide — wet pigment pools */
+.invite-ink10 .hero-countdown { border-radius: 34px 9px 30px 12px; background: #fffaf4; }
+.invite-ink10 .invitation-letter { border: 0; border-radius: 40% 7% 35% 10% / 8% 34% 9% 28%; background: #fffaf3; box-shadow: 11px 15px 0 #e5cad0; }
+.invite-ink10 .invitation-letter::after { background: #d58992; filter: blur(2px); opacity: .35; }
+.invite-ink10 .wish-slide { color: #fff7f0; border-radius: 35% 8% 38% 10% / 10% 38% 9% 32%; background: radial-gradient(circle at 78% 20%,#d58992 0 8%,transparent 9%),linear-gradient(135deg,#5c4559,#76526b); }
+
+/* 06 Message to Shore — sea-glass bottle and tide line */
+.invite-bottle10 .hero-countdown { border-radius: 24px; border-color: #2f8190; background: #f8fffae8; }
+.invite-bottle10 .invitation-letter { border: 1px solid #2f8190; border-radius: 35px 35px 16px 16px; background: #f8fffa; box-shadow: 0 16px 0 #b7ded8; }
+.invite-bottle10 .invitation-letter__seal { background: #e27458; color: #fff7ea; border-color: #e27458; }
+.invite-bottle10 .wish-slide { border-radius: 32px 32px 8px 8px; background: linear-gradient(160deg,#246b76,#184e59); }
+
+/* 07 One Take — film frame, perforation and reel counter */
+.invite-super8 .hero-countdown { border: 2px solid #ddb47b; background: #2e251e; box-shadow: inset 0 0 0 3px #171411; }
+.invite-super8 .invitation-letter { border: 0; background: #302820; box-shadow: 0 0 0 10px #171411, 0 0 0 12px #b99c70; color: #f4e6d0; }
+.invite-super8 .invitation-letter::before { border-color: #b99c70; }
+.invite-super8 .invitation-letter__top, .invite-super8 .invitation-letter__signature small, .invite-super8 .invitation-letter__signature > span { color: #d0c0a7; }
+.invite-super8 .wish-slide { background: #171411; border-inline: 12px dotted #b99c70; }
+
+/* 08 Giấy Dó Shadow Theatre — hỷ red, gold linework, paper stage */
+.invite-shadow10 .hero-countdown { border: 2px double #d0a65e; background: #fff2dc; }
+.invite-shadow10 .invitation-letter { border-color: #d0a65e; background: #fff7e8; box-shadow: 12px 13px 0 #c2a57b; }
+.invite-shadow10 .invitation-letter__seal { border-radius: 4px; background: #7d2026; color: #f0e3cc; }
+.invite-shadow10 .wish-slide { background: #7d2026; box-shadow: inset 0 0 0 10px #d0a65e22; }
+
+/* 09 Astrolabe Promise — celestial dial */
+.invite-astrolabe10 .hero-countdown { border-radius: 50%; aspect-ratio: 2.1 / 1; display: grid; align-content: center; border-color: #8da8d0; background: #0c2246; }
+.invite-astrolabe10 .hero-countdown__head { color: #bac9df; }
+.invite-astrolabe10 .invitation-letter { border-color: #8da8d0; background: radial-gradient(circle at 50% 50%,#1a3c6c,#0c2246 67%); color: #eef0d8; box-shadow: 0 0 0 1px #c8d3a055, 0 18px 45px #0005; }
+.invite-astrolabe10 .invitation-letter::before { border-radius: 50%; border-color: #8da8d088; }
+.invite-astrolabe10 .invitation-letter__top, .invite-astrolabe10 .invitation-letter__signature small, .invite-astrolabe10 .invitation-letter__signature > span { color: #bac9df; }
+.invite-astrolabe10 .wish-slide { background: radial-gradient(circle at 20% 25%,#fff 0 1px,transparent 2px) 0 0/34px 34px,#0e2851; }
+
+/* 10 Seoul Rain Window — transit card under glass */
+.invite-rain10 .hero-countdown { border-radius: 14px; border-color: #8cabb8; background: #f8fbfbcc; box-shadow: 0 16px 38px #34495324; }
+.invite-rain10 .invitation-letter { border-color: #8cabb8; border-radius: 14px; background: #f6f8f8e8; box-shadow: 9px 11px 0 #c5d5d9; }
+.invite-rain10 .invitation-letter__seal { border-color: #ef91a9; color: #c55a76; }
+.invite-rain10 .wish-slide { border-radius: 14px; background: linear-gradient(140deg,#405b66,#2a414c); box-shadow: inset 0 1px 0 #ffffff2b; }
+
+@media (max-width: 760px) {
+  .invite { padding-bottom: calc(104px + env(safe-area-inset-bottom)); }
+  .scroll-reveal { transform: translateY(20px); }
+  .hero-countdown { width: 100%; margin-top: 23px; padding: 13px 11px 11px; }
+  .hero-countdown__grid { gap: 4px; }
+  .hero-countdown__grid span { padding: 7px 2px 5px; }
+  .hero-countdown__grid b { font-size: 25px; }
+  .hero-countdown__grid small { font-size: 7px; letter-spacing: .1em; }
+  .hero-countdown__status { font-size: 10px; }
+  .invitation-letter { padding: 34px 23px 27px; }
+  .invitation-letter__top { font-size: 8px; letter-spacing: .12em; }
+  .invitation-letter__quote { left: 16px; top: 74px; font-size: 63px; }
+  .invitation-letter > p { max-width: 27ch; font-size: 22px; }
+  .calendar-widget { padding: 18px 13px 15px; }
+  .calendar-weekdays, .calendar-grid { gap: 2px; }
+  .calendar-day { min-height: 35px; font-size: 12px; }
+  .calendar-day time { width: 29px; height: 29px; }
+  .calendar-day.is-wedding-day::before { width: 32px; height: 32px; }
+  .calendar-day.is-wedding-day i { right: calc(50% - 19px); top: -6px; font-size: 12px; }
+  .wish-stage { display: grid; gap: 23px; }
+  .wish-carousel__viewport { min-height: 250px; }
+  .wish-slide { min-height: 248px; padding: 28px 21px; }
+  .wish-slide blockquote { font-size: 21px; }
+  .wish-carousel__controls button { width: 42px; height: 42px; }
+  .invite-astrolabe10 .hero-countdown { aspect-ratio: auto; border-radius: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal, .scroll-reveal.is-revealed > *, .wish-carousel__track, .calendar-heart { transition: none !important; animation: none !important; }
+  .scroll-reveal { opacity: 1; transform: none; }
+}
+
+/* ================================================================
+   Hardening pass — the module choreography is intentionally different
+   per concept. It also protects mobile hero copy from ornaments and
+   keeps the decorative layer out of the text stacking context.
+   ================================================================ */
+.invite .hero-copy,
+.invite .hero-copy h1,
+.invite .hero-copy > p,
+.invite .hero-copy > b,
+.invite .hero-countdown,
+.invite .hero-photo { position: relative; z-index: 3; }
+.invite .hero-ornament { z-index: 1; pointer-events: none; user-select: none; }
+/* `clip` is elegant but not universal on older embedded webviews; keep the
+   invitation surface clipped with the broadly-supported fallback as well. */
+.invite { overflow: hidden; }
+
+/* A silk ribbon wipes in from the reading edge. */
+.invite-curtain10 .scroll-reveal.is-revealed { animation: body-morning-wipe .88s cubic-bezier(.18,.82,.2,1) var(--reveal-delay,0s) both; }
+.invite-curtain10 .scroll-reveal.is-revealed > .hero-photo { animation: body-morning-photo .94s cubic-bezier(.18,.82,.2,1) calc(var(--reveal-delay,0s) + .08s) both; }
+@keyframes body-morning-wipe { from { opacity: 0; transform: translateX(-32px); clip-path: inset(0 18% 0 0); } to { opacity: 1; transform: none; clip-path: inset(0); } }
+@keyframes body-morning-photo { from { opacity: .2; clip-path: inset(0 100% 0 0); } to { opacity: 1; clip-path: polygon(9% 0,100% 0,94% 90%,10% 100%,0 12%); } }
+
+/* Pressed botanical leaves settle with a small paper rotation. */
+.invite-herbarium10 .scroll-reveal.is-revealed { animation: body-herbarium-settle .98s cubic-bezier(.18,.8,.22,1) var(--reveal-delay,0s) both; }
+.invite-herbarium10 .scroll-reveal.is-revealed > .hero-photo { animation: body-herbarium-photo 1.08s cubic-bezier(.18,.8,.22,1) calc(var(--reveal-delay,0s) + .12s) both; }
+@keyframes body-herbarium-settle { from { opacity: 0; transform: translateY(24px) rotate(-1.6deg) scale(.97); } 70% { transform: translateY(-3px) rotate(.35deg) scale(1.005); } to { opacity: 1; transform: none; } }
+@keyframes body-herbarium-photo { from { opacity: .18; transform: translateY(18px) rotate(3deg); filter: saturate(.5) sepia(.25); } to { opacity: 1; transform: none; filter: none; } }
+
+/* Geometric Camera locks focus: scanline, snap and clear. */
+.invite-elevator10 .scroll-reveal.is-revealed { animation: body-camera-lock .76s steps(5,end) var(--reveal-delay,0s) both; }
+.invite-elevator10 .scroll-reveal.is-revealed > .hero-photo { animation: body-camera-focus .9s cubic-bezier(.55,0,.2,1) calc(var(--reveal-delay,0s) + .05s) both; }
+@keyframes body-camera-lock { from { opacity: 0; transform: scale(1.035); filter: blur(7px) contrast(1.25); } 70% { opacity: .8; filter: blur(1px) contrast(1.05); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes body-camera-focus { from { opacity: .3; transform: scale(.94); clip-path: inset(12% 12% 12% 12%); } 62% { clip-path: inset(0); } to { opacity: 1; transform: none; } }
+
+/* Washi folds slide laterally, like a sheet finding its crease. */
+.invite-washi10 .scroll-reveal.is-revealed { animation: body-washi-fold .92s cubic-bezier(.2,.8,.22,1) var(--reveal-delay,0s) both; }
+.invite-washi10 .scroll-reveal.is-revealed > .hero-photo { animation: body-washi-photo 1.06s cubic-bezier(.2,.8,.22,1) calc(var(--reveal-delay,0s) + .1s) both; }
+@keyframes body-washi-fold { from { opacity: 0; transform: translateX(-26px) rotate(-1deg); clip-path: polygon(0 0,48% 0,38% 100%,0 100%); } to { opacity: 1; transform: none; clip-path: polygon(0 0,100% 0,100% 100%,0 100%); } }
+@keyframes body-washi-photo { from { opacity: .2; transform: rotateY(-24deg) translateX(-12px); transform-origin: left center; } to { opacity: 1; transform: none; } }
+
+/* Watercolour modules bloom from a wet edge, not a straight slide. */
+.invite-ink10 .scroll-reveal.is-revealed { animation: body-ink-bloom 1.08s cubic-bezier(.16,.82,.2,1) var(--reveal-delay,0s) both; }
+.invite-ink10 .scroll-reveal.is-revealed > .hero-photo { animation: body-ink-photo 1.15s cubic-bezier(.16,.82,.2,1) calc(var(--reveal-delay,0s) + .08s) both; }
+@keyframes body-ink-bloom { from { opacity: 0; transform: scale(.92); filter: blur(12px) saturate(.6); } 60% { opacity: .86; filter: blur(2px) saturate(1.18); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes body-ink-photo { from { opacity: .12; transform: scale(.82) rotate(-3deg); filter: blur(13px) saturate(.55); } 72% { filter: blur(1px) saturate(1.15); } to { opacity: 1; transform: none; filter: none; } }
+
+/* Message to Shore rises on a tide and settles on the horizon. */
+.invite-bottle10 .scroll-reveal.is-revealed { animation: body-shore-tide .95s cubic-bezier(.2,.84,.2,1) var(--reveal-delay,0s) both; }
+.invite-bottle10 .scroll-reveal.is-revealed > .hero-photo { animation: body-shore-bottle 1.12s cubic-bezier(.2,.84,.2,1) calc(var(--reveal-delay,0s) + .08s) both; }
+@keyframes body-shore-tide { from { opacity: 0; transform: translateY(38px) rotate(.7deg); } 72% { transform: translateY(-5px) rotate(-.15deg); } to { opacity: 1; transform: none; } }
+@keyframes body-shore-bottle { from { opacity: .16; transform: translateY(52px) scale(.92); } 65% { transform: translateY(-9px) scale(1.015); } to { opacity: 1; transform: none; } }
+
+/* Super 8 advances in stepped frames with a tiny projector gate jitter. */
+.invite-super8 .scroll-reveal.is-revealed { animation: body-film-advance .84s steps(6,end) var(--reveal-delay,0s) both; }
+.invite-super8 .scroll-reveal.is-revealed > .hero-photo { animation: body-film-frame .92s steps(6,end) calc(var(--reveal-delay,0s) + .08s) both; }
+@keyframes body-film-advance { from { opacity: 0; transform: translateY(18px); filter: contrast(1.4) brightness(.7); } 18% { opacity: .65; } 45% { opacity: .35; } 72% { opacity: .88; } to { opacity: 1; transform: none; filter: none; } }
+@keyframes body-film-frame { from { opacity: .1; transform: scale(1.04); filter: sepia(1) contrast(1.35); } 45% { opacity: .85; } to { opacity: 1; transform: none; filter: sepia(.58) contrast(1.08); } }
+
+/* Giấy dó theatre modules open from a projected beam. */
+.invite-shadow10 .scroll-reveal.is-revealed { animation: body-shadow-stage .98s cubic-bezier(.2,.82,.2,1) var(--reveal-delay,0s) both; }
+.invite-shadow10 .scroll-reveal.is-revealed > .hero-photo { animation: body-shadow-lamp 1.06s cubic-bezier(.2,.82,.2,1) calc(var(--reveal-delay,0s) + .08s) both; }
+@keyframes body-shadow-stage { from { opacity: 0; transform: scaleX(.82) translateY(22px); transform-origin: center bottom; filter: brightness(.7); } 72% { transform: scaleX(1.01) translateY(-2px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes body-shadow-lamp { from { opacity: .1; transform: scale(.82); filter: brightness(.65) sepia(.6); } 65% { opacity: 1; transform: scale(1.02); } to { opacity: 1; transform: none; filter: none; } }
+
+/* Astrolabe modules rotate into a shared celestial axis. */
+.invite-astrolabe10 .scroll-reveal.is-revealed { animation: body-astro-orbit .98s cubic-bezier(.2,.82,.2,1) var(--reveal-delay,0s) both; }
+.invite-astrolabe10 .scroll-reveal.is-revealed > .hero-photo { animation: body-astro-dial 1.12s cubic-bezier(.2,.82,.2,1) calc(var(--reveal-delay,0s) + .08s) both; }
+@keyframes body-astro-orbit { from { opacity: 0; transform: rotate(-4deg) scale(.9); filter: blur(4px); } 70% { transform: rotate(.7deg) scale(1.01); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes body-astro-dial { from { opacity: .1; transform: rotate(-14deg) scale(.82); clip-path: circle(23% at 50% 50%); } 70% { clip-path: circle(70% at 50% 50%); } to { opacity: 1; transform: none; clip-path: circle(100% at 50% 50%); } }
+
+/* Seoul Rain clears a pane sideways with a light trail. */
+.invite-rain10 .scroll-reveal.is-revealed { animation: body-rain-clear .9s cubic-bezier(.2,.8,.2,1) var(--reveal-delay,0s) both; }
+.invite-rain10 .scroll-reveal.is-revealed > .hero-photo { animation: body-rain-window 1.05s cubic-bezier(.2,.8,.2,1) calc(var(--reveal-delay,0s) + .08s) both; }
+@keyframes body-rain-clear { from { opacity: 0; transform: translateX(26px); filter: blur(5px); } 70% { transform: translateX(-3px); filter: blur(1px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes body-rain-window { from { opacity: .08; transform: translateX(35px); clip-path: inset(0 100% 0 0); } 66% { clip-path: inset(0 0 0 0); } to { opacity: 1; transform: none; } }
+
+/* Mobile-safe decorative positions: ornaments never sit over names/buttons. */
+@media (max-width: 760px) {
+  .invite .hero-ornament { right: 8%; left: auto; top: auto; bottom: 12%; font-size: 58px; opacity: .24; }
+  .invite-curtain10 .hero-ornament { right: 8%; bottom: 12%; top: auto; }
+  .invite-herbarium10 .hero-ornament { left: auto; right: 8%; bottom: 10%; top: auto; font-size: 62px; }
+  .invite-elevator10 .hero-ornament { right: 9%; bottom: 8%; top: auto; font-size: 66px; opacity: .22; }
+  .invite-washi10 .hero-ornament { right: 8%; bottom: 10%; left: auto; top: auto; }
+  .invite-ink10 .hero-ornament { right: 9%; bottom: 11%; top: auto; font-size: 64px; }
+  .invite-bottle10 .hero-ornament { right: 8%; bottom: 10%; top: auto; font-size: 62px; }
+  .invite-super8 .hero-ornament { left: 8%; right: auto; bottom: 8%; top: auto; font-size: 55px; }
+  .invite-shadow10 .hero-ornament { left: auto; right: 8%; bottom: 10%; top: auto; font-size: 62px; }
+  .invite-astrolabe10 .hero-ornament { right: 8%; bottom: 8%; top: auto; font-size: 58px; }
+  .invite-rain10 .hero-ornament { right: 8%; bottom: 9%; top: auto; font-size: 58px; }
+  .invite-astrolabe10 .family-pair article { min-height: 150px; border-radius: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .invite .scroll-reveal.is-revealed,
+  .invite .scroll-reveal.is-revealed > .hero-photo { animation: none !important; filter: none !important; clip-path: none !important; transform: none !important; }
+}
+
+/* Last-mile type guard: editable names must never push the ornament or CTA off-canvas. */
+.invite .hero-copy h1 { overflow-wrap: break-word; word-break: normal; }
+.invite .couple > *,
+.invite .story > *,
+.invite .video > *,
+.invite .dress > *,
+.invite .invitation > *,
+.invite .wish-stage > *,
+.invite .event-list article > *,
+.invite .gallery-grid .photo { min-width: 0; }
+.invite .module { overflow-wrap: anywhere; }
+.invite button { white-space: normal; }
+.invite-washi10 .hero-countdown,
+.invite-washi10 .hero-countdown * { writing-mode: horizontal-tb; }
+@media (max-width: 760px) {
+  body .invite .hero-copy h1 { max-width: 100%; font-size: clamp(56px, 18vw, 104px); letter-spacing: -.06em; line-height: .86; }
+  .invite-washi10 .hero-copy h1 { letter-spacing: -.05em; }
+  .invite .module > * { max-width: 100%; }
+  .invite .hero-copy { max-width: 100%; }
+  .invite .photo,
+  .invite .hero-photo { max-width: 100%; }
+
+  /* Cascade repair: several art-directed templates intentionally use grids on
+     desktop.  These high-specificity mobile resets keep those grids from
+     winning over the small-screen composition. */
+  .invite .couple,
+  .invite .story { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .invite .invitation,
+  .invite .events .event-list,
+  .invite .wish-stage { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .invite .invitation { gap: 30px; }
+  .invite .wish-stage { gap: 23px; }
+  .invite .wish-stage > form { width: 100%; }
+  .invite .event-list article { grid-template-columns: 34px minmax(0, 1fr); gap: 10px; }
+  .invite .event-list article button { grid-column: 2; justify-self: start; }
+
+  /* Four-column desktop contact sheets become a readable two-up album. */
+  .invite .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .invite .gallery-grid .photo:first-child { grid-column: 1 / -1; grid-row: auto; min-height: clamp(260px, 68vw, 360px); }
+  .invite .gallery-grid .photo { min-height: clamp(180px, 46vw, 280px); }
+
+  /* Prevent editable content from creating an implicit third column. */
+  .invite .gift-card { grid-template-columns: auto minmax(0, 1fr); }
+  .invite .gift-card button { grid-column: 2; justify-self: start; }
+  .invite .section-title h2,
+  .invite .section-title p,
+  .invite .invitation-letter,
+  .invite .event-list article p { overflow-wrap: anywhere; }
+}
+
+/* Narrow-layout fail-safe. Some mobile browsers report a visual viewport
+   wider than the screenshot they hand to an embedded webview. At 900px and
+   below, never allow an art-directed two-column hero to collapse into a
+   one-character column. */
+@media (max-width: 900px) {
+  .invite .couple,
+  .invite .story,
+  .invite .video,
+  .invite .dress,
+  .invite .invitation,
+  .invite .wish-stage {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .invite .events .event-list { grid-template-columns: minmax(0, 1fr) !important; }
+  .invite .event-list article { grid-template-columns: 34px minmax(0, 1fr); gap: 10px; }
+  .invite .event-list article button { grid-column: 2; justify-self: start; }
+  .invite .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .invite .gallery-grid .photo:first-child { grid-column: 1 / -1; grid-row: auto; }
+  .invite .gifts,
+  .invite .registry { display: block; width: 100%; min-height: auto; }
+  .invite .rsvp form { grid-template-columns: minmax(0, 1fr); }
+  .invite .hero-copy,
+  .invite .hero-copy h1 { max-width: 100%; }
+  .invite .hero-photo,
+  .invite .photo { width: 100%; max-width: 100%; }
+  .invite-washi10 .hero-copy {
+    writing-mode: horizontal-tb !important;
+    min-height: 0;
+    justify-self: stretch;
+    text-align: center;
+  }
+  .invite-washi10 .hero-copy h1 {
+    max-width: 100%;
+    font-size: clamp(56px, 14vw, 104px);
+    letter-spacing: -.06em;
+  }
+}
