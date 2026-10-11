@@ -33,7 +33,6 @@ export default async function handler(req, res) {
     const safeCardId = String(cardId).replace(/[^a-zA-Z0-9_-]/g, '-').slice(0, 60);
     const orderData = order || {};
     const coupleName = orderData.couple || 'Cặp đôi';
-    const phone = orderData.phone || 'Chưa cung cấp';
     const templateId = orderData.templateId || 'wedding';
     const timestamp = new Date().toISOString();
 
@@ -42,7 +41,6 @@ export default async function handler(req, res) {
       templateId,
       templateName: orderData.templateName || templateId,
       couple: coupleName,
-      phone,
       note: orderData.note || '',
       submittedAt: timestamp,
       clientIp: req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown'
@@ -99,7 +97,7 @@ export default async function handler(req, res) {
       return await putRes.json();
     }
 
-    const commitMsg = `feat(order): Chốt thiệp ${coupleName} - Mẫu ${templateId} - SĐT ${phone}`;
+    const commitMsg = `feat(order): Chốt thiệp ${coupleName} - Mẫu ${templateId}`;
 
     // 1. Commit HTML file
     const htmlCommit = await commitFile(

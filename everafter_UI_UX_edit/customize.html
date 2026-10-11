@@ -641,16 +641,12 @@
       <p class="sub-desc">Thiệp sau khi chốt sẽ được lưu thẳng vào hệ thống GitHub (<code>submissions/</code>) để lưu trữ vĩnh viễn và tạo link xem trực tiếp cho khách mời.</p>
       <form id="submitOrderForm">
         <label class="f">
-          <strong style="color:var(--ink);">Tên cô dâu & chú rể *</strong>
-          <input type="text" id="subCouple" placeholder="Ví dụ: Hoàng Long & Mai Phương" required autocomplete="off">
+          <strong style="color:var(--ink);">Tên cô dâu & chú rể</strong>
+          <input type="text" id="subCouple" placeholder="Ví dụ: Hoàng Long & Mai Phương" autocomplete="off">
         </label>
         <label class="f">
-          <strong style="color:var(--ink);">Số điện thoại / Zalo liên hệ *</strong>
-          <input type="tel" id="subPhone" placeholder="Ví dụ: 0987654321" required autocomplete="tel">
-        </label>
-        <label class="f">
-          <span>Ghi chú thêm (ngày cưới, địa điểm hoặc yêu cầu đặc biệt)</span>
-          <textarea id="subNote" rows="3" placeholder="Ví dụ: Lễ vu quy ngày 15/11, cần gửi thêm bản in QR..."></textarea>
+          <span>Ghi chú thêm (nếu có)</span>
+          <textarea id="subNote" rows="3" placeholder="Ví dụ: Lễ vu quy ngày 15/11..."></textarea>
         </label>
         <div class="row" style="justify-content: flex-end; margin-top: 14px; gap: 8px;">
           <button type="button" class="ghost" id="subBtnCancel">Huỷ bỏ</button>
@@ -2112,14 +2108,8 @@
     // Submit handler: commits to GitHub submissions/ via /api/submit-to-git
     submitOrderForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const couple = $('#subCouple').value.trim();
-      const phone = $('#subPhone').value.trim();
+      const couple = $('#subCouple').value.trim() || guessCoupleNames() || CURRENT_TEMPLATE?.name || 'Cặp đôi';
       const note = $('#subNote').value.trim();
-
-      if (!couple || !phone) {
-        toast('Vui lòng điền đủ Tên cặp đôi và Số điện thoại liên hệ.');
-        return;
-      }
 
       // Switch to loading
       subFormView.hidden = true;
@@ -2139,7 +2129,6 @@
           html,
           order: {
             couple,
-            phone,
             note,
             templateId,
             templateName: CURRENT_TEMPLATE?.name || templateId
