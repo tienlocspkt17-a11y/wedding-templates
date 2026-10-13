@@ -114,14 +114,16 @@ export default async function handler(req, res) {
     );
 
     const githubFolder = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/tree/${GITHUB_BRANCH}/submissions/${safeCardId}`;
-    const liveUrl = `https://${GITHUB_OWNER}.github.io/${GITHUB_REPO}/submissions/${safeCardId}/index.html`;
+    const instantUrl = `https://wedding-templates-lyart.vercel.app/s/${safeCardId}`;
+    const pagesUrl = `https://${GITHUB_OWNER}.github.io/${GITHUB_REPO}/submissions/${safeCardId}/index.html`;
 
     return res.status(200).json({
       ok: true,
       cardId: safeCardId,
       commitSha: htmlCommit?.commit?.sha || null,
       githubFolder,
-      liveUrl,
+      liveUrl: instantUrl,
+      pagesUrl,
       message: 'Thiệp cưới đã được lưu vào GitHub repo submissions/ thành công!'
     });
   } catch (error) {

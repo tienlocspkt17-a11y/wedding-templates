@@ -7,6 +7,12 @@
       "permanent": false
     }
   ],
+  "rewrites": [
+    {
+      "source": "/s/:cardId",
+      "destination": "/api/view?id=:cardId"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
