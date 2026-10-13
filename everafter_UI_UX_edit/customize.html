@@ -1902,16 +1902,20 @@
     });
 
     // Standalone HTML builder: cleans editor, resolves relative URLs, injects self-contained runtime
+    // Standalone HTML builder: cleans editor, resolves relative URLs, injects self-contained runtime
     function buildStandaloneHtml() {
       if (!doc) return null;
       const clone = doc.documentElement.cloneNode(true);
 
-      // 1. Remove editor artifacts
+      // 1. Remove editor artifacts and editor-mode body classes
       clone.querySelector('#ce-style')?.remove();
       clone.querySelectorAll('.ce-bar, #ce-pins, .ce-pin').forEach(el => el.remove());
       clone.querySelectorAll('[data-ce-hover]').forEach(el => el.removeAttribute('data-ce-hover'));
       clone.querySelectorAll('[data-ce-sel]').forEach(el => el.removeAttribute('data-ce-sel'));
       clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+      if (clone.body) {
+        clone.body.classList.remove('everafter-editor-mode', 'editor-active', 'editing');
+      }
 
       // 2. Pre-reveal sections and modules so content is immediately visible
       clone.querySelectorAll('.reveal, .sec, .module, [data-module]').forEach(el => {
@@ -1962,59 +1966,274 @@
       clone.querySelectorAll('script').forEach(sc => {
         const src = sc.getAttribute('src') || '';
         const text = sc.textContent || '';
-        if (src.includes('core.js') || src.includes('styles.js') || text.includes('new URLSearchParams(location.search)')) {
+        if (src.includes('core.js') || src.includes('style.js') || src.includes('styles.js') || text.includes('new URLSearchParams(location.search)')) {
           sc.remove();
         }
       });
 
-      // 5. Lightweight standalone client runtime for envelope open, audio playback & side switcher
+      // 5. Universal standalone client runtime for cover animations, countdown ticker, audio, lightbox & side switcher
       const runtimeScript = `
 <script id="ea-standalone-runtime">
 (function() {
-  // 1. Envelope opening interaction
-  const envBtn = document.querySelector('.env-btn, .envelope-seal, #envelope, [data-action="open-envelope"]');
-  if (envBtn) {
-    envBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      const topSec = document.querySelector('.rs-top, .envelope-wrapper, #envelope-scene, #cover');
-      if (topSec) topSec.classList.add('opened');
-      const photo = document.querySelector('.env-photo');
-      if (photo) photo.style.height = '140%';
-      this.style.pointerEvents = 'none';
-      setTimeout(function() {
-        const next = document.querySelector('.sec:not(.m-hero), .module:not(.m-hero)');
-        if (next) next.scrollIntoView({ behavior: 'smooth' });
-      }, 900);
-    });
+  // 1. Audio playback helper
+  const audio = document.querySelector('audio');
+  const musicBtn = document.querySelector('.music-btn, #music-btn, .btn-audio');
+  const dock = document.getElementById('dock');
+  let hasStartedMusic = false;
+
+  function playMusic() {
+    if (!audio || hasStartedMusic) return;
+    audio.play().then(function() {
+      hasStartedMusic = true;
+      if (musicBtn) {
+        musicBtn.classList.add('is-playing', 'playing');
+        musicBtn.setAttribute('aria-pressed', 'true');
+      }
+      if (dock) dock.classList.add('playing');
+    }).catch(function() {});
   }
 
-  // 2. Audio control
-  const musicBtn = document.querySelector('.music-btn, #music-btn, .btn-audio');
-  const audio = document.querySelector('audio');
   if (musicBtn && audio) {
     musicBtn.addEventListener('click', function(e) {
       e.preventDefault();
       if (audio.paused) {
         audio.play().then(function() {
           musicBtn.classList.add('is-playing', 'playing');
+          musicBtn.setAttribute('aria-pressed', 'true');
+          if (dock) dock.classList.add('playing');
         }).catch(function() {});
       } else {
         audio.pause();
         musicBtn.classList.remove('is-playing', 'playing');
+        musicBtn.setAttribute('aria-pressed', 'false');
+        if (dock) dock.classList.remove('playing');
       }
     });
-    var autoPlayOnTouch = function() {
-      if (audio.paused) {
-        audio.play().then(function() { musicBtn.classList.add('is-playing', 'playing'); }).catch(function() {});
-      }
-      document.removeEventListener('click', autoPlayOnTouch);
-      document.removeEventListener('touchstart', autoPlayOnTouch);
-    };
-    document.addEventListener('click', autoPlayOnTouch, { once: true });
-    document.addEventListener('touchstart', autoPlayOnTouch, { once: true });
   }
 
-  // 3. Side switcher (Nhà trai / Nhà gái / Chung)
+  // Auto play on first tap anywhere
+  const firstTap = function() {
+    playMusic();
+    document.removeEventListener('click', firstTap);
+    document.removeEventListener('touchstart', firstTap);
+  };
+  document.addEventListener('click', firstTap, { once: true });
+  document.addEventListener('touchstart', firstTap, { once: true });
+
+  // 2. Cover / Envelope Opening Interaction
+  const cover = document.getElementById('cover');
+  const main = document.getElementById('inv') || document.querySelector('main');
+  const openButtons = document.querySelectorAll('.open-btn, .btn-open, .env-btn, .envelope-seal, #envelope, [data-action="open-envelope"], [data-action="enter"], .gate-btn');
+
+  function finishOpen() {
+    if (cover) {
+      cover.classList.add('is-leaving');
+      document.documentElement.classList.remove('locked');
+      document.body.classList.remove('locked');
+      setTimeout(function() {
+        cover.hidden = true;
+        cover.style.display = 'none';
+      }, 700);
+    }
+    if (main) {
+      main.removeAttribute('aria-hidden');
+      main.classList.add('is-entered');
+    }
+    if (dock) dock.removeAttribute('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  openButtons.forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      playMusic();
+      btn.style.pointerEvents = 'none';
+
+      // A. Ancient / Handscroll opening animation
+      if (cover && (cover.querySelector('.handscroll') || cover.querySelector('.roller') || document.documentElement.getAttribute('data-style') === 'ancient')) {
+        cover.classList.add('unroll');
+        setTimeout(finishOpen, 2800);
+        return;
+      }
+
+      // B. Redseal / Envelope opening animation
+      const topSec = document.querySelector('.rs-top, .envelope-wrapper, #envelope-scene');
+      if (topSec) {
+        topSec.classList.add('opening', 'opened');
+        setTimeout(function() { topSec.classList.add('is-open'); }, 650);
+        const photo = document.querySelector('.env-photo');
+        if (photo) photo.style.height = '140%';
+        setTimeout(function() {
+          finishOpen();
+          const next = document.querySelector('.sec:not(.m-hero), .module:not(.m-hero)');
+          if (next) next.scrollIntoView({ behavior: 'smooth' });
+        }, 1200);
+        return;
+      }
+
+      // C. Cinema / Curtain tearing animation
+      if (cover && cover.querySelector('.curtain')) {
+        cover.classList.add('torn');
+        setTimeout(function() { cover.classList.add('curtains'); }, 800);
+        setTimeout(finishOpen, 2700);
+        return;
+      }
+
+      // D. Bottle / Message in a bottle animation
+      if (cover && cover.querySelector('.bottle')) {
+        cover.classList.add('uncorked');
+        setTimeout(function() { cover.classList.add('unrolled'); }, 700);
+        setTimeout(finishOpen, 2800);
+        return;
+      }
+
+      // E. Postal / Airmail envelope animation
+      if (cover && cover.querySelector('.letter-peek')) {
+        cover.classList.add('stamped');
+        setTimeout(function() { cover.classList.add('sliding'); }, 800);
+        setTimeout(function() { cover.classList.add('out'); }, 1900);
+        setTimeout(finishOpen, 3000);
+        return;
+      }
+
+      // F. Default Gate / Cover opening
+      if (cover) {
+        cover.classList.add('gate-opened', 'open');
+        setTimeout(finishOpen, 800);
+      } else {
+        finishOpen();
+      }
+    }, { once: true });
+  });
+
+  // If cover has a generic button not caught above
+  if (cover) {
+    const anyCoverBtn = cover.querySelector('button');
+    if (anyCoverBtn && !anyCoverBtn.__bound) {
+      anyCoverBtn.__bound = true;
+      anyCoverBtn.addEventListener('click', function() {
+        playMusic();
+        if (cover.querySelector('.handscroll')) {
+          cover.classList.add('unroll');
+          setTimeout(finishOpen, 2800);
+        } else {
+          finishOpen();
+        }
+      }, { once: true });
+    }
+  }
+
+  // 3. Live Countdown Timer Ticker
+  (function() {
+    const nums = document.querySelectorAll('.countdown .n');
+    if (!nums.length) return;
+
+    let targetDate = null;
+    const dateTexts = [
+      document.querySelector('.hero-date')?.textContent,
+      document.querySelector('.lh-date')?.textContent,
+      document.querySelector('.kicker')?.textContent,
+      document.querySelector('.rs-date')?.textContent,
+      document.title
+    ];
+
+    for (const text of dateTexts) {
+      if (!text) continue;
+      const m = text.match(/(\\d{1,2})\\s*(?:tháng|\\.|\\/|·|-)\\s*(\\d{1,2})\\s*(?:năm|\\.|\\/|·|-)\\s*(\\d{4})/i);
+      if (m) {
+        const d = parseInt(m[1], 10);
+        const mo = parseInt(m[2], 10) - 1;
+        const y = parseInt(m[3], 10);
+        if (y > 2020 && mo >= 0 && mo < 12 && d >= 1 && d <= 31) {
+          targetDate = new Date(y, mo, d, 10, 0, 0);
+          break;
+        }
+      }
+    }
+
+    if (!targetDate || isNaN(targetDate.getTime())) {
+      targetDate = new Date(Date.now() + 30 * 24 * 3600 * 1000);
+    }
+
+    function tick() {
+      const diff = Math.max(0, Math.floor((targetDate.getTime() - Date.now()) / 1000));
+      const days = Math.floor(diff / 86400);
+      const hours = Math.floor((diff % 86400) / 3600);
+      const mins = Math.floor((diff % 3600) / 60);
+      const secs = diff % 60;
+      const parts = [days, hours, mins, secs];
+      nums.forEach(function(el, idx) {
+        el.textContent = String(parts[idx % 4]).padStart(2, '0');
+      });
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+
+  // 4. Scroll Reveal & Calligraphy Brush Animation
+  const brushItems = document.querySelectorAll('.title, .hoi-body h3, .an-names, .sec, .reveal, .module');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(en) {
+        if (en.isIntersecting) {
+          en.target.classList.add('brushed', 'in', 'is-revealed');
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    brushItems.forEach(function(el) {
+      if (el.classList.contains('title') || el.classList.contains('an-names') || el.tagName === 'H3') {
+        el.classList.add('brush');
+      }
+      io.observe(el);
+    });
+  } else {
+    brushItems.forEach(function(el) { el.classList.add('brushed', 'in', 'is-revealed'); });
+  }
+
+  // 5. Ink Blooming on Canvas Tap (Ancient Signature Wow Effect)
+  if (document.documentElement.getAttribute('data-style') === 'ancient' || document.querySelector('.handscroll')) {
+    let fx = document.querySelector('.fx-layer');
+    if (!fx) {
+      fx = document.createElement('div');
+      fx.className = 'fx-layer';
+      fx.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(fx);
+    }
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('a, button, input, select, textarea, label, summary, details, dialog, canvas, .photo, img, iframe, .handscroll, .roller')) return;
+      const b = document.createElement('span');
+      b.className = 'ink';
+      b.style.cssText = 'left:' + e.clientX + 'px;top:' + e.pageY + 'px;--s:' + (0.7 + Math.random() * 0.8).toFixed(2) + ';border-radius:' + [1, 2, 3, 4].map(function() { return (40 + Math.random() * 20 | 0) + '%'; }).join(' ');
+      fx.appendChild(b);
+      setTimeout(function() { b.remove(); }, 3200);
+    });
+  }
+
+  // 6. Photo Lightbox
+  const box = document.getElementById('lightbox');
+  if (box) {
+    const boxImg = box.querySelector('img');
+    document.querySelectorAll('.photo, .hang, [data-i]').forEach(function(b) {
+      b.addEventListener('click', function() {
+        const img = this.querySelector('img') || (this.tagName === 'IMG' ? this : null);
+        if (img && boxImg) {
+          boxImg.src = this.dataset.full || img.src;
+          boxImg.alt = img.alt || '';
+          if (typeof box.showModal === 'function') box.showModal();
+          else box.setAttribute('open', '');
+        }
+      });
+    });
+    box.addEventListener('click', function(e) {
+      if (e.target === box || e.target.closest('.close')) {
+        if (typeof box.close === 'function') box.close();
+        else box.removeAttribute('open');
+      }
+    });
+  }
+
+  // 7. Side switcher (Nhà trai / Nhà gái / Chung)
   const sides = document.querySelectorAll('.sides a, .side-toggle button');
   sides.forEach(function(btn) {
     btn.addEventListener('click', function(e) {
@@ -2031,7 +2250,7 @@
     });
   });
 })();
-<\/script>
+<\\/script>
 `;
 
       let rawHtml = clone.outerHTML;
