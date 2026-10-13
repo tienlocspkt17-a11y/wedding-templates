@@ -174,6 +174,41 @@
       border-radius: 50%;
       background: currentColor;
     }
+    .draft-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: color-mix(in srgb, var(--accent) 12%, var(--card));
+      border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+      border-radius: 9px;
+      padding: 7px 10px;
+      font-size: 11.5px;
+      color: var(--fg);
+      margin-top: 8px;
+    }
+    .draft-banner span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      line-height: 1.35;
+      flex: 1;
+    }
+    .draft-banner .btn-discard {
+      flex: 0 0 auto;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--accent);
+      cursor: pointer;
+      transition: background .15s ease;
+    }
+    .draft-banner .btn-discard:hover {
+      background: var(--bg);
+    }
 
     .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
     .steps li { display: flex; gap: 9px; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; font-size: 13px; }
@@ -484,6 +519,10 @@
           <div class="editor-status" id="editorStatus" role="status" aria-live="polite">
             <span class="status-dot" aria-hidden="true"></span>
             <span id="editorStatusText">Đang kết nối với mẫu...</span>
+          </div>
+          <div class="draft-banner" id="draftBanner" hidden>
+            <span>⚡ <span id="draftBannerText">Đang mở bản nháp tự lưu</span></span>
+            <button type="button" class="btn-discard" id="btnDiscardDraft" title="Huỷ bản nháp và quay lại bản gốc">Quay lại mẫu gốc</button>
           </div>
         </header>
 
@@ -982,6 +1021,93 @@
     const localGet = k => { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } };
     const localSet = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
 
+    // ---------- DRAFT AUTO-SAVE & CACHE MANAGER ----------
+    const templateDraftKey = (tId = CURRENT_TEMPLATE?.id) => `everafter:draft:template:${tId || 'default'}`;
+    const cardDraftKey = (cId = CARD) => cId ? `everafter:draft:card:${cId}` : null;
+    let autoSaveTimer = null;
+    let isRestoringDraft = false;
+
+    function autoSaveDraftSync() {
+      if (isRestoringDraft || !doc || !main) return;
+      const html = clean();
+      if (!html || html.length < 50) return;
+
+      const tId = CURRENT_TEMPLATE?.id || 'custom';
+      const tName = CURRENT_TEMPLATE?.name || 'Thiệp cưới';
+      const now = new Date();
+
+      const draftPayload = {
+        id: CARD,
+        templateId: tId,
+        templateName: tName,
+        templateUrl: CURRENT_TEMPLATE?.url || '',
+        customHTML: html,
+        savedAt: now.toISOString(),
+        timestamp: now.getTime(),
+        isDraft: true
+      };
+
+      try {
+        localSet(templateDraftKey(tId), draftPayload);
+        if (CARD) {
+          localSet(cardDraftKey(CARD), draftPayload);
+        }
+        localSet('everafter:active_draft', {
+          cardId: CARD,
+          templateId: tId,
+          templateName: tName,
+          savedAt: now.toISOString(),
+          timestamp: now.getTime()
+        });
+      } catch (err) {
+        console.warn('Draft auto-save error:', err);
+      }
+    }
+
+    function autoSaveDraft() {
+      autoSaveDraftSync();
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+      reportEditorStatus(`Đã tự động lưu nháp lúc ${timeStr}`, 'ready');
+    }
+
+    function scheduleAutoSaveDraft(delay = 800) {
+      if (isRestoringDraft) return;
+      reportEditorStatus('Đang lưu nháp...', 'warn');
+      clearTimeout(autoSaveTimer);
+      autoSaveTimer = setTimeout(autoSaveDraft, delay);
+    }
+
+    function clearCurrentDraft() {
+      const tId = CURRENT_TEMPLATE?.id;
+      try {
+        if (tId) localStorage.removeItem(templateDraftKey(tId));
+        if (CARD) localStorage.removeItem(cardDraftKey(CARD));
+        const active = localGet('everafter:active_draft');
+        if (active?.templateId === tId || (CARD && active?.cardId === CARD)) {
+          localStorage.removeItem('everafter:active_draft');
+        }
+      } catch {}
+      hideDraftBanner();
+    }
+
+    function showDraftBanner(savedAt) {
+      const banner = $('#draftBanner');
+      const text = $('#draftBannerText');
+      if (!banner || !text) return;
+      const timeStr = savedAt ? new Date(savedAt).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) : '';
+      text.textContent = `Đang mở bản nháp tự lưu${timeStr ? ' lúc ' + timeStr : ''}`;
+      banner.hidden = false;
+    }
+
+    function hideDraftBanner() {
+      const banner = $('#draftBanner');
+      if (banner) banner.hidden = true;
+    }
+
+    window.addEventListener('beforeunload', () => autoSaveDraftSync());
+    window.addEventListener('pagehide', () => autoSaveDraftSync());
+
     async function getSavedCard() {
       if (!CARD) return null;
       const local = localGet(cardKey());
@@ -1226,15 +1352,46 @@
     async function hydrateSavedCard({ previewOnly = false } = {}) {
       if (skipSavedForNextLoad) {
         skipSavedForNextLoad = false;
+        hideDraftBanner();
         return null;
       }
+
       const saved = await getSavedCard();
-      if (!saved?.customHTML || !main) return saved;
-      restoreSnapshot(saved.customHTML);
-      if (!previewOnly) {
-        doc.querySelectorAll('.scroll-reveal, [data-reveal]').forEach(el => el.classList.add('is-revealed'));
-        bypassGate();
+      const tId = CURRENT_TEMPLATE?.id;
+      const cardDraft = CARD ? localGet(cardDraftKey(CARD)) : null;
+      const templateDraft = tId ? localGet(templateDraftKey(tId)) : null;
+      const draft = cardDraft || templateDraft;
+
+      let toRestore = null;
+      let isDraftRestored = false;
+      const draftTime = draft?.savedAt ? new Date(draft.savedAt).getTime() : 0;
+      const savedTime = saved?.savedAt ? new Date(saved.savedAt).getTime() : 0;
+
+      if (draft?.customHTML && (!saved?.customHTML || draftTime >= savedTime)) {
+        toRestore = draft.customHTML;
+        isDraftRestored = true;
+      } else if (saved?.customHTML) {
+        toRestore = saved.customHTML;
       }
+
+      if (toRestore && main) {
+        isRestoringDraft = true;
+        restoreSnapshot(toRestore);
+        if (!previewOnly) {
+          doc.querySelectorAll('.scroll-reveal, [data-reveal]').forEach(el => el.classList.add('is-revealed'));
+          bypassGate();
+        }
+        setTimeout(() => { isRestoringDraft = false; }, 300);
+
+        if (isDraftRestored) {
+          toast('Đã khôi phục bản nháp đang sửa dở! ✓');
+          showDraftBanner(draft.savedAt);
+          const timeStr = draft.savedAt ? new Date(draft.savedAt).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) : '';
+          reportEditorStatus(`Đang mở bản nháp tự lưu${timeStr ? ' lúc ' + timeStr : ''}.`, 'ready');
+        }
+        return saved || draft;
+      }
+      hideDraftBanner();
       return saved;
     }
 
@@ -1479,6 +1636,11 @@
         if (e.key === 'Delete' && sel && !sel.isContentEditable) remove();
         if (e.key === 'Escape') select(null);
       });
+      doc.addEventListener('input', () => {
+        scheduleAutoSaveDraft();
+      });
+      w.addEventListener('beforeunload', () => autoSaveDraftSync());
+      w.addEventListener('pagehide', () => autoSaveDraftSync());
 
       dragMove();
       drawMods();
@@ -1502,6 +1664,7 @@
       el.addEventListener('blur', () => {
         el.removeAttribute('contenteditable');
         $('#textContent').value = el.textContent;
+        scheduleAutoSaveDraft();
       }, { once: true });
     }
 
@@ -1567,6 +1730,7 @@
       if (history.length > 50) history.shift();
       $('#undo').disabled = false;
       notifyParent('editor-dirty');
+      scheduleAutoSaveDraft();
     }
     function undo() {
       if (!history.length || !main) return;
@@ -1575,6 +1739,7 @@
       $('#undo').disabled = !history.length;
       select(null); drawMods();
       notifyParent('editor-dirty');
+      scheduleAutoSaveDraft();
     }
 
     function stripEditorArtifacts(root) {
@@ -1760,6 +1925,7 @@
         if (!textInputSnapshot) { snap(); textInputSnapshot = true; }
         sel.innerText = e.target.value;
         placeUi();
+        scheduleAutoSaveDraft();
       }
     });
     $('#textContent').addEventListener('blur', () => { textInputSnapshot = false; });
@@ -1868,6 +2034,8 @@
       await ensureCard();
       const cardPayload = { ...currentCardPayload(), customHTML: html };
       localSet(cardKey(), cardPayload);
+      autoSaveDraftSync();
+      hideDraftBanner();
       // Notify the EverAfter host immediately. The optional legacy store may
       // be unavailable in the standalone app and must not delay persistence.
       notifyParent('template-saved', {
@@ -1890,8 +2058,18 @@
 
     $('#undo').addEventListener('click', undo);
     $('#reset').addEventListener('click', () => {
-      if (!confirm('Khôi phục lại giao diện mẫu ban đầu?')) return;
+      if (!confirm('Khôi phục lại giao diện mẫu ban đầu (xoá các thay đổi nháp)?')) return;
+      clearCurrentDraft();
       history = []; $('#undo').disabled = true; select(null); skipSavedForNextLoad = true; load(true);
+      toast('Đã khôi phục lại mẫu ban đầu.');
+    });
+
+    $('#btnDiscardDraft')?.addEventListener('click', () => {
+      if (!confirm('Huỷ bản nháp đang sửa và quay lại mẫu gốc ban đầu?')) return;
+      clearCurrentDraft();
+      skipSavedForNextLoad = true;
+      load(true);
+      toast('Đã quay lại mẫu gốc ban đầu.');
     });
 
     // Copy share link
@@ -1901,7 +2079,6 @@
       navigator.clipboard.writeText(viewUrl).then(() => toast('Đã sao chép link xem thiệp! ✓'));
     });
 
-    // Standalone HTML builder: cleans editor, resolves relative URLs, injects self-contained runtime
     // Standalone HTML builder: cleans editor, resolves relative URLs, injects self-contained runtime
     function buildStandaloneHtml() {
       if (!doc) return null;
@@ -2559,8 +2736,26 @@
 
     async function renderSavedPicker() {
       const list = await getIndex();
-      $('#savedWrap').hidden = !list.length;
-      $('#savedGrid').innerHTML = list.map(c => `
+      const activeDraft = localGet('everafter:active_draft');
+      let draftHtml = '';
+      if (activeDraft?.templateId && (!activeDraft.cardId || !list.some(c => c.id === activeDraft.cardId))) {
+        const dTime = activeDraft.savedAt ? new Date(activeDraft.savedAt).toLocaleString('vi-VN') : '';
+        draftHtml = `
+        <li class="style-card pinned" style="border: 2px dashed var(--accent); background: color-mix(in srgb, var(--accent) 4%, var(--card));">
+          <div class="card-info" style="padding-top:14px;">
+            <div class="card-badge" style="position:static; margin-bottom:6px; display:inline-block; background:var(--accent); color:#fff; border-radius:6px; padding:2px 8px; font-weight:700;">⚡ BẢN NHÁP ĐANG SỬA</div>
+            <div class="card-title">${esc(activeDraft.templateName || 'Thiệp cưới')}</div>
+            <div class="card-sub">Tự lưu: ${dTime}</div>
+            <div class="row" style="margin-top:10px;">
+              <a href="${mobileEditorUrl(activeDraft.templateId, activeDraft.cardId)}" class="button primary small" style="flex:1;">Tiếp tục sửa ↗</a>
+              <button type="button" class="small ghost" id="btnDeletePickerDraft" style="color:var(--accent);">Xoá nháp</button>
+            </div>
+          </div>
+        </li>`;
+      }
+      const totalCount = list.length + (draftHtml ? 1 : 0);
+      $('#savedWrap').hidden = !totalCount;
+      $('#savedGrid').innerHTML = draftHtml + list.map(c => `
         <li class="style-card pinned">
           <div class="card-info" style="padding-top:14px;">
             <div class="card-badge gold" style="position:static; margin-bottom:6px; display:inline-block;">BẢN ĐÃ LƯU</div>
@@ -2573,6 +2768,14 @@
             </div>
           </div>
         </li>`).join('');
+
+      $('#btnDeletePickerDraft')?.addEventListener('click', () => {
+        if (!confirm('Xoá bản nháp đang sửa dở này?')) return;
+        localStorage.removeItem('everafter:active_draft');
+        if (activeDraft.templateId) localStorage.removeItem(templateDraftKey(activeDraft.templateId));
+        if (activeDraft.cardId) localStorage.removeItem(cardDraftKey(activeDraft.cardId));
+        renderSavedPicker();
+      });
     }
 
     $('#savedGrid').addEventListener('click', async e => {
@@ -2614,6 +2817,17 @@
       }
       if (!CURRENT_TEMPLATE && saved?.templateUrl) {
         CURRENT_TEMPLATE = EA_STYLES.find(x => x.url === saved.templateUrl || saved.templateUrl.includes(x.url)) || null;
+      }
+
+      if (!CURRENT_TEMPLATE && !CARD) {
+        const activeDraft = localGet('everafter:active_draft');
+        if (activeDraft?.templateId) {
+          const draftTpl = findTemplate(activeDraft.templateId);
+          if (draftTpl) {
+            CURRENT_TEMPLATE = draftTpl;
+            if (activeDraft.cardId) CARD = activeDraft.cardId;
+          }
+        }
       }
 
       if (!CURRENT_TEMPLATE) {
