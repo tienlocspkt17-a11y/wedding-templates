@@ -459,8 +459,145 @@
     @media (max-width: 959px) {
       .pad { padding-inline: 14px; }
       button.icon { min-width: 36px; min-height: 36px; }
-      .stage { padding: 10px; }
-      iframe { min-height: 76vh; }
+
+      /* Mobile Header: Sleek, single-line sticky bar */
+      .preview .bar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 52px;
+        min-height: 52px;
+        padding: 6px 12px;
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--line);
+        flex-wrap: nowrap;
+        gap: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+      }
+
+      /* Hide redundant desktop clutter on mobile */
+      .preview .bar #size,
+      .preview .bar #btnExportZip,
+      .preview .bar #btnExport,
+      .preview .bar #notesBtn,
+      .preview .bar .sp,
+      .preview .bar #btnCopyLink,
+      .preview .bar #open {
+        display: none !important;
+      }
+
+      /* Compact "Đổi mẫu" button */
+      .preview .bar #change {
+        flex: 0 0 auto;
+        height: 38px;
+        padding: 0 12px;
+        font-size: 13px;
+        font-weight: 600;
+        border-radius: 99px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        color: var(--ink);
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      /* Prominent, thumb-friendly primary CTA */
+      .preview .bar #btnSubmitGit {
+        flex: 1;
+        max-width: 220px;
+        height: 38px;
+        font-size: 13.5px;
+        font-weight: 700;
+        border-radius: 99px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        box-shadow: 0 4px 14px rgba(201, 118, 138, 0.45);
+        white-space: nowrap;
+      }
+
+      /* Stage & Iframe: Native app full-viewport experience */
+      .stage {
+        padding: 6px 6px 12px;
+        min-height: 0;
+        display: flex;
+        justify-content: center;
+      }
+      iframe {
+        width: 100% !important;
+        max-width: 440px !important;
+        height: calc(100dvh - 66px) !important;
+        min-height: 560px !important;
+        border-radius: 16px;
+        border: 1px solid var(--line);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      }
+
+      /* Sidebar cleanliness: Hide desktop tutorial noise */
+      .side .steps,
+      .side-head .sub,
+      .side-head a[href*="showcase"],
+      #editorStatus {
+        display: none !important;
+      }
+      .side {
+        border-top: 1px solid var(--line);
+        border-right: none;
+      }
+      .side .pad {
+        padding-top: 14px;
+      }
+
+      /* Mobile Submit Dialog optimization */
+      #submitDlg {
+        width: calc(100vw - 24px) !important;
+        max-width: 420px !important;
+        padding: 20px 16px !important;
+        border-radius: 20px !important;
+        margin: auto !important;
+        box-sizing: border-box !important;
+      }
+      #submitDlg h3 {
+        font-size: 18px;
+      }
+      #submitDlg .sub-desc {
+        font-size: 12.5px;
+        margin-bottom: 12px;
+      }
+      #subResGithubLink,
+      #subBtnDownloadZip {
+        display: none !important;
+      }
+      #subSuccessView .row {
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 8px !important;
+      }
+      #subSuccessView .row button,
+      #subSuccessView .row a {
+        width: 100% !important;
+        min-height: 42px !important;
+        justify-content: center !important;
+        text-align: center !important;
+        font-size: 14px !important;
+        border-radius: 10px !important;
+      }
+      #subResOpenBtn {
+        order: 1;
+        font-weight: 700 !important;
+        background: var(--accent) !important;
+        color: #fff !important;
+      }
+      #subBtnCloseSuccess {
+        order: 2;
+      }
     }
   </style>
   <link rel="stylesheet" href="../interaction.css?v=1">
@@ -638,13 +775,13 @@
     <main class="preview">
       <div class="bar">
         <button id="size" type="button" aria-pressed="false"><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg><span>Khổ rộng / Điện thoại</span></button>
-        <button id="change" type="button"><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="7" r="2.5"/><circle cx="7" cy="17" r="2.5"/><circle cx="17" cy="17" r="2.5"/><path d="M9 7h6M7 9v6M17 9v6M9 17h6"/></svg><span>Đổi mẫu khác</span></button>
+        <button id="change" type="button"><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="7" r="2.5"/><circle cx="7" cy="17" r="2.5"/><circle cx="17" cy="17" r="2.5"/><path d="M9 7h6M7 9v6M17 9v6M9 17h6"/></svg><span>Đổi mẫu</span></button>
         <button id="mobileToolsBtn" class="embedded-tools" type="button" aria-expanded="false" aria-controls="editor-tools-drawer"><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m4 20 4.5-1 10-10a2.1 2.1 0 0 0-3-3l-10 10L4 20Z"/><path d="m14 7 3 3"/></svg><span>Công cụ</span></button>
         <a id="open" target="_blank" rel="noopener" href="#" hidden>Xem thiệp ↗</a>
         <button id="btnCopyLink" type="button" hidden><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Sao chép link</span></button>
         <button id="btnExportZip" type="button" class="btn-export-zip" title="Đóng gói trọn bộ thiệp thành phẩm dạng file nén ZIP để triển khai lên web khác"><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg><span>📦 Đóng gói ZIP</span></button>
         <button id="btnExport" type="button" title="Tải file HTML thiệp độc lập"><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg><span>Tải HTML</span></button>
-        <button id="btnSubmitGit" type="button" class="btn-submit-git" title="Chốt thiệp và lưu trực tiếp lên hệ thống GitHub"><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg><span>🚀 Chốt & Gửi Thiệp</span></button>
+        <button id="btnSubmitGit" type="button" class="btn-submit-git" title="Gửi thiệp và nhận link xem trực tiếp"><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg><span>🚀 Gửi thiệp & Nhận link</span></button>
         <span class="sp"></span>
         <button id="notesBtn" type="button" aria-pressed="false" aria-controls="notesPane"><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 5h14v11H9l-4 4V5Z"/><path d="M8 9h8M8 12h5"/></svg><span>Ghi chú</span><span class="badge" id="noteCount" data-n="0">0</span></button>
       </div>
@@ -691,8 +828,8 @@
   <!-- Final Submission Dialog (Save to Git) -->
   <dialog id="submitDlg">
     <div id="subFormView">
-      <h3><span>🚀</span> Chốt & Gửi Thiệp Cưới</h3>
-      <p class="sub-desc">Thiệp sau khi chốt sẽ được lưu thẳng vào hệ thống GitHub (<code>submissions/</code>) để lưu trữ vĩnh viễn và tạo link xem trực tiếp cho khách mời.</p>
+      <h3><span>🚀</span> Gửi Thiệp & Nhận Link</h3>
+      <p class="sub-desc">Nhập tên cô dâu & chú rể để tạo đường link xem thiệp trực tiếp gửi cho khách mời.</p>
       <form id="submitOrderForm">
         <label class="f">
           <strong style="color:var(--ink);">Tên cô dâu & chú rể</strong>
@@ -705,7 +842,7 @@
         <div class="row" style="justify-content: flex-end; margin-top: 14px; gap: 8px;">
           <button type="button" class="ghost" id="subBtnCancel">Huỷ bỏ</button>
           <button type="submit" class="primary btn-submit-git" id="subBtnConfirm">
-            <span>🚀 Xác nhận chốt & Gửi</span>
+            <span>🚀 Xác nhận & Nhận link ngay</span>
           </button>
         </div>
       </form>
@@ -715,8 +852,8 @@
     <div id="subLoadingView" hidden>
       <div class="spinner-wrap">
         <div class="spinner" style="width:40px; height:40px; border:3px solid var(--accent-soft); border-top-color:var(--accent); border-radius:50%; animation:spin 0.8s linear infinite;"></div>
-        <div style="font-weight: 700; font-size: 15px; color: var(--accent);">Đang lưu thiệp vào kho lưu trữ GitHub...</div>
-        <p style="font-size: 12px; color: var(--soft); text-align: center; margin: 0;">Đang tạo bản ghi index.html và order.json, vui lòng chờ trong giây lát.</p>
+        <div style="font-weight: 700; font-size: 15px; color: var(--accent);">Đang khởi tạo link thiệp...</div>
+        <p style="font-size: 12px; color: var(--soft); text-align: center; margin: 0;">Vui lòng chờ trong giây lát...</p>
       </div>
     </div>
 
@@ -724,8 +861,8 @@
     <div id="subSuccessView" hidden>
       <div style="text-align: center; margin-bottom: 16px;">
         <div style="width: 52px; height: 52px; border-radius: 50%; background: #e6f7ed; color: #1b873f; display: inline-flex; align-items: center; justify-content: center; font-size: 26px; font-weight:bold; margin-bottom: 10px;">✓</div>
-        <h3 style="justify-content: center; margin: 0 0 6px; font-size: 19px; color: var(--ink);">Chốt thiệp thành công!</h3>
-        <p style="font-size: 13px; color: var(--soft); margin: 0;">Thiệp đã được lưu an toàn vào kho lưu trữ GitHub.</p>
+        <h3 style="justify-content: center; margin: 0 0 6px; font-size: 19px; color: var(--ink);">Tạo link thiệp thành công! 🎉</h3>
+        <p style="font-size: 13px; color: var(--soft); margin: 0;">Link thiệp đã sẵn sàng để gửi cho khách mời qua Zalo, Messenger, tin nhắn.</p>
       </div>
 
       <div class="status-box success" style="margin-bottom: 16px;">
@@ -734,7 +871,7 @@
         <div style="font-size: 11px; font-weight:700; color: var(--soft); margin-top: 6px; letter-spacing:0.05em;">LINK XEM THIỆP TRỰC TIẾP:</div>
         <div class="link-row">
           <span id="subResLiveUrl" style="flex: 1; font-weight: 600; font-size: 12px; color: var(--accent); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"></span>
-          <button type="button" class="small" id="subBtnCopyRes">Copy link</button>
+          <button type="button" class="small primary" id="subBtnCopyRes">📋 Sao chép</button>
         </div>
         <small style="font-size: 11px; color: var(--soft); margin-top: 2px;">⚡ Link xem trực tiếp mở được ngay lập tức.</small>
       </div>
@@ -2092,7 +2229,7 @@
     $('#btnCopyLink').addEventListener('click', () => {
       if (!CARD) return;
       const viewUrl = new URL(`viewer.html?card=${encodeURIComponent(CARD)}`, location.href).href;
-      navigator.clipboard.writeText(viewUrl).then(() => toast('Đã sao chép link xem thiệp! ✓'));
+      copyTextToClipboard(viewUrl, 'Đã sao chép link xem thiệp! ✓');
     });
 
     // Standalone HTML builder: cleans editor, resolves relative URLs, injects self-contained runtime
@@ -2887,14 +3024,14 @@ CÁCH 4: MỞ TRỰC TIẾP TRÊN MÁY TÍNH HOẶC ĐIỆN THOẠI (OFFLINE)
         $('#subResOpenBtn').href = data.liveUrl;
 
         $('#subBtnCopyRes').onclick = () => {
-          navigator.clipboard.writeText(data.liveUrl).then(() => toast('Đã sao chép link xem thiệp! ✓'));
+          copyTextToClipboard(data.liveUrl, 'Đã sao chép link xem thiệp! ✓');
         };
         const subZip = $('#subBtnDownloadZip');
         if (subZip) {
           subZip.onclick = () => downloadPackagedZip();
         }
 
-        toast('🎉 Chốt thiệp thành công! Đã lưu vào GitHub submissions.');
+        toast('🎉 Tạo link thiệp thành công! Sẵn sàng gửi khách.');
       } catch (err) {
         console.error('Submit error:', err);
         subLoadingView.hidden = true;
@@ -2902,6 +3039,33 @@ CÁCH 4: MỞ TRỰC TIẾP TRÊN MÁY TÍNH HOẶC ĐIỆN THOẠI (OFFLINE)
         toast('Lỗi: ' + (err.message || 'Không thể gửi thiệp'));
       }
     });
+
+    function copyTextToClipboard(text, successMsg = 'Đã sao chép! ✓') {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          toast(successMsg);
+        }).catch(() => fallbackCopyText(text, successMsg));
+      } else {
+        fallbackCopyText(text, successMsg);
+      }
+    }
+    function fallbackCopyText(text, successMsg) {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        toast(successMsg);
+      } catch (e) {
+        toast('Vui lòng chọn và sao chép link trên màn hình');
+      }
+    }
 
     // Viewport width toggle
     $('#size').addEventListener('click', () => {
