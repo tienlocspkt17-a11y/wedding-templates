@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <link rel="stylesheet" href="https://wedding-templates-lyart.vercel.app/everafter_UI_UX_edit/core/core.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&amp;family=Be+Vietnam+Pro:wght@300;400&amp;display=swap"><link rel="stylesheet" href="https://wedding-templates-lyart.vercel.app/everafter_UI_UX_edit/styles/moonlight/style.css"><link rel="stylesheet" href="https://wedding-templates-lyart.vercel.app/interaction.css"></head>
-<body class="ready everafter-editor-mode">
+<body class="ready">
   <div id="cover" class="cover">
     <div class="ml-stage">
       <p class="ml-to">Gửi Quý khách</p>
@@ -361,13 +361,14 @@
   function finishOpen() {
     if (cover) {
       cover.classList.add('is-leaving');
-      document.documentElement.classList.remove('locked');
-      document.body.classList.remove('locked');
       setTimeout(function() {
         cover.hidden = true;
         cover.style.display = 'none';
+        cover.style.pointerEvents = 'none';
       }, 700);
     }
+    document.documentElement.classList.remove('locked');
+    if (document.body) document.body.classList.remove('locked', 'everafter-editor-mode');
     if (main) {
       main.removeAttribute('aria-hidden');
       main.classList.add('is-entered');
@@ -382,16 +383,18 @@
       playMusic();
       btn.style.pointerEvents = 'none';
 
+      const style = (document.documentElement.getAttribute('data-style') || document.body?.getAttribute('data-style') || '').toLowerCase();
+
       // A. Ancient / Handscroll opening animation
-      if (cover && (cover.querySelector('.handscroll') || cover.querySelector('.roller') || document.documentElement.getAttribute('data-style') === 'ancient')) {
+      if (cover && (cover.querySelector('.handscroll') || cover.querySelector('.roller') || style === 'ancient')) {
         cover.classList.add('unroll');
-        setTimeout(finishOpen, 2800);
+        setTimeout(finishOpen, 3000);
         return;
       }
 
       // B. Redseal / Envelope opening animation
       const topSec = document.querySelector('.rs-top, .envelope-wrapper, #envelope-scene');
-      if (topSec) {
+      if (topSec && !topSec.classList.contains('is-open')) {
         topSec.classList.add('opening', 'opened');
         setTimeout(function() { topSec.classList.add('is-open'); }, 650);
         const photo = document.querySelector('.env-photo');
@@ -404,24 +407,32 @@
         return;
       }
 
-      // C. Cinema / Curtain tearing animation
-      if (cover && cover.querySelector('.curtain')) {
+      // C. Moonlight / Drop & Bloom animation
+      if (cover && (cover.querySelector('.ml-moon') || cover.querySelector('.ml-stage') || style === 'moonlight')) {
+        cover.classList.add('drop');
+        setTimeout(function() { cover.classList.add('bloom'); }, 900);
+        setTimeout(finishOpen, 3300);
+        return;
+      }
+
+      // D. Cinema / Curtain tearing animation
+      if (cover && (cover.querySelector('.curtain') || style === 'cinema')) {
         cover.classList.add('torn');
-        setTimeout(function() { cover.classList.add('curtains'); }, 800);
+        setTimeout(function() { cover.classList.add('curtains'); }, 900);
         setTimeout(finishOpen, 2700);
         return;
       }
 
-      // D. Bottle / Message in a bottle animation
-      if (cover && cover.querySelector('.bottle')) {
+      // E. Bottle / Message in a bottle animation
+      if (cover && (cover.querySelector('.bottle') || style === 'bottle')) {
         cover.classList.add('uncorked');
         setTimeout(function() { cover.classList.add('unrolled'); }, 700);
-        setTimeout(finishOpen, 2800);
+        setTimeout(finishOpen, 3000);
         return;
       }
 
-      // E. Postal / Airmail envelope animation
-      if (cover && cover.querySelector('.letter-peek')) {
+      // F. Postal / Airmail envelope animation
+      if (cover && (cover.querySelector('.letter-peek') || cover.querySelector('.env-stamp') || style === 'postal')) {
         cover.classList.add('stamped');
         setTimeout(function() { cover.classList.add('sliding'); }, 800);
         setTimeout(function() { cover.classList.add('out'); }, 1900);
@@ -429,7 +440,7 @@
         return;
       }
 
-      // F. Default Gate / Cover opening
+      // G. Default Gate / Cover opening
       if (cover) {
         cover.classList.add('gate-opened', 'open');
         setTimeout(finishOpen, 800);
@@ -583,6 +594,6 @@
     });
   });
 })();
-<\/script>
+</script>
 
 </body></html>

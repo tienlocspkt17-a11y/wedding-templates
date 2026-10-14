@@ -2084,24 +2084,62 @@
       if (!doc) return null;
       const clone = doc.documentElement.cloneNode(true);
 
-      // 1. Remove editor artifacts and editor-mode body classes
+      // Set explicit template style identifier on root
+      const currentStyleId = CURRENT_TEMPLATE?.id || clone.getAttribute('data-style') || '';
+      if (currentStyleId) {
+        clone.setAttribute('data-style', currentStyleId);
+      }
+
+      // 1. Remove editor artifacts
       clone.querySelector('#ce-style')?.remove();
       clone.querySelectorAll('.ce-bar, #ce-pins, .ce-pin').forEach(el => el.remove());
       clone.querySelectorAll('[data-ce-hover]').forEach(el => el.removeAttribute('data-ce-hover'));
       clone.querySelectorAll('[data-ce-sel]').forEach(el => el.removeAttribute('data-ce-sel'));
       clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
-      if (clone.body) {
-        clone.body.classList.remove('everafter-editor-mode', 'editor-active', 'editing');
-      }
 
-      // 2. Pre-reveal sections and modules so content is immediately visible
+      // 2. Remove editor-mode classes from root and body
+      const cloneBody = clone.querySelector('body') || clone;
+      cloneBody.classList.remove('everafter-editor-mode', 'editor-active', 'editing', 'gate-open');
+      clone.classList.remove('everafter-editor-mode', 'editor-active', 'editing', 'gate-open');
+
+      // 3. Remove browser extension scripts & attributes
+      clone.querySelectorAll('script[src*="chrome-extension://"], script[data-dynamic-id], script[bis_use]').forEach(sc => sc.remove());
+      clone.querySelectorAll('*').forEach(el => {
+        [...el.attributes].forEach(attr => {
+          const n = attr.name.toLowerCase();
+          if (n.startsWith('__processed_') || n.startsWith('data-new-gr-') || n.startsWith('data-gr-') || n.startsWith('bis_')) {
+            el.removeAttribute(attr.name);
+          }
+        });
+      });
+
+      // 4. Clean snapshot artifacts and unwrap snapshot slots
+      const chromeDock = clone.querySelector('[data-everafter-chrome] [data-everafter-slot="navigation"] > *');
+      if (chromeDock && !clone.querySelector('body > #dock, body > .dock')) {
+        cloneBody.appendChild(chromeDock.cloneNode(true));
+      }
+      clone.querySelectorAll('[data-everafter-chrome], [data-everafter-snapshot]').forEach(el => el.remove());
+      clone.querySelectorAll('[data-everafter-main]').forEach(el => {
+        el.replaceWith(...el.childNodes);
+      });
+
+      // 5. Remove empty / leaked #cover overlays that have no interactive elements
+      clone.querySelectorAll('#cover, .cover').forEach(cov => {
+        const hasInteractive = cov.querySelector('button, [role="button"], a, input, select, textarea, .open-btn, .env-btn, .btn-open, .ml-stage, .handscroll, .roller, .bottle, .curtain, .letter-peek, .notebook');
+        const hasText = cov.textContent.trim().length > 0;
+        if (!hasInteractive && !hasText) {
+          cov.remove();
+        }
+      });
+
+      // 6. Pre-reveal sections and modules so content is immediately visible
       clone.querySelectorAll('.reveal, .sec, .module, [data-module]').forEach(el => {
         el.classList.add('in', 'is-revealed');
         el.style.opacity = '1';
         el.style.transform = 'none';
       });
 
-      // 3. Resolve relative assets to absolute production URLs
+      // 7. Resolve relative assets to absolute production URLs
       const docBase = frame?.contentWindow?.location?.href || location.href;
       const resolveUrl = (rel) => {
         if (!rel || rel.startsWith('data:') || rel.startsWith('blob:') || rel.startsWith('http://') || rel.startsWith('https://')) return rel;
@@ -2139,7 +2177,7 @@
         el.setAttribute('style', updated);
       });
 
-      // 4. Remove scripts that might conflict with standalone view
+      // 8. Remove scripts that might conflict with standalone view
       clone.querySelectorAll('script').forEach(sc => {
         const src = sc.getAttribute('src') || '';
         const text = sc.textContent || '';
@@ -2148,7 +2186,7 @@
         }
       });
 
-      // 5. Universal standalone client runtime for cover animations, countdown ticker, audio, lightbox & side switcher
+      // 9. Universal standalone client runtime for cover animations, countdown ticker, audio, lightbox & side switcher
       const runtimeScript = `
 <script id="ea-standalone-runtime">
 (function() {
@@ -2205,13 +2243,14 @@
   function finishOpen() {
     if (cover) {
       cover.classList.add('is-leaving');
-      document.documentElement.classList.remove('locked');
-      document.body.classList.remove('locked');
       setTimeout(function() {
         cover.hidden = true;
         cover.style.display = 'none';
+        cover.style.pointerEvents = 'none';
       }, 700);
     }
+    document.documentElement.classList.remove('locked');
+    if (document.body) document.body.classList.remove('locked', 'everafter-editor-mode');
     if (main) {
       main.removeAttribute('aria-hidden');
       main.classList.add('is-entered');
@@ -2226,16 +2265,18 @@
       playMusic();
       btn.style.pointerEvents = 'none';
 
+      const style = (document.documentElement.getAttribute('data-style') || document.body?.getAttribute('data-style') || '').toLowerCase();
+
       // A. Ancient / Handscroll opening animation
-      if (cover && (cover.querySelector('.handscroll') || cover.querySelector('.roller') || document.documentElement.getAttribute('data-style') === 'ancient')) {
+      if (cover && (cover.querySelector('.handscroll') || cover.querySelector('.roller') || style === 'ancient')) {
         cover.classList.add('unroll');
-        setTimeout(finishOpen, 2800);
+        setTimeout(finishOpen, 3000);
         return;
       }
 
       // B. Redseal / Envelope opening animation
       const topSec = document.querySelector('.rs-top, .envelope-wrapper, #envelope-scene');
-      if (topSec) {
+      if (topSec && !topSec.classList.contains('is-open')) {
         topSec.classList.add('opening', 'opened');
         setTimeout(function() { topSec.classList.add('is-open'); }, 650);
         const photo = document.querySelector('.env-photo');
@@ -2248,24 +2289,32 @@
         return;
       }
 
-      // C. Cinema / Curtain tearing animation
-      if (cover && cover.querySelector('.curtain')) {
+      // C. Moonlight / Drop & Bloom animation
+      if (cover && (cover.querySelector('.ml-moon') || cover.querySelector('.ml-stage') || style === 'moonlight')) {
+        cover.classList.add('drop');
+        setTimeout(function() { cover.classList.add('bloom'); }, 900);
+        setTimeout(finishOpen, 3300);
+        return;
+      }
+
+      // D. Cinema / Curtain tearing animation
+      if (cover && (cover.querySelector('.curtain') || style === 'cinema')) {
         cover.classList.add('torn');
-        setTimeout(function() { cover.classList.add('curtains'); }, 800);
+        setTimeout(function() { cover.classList.add('curtains'); }, 900);
         setTimeout(finishOpen, 2700);
         return;
       }
 
-      // D. Bottle / Message in a bottle animation
-      if (cover && cover.querySelector('.bottle')) {
+      // E. Bottle / Message in a bottle animation
+      if (cover && (cover.querySelector('.bottle') || style === 'bottle')) {
         cover.classList.add('uncorked');
         setTimeout(function() { cover.classList.add('unrolled'); }, 700);
-        setTimeout(finishOpen, 2800);
+        setTimeout(finishOpen, 3000);
         return;
       }
 
-      // E. Postal / Airmail envelope animation
-      if (cover && cover.querySelector('.letter-peek')) {
+      // F. Postal / Airmail envelope animation
+      if (cover && (cover.querySelector('.letter-peek') || cover.querySelector('.env-stamp') || style === 'postal')) {
         cover.classList.add('stamped');
         setTimeout(function() { cover.classList.add('sliding'); }, 800);
         setTimeout(function() { cover.classList.add('out'); }, 1900);
@@ -2273,7 +2322,72 @@
         return;
       }
 
-      // F. Default Gate / Cover opening
+      // G. School / Notebook fold
+      if (cover && (cover.querySelector('.school-notebook, .notebook') || style === 'school')) {
+        cover.classList.add('unfold1');
+        setTimeout(function() { cover.classList.add('unfold2'); }, 700);
+        setTimeout(finishOpen, 2900);
+        return;
+      }
+
+      // H. Sunmoon / Eclipse
+      if (cover && (cover.querySelector('.sunmoon, .eclipse') || style === 'sunmoon')) {
+        cover.classList.add('eclipse');
+        setTimeout(function() { cover.classList.add('part'); }, 1900);
+        setTimeout(finishOpen, 3200);
+        return;
+      }
+
+      // I. Starry / Bridging
+      if (cover && (cover.querySelector('.starry, .galaxy') || style === 'starry')) {
+        cover.classList.add('bridging');
+        setTimeout(finishOpen, 3400);
+        return;
+      }
+
+      // J. Rings3D
+      if (cover && (cover.querySelector('.css-rings, .ring-box') || style === 'rings3d')) {
+        cover.classList.add('giving');
+        setTimeout(function() {
+          cover.classList.add('flying');
+          const r = cover.querySelector('.css-rings');
+          if (r) r.classList.add('linked');
+        }, 600);
+        setTimeout(finishOpen, 2400);
+        return;
+      }
+
+      // K. Lacquer
+      if (cover && (cover.querySelector('.lacquer') || style === 'lacquer')) {
+        cover.classList.add('opening');
+        setTimeout(finishOpen, 2200);
+        return;
+      }
+
+      // L. Polaroid
+      if (cover && (cover.querySelector('.polaroid-frame, .film') || style === 'polaroid')) {
+        cover.classList.add('developing');
+        setTimeout(finishOpen, 3000);
+        return;
+      }
+
+      // M. Dongho
+      if (cover && style === 'dongho') {
+        ['p1', 'p2', 'p3'].forEach(function(s, i) {
+          setTimeout(function() { cover.classList.add(s); }, i * 750);
+        });
+        setTimeout(finishOpen, 2700);
+        return;
+      }
+
+      // N. Botanical / Indochine
+      if (cover && (style === 'botanical' || style === 'indochine')) {
+        cover.classList.add('opening');
+        setTimeout(finishOpen, 2500);
+        return;
+      }
+
+      // O. Default Gate / Cover opening
       if (cover) {
         cover.classList.add('gate-opened', 'open');
         setTimeout(finishOpen, 800);
@@ -2290,9 +2404,14 @@
       anyCoverBtn.__bound = true;
       anyCoverBtn.addEventListener('click', function() {
         playMusic();
-        if (cover.querySelector('.handscroll')) {
+        const style = (document.documentElement.getAttribute('data-style') || '').toLowerCase();
+        if (cover.querySelector('.ml-moon') || style === 'moonlight') {
+          cover.classList.add('drop');
+          setTimeout(function() { cover.classList.add('bloom'); }, 900);
+          setTimeout(finishOpen, 3300);
+        } else if (cover.querySelector('.handscroll') || style === 'ancient') {
           cover.classList.add('unroll');
-          setTimeout(finishOpen, 2800);
+          setTimeout(finishOpen, 3000);
         } else {
           finishOpen();
         }
@@ -2427,7 +2546,7 @@
     });
   });
 })();
-<\\/script>
+` + '<' + `/script>
 `;
 
       let rawHtml = clone.outerHTML;
