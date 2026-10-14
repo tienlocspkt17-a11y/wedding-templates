@@ -72,6 +72,7 @@
     body.embedded .preview .bar #open,
     body.embedded .preview .bar #btnCopyLink,
     body.embedded .preview .bar #btnExport,
+    body.embedded .preview .bar #btnExportZip,
     body.embedded .actions #save { display: none; }
     body.embedded .actions { position: static; margin-top: 0; padding: 8px 14px; justify-content: flex-end; }
     body.embedded .stage { min-height: 0; overflow: visible; padding: 8px 4px 14px; }
@@ -253,6 +254,19 @@
       transform: translateY(-1px);
     }
     .btn-submit-git svg { stroke: currentColor; fill: none; }
+    .btn-export-zip {
+      background: linear-gradient(135deg, #2b5aa8 0%, #1e3f77 100%) !important;
+      color: #fff !important;
+      border: 1px solid rgba(255,255,255,0.2) !important;
+      font-weight: 600 !important;
+      box-shadow: 0 4px 10px rgba(43, 90, 168, 0.28);
+    }
+    .btn-export-zip:hover:not(:disabled) {
+      background: linear-gradient(135deg, #3d6fb8 0%, #244b8c 100%) !important;
+      box-shadow: 0 6px 14px rgba(43, 90, 168, 0.4);
+      transform: translateY(-1px);
+    }
+    .btn-export-zip svg { stroke: currentColor; fill: none; }
 
     /* Submit Dialog Styling */
     #submitDlg {
@@ -628,7 +642,8 @@
         <button id="mobileToolsBtn" class="embedded-tools" type="button" aria-expanded="false" aria-controls="editor-tools-drawer"><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m4 20 4.5-1 10-10a2.1 2.1 0 0 0-3-3l-10 10L4 20Z"/><path d="m14 7 3 3"/></svg><span>Công cụ</span></button>
         <a id="open" target="_blank" rel="noopener" href="#" hidden>Xem thiệp ↗</a>
         <button id="btnCopyLink" type="button" hidden><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span>Sao chép link</span></button>
-        <button id="btnExport" type="button" title="Tải file HTML thiệp đã sửa"><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg><span>Tải HTML</span></button>
+        <button id="btnExportZip" type="button" class="btn-export-zip" title="Đóng gói trọn bộ thiệp thành phẩm dạng file nén ZIP để triển khai lên web khác"><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg><span>📦 Đóng gói ZIP</span></button>
+        <button id="btnExport" type="button" title="Tải file HTML thiệp độc lập"><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg><span>Tải HTML</span></button>
         <button id="btnSubmitGit" type="button" class="btn-submit-git" title="Chốt thiệp và lưu trực tiếp lên hệ thống GitHub"><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg><span>🚀 Chốt & Gửi Thiệp</span></button>
         <span class="sp"></span>
         <button id="notesBtn" type="button" aria-pressed="false" aria-controls="notesPane"><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 5h14v11H9l-4 4V5Z"/><path d="M8 9h8M8 12h5"/></svg><span>Ghi chú</span><span class="badge" id="noteCount" data-n="0">0</span></button>
@@ -724,7 +739,8 @@
         <small style="font-size: 11px; color: var(--soft); margin-top: 2px;">⚡ Link xem trực tiếp mở được ngay lập tức.</small>
       </div>
 
-      <div class="row" style="justify-content: flex-end; gap: 8px;">
+      <div class="row" style="justify-content: flex-end; gap: 8px; flex-wrap: wrap;">
+        <button type="button" id="subBtnDownloadZip" class="btn-export-zip" style="border-radius:8px; padding:0 14px; min-height:36px; display:inline-flex; align-items:center; font-size:13px; font-weight:600; cursor:pointer;"><svg class="ui-icon" aria-hidden="true" viewBox="0 0 24 24" style="width:16px;height:16px;margin-right:6px;"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg><span>Tải gói ZIP thành phẩm</span></button>
         <a id="subResGithubLink" target="_blank" rel="noopener" style="text-decoration:none; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:0 12px; min-height:36px; display:inline-flex; align-items:center; font-size:13px; color:var(--ink);">📂 Xem GitHub</a>
         <a id="subResOpenBtn" target="_blank" rel="noopener" class="primary" style="text-decoration:none; border-radius:8px; padding:0 14px; min-height:36px; display:inline-flex; align-items:center; font-size:13px; font-weight:600; color:#fff; background:var(--accent);">🌐 Mở thiệp</a>
         <button type="button" class="ghost" id="subBtnCloseSuccess">Đóng</button>
@@ -2140,7 +2156,17 @@
       });
 
       // 7. Resolve relative assets to absolute production URLs
-      const docBase = frame?.contentWindow?.location?.href || location.href;
+      const prodOrigin = 'https://wedding-templates-lyart.vercel.app';
+      let docBase = frame?.contentWindow?.location?.href || location.href;
+      if (docBase.startsWith('file:') || docBase.includes('localhost') || docBase.includes('127.0.0.1')) {
+        try {
+          const u = new URL(docBase);
+          docBase = prodOrigin + u.pathname;
+        } catch {
+          const tmplId = CURRENT_TEMPLATE?.id || 'wedding';
+          docBase = `${prodOrigin}/thiep-cuoi/${tmplId}/index.html`;
+        }
+      }
       const resolveUrl = (rel) => {
         if (!rel || rel.startsWith('data:') || rel.startsWith('blob:') || rel.startsWith('http://') || rel.startsWith('https://')) return rel;
         try {
@@ -2170,7 +2196,18 @@
         if (src) el.setAttribute('src', resolveUrl(src));
       });
 
-      // Resolve background-image styles
+      clone.querySelectorAll('video[src]').forEach(el => {
+        const src = el.getAttribute('src');
+        if (src) el.setAttribute('src', resolveUrl(src));
+      });
+
+      // Resolve background-image styles and CSS @import in style tags
+      clone.querySelectorAll('style').forEach(st => {
+        if (st.textContent && st.textContent.includes('url(')) {
+          st.textContent = st.textContent.replace(/url\((['"]?)([^'"\)]+)\1\)/g, (m, q, u) => `url("${resolveUrl(u)}")`);
+        }
+      });
+
       clone.querySelectorAll('[style*="url("]').forEach(el => {
         const styleAttr = el.getAttribute('style') || '';
         const updated = styleAttr.replace(/url\((['"]?)([^'"\)]+)\1\)/g, (m, q, u) => `url("${resolveUrl(u)}")`);
@@ -2558,17 +2595,189 @@
       return '<!doctype html>\n' + rawHtml;
     }
 
-    // Export standalone HTML
+    // Helper: Dynamically load JSZip library for browser packaging
+    async function loadJsZip() {
+      if (window.JSZip) return window.JSZip;
+      return new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+        s.onload = () => resolve(window.JSZip);
+        s.onerror = () => reject(new Error('Không thể tải thư viện nén ZIP từ CDN.'));
+        document.head.appendChild(s);
+      });
+    }
+
+    // Complete Finished Product Packager (ZIP)
+    async function downloadPackagedZip() {
+      if (!doc) {
+        toast('Chưa tải xong thiệp, vui lòng chờ trong giây lát.');
+        return;
+      }
+      toast('Đang đóng gói trọn bộ thiệp thành phẩm (ZIP)... ⏳');
+
+      const htmlContent = buildStandaloneHtml();
+      if (!htmlContent) {
+        toast('Lỗi tạo mã nguồn thiệp.');
+        return;
+      }
+
+      const couple = guessCoupleNames() || CURRENT_TEMPLATE?.name || 'Cặp đôi';
+      const slug = couple.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 24) || 'thiep-cuoi';
+      const templateId = CURRENT_TEMPLATE?.id || 'wedding';
+      const templateName = CURRENT_TEMPLATE?.name || templateId;
+      const zipFileName = `thiep-cuoi-${slug}-${templateId}.zip`;
+
+      const instructions = `================================================================================
+HƯỚNG DẪN CÀI ĐẶT & SỬ DỤNG GÓI THIỆP CƯỚI THÀNH PHẨM (EVERAFTER)
+Cặp đôi: ${couple}
+Mẫu thiết kế: ${templateName} (${templateId})
+Thời gian xuất gói: ${new Date().toLocaleString('vi-VN')}
+================================================================================
+
+Bạn vừa tải về trọn bộ gói thiệp cưới điện tử hoàn chỉnh. Gói bao gồm:
+- index.html: Toàn bộ mã nguồn thiệp cưới độc lập, chuẩn Responsive (tương thích 100% điện thoại iOS/Android & máy tính).
+- ma-nhung-iframe.html: Trang mẫu và đoạn mã nhúng sẵn để đưa thiệp vào WordPress, Wix hoặc Web cá nhân.
+- thong-tin-thiep.json: Thông tin tóm tắt và metadata của thiệp cưới.
+- HUONG_DAN_SU_DUNG.txt: Tài liệu hướng dẫn này.
+
+DƯỚI ĐÂY LÀ 4 CÁCH DỄ DÀNG ĐỂ ĐƯA THIỆP LÊN WEB HOẶC SỬ DỤNG:
+
+--------------------------------------------------------------------------------
+CÁCH 1: ĐƯA LÊN WEB MIỄN PHÍ VĨNH VIỄN TRONG 10 GIÂY (KHUYÊN DÙNG)
+--------------------------------------------------------------------------------
+1. Mở trình duyệt và truy cập: https://app.netlify.com/drop
+2. Giải nén file ZIP này ra một thư mục trên máy tính.
+3. Kéo thả toàn bộ thư mục vừa giải nén (chứa file index.html) vào khung kéo thả của Netlify Drop.
+4. Chỉ sau 10 giây, bạn sẽ nhận được một đường link web chính thức (URL) hoàn toàn miễn phí!
+5. Sao chép link này để gửi ngay cho bạn bè và người thân qua Zalo, Messenger, SMS!
+
+(Bạn cũng có thể làm tương tự trên Vercel: kéo thả thư mục lên https://vercel.com/new).
+
+--------------------------------------------------------------------------------
+CÁCH 2: ÁP DỤNG VÀO WEBSITE / HOSTING RIÊNG CỦA BẠN (cPanel, Nginx, Apache)
+--------------------------------------------------------------------------------
+Nếu bạn đã có sẵn website riêng (ví dụ: yourdomain.com) và muốn tạo đường link riêng:
+1. Đăng nhập vào cPanel / Hosting File Manager của bạn.
+2. Tạo một thư mục con, ví dụ: 'thiep-cuoi' trong public_html.
+3. Tải file 'index.html' vào thư mục 'thiep-cuoi' đó.
+4. Thiệp cưới của bạn sẽ hiển thị ngay tại: https://yourdomain.com/thiep-cuoi/
+
+--------------------------------------------------------------------------------
+CÁCH 3: NHÚNG VÀO TRANG WEB BẤT KỲ (WordPress, Wix, Web cá nhân)
+--------------------------------------------------------------------------------
+Dán đoạn mã nhúng sau vào trang WordPress, bài viết hoặc page builder của bạn:
+
+<iframe
+  src="index.html"
+  style="width:100%; height:100vh; border:none; display:block;"
+  allow="autoplay"
+  loading="lazy">
+</iframe>
+
+* Mẹo: Bạn có thể nhấp đúp vào file 'ma-nhung-iframe.html' trong gói này để xem trước giao diện nhúng trên khung điện thoại cực đẹp.
+
+--------------------------------------------------------------------------------
+CÁCH 4: MỞ TRỰC TIẾP TRÊN MÁY TÍNH HOẶC ĐIỆN THOẠI (OFFLINE)
+--------------------------------------------------------------------------------
+- Bạn chỉ cần nhấp đúp trực tiếp vào file 'index.html' trên máy tính hoặc điện thoại.
+- Thiệp sẽ tự động hiển thị đầy đủ hiệu ứng âm thanh, nhạc nền, chuyển động mở bìa mà không cần kết nối mạng hay cài đặt thêm phần mềm nào.
+================================================================================
+`;
+
+      const iframeSampleHtml = `<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mẫu nhúng thiệp cưới - ${couple}</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #f8fafc; padding: 24px 16px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+    .header { max-width: 540px; width: 100%; text-align: center; margin-bottom: 24px; }
+    h1 { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: #fff; }
+    p { font-size: 14px; color: #94a3b8; margin-bottom: 16px; line-height: 1.5; }
+    .code-box { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 14px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; color: #38bdf8; text-align: left; overflow-x: auto; white-space: pre-wrap; word-break: break-all; margin-bottom: 24px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.3); }
+    .phone-wrapper { width: 100%; max-width: 420px; height: 820px; background: #000; border-radius: 36px; padding: 10px; box-shadow: 0 25px 60px -15px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.1); }
+    .phone-screen { width: 100%; height: 100%; border-radius: 28px; overflow: hidden; background: #fff; }
+    iframe { width: 100%; height: 100%; border: none; display: block; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Mẫu nhúng thiệp cưới: ${couple}</h1>
+    <p>Để nhúng thiệp này vào trang web riêng (WordPress, Wix, Web cá nhân), bạn chỉ cần dán đoạn mã sau:</p>
+    <div class="code-box">&lt;iframe src="index.html" style="width:100%; height:100vh; border:none; display:block;" allow="autoplay" loading="lazy"&gt;&lt;/iframe&gt;</div>
+  </div>
+  <div class="phone-wrapper">
+    <div class="phone-screen">
+      <iframe src="index.html" allow="autoplay" loading="lazy"></iframe>
+    </div>
+  </div>
+</body>
+</html>
+`;
+
+      const meta = {
+        cardName: `Thiệp cưới - ${couple}`,
+        couple,
+        templateId,
+        templateName,
+        exportedAt: new Date().toISOString(),
+        engine: 'EverAfter Visual Studio',
+        files: ['index.html', 'ma-nhung-iframe.html', 'HUONG_DAN_SU_DUNG.txt', 'thong-tin-thiep.json']
+      };
+
+      try {
+        const JSZip = await loadJsZip();
+        const zip = new JSZip();
+
+        // 1. Core index.html
+        zip.file('index.html', htmlContent);
+
+        // 2. Embed iframe preview & snippet
+        zip.file('ma-nhung-iframe.html', iframeSampleHtml);
+
+        // 3. Guide text
+        zip.file('HUONG_DAN_SU_DUNG.txt', instructions);
+
+        // 4. Metadata json
+        zip.file('thong-tin-thiep.json', JSON.stringify(meta, null, 2));
+
+        // Generate and trigger download
+        const blob = await zip.generateAsync({ type: 'blob' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = zipFileName;
+        a.click();
+        toast('🎉 Đã tải trọn gói thiệp thành phẩm (ZIP) thành công!');
+      } catch (err) {
+        console.warn('Lỗi nén ZIP, tải file HTML trực tiếp:', err);
+        // Fallback: download standalone index.html directly
+        const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `index.html`;
+        a.click();
+        toast('Đã tải file index.html thành công.');
+      }
+    }
+
+    // Export standalone HTML (Single file)
     $('#btnExport').addEventListener('click', () => {
       const htmlContent = buildStandaloneHtml();
       if (!htmlContent) return;
+      const couple = guessCoupleNames() || CURRENT_TEMPLATE?.name || 'wedding';
+      const slug = couple.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 24) || 'wedding';
       const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = `thiep-cuoi-${CURRENT_TEMPLATE?.id || 'wedding'}.html`;
+      a.download = `thiep-cuoi-${slug}.html`;
       a.click();
       toast('Đã xuất file HTML thiệp chuẩn độc lập thành công.');
     });
+
+    // Button Export ZIP listener
+    $('#btnExportZip')?.addEventListener('click', downloadPackagedZip);
 
     // Helper: Guess couple names from document
     function guessCoupleNames() {
@@ -2620,6 +2829,7 @@
 
     $('#subBtnCancel').addEventListener('click', () => submitDlg.close());
     $('#subBtnCloseSuccess').addEventListener('click', () => submitDlg.close());
+    $('#subBtnDownloadZip')?.addEventListener('click', () => downloadPackagedZip());
 
     // Submit handler: commits to GitHub submissions/ via /api/submit-to-git
     submitOrderForm.addEventListener('submit', async (e) => {
@@ -2679,6 +2889,10 @@
         $('#subBtnCopyRes').onclick = () => {
           navigator.clipboard.writeText(data.liveUrl).then(() => toast('Đã sao chép link xem thiệp! ✓'));
         };
+        const subZip = $('#subBtnDownloadZip');
+        if (subZip) {
+          subZip.onclick = () => downloadPackagedZip();
+        }
 
         toast('🎉 Chốt thiệp thành công! Đã lưu vào GitHub submissions.');
       } catch (err) {
