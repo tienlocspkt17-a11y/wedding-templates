@@ -11,7 +11,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
   <link rel="stylesheet" href="https://wedding-templates-lyart.vercel.app/everafter_UI_UX_edit/core/core.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&amp;family=Be+Vietnam+Pro:wght@300;400&amp;display=swap"><link rel="stylesheet" href="https://wedding-templates-lyart.vercel.app/everafter_UI_UX_edit/styles/moonlight/style.css"><link rel="stylesheet" href="https://wedding-templates-lyart.vercel.app/interaction.css"></head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&amp;family=Be+Vietnam+Pro:wght@300;400&amp;display=swap"><link rel="stylesheet" href="https://wedding-templates-lyart.vercel.app/everafter_UI_UX_edit/styles/moonlight/style.css"><link rel="stylesheet" href="https://wedding-templates-lyart.vercel.app/interaction.css"><style id="ea-guard-style">
+  [hidden] { display: none !important; }
+  #cover[hidden], .cover[hidden] { display: none !important; visibility: hidden !important; pointer-events: none !important; }
+</style>
+</head>
 <body class="ready">
   <div id="cover" class="cover">
     <div class="ml-stage">
@@ -368,7 +372,7 @@
       }, 700);
     }
     document.documentElement.classList.remove('locked');
-    if (document.body) document.body.classList.remove('locked', 'everafter-editor-mode');
+    if (document.body) document.body.classList.remove('locked', '');
     if (main) {
       main.removeAttribute('aria-hidden');
       main.classList.add('is-entered');

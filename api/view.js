@@ -42,7 +42,25 @@ export default async function handler(req, res) {
       `);
     }
 
-    const html = await fetchRes.text();
+    let html = await fetchRes.text();
+
+    // Self-healing sanitization for any card submissions
+    html = html.replace(/<\\\/script>/g, '</script>');
+    html = html.replace(/\beverafter-editor-mode\b/g, '');
+    html = html.replace(/<div\s+id=["']cover["']\s+class=["']cover["']\s+hidden(?:=["'][^"']*["'])?\s*><\/div>/gi, '');
+    html = html.replace(/<div\s+class=["']cover["']\s+id=["']cover["']\s+hidden(?:=["'][^"']*["'])?\s*><\/div>/gi, '');
+
+    const guardStyle = `<style id="ea-guard-style">
+  [hidden] { display: none !important; }
+  #cover[hidden], .cover[hidden] { display: none !important; visibility: hidden !important; pointer-events: none !important; }
+</style>`;
+
+    if (html.includes('</head>')) {
+      html = html.replace('</head>', guardStyle + '\n</head>');
+    } else {
+      html = guardStyle + '\n' + html;
+    }
+
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=300');
     return res.status(200).send(html);

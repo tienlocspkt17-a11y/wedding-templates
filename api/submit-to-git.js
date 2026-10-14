@@ -99,10 +99,26 @@ export default async function handler(req, res) {
 
     const commitMsg = `feat(order): Chốt thiệp ${coupleName} - Mẫu ${templateId}`;
 
+    // Sanitize HTML before saving to GitHub
+    let cleanHtml = html
+      .replace(/<\\\/script>/g, '</script>')
+      .replace(/\beverafter-editor-mode\b/g, '')
+      .replace(/<div\s+id=["']cover["']\s+class=["']cover["']\s+hidden(?:=["'][^"']*["'])?\s*><\/div>/gi, '')
+      .replace(/<div\s+class=["']cover["']\s+id=["']cover["']\s+hidden(?:=["'][^"']*["'])?\s*><\/div>/gi, '');
+
+    const guardStyle = `<style id="ea-guard-style">\n  [hidden] { display: none !important; }\n  #cover[hidden], .cover[hidden] { display: none !important; visibility: hidden !important; pointer-events: none !important; }\n</style>`;
+    if (!cleanHtml.includes('ea-guard-style')) {
+      if (cleanHtml.includes('</head>')) {
+        cleanHtml = cleanHtml.replace('</head>', guardStyle + '\n</head>');
+      } else {
+        cleanHtml = guardStyle + '\n' + cleanHtml;
+      }
+    }
+
     // 1. Commit HTML file
     const htmlCommit = await commitFile(
       `submissions/${safeCardId}/index.html`,
-      html,
+      cleanHtml,
       commitMsg + ' (HTML)'
     );
 
