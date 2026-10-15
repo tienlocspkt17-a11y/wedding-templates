@@ -15,6 +15,14 @@
     {
       "source": "/index.html",
       "destination": "/suite.html"
+    },
+    {
+      "source": "/everafter_add_7_template/(.*)",
+      "destination": "/everafter_UI_UX_edit/$1"
+    },
+    {
+      "source": "/everafter/(.*)",
+      "destination": "/everafter_UI_UX_edit/$1"
     }
   ],
   "headers": [
