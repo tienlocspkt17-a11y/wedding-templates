@@ -14,6 +14,12 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&amp;family=Be+Vietnam+Pro:wght@300;400&amp;display=swap"><link rel="stylesheet" href="https://wedding-templates-lyart.vercel.app/everafter_UI_UX_edit/styles/moonlight/style.css"><link rel="stylesheet" href="https://wedding-templates-lyart.vercel.app/interaction.css"><style id="ea-guard-style">
   [hidden] { display: none !important; }
   #cover[hidden], .cover[hidden] { display: none !important; visibility: hidden !important; pointer-events: none !important; }
+  html.locked, html.locked body, body.locked { overflow: hidden !important; height: 100% !important; touch-action: none !important; overscroll-behavior: none !important; }
+  @media (pointer: coarse), (max-width: 768px) {
+    html { scroll-behavior: auto !important; -webkit-overflow-scrolling: touch !important; }
+    .rs-wishes, .wish-list { max-height: none !important; overflow: visible !important; }
+    .sec, .wrap, .inv { touch-action: pan-y !important; -webkit-overflow-scrolling: touch !important; }
+  }
 </style>
 </head>
 <body class="ready">
@@ -372,7 +378,7 @@
       }, 700);
     }
     document.documentElement.classList.remove('locked');
-    if (document.body) document.body.classList.remove('locked', '');
+    if (document.body) document.body.classList.remove('locked');
     if (main) {
       main.removeAttribute('aria-hidden');
       main.classList.add('is-entered');
