@@ -106,7 +106,7 @@ export default async function handler(req, res) {
       .replace(/<div\s+id=["']cover["']\s+class=["']cover["']\s+hidden(?:=["'][^"']*["'])?\s*><\/div>/gi, '')
       .replace(/<div\s+class=["']cover["']\s+id=["']cover["']\s+hidden(?:=["'][^"']*["'])?\s*><\/div>/gi, '');
 
-    const guardStyle = `<style id="ea-guard-style">\n  [hidden] { display: none !important; }\n  #cover[hidden], .cover[hidden] { display: none !important; visibility: hidden !important; pointer-events: none !important; }\n</style>`;
+    const guardStyle = `<style id="ea-guard-style">\n  [hidden] { display: none !important; }\n  #cover[hidden], .cover[hidden] { display: none !important; visibility: hidden !important; pointer-events: none !important; }\n  html.locked, html.locked body, body.locked { overflow: hidden !important; height: 100% !important; touch-action: none !important; overscroll-behavior: none !important; }\n  @media (pointer: coarse), (max-width: 768px) {\n    html { scroll-behavior: auto !important; -webkit-overflow-scrolling: touch !important; }\n    .rs-wishes, .wish-list { max-height: none !important; overflow: visible !important; }\n    .sec, .wrap, .inv { touch-action: pan-y !important; -webkit-overflow-scrolling: touch !important; }\n  }\n</style>`;
     if (!cleanHtml.includes('ea-guard-style')) {
       if (cleanHtml.includes('</head>')) {
         cleanHtml = cleanHtml.replace('</head>', guardStyle + '\n</head>');

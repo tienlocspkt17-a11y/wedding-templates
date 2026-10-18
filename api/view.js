@@ -53,6 +53,12 @@ export default async function handler(req, res) {
     const guardStyle = `<style id="ea-guard-style">
   [hidden] { display: none !important; }
   #cover[hidden], .cover[hidden] { display: none !important; visibility: hidden !important; pointer-events: none !important; }
+  html.locked, html.locked body, body.locked { overflow: hidden !important; height: 100% !important; touch-action: none !important; overscroll-behavior: none !important; }
+  @media (pointer: coarse), (max-width: 768px) {
+    html { scroll-behavior: auto !important; -webkit-overflow-scrolling: touch !important; }
+    .rs-wishes, .wish-list { max-height: none !important; overflow: visible !important; }
+    .sec, .wrap, .inv { touch-action: pan-y !important; -webkit-overflow-scrolling: touch !important; }
+  }
 </style>`;
 
     if (html.includes('</head>')) {

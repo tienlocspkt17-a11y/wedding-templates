@@ -43,26 +43,51 @@ const CORNERS = '<span class="orn tl"></span><span class="orn tr"></span><span c
 document.body.insertAdjacentHTML('afterbegin', `<div class="hearts" aria-hidden="true">${HEARTS}</div>`);
 document.documentElement.classList.add('rs-page');
 
-// ---------- 1. the envelope header ----------
+// ---------- 0. intro cover screen (fullscreen wax-sealed red envelope) ----------
+EA.cover((el, c, open) => {
+  const { config: { couple: cp }, esc: e } = c;
+  el.classList.add('rs-cover');
+  el.innerHTML = `
+    <div class="rs-cover-inner">
+      ${FLORAL}${FLORAL.replace('class="floral"', 'class="floral r"')}
+      <p class="rs-kicker">Thiệp</p>
+      <h1 class="rs-title">Mời Cưới</h1>
+      <button class="env-btn open-btn" type="button" aria-label="Chạm vào thiệp để mở">
+        <span class="env" aria-hidden="true">
+          <span class="env-back"></span>
+          <span class="env-photo"><img src="${e(cp.heroImage)}" alt="" fetchpriority="high"></span>
+          <span class="env-front"></span>
+          <span class="env-flap"></span>
+          <span class="wax" style="clip-path:${SEAL_CLIP}">${ROSE}</span>
+        </span>
+      </button>
+      <p class="tap">Chạm vào thiệp để mở</p>
+      <p class="rs-names">${e(cp.groomName)} <span class="heart">${icon('heart')}</span> ${e(cp.brideName)}</p>
+      <p class="rs-date">${HY}<b>${c.d}.${c.m}.${c.y}</b>${HY}</p>
+    </div>`;
+
+  const btn = el.querySelector('.env-btn');
+  const inner = el.querySelector('.rs-cover-inner');
+  btn?.addEventListener('click', () => {
+    if (inner.classList.contains('is-open')) return;
+    EA.music();
+    inner.classList.add('opening');
+    c.after(650, () => inner.classList.add('is-open'));
+    c.after(1200, open);
+  }, { once: true });
+});
+
+// ---------- 1. wedding announcement & portrait header inside the invitation ----------
 EA.section('hero', c => {
-  const { config: { couple: cp, intro }, esc: e } = c;
-  const opened = intro?.enabled === false;
-  if (!opened) document.documentElement.classList.add('locked');
-  return `<div class="rs-top ${opened ? 'is-open' : ''}">
+  const { config: { couple: cp }, esc: e } = c;
+  return `<div class="rs-hero">
   ${FLORAL}${FLORAL.replace('class="floral"', 'class="floral r"')}
-  <p class="rs-kicker">Thiệp</p>
-  <h1 class="rs-title">Mời Cưới</h1>
-  <button class="env-btn" type="button" aria-label="Chạm vào thiệp để mở" ${opened ? 'disabled' : ''}>
-    <span class="env" aria-hidden="true">
-      <span class="env-back"></span>
-      <span class="env-photo"><img src="${e(cp.heroImage)}" alt="" fetchpriority="high"></span>
-      <span class="env-front"></span>
-      <span class="env-flap"></span>
-      <span class="wax" style="clip-path:${SEAL_CLIP}">${ROSE}</span>
-    </span>
-  </button>
-  <p class="tap">Chạm vào thiệp để mở</p>
-  <p class="rs-names">${e(cp.groomName)} <span class="heart">${icon('heart')}</span> ${e(cp.brideName)}</p>
+  <p class="rs-kicker">Lễ Thành Hôn</p>
+  <h1 class="rs-hero-title">${e(cp.groomName)} &amp; ${e(cp.brideName)}</h1>
+  <figure class="rs-hero-photo">
+    <img src="${e(cp.heroImage)}" alt="${e(cp.groomName)} và ${e(cp.brideName)}" fetchpriority="high">
+  </figure>
+  <p class="rs-tagline">${e(cp.headline || 'Hai con người, một hành trình, và một ngày chúng mình muốn có bạn ở bên.')}</p>
   <p class="rs-date">${HY}<b>${c.d}.${c.m}.${c.y}</b>${HY}</p>
 </div>`;
 });
@@ -257,15 +282,16 @@ EA.section('thanks', ({ esc: e, mod, config }) => `<figure class="rs-end">
 
 // ---------- behaviour ----------
 EA.afterRender((c, main) => {
-  // open the envelope
+  // legacy inline envelope fallback (if present in custom snapshot)
   const top = main.querySelector('.rs-top');
   const btn = top?.querySelector('.env-btn');
   btn?.addEventListener('click', () => {
     if (top.classList.contains('is-open')) return;
     EA.music();
     top.classList.add('opening');
+    document.documentElement.classList.remove('locked');
     c.after(650, () => top.classList.add('is-open'));
-    c.after(1500, () => { document.documentElement.classList.remove('locked'); btn.disabled = true; });
+    c.after(1000, () => { btn.disabled = true; });
   });
   main.querySelector('#reopen')?.addEventListener('click', () => scrollTo({ top: 0, behavior: c.reduced ? 'auto' : 'smooth' }), { capture: true });
 

@@ -2276,14 +2276,67 @@
         el.replaceWith(...el.childNodes);
       });
 
-      // 5. Remove empty / leaked #cover overlays that have no interactive elements
-      clone.querySelectorAll('#cover, .cover').forEach(cov => {
-        const hasInteractive = cov.querySelector('button, [role="button"], a, input, select, textarea, .open-btn, .env-btn, .btn-open, .ml-stage, .handscroll, .roller, .bottle, .curtain, .letter-peek, .notebook');
-        const hasText = cov.textContent.trim().length > 0;
-        if (!hasInteractive && !hasText) {
-          cov.remove();
+      // 5. Setup Intro Cover & ensure true Intro-first experience
+      const activeCover = clone.querySelector('#cover, .cover');
+      const hasCoverInteractive = activeCover?.querySelector('button, [role="button"], a, input, select, textarea, .open-btn, .env-btn, .btn-open, .ml-stage, .handscroll, .roller, .bottle, .curtain, .letter-peek, .notebook');
+      
+      // Upgrade redseal if envelope was rendered inside #hero
+      if (currentStyleId === 'redseal') {
+        const legacyEnv = clone.querySelector('.rs-top');
+        if (legacyEnv) {
+          let cov = clone.querySelector('#cover');
+          if (!cov) {
+            cov = doc.createElement('div');
+            cov.id = 'cover';
+            clone.querySelector('body')?.insertAdjacentElement('afterbegin', cov);
+          }
+          cov.className = 'cover rs-cover';
+          cov.removeAttribute('hidden');
+          cov.innerHTML = `
+            <div class="rs-cover-inner">
+              ${legacyEnv.innerHTML}
+            </div>
+          `;
+          // Replace in-page #hero with wedding announcement hero
+          const heroSec = clone.querySelector('#hero');
+          if (heroSec) {
+            const groomName = clone.querySelector('.rs-names, .rs-pair .n1')?.textContent?.trim() || 'Gia Bảo';
+            const brideName = clone.querySelector('.rs-names, .rs-pair .n2')?.textContent?.trim() || 'Ngọc Linh';
+            const heroImg = legacyEnv.querySelector('.env-photo img')?.getAttribute('src') || 'https://picsum.photos/seed/everafter-hero/1400/1800';
+            const dateText = legacyEnv.querySelector('.rs-date b')?.textContent?.trim() || '20.10.2026';
+            heroSec.innerHTML = `
+              <div class="rs-hero">
+                <svg class="floral" viewBox="0 0 160 110" aria-hidden="true"><g fill="none" stroke="#9b8657" stroke-width="1.3" stroke-linecap="round"><path d="M2 4 C40 10 70 26 96 52 C112 68 128 80 158 86"/><path d="M30 12 C36 26 34 40 24 52"/><path d="M62 30 C74 34 80 46 78 60"/><path d="M104 60 C104 72 98 82 88 90"/></g><g fill="#b7a578"><ellipse cx="22" cy="8" rx="9" ry="3.6" transform="rotate(18 22 8)"/><ellipse cx="46" cy="20" rx="9" ry="3.4" transform="rotate(34 46 20)"/><ellipse cx="34" cy="34" rx="8" ry="3.2" transform="rotate(-70 34 34)"/><ellipse cx="80" cy="44" rx="9" ry="3.4" transform="rotate(50 80 44)"/><ellipse cx="78" cy="58" rx="8" ry="3" transform="rotate(-80 78 58)"/><ellipse cx="118" cy="72" rx="9" ry="3.2" transform="rotate(26 118 72)"/><ellipse cx="100" cy="80" rx="7" ry="3" transform="rotate(-60 100 80)"/><ellipse cx="140" cy="82" rx="8" ry="3" transform="rotate(10 140 82)"/></g></svg>
+                <svg class="floral r" viewBox="0 0 160 110" aria-hidden="true"><g fill="none" stroke="#9b8657" stroke-width="1.3" stroke-linecap="round"><path d="M2 4 C40 10 70 26 96 52 C112 68 128 80 158 86"/><path d="M30 12 C36 26 34 40 24 52"/><path d="M62 30 C74 34 80 46 78 60"/><path d="M104 60 C104 72 98 82 88 90"/></g><g fill="#b7a578"><ellipse cx="22" cy="8" rx="9" ry="3.6" transform="rotate(18 22 8)"/><ellipse cx="46" cy="20" rx="9" ry="3.4" transform="rotate(34 46 20)"/><ellipse cx="34" cy="34" rx="8" ry="3.2" transform="rotate(-70 34 34)"/><ellipse cx="80" cy="44" rx="9" ry="3.4" transform="rotate(50 80 44)"/><ellipse cx="78" cy="58" rx="8" ry="3" transform="rotate(-80 78 58)"/><ellipse cx="118" cy="72" rx="9" ry="3.2" transform="rotate(26 118 72)"/><ellipse cx="100" cy="80" rx="7" ry="3" transform="rotate(-60 100 80)"/><ellipse cx="140" cy="82" rx="8" ry="3" transform="rotate(10 140 82)"/></g></svg>
+                <p class="rs-kicker">Lễ Thành Hôn</p>
+                <h1 class="rs-hero-title">${groomName} &amp; ${brideName}</h1>
+                <figure class="rs-hero-photo">
+                  <img src="${heroImg}" alt="Ảnh cưới" fetchpriority="high">
+                </figure>
+                <p class="rs-tagline">Hai con người, một hành trình, và một ngày chúng mình muốn có bạn ở bên.</p>
+                <p class="rs-date"><span class="hy" aria-hidden="true">囍</span><b>${dateText}</b><span class="hy" aria-hidden="true">囍</span></p>
+              </div>
+            `;
+          }
         }
-      });
+      }
+
+      // Check final cover state
+      const finalCover = clone.querySelector('#cover, .cover');
+      const hasFinalInteractive = finalCover?.querySelector('button, [role="button"], a, input, select, textarea, .open-btn, .env-btn, .btn-open, .ml-stage, .handscroll, .roller, .bottle, .curtain, .letter-peek, .notebook');
+      if (finalCover && (hasFinalInteractive || finalCover.textContent.trim().length > 20)) {
+        finalCover.removeAttribute('hidden');
+        finalCover.classList.remove('is-leaving');
+        finalCover.style.display = '';
+        finalCover.style.opacity = '';
+        finalCover.style.visibility = '';
+        clone.classList.add('locked');
+        clone.querySelector('#inv')?.classList.remove('is-entered');
+        clone.querySelector('#dock')?.setAttribute('hidden', '');
+        clone.querySelector('.sides')?.setAttribute('hidden', '');
+      } else if (finalCover) {
+        finalCover.remove();
+      }
 
       // 6. Pre-reveal sections and modules so content is immediately visible
       clone.querySelectorAll('.reveal, .sec, .module, [data-module]').forEach(el => {
@@ -2360,6 +2413,23 @@
         }
       });
 
+      // Inject protective guard style into head
+      if (!clone.querySelector('#ea-guard-style')) {
+        const guardStyleHtml = `
+<style id="ea-guard-style">
+  [hidden] { display: none !important; }
+  #cover[hidden], .cover[hidden] { display: none !important; visibility: hidden !important; pointer-events: none !important; }
+  html.locked, html.locked body, body.locked { overflow: hidden !important; height: 100% !important; touch-action: none !important; overscroll-behavior: none !important; }
+  @media (pointer: coarse), (max-width: 768px) {
+    html { scroll-behavior: auto !important; -webkit-overflow-scrolling: touch !important; }
+    .rs-wishes, .wish-list { max-height: none !important; overflow: visible !important; }
+    .sec, .wrap, .inv { touch-action: pan-y !important; -webkit-overflow-scrolling: touch !important; }
+  }
+</style>
+`;
+        clone.querySelector('head')?.insertAdjacentHTML('beforeend', guardStyleHtml);
+      }
+
       // 9. Universal standalone client runtime for cover animations, countdown ticker, audio, lightbox & side switcher
       const runtimeScript = `
 <script id="ea-standalone-runtime">
@@ -2430,6 +2500,8 @@
       main.classList.add('is-entered');
     }
     if (dock) dock.removeAttribute('hidden');
+    const sides = document.querySelector('.sides');
+    if (sides) sides.removeAttribute('hidden');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -2449,17 +2521,15 @@
       }
 
       // B. Redseal / Envelope opening animation
-      const topSec = document.querySelector('.rs-top, .envelope-wrapper, #envelope-scene');
+      const topSec = cover?.querySelector('.rs-cover-inner, .rs-top') || document.querySelector('.rs-cover-inner, .rs-top, .envelope-wrapper, #envelope-scene');
       if (topSec && !topSec.classList.contains('is-open')) {
         topSec.classList.add('opening', 'opened');
         setTimeout(function() { topSec.classList.add('is-open'); }, 650);
-        const photo = document.querySelector('.env-photo');
+        const photo = topSec.querySelector('.env-photo') || document.querySelector('.env-photo');
         if (photo) photo.style.height = '140%';
         setTimeout(function() {
           finishOpen();
-          const next = document.querySelector('.sec:not(.m-hero), .module:not(.m-hero)');
-          if (next) next.scrollIntoView({ behavior: 'smooth' });
-        }, 1200);
+        }, 1100);
         return;
       }
 

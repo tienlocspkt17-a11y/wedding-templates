@@ -19,11 +19,24 @@ body { background: var(--bg); font-family: var(--f-body); }
 .sec, .sec:nth-child(even) { background: transparent; padding: var(--sec-pad) 20px; }
 .wrap, .wrap.narrow { max-width: none; }
 .reveal { transform: translateY(18px); }
-.hearts { position: fixed; inset: 0; pointer-events: none; z-index: 2; overflow: hidden; }
-.fh { position: absolute; top: -24px; left: var(--x); width: 18px; height: 16px; scale: var(--s); animation: hfall var(--d) linear var(--delay) infinite; opacity: .8;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 22'%3E%3Cpath d='M12 21S1 14 1 7a5.5 5.5 0 0 1 11-1.6A5.5 5.5 0 0 1 23 7c0 7-11 14-11 14z' fill='%23f3a6b8'/%3E%3C/svg%3E") center / contain no-repeat; }
+.hearts { position: fixed; inset: 0; pointer-events: none; z-index: 2; overflow: hidden; contain: strict; }
+.fh {
+  position: absolute; top: -24px; left: var(--x); width: 18px; height: 16px; scale: var(--s);
+  animation: hfall var(--d) linear var(--delay) infinite; opacity: .8;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 22'%3E%3Cpath d='M12 21S1 14 1 7a5.5 5.5 0 0 1 11-1.6A5.5 5.5 0 0 1 23 7c0 7-11 14-11 14z' fill='%23f3a6b8'/%3E%3C/svg%3E") center / contain no-repeat;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
 .fh.o { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 22'%3E%3Cpath d='M12 20S2 13.6 2 7.2a4.8 4.8 0 0 1 10-1.6 4.8 4.8 0 0 1 10 1.6C22 13.6 12 20 12 20z' fill='none' stroke='%23f3a6b8' stroke-width='2'/%3E%3C/svg%3E"); }
-@keyframes hfall { 0% { transform: translate(0, 0) rotate(-10deg); } 50% { transform: translate(24px, 55vh) rotate(20deg); } 100% { transform: translate(-10px, 112vh) rotate(-15deg); } }
+@keyframes hfall {
+  0% { transform: translate3d(0, 0, 0) rotate(-10deg); }
+  50% { transform: translate3d(24px, 55vh, 0) rotate(20deg); }
+  100% { transform: translate3d(-10px, 112vh, 0) rotate(-15deg); }
+}
+@media (max-width: 768px) {
+  .fh:nth-child(n+9) { display: none !important; }
+}
 
 /* shared type */
 .rs-kicker { font: 500 13px/1 var(--f-body); letter-spacing: .32em; text-transform: uppercase; color: var(--ink); }
@@ -58,8 +71,45 @@ body { background: var(--bg); font-family: var(--f-body); }
 .sides a[aria-current] { background: #d81b47; }
 .sides a { font-weight: 600; font-size: 13px; padding: 0 16px; min-height: 40px; color: var(--ink-soft); }
 
-/* ---------- 1. envelope header ---------- */
+/* ---------- 0. intro cover overlay (fullscreen wax-sealed red envelope) ---------- */
+.cover.rs-cover {
+  position: fixed; inset: 0; z-index: 100;
+  display: grid; place-items: center;
+  background: var(--bg);
+  overflow: hidden;
+  padding: max(20px, env(safe-area-inset-top)) 16px max(20px, env(safe-area-inset-bottom));
+  transition: opacity .7s cubic-bezier(.2, .8, .2, 1), transform .7s cubic-bezier(.2, .8, .2, 1), visibility .7s;
+}
+.cover.rs-cover[hidden] { display: none !important; }
+.cover.rs-cover.is-leaving { opacity: 0; transform: translateY(-40px); pointer-events: none; }
+.rs-cover-inner {
+  position: relative; width: 100%; max-width: 440px; margin: 0 auto;
+  display: grid; justify-items: center; align-content: center; text-align: center;
+  padding: 20px 8px;
+}
+.rs-cover-inner .floral { position: absolute; top: -14px; left: -8px; width: 112px; pointer-events: none; }
+.rs-cover-inner .floral.r { left: auto; right: -8px; transform: scaleX(-1); }
+.rs-cover-inner .rs-title { font: 400 clamp(44px, 12vw, 56px)/1.1 var(--f-script); color: var(--ink); margin: 2px 0 0; }
+.rs-cover-inner .env-btn { all: unset; cursor: pointer; display: block; width: min(78%, 300px); margin-top: 6px; -webkit-tap-highlight-color: transparent; }
+.rs-cover-inner .env-btn:focus-visible { outline: 2px solid var(--wine); outline-offset: 6px; border-radius: 6px; }
+.rs-cover-inner .opening .env-flap, .rs-cover-inner .is-open .env-flap { transform: perspective(700px) rotateX(180deg); z-index: 0; }
+.rs-cover-inner .opening .tap, .rs-cover-inner .is-open .tap { opacity: 0; visibility: hidden; transition: opacity .3s; }
+.rs-cover-inner .is-open .env-photo { height: 158%; }
+.rs-cover-inner .is-open .tap { height: 0; margin: 0; }
+
+/* ---------- 1. hero header inside the wedding card ---------- */
 .m-hero { padding: 0 !important; }
+.rs-hero {
+  position: relative; padding: 48px 16px 28px; text-align: center; overflow: hidden;
+}
+.rs-hero .floral { position: absolute; top: 4px; left: 4px; width: 100px; pointer-events: none; }
+.rs-hero .floral.r { left: auto; right: 4px; transform: scaleX(-1); }
+.rs-hero-title { font: 400 clamp(36px, 10.5vw, 52px)/1.15 var(--f-script); color: var(--ink); margin: 6px 0 14px; }
+.rs-hero-photo { margin: 12px auto 18px; width: min(88%, 340px); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(163, 29, 52, .18); border: 3px solid #fff; }
+.rs-hero-photo img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block; }
+.rs-hero .rs-tagline { font: italic 400 15px/1.6 var(--f-body); color: var(--ink-soft); margin: 14px 20px 20px; }
+
+/* envelope component styles */
 .rs-top { position: relative; min-height: 100svh; display: grid; justify-items: center; align-content: start; text-align: center; padding: 58px 16px 36px; overflow: hidden; }
 .floral { position: absolute; top: 4px; left: 4px; width: 118px; pointer-events: none; }
 .floral.r { left: auto; right: 4px; transform: scaleX(-1); }
@@ -74,7 +124,6 @@ body { background: var(--bg); font-family: var(--f-body); }
   left: 12%; right: 12%; bottom: 6%; height: 88%; z-index: 1; border-radius: 8px; overflow: hidden; background: #eee;
   box-shadow: 0 -4px 18px rgba(0, 0, 0, .18); transition: height 1.2s cubic-bezier(.3, .1, .2, 1);
 }
-/* the image keeps its final size and is anchored to the bottom, so growing the frame reveals it upward */
 .env-photo img { position: absolute; left: 0; bottom: 0; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; }
 .env-front {
   inset: 0; z-index: 2; border-radius: 3px;
@@ -216,8 +265,7 @@ body { background: var(--bg); font-family: var(--f-body); }
 .board.placing .board-hint { background: var(--wine); }
 .sign-btn { margin-top: 18px; padding: 14px 30px; font-size: 16px; }
 .steps { font: 400 12.5px/1 var(--f-body); color: var(--ink-soft); margin-top: 14px; }
-.steps b { display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--pink-soft); color: var(--wine); font-size: 11px; margin-right: 2px; }
-.rs-wishes { list-style: none; margin: 18px 16px 0; padding: 16px 0 0; border-top: 1px solid #f0e4e6; display: grid; gap: 10px; max-height: 320px; overflow-y: auto; text-align: left; }
+.rs-wishes { list-style: none; margin: 18px 16px 0; padding: 16px 0 0; border-top: 1px solid #f0e4e6; display: grid; gap: 10px; max-height: none; overflow: visible; text-align: left; }
 .rs-wishes li { background: var(--pink-soft); border-radius: 12px; padding: 12px 14px; font-size: 14px; }
 .rs-wishes .by { font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
 .rs-wishes .empty { background: none; text-align: center; color: var(--ink-soft); }

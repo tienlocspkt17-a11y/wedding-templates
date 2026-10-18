@@ -123,3 +123,72 @@ input[type="radio"] {
     scroll-behavior: auto !important;
   }
 }
+
+/* Mobile Touch & Momentum Scroll Optimization:
+ * 1. Eliminate smooth-scroll fight on touch devices to ensure native 60fps/120fps ProMotion momentum scroll.
+ * 2. Prevent nested scroll traps in guestbooks and wish lists.
+ * 3. Enforce touch-action: pan-y across content sections so thumb swipes are never blocked.
+ * 4. Pass through touch events on floating bars outer area.
+ */
+@media (pointer: coarse), (max-width: 768px) {
+  html {
+    scroll-behavior: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Prevent nested scroll trapping in guestbooks and wishes */
+  .rs-wishes,
+  .wish-list,
+  .guestbook-list,
+  .wishes-list {
+    max-height: none !important;
+    overflow: visible !important;
+    overscroll-behavior: auto !important;
+  }
+
+  /* Ensure thumb swipes on content sections always pan vertically */
+  .sec,
+  .wrap,
+  .inv,
+  .m-hero,
+  .m-families,
+  .m-invitation,
+  .m-story,
+  .m-events,
+  .m-schedule,
+  .m-saveDate,
+  .m-party,
+  .m-video,
+  .m-gallery,
+  .m-dressCode,
+  .m-faq,
+  .m-quote,
+  .m-rsvp,
+  .m-gift,
+  .m-registry,
+  .m-guestbook,
+  .m-contact,
+  .m-thanks,
+  .rs-book,
+  .rs-frame,
+  .rs-album,
+  .rs-cal,
+  .rs-fam-block {
+    touch-action: pan-y !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* Ensure floating controls don't block vertical scrolling on surrounding whitespace */
+  .dock,
+  .sides {
+    pointer-events: none !important;
+  }
+  .dock > *,
+  .sides > *,
+  .dock button,
+  .dock a,
+  .sides a {
+    pointer-events: auto !important;
+  }
+}
+
