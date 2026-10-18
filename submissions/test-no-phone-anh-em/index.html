@@ -2,6 +2,15 @@
   [hidden] { display: none !important; }
   #cover[hidden], .cover[hidden] { display: none !important; visibility: hidden !important; pointer-events: none !important; }
   html.locked, html.locked body, body.locked { overflow: hidden !important; height: 100% !important; touch-action: none !important; overscroll-behavior: none !important; }
+  .cover.rs-cover { position: fixed; inset: 0; z-index: 100; display: block; padding: 0; background: var(--bg, #f7e6ec); overflow: hidden; transition: opacity .7s cubic-bezier(.2, .8, .2, 1), visibility .7s; }
+  .cover.rs-cover.is-leaving { opacity: 0; visibility: hidden; pointer-events: none; }
+  .cover.rs-cover .rs-top, .cover.rs-cover .rs-cover-inner { width: 100%; max-width: 480px; margin: 0 auto; min-height: 100svh; background: #fff; position: relative; display: grid; justify-items: center; align-content: start; text-align: center; padding: 58px 16px 36px; overflow: hidden; box-shadow: 0 0 50px rgba(163, 29, 52, .06); }
+  .opening .env-flap, .is-open .env-flap { transform: perspective(700px) rotateX(180deg) !important; z-index: 0 !important; }
+  .opening .tap, .is-open .tap { opacity: 0 !important; visibility: hidden !important; transition: opacity .3s; }
+  .is-open .env-photo { height: 158% !important; }
+  .heart svg { width: 24px !important; height: 24px !important; fill: var(--wine, #7b0f1e); stroke: none; display: inline-block; vertical-align: middle; }
+  [data-style="redseal"] #hero, .rs-page #hero, #hero:empty, .m-hero:empty { display: none !important; padding: 0 !important; }
+  [data-style="redseal"] .m-invitation, .rs-page .m-invitation { position: relative; padding-top: 58px !important; overflow: hidden; }
   @media (pointer: coarse), (max-width: 768px) {
     html { scroll-behavior: auto !important; -webkit-overflow-scrolling: touch !important; }
     .rs-wishes, .wish-list { max-height: none !important; overflow: visible !important; }

@@ -47,50 +47,37 @@ document.documentElement.classList.add('rs-page');
 EA.cover((el, c, open) => {
   const { config: { couple: cp }, esc: e } = c;
   el.classList.add('rs-cover');
-  el.innerHTML = `
-    <div class="rs-cover-inner">
-      ${FLORAL}${FLORAL.replace('class="floral"', 'class="floral r"')}
-      <p class="rs-kicker">Thiệp</p>
-      <h1 class="rs-title">Mời Cưới</h1>
-      <button class="env-btn open-btn" type="button" aria-label="Chạm vào thiệp để mở">
-        <span class="env" aria-hidden="true">
-          <span class="env-back"></span>
-          <span class="env-photo"><img src="${e(cp.heroImage)}" alt="" fetchpriority="high"></span>
-          <span class="env-front"></span>
-          <span class="env-flap"></span>
-          <span class="wax" style="clip-path:${SEAL_CLIP}">${ROSE}</span>
-        </span>
-      </button>
-      <p class="tap">Chạm vào thiệp để mở</p>
-      <p class="rs-names">${e(cp.groomName)} <span class="heart">${icon('heart')}</span> ${e(cp.brideName)}</p>
-      <p class="rs-date">${HY}<b>${c.d}.${c.m}.${c.y}</b>${HY}</p>
-    </div>`;
+  el.innerHTML = `<div class="rs-top">
+  ${FLORAL}${FLORAL.replace('class="floral"', 'class="floral r"')}
+  <p class="rs-kicker">Thiệp</p>
+  <h1 class="rs-title">Mời Cưới</h1>
+  <button class="env-btn" type="button" aria-label="Chạm vào thiệp để mở">
+    <span class="env" aria-hidden="true">
+      <span class="env-back"></span>
+      <span class="env-photo"><img src="${e(cp.heroImage)}" alt="" fetchpriority="high"></span>
+      <span class="env-front"></span>
+      <span class="env-flap"></span>
+      <span class="wax" style="clip-path:${SEAL_CLIP}">${ROSE}</span>
+    </span>
+  </button>
+  <p class="tap">Chạm vào thiệp để mở</p>
+  <p class="rs-names">${e(cp.groomName)} <span class="heart">${icon('heart')}</span> ${e(cp.brideName)}</p>
+  <p class="rs-date">${HY}<b>${c.d}.${c.m}.${c.y}</b>${HY}</p>
+</div>`;
 
   const btn = el.querySelector('.env-btn');
-  const inner = el.querySelector('.rs-cover-inner');
+  const top = el.querySelector('.rs-top');
   btn?.addEventListener('click', () => {
-    if (inner.classList.contains('is-open')) return;
+    if (top.classList.contains('is-open')) return;
     EA.music();
-    inner.classList.add('opening');
-    c.after(650, () => inner.classList.add('is-open'));
-    c.after(1200, open);
+    top.classList.add('opening');
+    c.after(650, () => top.classList.add('is-open'));
+    c.after(2400, open);
   }, { once: true });
 });
 
-// ---------- 1. wedding announcement & portrait header inside the invitation ----------
-EA.section('hero', c => {
-  const { config: { couple: cp }, esc: e } = c;
-  return `<div class="rs-hero">
-  ${FLORAL}${FLORAL.replace('class="floral"', 'class="floral r"')}
-  <p class="rs-kicker">Lễ Thành Hôn</p>
-  <h1 class="rs-hero-title">${e(cp.groomName)} &amp; ${e(cp.brideName)}</h1>
-  <figure class="rs-hero-photo">
-    <img src="${e(cp.heroImage)}" alt="${e(cp.groomName)} và ${e(cp.brideName)}" fetchpriority="high">
-  </figure>
-  <p class="rs-tagline">${e(cp.headline || 'Hai con người, một hành trình, và một ngày chúng mình muốn có bạn ở bên.')}</p>
-  <p class="rs-date">${HY}<b>${c.d}.${c.m}.${c.y}</b>${HY}</p>
-</div>`;
-});
+// ---------- 1. hero is handled by the fullscreen envelope cover ----------
+EA.section('hero', () => '');
 
 // ---------- 2. families, names, portrait, three photos ----------
 EA.section('families', ({ data: D, esc: e, config: { couple: cp } }) => {
@@ -115,7 +102,8 @@ EA.section('families', ({ data: D, esc: e, config: { couple: cp } }) => {
 });
 
 // ---------- 3. invitation ----------
-EA.section('invitation', ({ data: D, t, mod }) => `<div class="wrap narrow">
+EA.section('invitation', ({ data: D, t }) => `<div class="wrap narrow">
+  ${FLORAL}${FLORAL.replace('class="floral"', 'class="floral r"')}
   <p class="rs-h">Trân trọng kính mời!</p>
   ${D.letter.map(p => `<p class="rs-p">${t(p)}</p>`).join('')}
 </div>`);

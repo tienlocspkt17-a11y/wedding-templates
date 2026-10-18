@@ -15,6 +15,15 @@
   [hidden] { display: none !important; }
   #cover[hidden], .cover[hidden] { display: none !important; visibility: hidden !important; pointer-events: none !important; }
   html.locked, html.locked body, body.locked { overflow: hidden !important; height: 100% !important; touch-action: none !important; overscroll-behavior: none !important; }
+  .cover.rs-cover { position: fixed; inset: 0; z-index: 100; display: block; padding: 0; background: var(--bg, #f7e6ec); overflow: hidden; transition: opacity .7s cubic-bezier(.2, .8, .2, 1), visibility .7s; }
+  .cover.rs-cover.is-leaving { opacity: 0; visibility: hidden; pointer-events: none; }
+  .cover.rs-cover .rs-top, .cover.rs-cover .rs-cover-inner { width: 100%; max-width: 480px; margin: 0 auto; min-height: 100svh; background: #fff; position: relative; display: grid; justify-items: center; align-content: start; text-align: center; padding: 58px 16px 36px; overflow: hidden; box-shadow: 0 0 50px rgba(163, 29, 52, .06); }
+  .opening .env-flap, .is-open .env-flap { transform: perspective(700px) rotateX(180deg) !important; z-index: 0 !important; }
+  .opening .tap, .is-open .tap { opacity: 0 !important; visibility: hidden !important; transition: opacity .3s; }
+  .is-open .env-photo { height: 158% !important; }
+  .heart svg { width: 24px !important; height: 24px !important; fill: var(--wine, #7b0f1e); stroke: none; display: inline-block; vertical-align: middle; }
+  [data-style="redseal"] #hero, .rs-page #hero, #hero:empty, .m-hero:empty { display: none !important; padding: 0 !important; }
+  [data-style="redseal"] .m-invitation, .rs-page .m-invitation { position: relative; padding-top: 58px !important; overflow: hidden; }
   @media (pointer: coarse), (max-width: 768px) {
     html { scroll-behavior: auto !important; -webkit-overflow-scrolling: touch !important; }
     .rs-wishes, .wish-list { max-height: none !important; overflow: visible !important; }
@@ -31,19 +40,8 @@
       <p class="ml-reveal">Và ánh trăng ấy, cuối cùng đã ở bên.<br><b>Linh · Bảo</b></p></div>
       <button class="open-btn" type="button">Chạm vào ánh trăng</button>
     </div></div>
-  <main id="inv" class="inv is-entered"><section id="hero" class="sec m-hero custom reveal in is-revealed" style="opacity: 1; transform: none;"><div class="wrap">
-  <div class="ml-hero">
-    <div class="moon-photo"><img src="https://picsum.photos/seed/everafter-hero/1400/1800" alt="Ngọc Linh và Gia Bảo" fetchpriority="high"><span class="cinnabar" aria-hidden="true"></span></div>
-    <p class="eyebrow">Bạch nguyệt quang · Nốt chu sa</p>
-    <h1 class="ml-names">Ngọc Linh<span>&amp;</span>Gia Bảo</h1>
-    <p class="headline">Hai con người, một hành trình, và một ngày chúng mình muốn có bạn ở bên.</p>
-    <p class="hero-date">Thứ Ba · 20 · 10 · 2026</p>
-    
-        <div class="countdown" role="timer" aria-label="Đếm ngược đến ngày cưới">
-          <div><span class="n">05</span><span class="u">Ngày</span></div><div><span class="n">18</span><span class="u">Giờ</span></div><div><span class="n">18</span><span class="u">Phút</span></div><div><span class="n">04</span><span class="u">Giây</span></div>
-        </div>
-  </div>
-</div></section><section id="invitation" class="sec m-invitation letter reveal in is-revealed" style="opacity: 1; transform: none;"><div class="wrap narrow">
+  <main id="inv" class="inv is-entered"><section id="invitation" class="sec m-invitation letter reveal in is-revealed" style="opacity: 1; transform: none;"><div class="wrap narrow">
+  <svg class="floral" viewBox="0 0 160 110" aria-hidden="true"><g fill="none" stroke="#9b8657" stroke-width="1.3" stroke-linecap="round"><path d="M2 4 C40 10 70 26 96 52 C112 68 128 80 158 86"/><path d="M30 12 C36 26 34 40 24 52"/><path d="M62 30 C74 34 80 46 78 60"/><path d="M104 60 C104 72 98 82 88 90"/></g><g fill="#b7a578"><ellipse cx="22" cy="8" rx="9" ry="3.6" transform="rotate(18 22 8)"/><ellipse cx="46" cy="20" rx="9" ry="3.4" transform="rotate(34 46 20)"/><ellipse cx="34" cy="34" rx="8" ry="3.2" transform="rotate(-70 34 34)"/><ellipse cx="80" cy="44" rx="9" ry="3.4" transform="rotate(50 80 44)"/><ellipse cx="78" cy="58" rx="8" ry="3" transform="rotate(-80 78 58)"/><ellipse cx="118" cy="72" rx="9" ry="3.2" transform="rotate(26 118 72)"/><ellipse cx="100" cy="80" rx="7" ry="3" transform="rotate(-60 100 80)"/><ellipse cx="140" cy="82" rx="8" ry="3" transform="rotate(10 140 82)"/></g></svg><svg class="floral r" viewBox="0 0 160 110" aria-hidden="true"><g fill="none" stroke="#9b8657" stroke-width="1.3" stroke-linecap="round"><path d="M2 4 C40 10 70 26 96 52 C112 68 128 80 158 86"/><path d="M30 12 C36 26 34 40 24 52"/><path d="M62 30 C74 34 80 46 78 60"/><path d="M104 60 C104 72 98 82 88 90"/></g><g fill="#b7a578"><ellipse cx="22" cy="8" rx="9" ry="3.6" transform="rotate(18 22 8)"/><ellipse cx="46" cy="20" rx="9" ry="3.4" transform="rotate(34 46 20)"/><ellipse cx="34" cy="34" rx="8" ry="3.2" transform="rotate(-70 34 34)"/><ellipse cx="80" cy="44" rx="9" ry="3.4" transform="rotate(50 80 44)"/><ellipse cx="78" cy="58" rx="8" ry="3" transform="rotate(-80 78 58)"/><ellipse cx="118" cy="72" rx="9" ry="3.2" transform="rotate(26 118 72)"/><ellipse cx="100" cy="80" rx="7" ry="3" transform="rotate(-60 100 80)"/><ellipse cx="140" cy="82" rx="8" ry="3" transform="rotate(10 140 82)"/></g></svg>
       <p class="kicker">20 · 10 · 2026</p>
       <p class="salute">Gửi Quý khách,</p>
       <h2 class="display">Một lời mời từ chúng mình</h2>
@@ -388,6 +386,7 @@
   }
 
   openButtons.forEach(function(btn) {
+    btn.__bound = true;
     btn.addEventListener('click', function(e) {
       e.preventDefault();
       playMusic();
@@ -403,17 +402,13 @@
       }
 
       // B. Redseal / Envelope opening animation
-      const topSec = document.querySelector('.rs-top, .envelope-wrapper, #envelope-scene');
+      const topSec = (cover && cover.querySelector('.rs-top, .rs-cover-inner')) || document.querySelector('.rs-top, .rs-cover-inner, .envelope-wrapper, #envelope-scene');
       if (topSec && !topSec.classList.contains('is-open')) {
-        topSec.classList.add('opening', 'opened');
+        topSec.classList.add('opening');
         setTimeout(function() { topSec.classList.add('is-open'); }, 650);
-        const photo = document.querySelector('.env-photo');
-        if (photo) photo.style.height = '140%';
         setTimeout(function() {
           finishOpen();
-          const next = document.querySelector('.sec:not(.m-hero), .module:not(.m-hero)');
-          if (next) next.scrollIntoView({ behavior: 'smooth' });
-        }, 1200);
+        }, 2400);
         return;
       }
 

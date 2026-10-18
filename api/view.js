@@ -55,33 +55,16 @@ export default async function handler(req, res) {
     if (!html.includes('id="cover"') || html.includes('id="cover" hidden')) {
       const match = html.match(/<div class=["']rs-top\s*["']>([\s\S]*?)<\/div>\s*<\/section>/i);
       if (match) {
-        const rsTopContent = match[1];
-        const nameMatch = rsTopContent.match(/<p class=["']rs-names["']>([\s\S]*?)<\/p>/i);
-        const names = nameMatch ? nameMatch[1] : 'Gia Bảo &amp; Ngọc Linh';
-        const imgMatch = rsTopContent.match(/<span class=["']env-photo["']>\s*<img[^>]*src=["']([^"']+)["']/i);
-        const heroPhoto = imgMatch ? imgMatch[1] : 'https://picsum.photos/seed/everafter-hero/1400/1800';
-        const dateMatch = rsTopContent.match(/<p class=["']rs-date["']>([\s\S]*?)<\/p>/i);
-        const dateHtml = dateMatch ? dateMatch[1] : '<span class="hy" aria-hidden="true">囍</span><b>20.10.2026</b><span class="hy" aria-hidden="true">囍</span>';
-
+        const rsTopContent = match[1].replace(/\bopen-btn\b/g, '');
         const coverHtml = `
   <div id="cover" class="cover rs-cover">
-    <div class="rs-cover-inner">
+    <div class="rs-top">
       ${rsTopContent}
     </div>
   </div>`;
 
-        const heroHtml = `<div class="rs-hero">
-  <svg class="floral" viewBox="0 0 160 110" aria-hidden="true"><g fill="none" stroke="#9b8657" stroke-width="1.3" stroke-linecap="round"><path d="M2 4 C40 10 70 26 96 52 C112 68 128 80 158 86"/><path d="M30 12 C36 26 34 40 24 52"/><path d="M62 30 C74 34 80 46 78 60"/><path d="M104 60 C104 72 98 82 88 90"/></g><g fill="#b7a578"><ellipse cx="22" cy="8" rx="9" ry="3.6" transform="rotate(18 22 8)"/><ellipse cx="46" cy="20" rx="9" ry="3.4" transform="rotate(34 46 20)"/><ellipse cx="34" cy="34" rx="8" ry="3.2" transform="rotate(-70 34 34)"/><ellipse cx="80" cy="44" rx="9" ry="3.4" transform="rotate(50 80 44)"/><ellipse cx="78" cy="58" rx="8" ry="3" transform="rotate(-80 78 58)"/><ellipse cx="118" cy="72" rx="9" ry="3.2" transform="rotate(26 118 72)"/><ellipse cx="100" cy="80" rx="7" ry="3" transform="rotate(-60 100 80)"/><ellipse cx="140" cy="82" rx="8" ry="3" transform="rotate(10 140 82)"/></g></svg>
-  <svg class="floral r" viewBox="0 0 160 110" aria-hidden="true"><g fill="none" stroke="#9b8657" stroke-width="1.3" stroke-linecap="round"><path d="M2 4 C40 10 70 26 96 52 C112 68 128 80 158 86"/><path d="M30 12 C36 26 34 40 24 52"/><path d="M62 30 C74 34 80 46 78 60"/><path d="M104 60 C104 72 98 82 88 90"/></g><g fill="#b7a578"><ellipse cx="22" cy="8" rx="9" ry="3.6" transform="rotate(18 22 8)"/><ellipse cx="46" cy="20" rx="9" ry="3.4" transform="rotate(34 46 20)"/><ellipse cx="34" cy="34" rx="8" ry="3.2" transform="rotate(-70 34 34)"/><ellipse cx="80" cy="44" rx="9" ry="3.4" transform="rotate(50 80 44)"/><ellipse cx="78" cy="58" rx="8" ry="3" transform="rotate(-80 78 58)"/><ellipse cx="118" cy="72" rx="9" ry="3.2" transform="rotate(26 118 72)"/><ellipse cx="100" cy="80" rx="7" ry="3" transform="rotate(-60 100 80)"/><ellipse cx="140" cy="82" rx="8" ry="3" transform="rotate(10 140 82)"/></g></svg>
-  <p class="rs-kicker">Lễ Thành Hôn</p>
-  <h1 class="rs-hero-title">${names}</h1>
-  <figure class="rs-hero-photo"><img src="${heroPhoto}" alt="Ảnh cưới" fetchpriority="high"></figure>
-  <p class="rs-tagline">Hai con người, một hành trình, và một ngày chúng mình muốn có bạn ở bên.</p>
-  <p class="rs-date">${dateHtml}</p>
-</div></section>`;
-
         html = html.replace(/<main\s+id=["']inv["'][^>]*>/i, () => `${coverHtml}\n  <main id="inv" class="inv">`);
-        html = html.replace(/<div class=["']rs-top\s*["']>[\s\S]*?<\/div>\s*<\/section>/i, heroHtml);
+        html = html.replace(/<section[^>]*id=["']hero["'][^>]*>[\s\S]*?<\/section>/i, '');
         if (!html.includes('class="locked"') && !html.includes('class="ready locked"')) {
           html = html.replace(/<html([^>]*)class=["']([^"']*)["']/i, (m, pre, cls) => `<html${pre}class="${cls} locked"`);
         }
@@ -90,10 +73,46 @@ export default async function handler(req, res) {
       }
     }
 
-    const guardStyle = `<style id="ea-guard-style">
+    // Normalize any legacy .rs-cover-inner to .rs-top and remove non-original #hero on redseal cards
+    html = html.replace(/openButtons\.forEach\(function\(btn\)\s*\{\s*btn\.addEventListener/, 'openButtons.forEach(function(btn) {\n    btn.__bound = true;\n    btn.addEventListener');
+    if (html.includes('data-style="redseal"') || html.includes('rs-cover')) {
+      html = html.replace(/<div class=["']rs-cover-inner["']>/g, '<div class="rs-top">');
+      html = html.replace(/<section[^>]*id=["']hero["'][^>]*>[\s\S]*?<\/section>/i, '');
+      html = html.replace(/const topSec = document\.querySelector\('\.rs-top, \.envelope-wrapper, #envelope-scene'\);[\s\S]*?return;\s*\}/,
+        `const topSec = (cover && cover.querySelector('.rs-top, .rs-cover-inner')) || document.querySelector('.rs-top, .rs-cover-inner, .envelope-wrapper, #envelope-scene');
+      if (topSec && !topSec.classList.contains('is-open')) {
+        topSec.classList.add('opening');
+        setTimeout(function() { topSec.classList.add('is-open'); }, 650);
+        setTimeout(function() {
+          finishOpen();
+        }, 2400);
+        return;
+      }`);
+      html = html.replace(/const topSec = cover\?\.querySelector\('\.rs-cover-inner, \.rs-top'\)[\s\S]*?return;\s*\}/,
+        `const topSec = (cover && cover.querySelector('.rs-top, .rs-cover-inner')) || document.querySelector('.rs-top, .rs-cover-inner, .envelope-wrapper, #envelope-scene');
+      if (topSec && !topSec.classList.contains('is-open')) {
+        topSec.classList.add('opening');
+        setTimeout(function() { topSec.classList.add('is-open'); }, 650);
+        setTimeout(function() {
+          finishOpen();
+        }, 2400);
+        return;
+      }`);
+    }
+
+    const guardStyle = `<style id="ea-guard-style-live">
   [hidden] { display: none !important; }
   #cover[hidden], .cover[hidden] { display: none !important; visibility: hidden !important; pointer-events: none !important; }
   html.locked, html.locked body, body.locked { overflow: hidden !important; height: 100% !important; touch-action: none !important; overscroll-behavior: none !important; }
+  .cover.rs-cover { position: fixed; inset: 0; z-index: 100; display: block; padding: 0; background: var(--bg, #f7e6ec); overflow: hidden; transition: opacity .7s cubic-bezier(.2, .8, .2, 1), visibility .7s; }
+  .cover.rs-cover.is-leaving { opacity: 0; visibility: hidden; pointer-events: none; }
+  .cover.rs-cover .rs-top, .cover.rs-cover .rs-cover-inner { width: 100%; max-width: 480px; margin: 0 auto; min-height: 100svh; background: #fff; position: relative; display: grid; justify-items: center; align-content: start; text-align: center; padding: 58px 16px 36px; overflow: hidden; box-shadow: 0 0 50px rgba(163, 29, 52, .06); }
+  .opening .env-flap, .is-open .env-flap { transform: perspective(700px) rotateX(180deg) !important; z-index: 0 !important; }
+  .opening .tap, .is-open .tap { opacity: 0 !important; visibility: hidden !important; transition: opacity .3s; }
+  .is-open .env-photo { height: 158% !important; }
+  .heart svg { width: 24px !important; height: 24px !important; fill: var(--wine, #7b0f1e); stroke: none; display: inline-block; vertical-align: middle; }
+  [data-style="redseal"] #hero, .rs-page #hero, #hero:empty, .m-hero:empty { display: none !important; padding: 0 !important; }
+  [data-style="redseal"] .m-invitation, .rs-page .m-invitation { position: relative; padding-top: 58px !important; overflow: hidden; }
   @media (pointer: coarse), (max-width: 768px) {
     html { scroll-behavior: auto !important; -webkit-overflow-scrolling: touch !important; }
     .rs-wishes, .wish-list { max-height: none !important; overflow: visible !important; }
@@ -108,7 +127,7 @@ export default async function handler(req, res) {
     }
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=300');
+    res.setHeader('Cache-Control', 'public, max-age=10, s-maxage=30');
     return res.status(200).send(html);
   } catch (err) {
     return res.status(500).send('Lỗi máy chủ khi tải thiệp: ' + err.message);

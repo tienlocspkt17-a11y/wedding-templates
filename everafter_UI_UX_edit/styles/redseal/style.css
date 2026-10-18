@@ -74,40 +74,20 @@ body { background: var(--bg); font-family: var(--f-body); }
 /* ---------- 0. intro cover overlay (fullscreen wax-sealed red envelope) ---------- */
 .cover.rs-cover {
   position: fixed; inset: 0; z-index: 100;
-  display: grid; place-items: center;
+  display: block; padding: 0;
   background: var(--bg);
   overflow: hidden;
-  padding: max(20px, env(safe-area-inset-top)) 16px max(20px, env(safe-area-inset-bottom));
-  transition: opacity .7s cubic-bezier(.2, .8, .2, 1), transform .7s cubic-bezier(.2, .8, .2, 1), visibility .7s;
+  transition: opacity .7s cubic-bezier(.2, .8, .2, 1), visibility .7s;
 }
 .cover.rs-cover[hidden] { display: none !important; }
-.cover.rs-cover.is-leaving { opacity: 0; transform: translateY(-40px); pointer-events: none; }
-.rs-cover-inner {
-  position: relative; width: 100%; max-width: 440px; margin: 0 auto;
-  display: grid; justify-items: center; align-content: center; text-align: center;
-  padding: 20px 8px;
+.cover.rs-cover.is-leaving { opacity: 0; visibility: hidden; pointer-events: none; }
+.cover.rs-cover .rs-top {
+  width: 100%; max-width: 480px; margin: 0 auto; min-height: 100svh;
+  background: #fff; box-shadow: 0 0 50px rgba(163, 29, 52, .06);
 }
-.rs-cover-inner .floral { position: absolute; top: -14px; left: -8px; width: 112px; pointer-events: none; }
-.rs-cover-inner .floral.r { left: auto; right: -8px; transform: scaleX(-1); }
-.rs-cover-inner .rs-title { font: 400 clamp(44px, 12vw, 56px)/1.1 var(--f-script); color: var(--ink); margin: 2px 0 0; }
-.rs-cover-inner .env-btn { all: unset; cursor: pointer; display: block; width: min(78%, 300px); margin-top: 6px; -webkit-tap-highlight-color: transparent; }
-.rs-cover-inner .env-btn:focus-visible { outline: 2px solid var(--wine); outline-offset: 6px; border-radius: 6px; }
-.rs-cover-inner .opening .env-flap, .rs-cover-inner .is-open .env-flap { transform: perspective(700px) rotateX(180deg); z-index: 0; }
-.rs-cover-inner .opening .tap, .rs-cover-inner .is-open .tap { opacity: 0; visibility: hidden; transition: opacity .3s; }
-.rs-cover-inner .is-open .env-photo { height: 158%; }
-.rs-cover-inner .is-open .tap { height: 0; margin: 0; }
-
-/* ---------- 1. hero header inside the wedding card ---------- */
-.m-hero { padding: 0 !important; }
-.rs-hero {
-  position: relative; padding: 48px 16px 28px; text-align: center; overflow: hidden;
-}
-.rs-hero .floral { position: absolute; top: 4px; left: 4px; width: 100px; pointer-events: none; }
-.rs-hero .floral.r { left: auto; right: 4px; transform: scaleX(-1); }
-.rs-hero-title { font: 400 clamp(36px, 10.5vw, 52px)/1.15 var(--f-script); color: var(--ink); margin: 6px 0 14px; }
-.rs-hero-photo { margin: 12px auto 18px; width: min(88%, 340px); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(163, 29, 52, .18); border: 3px solid #fff; }
-.rs-hero-photo img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block; }
-.rs-hero .rs-tagline { font: italic 400 15px/1.6 var(--f-body); color: var(--ink-soft); margin: 14px 20px 20px; }
+.m-hero, #hero:empty, .m-hero:empty { display: none !important; padding: 0 !important; }
+.m-invitation { position: relative; padding-top: 58px !important; overflow: hidden; }
+.heart svg { width: 24px; height: 24px; fill: var(--wine); stroke: none; display: inline-block; vertical-align: middle; }
 
 /* envelope component styles */
 .rs-top { position: relative; min-height: 100svh; display: grid; justify-items: center; align-content: start; text-align: center; padding: 58px 16px 36px; overflow: hidden; }
