@@ -303,131 +303,213 @@
   <p class="rs-kicker">Sổ lưu bút</p>
   <p class="rs-script big">Gửi Lời Chúc</p>
   <p class="rs-divider" aria-hidden="true"><span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span></p>
-  <p class="rs-italic" style="margin-bottom: 22px;">Mỗi lời nhắn là một món quà ý nghĩa chúc phúc cho Trùng Dương &amp; Kim Loan 🍬</p>
+  <p class="rs-italic" style="margin-bottom: 20px;">Mỗi lời nhắn là một món quà ý nghĩa chúc phúc cho Trùng Dương &amp; Kim Loan 🍬</p>
 
-  <!-- Interactive Guestbook Card -->
-  <div class="rs-frame" style="padding: 24px 18px; border-radius: 20px; background: #FFFDF9; border: 2px solid #b7a578; box-shadow: 0 10px 30px rgba(107, 7, 16, 0.1);">
+  <!-- Segmented Navigation Switcher: [ ✍️ Gửi lời chúc ] [ 💌 Lời chúc mừng (4) ] -->
+  <div class="rs-gb-switcher" style="display: flex; justify-content: center; margin-bottom: 18px;">
+    <div style="background: rgba(183, 165, 120, 0.15); border: 1.5px solid #b7a578; border-radius: 30px; padding: 4px; display: inline-flex; gap: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.04);">
+      <button type="button" id="btn-tab-form" class="rs-gb-nav-btn active" style="background: var(--wine, #7b0f1e); color: #FFF; border: none; border-radius: 24px; padding: 8px 20px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: all 0.25s ease; box-shadow: 0 4px 10px rgba(123, 15, 30, 0.3);">
+        ✍️ Gửi lời chúc
+      </button>
+      <button type="button" id="btn-tab-wall" class="rs-gb-nav-btn" style="background: transparent; color: var(--wine, #7b0f1e); border: none; border-radius: 24px; padding: 8px 20px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: all 0.25s ease;">
+        💌 Lời chúc mừng (<span id="rs-tab-counter">4</span>)
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Gilded Guestbook Parchment Container -->
+  <div class="rs-frame" style="padding: 24px 18px; border-radius: 22px; background: linear-gradient(180deg, #FFFDF9 0%, #FAF6EE 100%); border: 2px solid #b7a578; box-shadow: 0 12px 36px rgba(107, 7, 16, 0.12); position: relative;">
     <span class="orn tl"></span><span class="orn tr"></span><span class="orn bl"></span><span class="orn br"></span>
 
-    <!-- 1. Interactive Mood / Avatar Selector -->
-    <div style="margin-bottom: 16px; text-align: left;">
-      <label style="font-size: 13px; font-weight: 600; color: #555; display: block; margin-bottom: 8px;">
-        Chọn cảm xúc của bạn:
-      </label>
-      <div id="rs-mood-picker" style="display: flex; gap: 8px; justify-content: space-between;">
-        <button type="button" class="rs-mood-btn active" data-mood="🥰" style="flex: 1; padding: 8px 4px; border: 1.5px solid var(--wine, #7b0f1e); background: #FFF5F5; border-radius: 12px; font-size: 20px; cursor: pointer; transition: all 0.2s;" title="Yêu thương">🥰</button>
-        <button type="button" class="rs-mood-btn" data-mood="🥂" style="flex: 1; padding: 8px 4px; border: 1.5px solid #E5E0D8; background: #FFF; border-radius: 12px; font-size: 20px; cursor: pointer; transition: all 0.2s;" title="Nâng ly chúc mừng">🥂</button>
-        <button type="button" class="rs-mood-btn" data-mood="💖" style="flex: 1; padding: 8px 4px; border: 1.5px solid #E5E0D8; background: #FFF; border-radius: 12px; font-size: 20px; cursor: pointer; transition: all 0.2s;" title="Hạnh phúc tròn đầy">💖</button>
-        <button type="button" class="rs-mood-btn" data-mood="🎉" style="flex: 1; padding: 8px 4px; border: 1.5px solid #E5E0D8; background: #FFF; border-radius: 12px; font-size: 20px; cursor: pointer; transition: all 0.2s;" title="Quẩy hết mình">🎉</button>
-        <button type="button" class="rs-mood-btn" data-mood="💐" style="flex: 1; padding: 8px 4px; border: 1.5px solid #E5E0D8; background: #FFF; border-radius: 12px; font-size: 20px; cursor: pointer; transition: all 0.2s;" title="Trăm năm gắn kết">💐</button>
-      </div>
-      <input type="hidden" id="rs-gb-mood" value="🥰">
-    </div>
-
-    <!-- 2. Form Inputs -->
-    <form id="rs-form-guestbook" style="display: flex; flex-direction: column; gap: 12px; text-align: left;">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-        <div>
-          <label for="rs-gb-name" style="font-size: 13px; font-weight: 600; color: #444; display: block; margin-bottom: 4px;">Tên của bạn *</label>
-          <input type="text" id="rs-gb-name" required placeholder="Ví dụ: Bé Lan, Hoàng IT..." style="width: 100%; padding: 9px 12px; border: 1.5px solid #DDD3C1; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; background: #FFF;">
+    <!-- PANE 1: FORM GỬI LỜI CHÚC -->
+    <div id="pane-guestbook-form" style="display: block;">
+      
+      <!-- Mood Selector with Cute Labels -->
+      <div style="margin-bottom: 18px; text-align: left;">
+        <label style="font-size: 13px; font-weight: 700; color: #444; display: block; margin-bottom: 8px; letter-spacing: 0.02em;">
+          1. Chọn cảm xúc chúc phúc của bạn:
+        </label>
+        <div id="rs-mood-picker" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px;">
+          <button type="button" class="rs-mood-btn active" data-mood="🥰" style="padding: 8px 2px; border: 1.5px solid var(--wine, #7b0f1e); background: #FFF5F5; border-radius: 12px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 2px;">
+            <span style="font-size: 22px; line-height: 1;">🥰</span>
+            <span style="font-size: 10px; font-weight: 600; color: var(--wine, #7b0f1e);">Thương</span>
+          </button>
+          <button type="button" class="rs-mood-btn" data-mood="🥂" style="padding: 8px 2px; border: 1.5px solid #E5E0D8; background: #FFF; border-radius: 12px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 2px;">
+            <span style="font-size: 22px; line-height: 1;">🥂</span>
+            <span style="font-size: 10px; font-weight: 600; color: #666;">Nâng ly</span>
+          </button>
+          <button type="button" class="rs-mood-btn" data-mood="💖" style="padding: 8px 2px; border: 1.5px solid #E5E0D8; background: #FFF; border-radius: 12px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 2px;">
+            <span style="font-size: 22px; line-height: 1;">💖</span>
+            <span style="font-size: 10px; font-weight: 600; color: #666;">Hạnh phúc</span>
+          </button>
+          <button type="button" class="rs-mood-btn" data-mood="🎉" style="padding: 8px 2px; border: 1.5px solid #E5E0D8; background: #FFF; border-radius: 12px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 2px;">
+            <span style="font-size: 22px; line-height: 1;">🎉</span>
+            <span style="font-size: 10px; font-weight: 600; color: #666;">Quẩy</span>
+          </button>
+          <button type="button" class="rs-mood-btn" data-mood="💐" style="padding: 8px 2px; border: 1.5px solid #E5E0D8; background: #FFF; border-radius: 12px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 2px;">
+            <span style="font-size: 22px; line-height: 1;">💐</span>
+            <span style="font-size: 10px; font-weight: 600; color: #666;">Trăm năm</span>
+          </button>
         </div>
-        <div>
-          <label for="rs-gb-relation" style="font-size: 13px; font-weight: 600; color: #444; display: block; margin-bottom: 4px;">Bạn là ai nè?</label>
-          <select id="rs-gb-relation" style="width: 100%; padding: 9px 12px; border: 1.5px solid #DDD3C1; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; background: #FFF;">
-            <option value="Bạn thân cô dâu">Bạn thân cô dâu</option>
-            <option value="Hội bạn chú rể">Hội bạn chú rể</option>
-            <option value="Bạn chung cả hai">Bạn chung cả hai</option>
-            <option value="Đồng nghiệp vui vẻ">Đồng nghiệp vui vẻ</option>
-            <option value="Người thân gia đình">Người thân gia đình</option>
-          </select>
-        </div>
+        <input type="hidden" id="rs-gb-mood" value="🥰">
       </div>
 
       <!-- Quick Wish Chips -->
-      <div>
-        <span style="font-size: 12px; font-weight: 600; color: #777; margin-bottom: 6px; display: block;">Gợi ý câu chúc nhanh:</span>
+      <div style="margin-bottom: 16px; text-align: left;">
+        <span style="font-size: 12px; font-weight: 600; color: #666; margin-bottom: 6px; display: block;">
+          2. Gợi ý lời chúc một chạm:
+        </span>
         <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-          <button type="button" class="rs-quick-chip" style="background: #FFF5F5; border: 1px dashed rgba(123, 15, 30, 0.4); border-radius: 14px; padding: 4px 10px; font-size: 12px; color: var(--wine, #7b0f1e); cursor: pointer;">Trăm năm hạnh phúc! 💖</button>
-          <button type="button" class="rs-quick-chip" style="background: #FFF5F5; border: 1px dashed rgba(123, 15, 30, 0.4); border-radius: 14px; padding: 4px 10px; font-size: 12px; color: var(--wine, #7b0f1e); cursor: pointer;">Sớm có thiên thần nhỏ! 👶</button>
-          <button type="button" class="rs-quick-chip" style="background: #FFF5F5; border: 1px dashed rgba(123, 15, 30, 0.4); border-radius: 14px; padding: 4px 10px; font-size: 12px; color: var(--wine, #7b0f1e); cursor: pointer;">Mãi ngọt ngào như ngày đầu! 🍯</button>
+          <button type="button" class="rs-quick-chip" style="background: #FFF5F5; border: 1px dashed rgba(123, 15, 30, 0.45); border-radius: 16px; padding: 5px 12px; font-size: 12px; color: var(--wine, #7b0f1e); font-weight: 500; cursor: pointer;">Trăm năm hạnh phúc! 💖</button>
+          <button type="button" class="rs-quick-chip" style="background: #FFF5F5; border: 1px dashed rgba(123, 15, 30, 0.45); border-radius: 16px; padding: 5px 12px; font-size: 12px; color: var(--wine, #7b0f1e); font-weight: 500; cursor: pointer;">Sớm đón thiên thần nhỏ! 👶</button>
+          <button type="button" class="rs-quick-chip" style="background: #FFF5F5; border: 1px dashed rgba(123, 15, 30, 0.45); border-radius: 16px; padding: 5px 12px; font-size: 12px; color: var(--wine, #7b0f1e); font-weight: 500; cursor: pointer;">Mãi ngọt ngào như ngày đầu! 🍯</button>
+          <button type="button" class="rs-quick-chip" style="background: #FFF5F5; border: 1px dashed rgba(123, 15, 30, 0.45); border-radius: 16px; padding: 5px 12px; font-size: 12px; color: var(--wine, #7b0f1e); font-weight: 500; cursor: pointer;">Vạn sự như ý, gia đình viên mãn! ✨</button>
         </div>
       </div>
 
-      <div>
-        <label for="rs-gb-message" style="font-size: 13px; font-weight: 600; color: #444; display: block; margin-bottom: 4px;">Lời nhắn gửi *</label>
-        <textarea id="rs-gb-message" rows="3" required placeholder="Gửi những lời chúc ấm áp nhất đến hai bạn nhé..." style="width: 100%; padding: 10px 12px; border: 1.5px solid #DDD3C1; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; background: #FFF; resize: none;"></textarea>
-      </div>
+      <!-- Form Inputs -->
+      <form id="rs-form-guestbook" style="display: flex; flex-direction: column; gap: 12px; text-align: left;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div>
+            <label for="rs-gb-name" style="font-size: 13px; font-weight: 700; color: #444; display: block; margin-bottom: 4px;">Tên của bạn *</label>
+            <input type="text" id="rs-gb-name" required placeholder="Ví dụ: Bé Lan, Hoàng IT..." style="width: 100%; padding: 10px 12px; border: 1.5px solid #DDD3C1; border-radius: 12px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; background: #FFF; outline: none; transition: border-color 0.2s;">
+          </div>
+          <div>
+            <label for="rs-gb-relation" style="font-size: 13px; font-weight: 700; color: #444; display: block; margin-bottom: 4px;">Bạn là ai nè?</label>
+            <select id="rs-gb-relation" style="width: 100%; padding: 10px 12px; border: 1.5px solid #DDD3C1; border-radius: 12px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; background: #FFF; outline: none; transition: border-color 0.2s;">
+              <option value="Bạn thân cô dâu">Bạn thân cô dâu</option>
+              <option value="Hội bạn chú rể">Hội bạn chú rể</option>
+              <option value="Bạn chung cả hai">Bạn chung cả hai</option>
+              <option value="Đồng nghiệp vui vẻ">Đồng nghiệp vui vẻ</option>
+              <option value="Người thân gia đình">Người thân gia đình</option>
+            </select>
+          </div>
+        </div>
 
-      <button type="submit" class="btn" style="background: var(--wine, #7b0f1e); color: #FFF; border: none; border-radius: 24px; padding: 12px; font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 14px rgba(123, 15, 30, 0.3); display: flex; align-items: center; justify-content: center; gap: 8px;">
-        <span>Gửi Lời Chúc Phúc</span>
-        <span>💌</span>
-      </button>
-    </form>
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <label for="rs-gb-message" style="font-size: 13px; font-weight: 700; color: #444;">Lời nhắn gửi *</label>
+            <span id="char-counter" style="font-size: 11px; color: #888;">0/300</span>
+          </div>
+          <textarea id="rs-gb-message" rows="3" maxlength="300" required placeholder="Gửi những lời chúc ấm áp nhất đến Trùng Dương &amp; Kim Loan nhé..." style="width: 100%; padding: 10px 12px; border: 1.5px solid #DDD3C1; border-radius: 12px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; background: #FFF; resize: none; outline: none; transition: border-color 0.2s;"></textarea>
+        </div>
 
-    <!-- 3. Bức Tường Lời Chúc (Wishing Wall) -->
-    <div style="margin-top: 24px; border-top: 1.5px dashed rgba(183, 165, 120, 0.4); padding-top: 18px; text-align: left;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <button type="submit" class="btn" style="background: linear-gradient(135deg, var(--wine, #7b0f1e) 0%, #520510 100%); color: #FFF; border: 1px solid #b7a578; border-radius: 28px; padding: 13px; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; box-shadow: 0 6px 18px rgba(123, 15, 30, 0.35); display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 4px; transition: transform 0.15s ease;">
+          <span>Gửi Lời Chúc Phúc</span>
+          <span style="font-size: 18px;">💌</span>
+        </button>
+      </form>
+
+    </div><!-- End Pane Form -->
+
+    <!-- PANE 2: DANH SÁCH LỜI CHÚC (WISHING WALL) -->
+    <div id="pane-guestbook-wall" style="display: none; text-align: left;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px dashed rgba(183, 165, 120, 0.4);">
         <span style="font-size: 14px; font-weight: 700; color: var(--wine, #7b0f1e); display: flex; align-items: center; gap: 6px;">
-          <span>📌</span> Lời Chúc Gần Đây
+          <span>💌</span> Lời Chúc Từ Trái Tim
         </span>
-        <span id="rs-wishes-counter" style="font-size: 12px; color: #777; background: #FFF; padding: 2px 8px; border-radius: 10px; border: 1px solid #E5E0D8;">
-          4 lời chúc
-        </span>
+        <button type="button" id="btn-write-another" style="background: #FFF5F5; border: 1px solid var(--wine, #7b0f1e); color: var(--wine, #7b0f1e); font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 16px; cursor: pointer;">
+          + Viết lời chúc
+        </button>
       </div>
 
-      <div id="rs-wishes-list" style="display: flex; flex-direction: column; gap: 12px; max-height: 420px; overflow-y: auto; padding-right: 4px;">
+      <!-- Wish Cards Stream -->
+      <div id="rs-wishes-list" style="display: flex; flex-direction: column; gap: 14px;">
         
-        <!-- Note 1 -->
-        <div class="rs-wish-item" style="background: #FFFDF9; border: 1px solid rgba(183, 165, 120, 0.5); border-radius: 12px; padding: 12px 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-            <div style="display: flex; align-items: center; gap: 6px;">
-              <span style="font-size: 18px;">🥰</span>
-              <strong style="color: var(--wine, #7b0f1e); font-size: 14px;">Nguyễn Thảo Nhi</strong>
+        <!-- Wish Card 1 -->
+        <div class="rs-wish-item" style="background: #FFFDF9; border: 1.5px solid #E2D7C3; border-radius: 16px; padding: 14px 16px; box-shadow: 0 4px 14px rgba(107, 7, 16, 0.05); position: relative; transition: transform 0.2s ease;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 36px; height: 36px; border-radius: 50%; background: #FFF0F3; border: 1px solid rgba(123, 15, 30, 0.2); display: flex; align-items: center; justify-content: center; font-size: 19px;">
+                🥰
+              </div>
+              <div>
+                <strong style="color: var(--wine, #7b0f1e); font-size: 14px; display: block; line-height: 1.2;">Nguyễn Thảo Nhi</strong>
+                <span style="font-size: 11px; color: #888;">Bạn thân cô dâu · Vừa xong</span>
+              </div>
             </div>
-            <span style="font-size: 11px; background: rgba(123, 15, 30, 0.08); color: var(--wine, #7b0f1e); padding: 1px 8px; border-radius: 8px;">Bạn thân cô dâu</span>
+            <button type="button" class="like-btn" onclick="toggleLike(this)" style="background: none; border: 1px solid #EED; border-radius: 12px; padding: 2px 8px; font-size: 11.5px; color: #777; cursor: pointer; display: flex; align-items: center; gap: 3px;">
+              <span>❤️</span> <span class="like-cnt">12</span>
+            </button>
           </div>
-          <p style="font-size: 13.5px; color: #333; line-height: 1.4; margin: 0;">Loan ơi, nhìn mày bước vào lễ đường tao xúc động muốn rớt nước mắt! Chúc hai vợ chồng luôn yêu thương, nhường nhịn và đồng hành cùng nhau suốt chặng đường dài phía trước nhé! Love you cả hai!</p>
+          <p style="font-size: 13.5px; color: #333; line-height: 1.45; margin: 0; padding-left: 44px; font-style: italic;">
+            "Loan ơi, nhìn mày bước vào lễ đường tao xúc động muốn rớt nước mắt! Chúc hai vợ chồng luôn yêu thương, nhường nhịn và đồng hành cùng nhau suốt chặng đường dài phía trước nhé! Love you cả hai!"
+          </p>
         </div>
 
-        <!-- Note 2 -->
-        <div class="rs-wish-item" style="background: #FFFDF9; border: 1px solid rgba(183, 165, 120, 0.5); border-radius: 12px; padding: 12px 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-            <div style="display: flex; align-items: center; gap: 6px;">
-              <span style="font-size: 18px;">🥂</span>
-              <strong style="color: var(--wine, #7b0f1e); font-size: 14px;">Trần Minh Quang</strong>
+        <!-- Wish Card 2 -->
+        <div class="rs-wish-item" style="background: #FFFDF9; border: 1.5px solid #E2D7C3; border-radius: 16px; padding: 14px 16px; box-shadow: 0 4px 14px rgba(107, 7, 16, 0.05); position: relative; transition: transform 0.2s ease;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 36px; height: 36px; border-radius: 50%; background: #FFF0F3; border: 1px solid rgba(123, 15, 30, 0.2); display: flex; align-items: center; justify-content: center; font-size: 19px;">
+                🥂
+              </div>
+              <div>
+                <strong style="color: var(--wine, #7b0f1e); font-size: 14px; display: block; line-height: 1.2;">Trần Minh Quang</strong>
+                <span style="font-size: 11px; color: #888;">Hội bạn chú rể · Hôm nay</span>
+              </div>
             </div>
-            <span style="font-size: 11px; background: rgba(123, 15, 30, 0.08); color: var(--wine, #7b0f1e); padding: 1px 8px; border-radius: 8px;">Hội bạn chú rể</span>
+            <button type="button" class="like-btn" onclick="toggleLike(this)" style="background: none; border: 1px solid #EED; border-radius: 12px; padding: 2px 8px; font-size: 11.5px; color: #777; cursor: pointer; display: flex; align-items: center; gap: 3px;">
+              <span>❤️</span> <span class="like-cnt">9</span>
+            </button>
           </div>
-          <p style="font-size: 13.5px; color: #333; line-height: 1.4; margin: 0;">Chúc mừng người anh em chí cốt Trùng Dương đã rước được nàng về dinh! Chúc hai bạn trăm năm hạnh phúc, gia đình viên mãn và sớm đón thiên thần nhỏ nhé!</p>
+          <p style="font-size: 13.5px; color: #333; line-height: 1.45; margin: 0; padding-left: 44px; font-style: italic;">
+            "Chúc mừng người anh em chí cốt Trùng Dương đã rước được nàng về dinh! Chúc hai bạn trăm năm hạnh phúc, gia đình viên mãn và sớm đón thiên thần nhỏ nhé!"
+          </p>
         </div>
 
-        <!-- Note 3 -->
-        <div class="rs-wish-item" style="background: #FFFDF9; border: 1px solid rgba(183, 165, 120, 0.5); border-radius: 12px; padding: 12px 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-            <div style="display: flex; align-items: center; gap: 6px;">
-              <span style="font-size: 18px;">💖</span>
-              <strong style="color: var(--wine, #7b0f1e); font-size: 14px;">Gia đình Dì Bảy</strong>
+        <!-- Wish Card 3 -->
+        <div class="rs-wish-item" style="background: #FFFDF9; border: 1.5px solid #E2D7C3; border-radius: 16px; padding: 14px 16px; box-shadow: 0 4px 14px rgba(107, 7, 16, 0.05); position: relative; transition: transform 0.2s ease;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 36px; height: 36px; border-radius: 50%; background: #FFF0F3; border: 1px solid rgba(123, 15, 30, 0.2); display: flex; align-items: center; justify-content: center; font-size: 19px;">
+                💖
+              </div>
+              <div>
+                <strong style="color: var(--wine, #7b0f1e); font-size: 14px; display: block; line-height: 1.2;">Gia đình Dì Bảy</strong>
+                <span style="font-size: 11px; color: #888;">Người thân gia đình · Hôm nay</span>
+              </div>
             </div>
-            <span style="font-size: 11px; background: rgba(123, 15, 30, 0.08); color: var(--wine, #7b0f1e); padding: 1px 8px; border-radius: 8px;">Người thân gia đình</span>
+            <button type="button" class="like-btn" onclick="toggleLike(this)" style="background: none; border: 1px solid #EED; border-radius: 12px; padding: 2px 8px; font-size: 11.5px; color: #777; cursor: pointer; display: flex; align-items: center; gap: 3px;">
+              <span>❤️</span> <span class="like-cnt">15</span>
+            </button>
           </div>
-          <p style="font-size: 13.5px; color: #333; line-height: 1.4; margin: 0;">Mừng hạnh phúc hai cháu Trùng Dương và Kim Loan. Chúc hai cháu trăm năm đầu bạc, cùng nhau xây đắp mái ấm thật ấm áp và tràn ngập tiếng cười!</p>
+          <p style="font-size: 13.5px; color: #333; line-height: 1.45; margin: 0; padding-left: 44px; font-style: italic;">
+            "Mừng hạnh phúc hai cháu Trùng Dương và Kim Loan. Chúc hai cháu trăm năm đầu bạc, cùng nhau xây đắp mái ấm thật ấm áp và tràn ngập tiếng cười!"
+          </p>
         </div>
 
-        <!-- Note 4 -->
-        <div class="rs-wish-item" style="background: #FFFDF9; border: 1px solid rgba(183, 165, 120, 0.5); border-radius: 12px; padding: 12px 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-            <div style="display: flex; align-items: center; gap: 6px;">
-              <span style="font-size: 18px;">🎉</span>
-              <strong style="color: var(--wine, #7b0f1e); font-size: 14px;">Team Đồng Nghiệp IT</strong>
+        <!-- Wish Card 4 -->
+        <div class="rs-wish-item" style="background: #FFFDF9; border: 1.5px solid #E2D7C3; border-radius: 16px; padding: 14px 16px; box-shadow: 0 4px 14px rgba(107, 7, 16, 0.05); position: relative; transition: transform 0.2s ease;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 36px; height: 36px; border-radius: 50%; background: #FFF0F3; border: 1px solid rgba(123, 15, 30, 0.2); display: flex; align-items: center; justify-content: center; font-size: 19px;">
+                🎉
+              </div>
+              <div>
+                <strong style="color: var(--wine, #7b0f1e); font-size: 14px; display: block; line-height: 1.2;">Team Đồng Nghiệp IT</strong>
+                <span style="font-size: 11px; color: #888;">Đồng nghiệp vui vẻ · Hôm nay</span>
+              </div>
             </div>
-            <span style="font-size: 11px; background: rgba(123, 15, 30, 0.08); color: var(--wine, #7b0f1e); padding: 1px 8px; border-radius: 8px;">Đồng nghiệp vui vẻ</span>
+            <button type="button" class="like-btn" onclick="toggleLike(this)" style="background: none; border: 1px solid #EED; border-radius: 12px; padding: 2px 8px; font-size: 11.5px; color: #777; cursor: pointer; display: flex; align-items: center; gap: 3px;">
+              <span>❤️</span> <span class="like-cnt">7</span>
+            </button>
           </div>
-          <p style="font-size: 13.5px; color: #333; line-height: 1.4; margin: 0;">Happy Wedding Trùng Dương &amp; Kim Loan! Chúc code tình yêu của hai bạn luôn "0 bugs, 100% test coverage" và mãi chạy mượt mà theo năm tháng!</p>
+          <p style="font-size: 13.5px; color: #333; line-height: 1.45; margin: 0; padding-left: 44px; font-style: italic;">
+            "Happy Wedding Trùng Dương &amp; Kim Loan! Chúc code tình yêu của hai bạn luôn '0 bugs, 100% test coverage' và mãi chạy mượt mà theo năm tháng!"
+          </p>
         </div>
 
       </div>
-    </div>
+    </div><!-- End Pane Wall -->
+
+  </div><!-- End Main Parchment Frame -->
+
+  <!-- Toast Notification Overlay -->
+  <div id="rs-toast" style="position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(80px); background: #1a0205; color: #FFE7B8; border: 1.5px solid #b7a578; padding: 12px 24px; border-radius: 30px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; font-weight: 600; z-index: 10000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); opacity: 0; transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease; pointer-events: none; white-space: nowrap; display: flex; align-items: center; gap: 8px;">
+    <span>✨</span> <span id="rs-toast-text">Đã gửi lời chúc thành công!</span>
   </div>
+
 </div></section><section id="contact" class="sec m-contact contact reveal"><div class="wrap">
       <header class="head">
           <p class="eyebrow">Contact</p>
@@ -872,7 +954,44 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // B. Guestbook Interactive Logic
+  // B. Guestbook Segmented Switcher (Form vs Wall)
+  const btnTabForm = document.getElementById('btn-tab-form');
+  const btnTabWall = document.getElementById('btn-tab-wall');
+  const paneForm = document.getElementById('pane-guestbook-form');
+  const paneWall = document.getElementById('pane-guestbook-wall');
+  const btnWriteAnother = document.getElementById('btn-write-another');
+
+  function showPane(pane) {
+    if (pane === 'form') {
+      paneForm.style.display = 'block';
+      paneWall.style.display = 'none';
+      btnTabForm.style.background = 'var(--wine, #7b0f1e)';
+      btnTabForm.style.color = '#FFF';
+      btnTabForm.style.boxShadow = '0 4px 10px rgba(123, 15, 30, 0.3)';
+      btnTabWall.style.background = 'transparent';
+      btnTabWall.style.color = 'var(--wine, #7b0f1e)';
+      btnTabWall.style.boxShadow = 'none';
+    } else {
+      paneForm.style.display = 'none';
+      paneWall.style.display = 'block';
+      btnTabWall.style.background = 'var(--wine, #7b0f1e)';
+      btnTabWall.style.color = '#FFF';
+      btnTabWall.style.boxShadow = '0 4px 10px rgba(123, 15, 30, 0.3)';
+      btnTabForm.style.background = 'transparent';
+      btnTabForm.style.color = 'var(--wine, #7b0f1e)';
+      btnTabForm.style.boxShadow = 'none';
+    }
+  }
+
+  if (btnTabForm && btnTabWall) {
+    btnTabForm.addEventListener('click', function() { showPane('form'); });
+    btnTabWall.addEventListener('click', function() { showPane('wall'); });
+  }
+  if (btnWriteAnother) {
+    btnWriteAnother.addEventListener('click', function() { showPane('form'); });
+  }
+
+  // C. Mood Selector
   const moodBtns = document.querySelectorAll('.rs-mood-btn');
   const inputMood = document.getElementById('rs-gb-mood');
   moodBtns.forEach(function(btn) {
@@ -881,59 +1000,127 @@ document.addEventListener('DOMContentLoaded', function() {
         b.classList.remove('active');
         b.style.borderColor = '#E5E0D8';
         b.style.background = '#FFF';
+        const label = b.querySelector('span:last-child');
+        if (label) label.style.color = '#666';
       });
       btn.classList.add('active');
       btn.style.borderColor = 'var(--wine, #7b0f1e)';
       btn.style.background = '#FFF5F5';
+      const activeLabel = btn.querySelector('span:last-child');
+      if (activeLabel) activeLabel.style.color = 'var(--wine, #7b0f1e)';
       if (inputMood) inputMood.value = btn.dataset.mood;
     });
   });
 
+  // D. Quick Wish Chips
   const chips = document.querySelectorAll('.rs-quick-chip');
+  const msgInput = document.getElementById('rs-gb-message');
+  const charCounter = document.getElementById('char-counter');
+
   chips.forEach(function(chip) {
     chip.addEventListener('click', function() {
-      const msg = document.getElementById('rs-gb-message');
-      if (msg) {
-        msg.value = chip.innerText;
-        msg.focus();
+      if (msgInput) {
+        msgInput.value = chip.innerText;
+        if (charCounter) charCounter.innerText = `${msgInput.value.length}/300`;
+        msgInput.focus();
       }
     });
   });
 
+  if (msgInput && charCounter) {
+    msgInput.addEventListener('input', function() {
+      charCounter.innerText = `${msgInput.value.length}/300`;
+    });
+  }
+
+  // E. Toast Notification
+  function showToast(msg) {
+    const toast = document.getElementById('rs-toast');
+    const toastText = document.getElementById('rs-toast-text');
+    if (!toast) return;
+    if (toastText) toastText.innerText = msg;
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateX(-50%) translateY(0)';
+    setTimeout(function() {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(-50%) translateY(80px)';
+    }, 2800);
+  }
+
+  // F. Form Submission & Smooth Auto-Switch to Wall
   const formGb = document.getElementById('rs-form-guestbook');
   const listGb = document.getElementById('rs-wishes-list');
-  const counterGb = document.getElementById('rs-wishes-counter');
-  let countWishes = 4;
+  const tabCounter = document.getElementById('rs-tab-counter');
+  let totalWishes = 4;
 
   if (formGb && listGb) {
     formGb.addEventListener('submit', function(e) {
       e.preventDefault();
-      const name = document.getElementById('rs-gb-name').value;
+      const name = document.getElementById('rs-gb-name').value.trim();
       const relation = document.getElementById('rs-gb-relation').value;
-      const msg = document.getElementById('rs-gb-message').value;
+      const msg = document.getElementById('rs-gb-message').value.trim();
       const mood = (inputMood && inputMood.value) ? inputMood.value : '🥰';
+
+      if (!name || !msg) return;
 
       const card = document.createElement('div');
       card.className = 'rs-wish-item';
-      card.style.cssText = 'background: #FFFDF9; border: 1.5px solid var(--wine, #7b0f1e); border-radius: 12px; padding: 12px 14px; box-shadow: 0 4px 12px rgba(107, 7, 16, 0.08); margin-bottom: 4px; animation: fadeIn 0.4s ease;';
+      card.style.cssText = 'background: #FFFDF9; border: 1.5px solid var(--wine, #7b0f1e); border-radius: 16px; padding: 14px 16px; box-shadow: 0 6px 18px rgba(107, 7, 16, 0.12); margin-bottom: 4px; animation: fadeIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);';
       card.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-          <div style="display: flex; align-items: center; gap: 6px;">
-            <span style="font-size: 18px;">${mood}</span>
-            <strong style="color: var(--wine, #7b0f1e); font-size: 14px;">${name}</strong>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <div style="width: 36px; height: 36px; border-radius: 50%; background: #FFF0F3; border: 1px solid rgba(123, 15, 30, 0.2); display: flex; align-items: center; justify-content: center; font-size: 19px;">
+              ${mood}
+            </div>
+            <div>
+              <strong style="color: var(--wine, #7b0f1e); font-size: 14px; display: block; line-height: 1.2;">${name}</strong>
+              <span style="font-size: 11px; color: #888;">${relation} · Vừa xong</span>
+            </div>
           </div>
-          <span style="font-size: 11px; background: rgba(123, 15, 30, 0.08); color: var(--wine, #7b0f1e); padding: 1px 8px; border-radius: 8px;">${relation}</span>
+          <button type="button" class="like-btn" onclick="toggleLike(this)" style="background: none; border: 1px solid #EED; border-radius: 12px; padding: 2px 8px; font-size: 11.5px; color: #777; cursor: pointer; display: flex; align-items: center; gap: 3px;">
+            <span>❤️</span> <span class="like-cnt">1</span>
+          </button>
         </div>
-        <p style="font-size: 13.5px; color: #333; line-height: 1.4; margin: 0;">${msg}</p>
+        <p style="font-size: 13.5px; color: #333; line-height: 1.45; margin: 0; padding-left: 44px; font-style: italic;">
+          "${msg}"
+        </p>
       `;
 
       listGb.insertBefore(card, listGb.firstChild);
-      countWishes++;
-      if (counterGb) counterGb.innerText = `${countWishes} lời chúc`;
-      alert('✨ Cảm ơn bạn! Lời chúc tốt đẹp đã được gửi thành công!');
+      totalWishes++;
+      if (tabCounter) tabCounter.innerText = totalWishes;
+
+      showToast('✨ Lời chúc phúc của bạn đã được ghi lại!');
       formGb.reset();
+      if (charCounter) charCounter.innerText = '0/300';
+
+      // Smoothly switch to Wall so user sees their new wish!
+      setTimeout(function() {
+        showPane('wall');
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 400);
     });
   }
+
+  // G. Toggle Heart Like Functionality
+  window.toggleLike = function(btn) {
+    const cntEl = btn.querySelector('.like-cnt');
+    if (!cntEl) return;
+    let count = parseInt(cntEl.innerText, 10) || 0;
+    if (btn.classList.contains('liked')) {
+      btn.classList.remove('liked');
+      btn.style.borderColor = '#EED';
+      btn.style.background = 'none';
+      btn.style.color = '#777';
+      cntEl.innerText = Math.max(0, count - 1);
+    } else {
+      btn.classList.add('liked');
+      btn.style.borderColor = 'var(--wine, #7b0f1e)';
+      btn.style.background = '#FFF0F3';
+      btn.style.color = 'var(--wine, #7b0f1e)';
+      cntEl.innerText = count + 1;
+    }
+  };
 });
 </script>
 
