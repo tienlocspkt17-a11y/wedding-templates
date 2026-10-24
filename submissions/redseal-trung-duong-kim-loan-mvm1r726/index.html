@@ -25,16 +25,14 @@
   [data-style="redseal"] #hero, .rs-page #hero, #hero:empty, .m-hero:empty { display: none !important; padding: 0 !important; }
   [data-style="redseal"] .m-invitation, .rs-page .m-invitation { position: relative; padding-top: 58px !important; overflow: hidden; }
 
-  /* Ensure all content in redseal is 100% visible even if scroll observer hasn't fired yet */
-  .rs-pair > *, .rs-pair.seen > *,
-  .rs-trio img, .rs-trio.seen img,
-  .rs-cal, .rs-cal.seen,
-  .rs-tl li, .rs-tl.seen li,
-  .rs-album .alb, .rs-album.seen .alb {
-    opacity: 1 !important;
-    transform: none !important;
-    visibility: visible !important;
-  }
+  /* Smooth scroll entrance animations - active on viewport entry */
+  .reveal { will-change: opacity, transform; transition: opacity .8s cubic-bezier(.2, .8, .2, 1), transform .8s cubic-bezier(.2, .8, .2, 1); }
+  .reveal.in, .sec.in, .sec.is-revealed { opacity: 1 !important; transform: none !important; }
+  .rs-pair.seen > * { opacity: 1 !important; transform: none !important; }
+  .rs-trio.seen img { opacity: 1 !important; transform: none !important; }
+  .rs-cal.seen { opacity: 1 !important; transform: none !important; }
+  .rs-tl.seen li { opacity: 1 !important; transform: none !important; }
+  .rs-album.seen .alb { opacity: 1 !important; transform: none !important; }
 
   @media (pointer: coarse), (max-width: 768px) {
     html { scroll-behavior: auto !important; -webkit-overflow-scrolling: touch !important; }
@@ -104,12 +102,12 @@
     </div>
   </div>
 </div>
-<div class="rs-pair seen">
+<div class="rs-pair">
   <p class="n1">Trùng Dương</p><p class="amp">&amp;</p><p class="n2">Kim Loan</p>
 </div>
 <figure class="rs-portrait"><img src="https://picsum.photos/seed/everafter1/800/1000" alt="" loading="lazy" ></figure>
 <p class="rs-tagline" style="translate: 7.33334px -97.3333px;">Hai con người, một hành trình, và một ngày chúng mình muốn có bạn ở bên.</p>
-<div class="rs-trio seen"><img src="https://picsum.photos/seed/everafter2/800/1000" alt="" loading="lazy" style="--i:0"><img src="https://picsum.photos/seed/everafter3/800/1000" alt="" loading="lazy" style="--i:1"><img src="https://picsum.photos/seed/everafter4/800/1000" alt="" loading="lazy" style="--i:2"></div></section><section id="story" class="sec m-story in is-revealed" style="font-size: 15px; opacity: 1; transform: none;"><div class="wrap">
+<div class="rs-trio"><img src="https://picsum.photos/seed/everafter2/800/1000" alt="" loading="lazy" style="--i:0"><img src="https://picsum.photos/seed/everafter3/800/1000" alt="" loading="lazy" style="--i:1"><img src="https://picsum.photos/seed/everafter4/800/1000" alt="" loading="lazy" style="--i:2"></div></section><section id="story" class="sec m-story reveal" style="font-size: 15px;"><div class="wrap">
         <header class="head">
           <p class="eyebrow">Love story</p>
           <h2 class="title">Chuyện của chúng mình</h2>
@@ -135,7 +133,7 @@
             </li>
         </ol>
         <p class="story-quote" style="translate: 0.666656px 24.6666px;">Hôn nhân là chuyện cả đời<br>Yêu người vừa ý, Cưới người mình thương.</p><p></p><div><br></div><p></p><p></p>
-      </div></section><section id="events" class="sec m-events events custom in is-revealed" style="opacity: 1; transform: none;"><div class="wrap narrow">
+      </div></section><section id="events" class="sec m-events events custom reveal"><div class="wrap narrow">
   <div class="rs-tabs" role="tablist" aria-label="Chọn nhà">
     <button type="button" role="tab" data-tab="bride" aria-selected="true">Nhà gái</button>
     <button type="button" role="tab" data-tab="groom" aria-selected="false">Nhà trai</button>
@@ -170,14 +168,14 @@
         <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Trung%20t%C3%A2m%20Ti%E1%BB%87c%20c%C6%B0%E1%BB%9Bi%20White%20Palace%2C%20194%20Ho%C3%A0ng%20V%C4%83n%20Th%E1%BB%A5%2C%20Ph%C3%BA%20Nhu%E1%BA%ADn%2C%20TP.HCM" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-6-5.6-6-11a6 6 0 0 1 12 0c0 5.4-6 11-6 11z"></path><circle cx="12" cy="10" r="2.2"></circle></svg>Xem bản đồ</a>
       </article>
   </div>
-</div></section><section id="schedule" class="sec m-schedule itinerary custom in is-revealed" style="opacity: 1; transform: none;"><div class="wrap narrow">
+</div></section><section id="schedule" class="sec m-schedule itinerary custom reveal"><div class="wrap narrow">
   <p class="rs-script big">Timeline</p>
-  <ol class="rs-tl seen">
+  <ol class="rs-tl">
     <li><time>08:00</time><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 14l2-5.5h14L21 14v4.5h-2.5v-2h-13v2H3z"></path><circle cx="7.5" cy="14.5" r="1.2"></circle><circle cx="16.5" cy="14.5" r="1.2"></circle></svg></span><span class="tt">Lễ Gia Tiên</span></li><li><time>10:00</time><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 11.5 12 4l9 7.5"></path><path d="M5.5 10v10h13V10"></path><path d="M10 20v-5h4v5"></path></svg></span><span class="tt">Lễ Đón Dâu</span></li><li><time>17:30</time><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 14l2-5.5h14L21 14v4.5h-2.5v-2h-13v2H3z"></path><circle cx="7.5" cy="14.5" r="1.2"></circle><circle cx="16.5" cy="14.5" r="1.2"></circle></svg></span><span class="tt">Đón Khách</span></li><li><time>18:30</time><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><circle cx="12" cy="14.5" r="5.5"></circle><path d="M9 5.5 12 3l3 2.5-3 3z"></path></svg></span><span class="tt">Khai Tiệc</span></li><li><time>21:00</time><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><rect x="3" y="7.5" width="18" height="12" rx="2"></rect><circle cx="12" cy="13.5" r="3.4"></circle><path d="M8.5 7.5 10 5h4l1.5 2.5"></path></svg></span><span class="tt">Lời Cảm Ơn</span></li>
   </ol>
-</div></section><section id="saveDate" class="sec m-saveDate custom in is-revealed" style="opacity: 1; transform: none;"><div class="wrap narrow">
+</div></section><section id="saveDate" class="sec m-saveDate custom reveal"><div class="wrap narrow">
   <div class="rs-cal-head"><p class="rs-script">Tháng 11</p><p class="yr">2026</p></div>
-  <div class="rs-cal seen">
+  <div class="rs-cal">
     <div class="rs-cal-grid" role="table" aria-label="Tháng 10 năm 2026">
       <span class="w">Mon</span><span class="w">Tue</span><span class="w">Wed</span><span class="w">Thu</span><span class="w">Fri</span><span class="w we">Sat</span><span class="w we">Sun</span>
       <span class=""></span><span class=""></span><span class=""></span><span class="">01</span><span class="">02</span><span class="we">03</span><span class="we">04</span><span class="">05</span><span class="">06</span><span class="">07</span><span class="">08</span><span class="">09</span><span class="we">10</span><span class="we">11</span><span class="">12</span><span class="">13</span><span class="">14</span><span class="">15</span><span class="">16</span><span class="we">17</span><span class="we">18</span><span class="">19</span><span class=" on">20<i><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></i></span><span class="">21</span><span class="">22</span><span class="">23</span><span class="we">24</span><span class="we">25</span><span class="">26</span><span class="">27</span><span class="">28</span><span class="">29</span><span class="">30</span><span class="we">31</span>
@@ -189,7 +187,7 @@
         <div class="countdown" role="timer" aria-label="Đếm ngược đến ngày cưới">
           <div><span class="n">00</span><span class="u">Ngày</span></div><div><span class="n">00</span><span class="u">Giờ</span></div><div><span class="n">00</span><span class="u">Phút</span></div><div><span class="n">00</span><span class="u">Giây</span></div>
         </div>
-</div></section><section id="video" class="sec m-video in is-revealed" style="opacity: 1; transform: none;"><div class="wrap">
+</div></section><section id="video" class="sec m-video reveal"><div class="wrap">
       <header class="head">
           <p class="eyebrow">Wedding film</p>
           <h2 class="title">Thước phim của chúng mình</h2>
@@ -201,7 +199,7 @@
         <p class="video-soon" hidden="">Video sẽ sớm được cập nhật.</p>
       </div>
       <p class="fine">Trailer pre-wedding&nbsp;</p>
-    </div></section><section id="gallery" class="sec m-gallery gallery custom in is-revealed" style="opacity: 1; transform: none;"><div class="rs-album seen"><div class="alb full">
+    </div></section><section id="gallery" class="sec m-gallery gallery custom reveal"><div class="rs-album"><div class="alb full">
         <button class="photo" type="button" data-i="0" aria-label="Xem ảnh: Trước ngày mình thành đôi">
           <img src="https://picsum.photos/seed/everafter1/800/1000" alt="" loading="lazy" decoding="async">
           <span class="cap">Trước ngày mình thành đôi</span>
@@ -217,10 +215,10 @@
         <button class="photo" type="button" data-i="3" aria-label="Xem ảnh: Và rất nhiều ngày sau">
           <img src="https://picsum.photos/seed/everafter4/800/1000" alt="" loading="lazy" decoding="async">
           <span class="cap">Và rất nhiều ngày sau</span>
-        </button></div></div></section><section id="quote" class="sec m-quote quote in is-revealed" style="opacity: 1; transform: none;"><div class="wrap narrow">
+        </button></div></div></section><section id="quote" class="sec m-quote quote reveal"><div class="wrap narrow">
       <p class="eyebrow">A note from us</p>
       <blockquote>Chúng mình đã đi cùng nhau qua rất nhiều ngày bình thường để đến ngày đặc biệt này. Ngày hôm ấy sẽ trọn vẹn hơn khi có những người mình thương ở bên.</blockquote>
-    </div></section><section id="rsvp" class="sec m-rsvp custom in is-revealed" style="opacity: 1; transform: none;"><div class="wrap narrow">
+    </div></section><section id="rsvp" class="sec m-rsvp custom reveal"><div class="wrap narrow">
   <div class="rs-frame"><span class="orn tl"></span><span class="orn tr"></span><span class="orn bl"></span><span class="orn br"></span>
     <p class="rs-thin">Xác Nhận Tham Dự</p>
     <div class="rs-rsvp"><form class="rsvp-form" novalidate="">
@@ -243,7 +241,7 @@
         </form>
         <div class="form-done" hidden="" role="status"></div></div>
   </div>
-</div></section><section id="gift" class="sec m-gift custom in is-revealed" style="opacity: 1; transform: none;"><div class="wrap narrow">
+</div></section><section id="gift" class="sec m-gift custom reveal"><div class="wrap narrow">
   <div class="rs-frame"><span class="orn tl"></span><span class="orn tr"></span><span class="orn bl"></span><span class="orn br"></span>
     <p class="rs-thin">Hộp Mừng Cưới</p>
     <button class="packet-btn" type="button" aria-haspopup="dialog" aria-label="Mở hộp mừng cưới">
@@ -269,7 +267,7 @@
       <p class="qr-name">Ngọc Linh</p>
     </div></div>
   </dialog>
-</div></section><section id="guestbook" class="sec m-guestbook custom in is-revealed" style="opacity: 1; transform: none;"><div class="wrap narrow">
+</div></section><section id="guestbook" class="sec m-guestbook custom reveal"><div class="wrap narrow">
   <p class="rs-kicker">Sổ lưu bút</p>
   <p class="rs-script big">Gửi Lời Chúc</p>
   <p class="rs-divider" aria-hidden="true"><span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span></p>
@@ -300,7 +298,7 @@
       <button class="x" value="cancel" aria-label="Đóng">×</button>
     </form>
   </dialog>
-</div></section><section id="contact" class="sec m-contact contact in is-revealed" style="opacity: 1; transform: none;"><div class="wrap">
+</div></section><section id="contact" class="sec m-contact contact reveal"><div class="wrap">
       <header class="head">
           <p class="eyebrow">Contact</p>
           <h2 class="title">Chúng mình luôn ở đây</h2>
@@ -319,7 +317,7 @@
             <a class="btn" href="tel:0907654321">0917 133 611</a>
           </div>
       </div>
-    </div></section><section id="thanks" class="sec m-thanks thanks custom in is-revealed" style="opacity: 1; transform: none;"><figure class="rs-end">
+    </div></section><section id="thanks" class="sec m-thanks thanks custom reveal"><figure class="rs-end">
   <img src="https://picsum.photos/seed/ea-thanks/1200/800" alt="" loading="lazy">
   <figcaption>Rất hân hạnh được đón tiếp</figcaption>
   <button class="rs-reopen" type="button" id="reopen" aria-label="Về đầu trang">↑</button>
@@ -624,26 +622,48 @@
     setInterval(tick, 1000);
   })();
 
-  // 4. Scroll Reveal & Calligraphy Brush Animation
-  const brushItems = document.querySelectorAll('.title, .hoi-body h3, .an-names, .sec, .reveal, .module');
+  // 4. Scroll Reveal & Entrance Animations
+  const animElements = document.querySelectorAll('.sec, .reveal, .module, .rs-pair, .rs-trio, .rs-cal, .rs-tl, .rs-album, .head, .story-line li, .rs-ev, .title, .hoi-body h3, .an-names');
+
+  function revealElement(el) {
+    if (!el) return;
+    el.classList.add('in', 'is-revealed', 'seen', 'brushed');
+    if (el.classList.contains('title') || el.classList.contains('an-names') || el.tagName === 'H3') {
+      el.classList.add('brush');
+    }
+  }
+
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver(function(entries) {
       entries.forEach(function(en) {
         if (en.isIntersecting) {
-          en.target.classList.add('brushed', 'in', 'is-revealed');
+          revealElement(en.target);
           io.unobserve(en.target);
         }
       });
-    }, { threshold: 0.15 });
-    brushItems.forEach(function(el) {
-      if (el.classList.contains('title') || el.classList.contains('an-names') || el.tagName === 'H3') {
-        el.classList.add('brush');
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    animElements.forEach(function(el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.bottom > 0 && rect.top < (window.innerHeight - 80)) {
+        revealElement(el);
+      } else {
+        io.observe(el);
       }
-      io.observe(el);
     });
   } else {
-    brushItems.forEach(function(el) { el.classList.add('brushed', 'in', 'is-revealed'); });
+    animElements.forEach(revealElement);
   }
+
+  // In case browser does not support IntersectionObserver, reveal all elements
+  if (!('IntersectionObserver' in window)) {
+    animElements.forEach(revealElement);
+  }
+
+  // Before print or export, ensure all elements are visible
+  window.addEventListener('beforeprint', function() {
+    animElements.forEach(revealElement);
+  });
 
   // 5. Ink Blooming on Canvas Tap (Ancient Signature Wow Effect)
   if (document.documentElement.getAttribute('data-style') === 'ancient' || document.querySelector('.handscroll')) {

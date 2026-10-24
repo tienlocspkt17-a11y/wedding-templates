@@ -2338,11 +2338,27 @@
         finalCover.remove();
       }
 
-      // 6. Pre-reveal sections and modules so content is immediately visible
-      clone.querySelectorAll('.reveal, .sec, .module, [data-module], .rs-pair, .rs-trio, .rs-cal, .rs-tl, .rs-album').forEach(el => {
-        el.classList.add('in', 'is-revealed', 'seen');
+      // 6. Section reveal & animation setup
+      // Ensure top invitation letter is immediately visible when opened
+      clone.querySelectorAll('#invitation').forEach(el => {
+        el.classList.add('in', 'is-revealed');
         el.style.opacity = '1';
         el.style.transform = 'none';
+      });
+
+      // Prepare below-the-fold sections for smooth scroll-triggered entrance animations
+      clone.querySelectorAll('.sec:not(#invitation)').forEach(sec => {
+        sec.classList.add('reveal');
+        sec.classList.remove('in', 'is-revealed');
+        sec.style.removeProperty('opacity');
+        sec.style.removeProperty('transform');
+      });
+
+      // Ensure animated modules start ready for entrance transitions on scroll
+      clone.querySelectorAll('.rs-pair, .rs-trio, .rs-cal, .rs-tl, .rs-album').forEach(el => {
+        el.classList.remove('seen');
+        el.style.removeProperty('opacity');
+        el.style.removeProperty('transform');
       });
 
       // 7. Resolve relative assets to absolute production URLs
@@ -2429,7 +2445,14 @@
   .heart svg { width: 24px !important; height: 24px !important; fill: var(--wine, #7b0f1e); stroke: none; display: inline-block; vertical-align: middle; }
   [data-style="redseal"] #hero, .rs-page #hero, #hero:empty, .m-hero:empty { display: none !important; padding: 0 !important; }
   [data-style="redseal"] .m-invitation, .rs-page .m-invitation { position: relative; padding-top: 58px !important; overflow: hidden; }
-  .rs-pair > *, .rs-pair.seen > *, .rs-trio img, .rs-trio.seen img, .rs-cal, .rs-cal.seen, .rs-tl li, .rs-tl.seen li, .rs-album .alb, .rs-album.seen .alb { opacity: 1 !important; transform: none !important; visibility: visible !important; }
+  /* Smooth scroll entrance animations - active on viewport entry */
+  .reveal { will-change: opacity, transform; transition: opacity .8s cubic-bezier(.2, .8, .2, 1), transform .8s cubic-bezier(.2, .8, .2, 1); }
+  .reveal.in, .sec.in, .sec.is-revealed { opacity: 1 !important; transform: none !important; }
+  .rs-pair.seen > * { opacity: 1 !important; transform: none !important; }
+  .rs-trio.seen img { opacity: 1 !important; transform: none !important; }
+  .rs-cal.seen { opacity: 1 !important; transform: none !important; }
+  .rs-tl.seen li { opacity: 1 !important; transform: none !important; }
+  .rs-album.seen .alb { opacity: 1 !important; transform: none !important; }
   @media (pointer: coarse), (max-width: 768px) {
     html { scroll-behavior: auto !important; -webkit-overflow-scrolling: touch !important; }
     .rs-wishes, .wish-list { max-height: none !important; overflow: visible !important; }
@@ -2719,26 +2742,48 @@
     setInterval(tick, 1000);
   })();
 
-  // 4. Scroll Reveal & Calligraphy Brush Animation
-  const brushItems = document.querySelectorAll('.title, .hoi-body h3, .an-names, .sec, .reveal, .module');
+  // 4. Scroll Reveal & Entrance Animations
+  const animElements = document.querySelectorAll('.sec, .reveal, .module, .rs-pair, .rs-trio, .rs-cal, .rs-tl, .rs-album, .head, .story-line li, .rs-ev, .title, .hoi-body h3, .an-names');
+
+  function revealElement(el) {
+    if (!el) return;
+    el.classList.add('in', 'is-revealed', 'seen', 'brushed');
+    if (el.classList.contains('title') || el.classList.contains('an-names') || el.tagName === 'H3') {
+      el.classList.add('brush');
+    }
+  }
+
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver(function(entries) {
       entries.forEach(function(en) {
         if (en.isIntersecting) {
-          en.target.classList.add('brushed', 'in', 'is-revealed');
+          revealElement(en.target);
           io.unobserve(en.target);
         }
       });
-    }, { threshold: 0.15 });
-    brushItems.forEach(function(el) {
-      if (el.classList.contains('title') || el.classList.contains('an-names') || el.tagName === 'H3') {
-        el.classList.add('brush');
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    animElements.forEach(function(el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.bottom > 0 && rect.top < (window.innerHeight - 80)) {
+        revealElement(el);
+      } else {
+        io.observe(el);
       }
-      io.observe(el);
     });
   } else {
-    brushItems.forEach(function(el) { el.classList.add('brushed', 'in', 'is-revealed'); });
+    animElements.forEach(revealElement);
   }
+
+  // In case browser does not support IntersectionObserver, reveal all elements
+  if (!('IntersectionObserver' in window)) {
+    animElements.forEach(revealElement);
+  }
+
+  // Before print or export, ensure all elements are visible
+  window.addEventListener('beforeprint', function() {
+    animElements.forEach(revealElement);
+  });
 
   // 5. Ink Blooming on Canvas Tap (Ancient Signature Wow Effect)
   if (document.documentElement.getAttribute('data-style') === 'ancient' || document.querySelector('.handscroll')) {

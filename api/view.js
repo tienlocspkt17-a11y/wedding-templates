@@ -156,16 +156,14 @@ export default async function handler(req, res) {
   [data-style="redseal"] #hero, .rs-page #hero, #hero:empty, .m-hero:empty { display: none !important; padding: 0 !important; }
   [data-style="redseal"] .m-invitation, .rs-page .m-invitation { position: relative; padding-top: 58px !important; overflow: hidden; }
 
-  /* Ensure all content in redseal is 100% visible even if scroll observer hasn't fired yet */
-  .rs-pair > *, .rs-pair.seen > *,
-  .rs-trio img, .rs-trio.seen img,
-  .rs-cal, .rs-cal.seen,
-  .rs-tl li, .rs-tl.seen li,
-  .rs-album .alb, .rs-album.seen .alb {
-    opacity: 1 !important;
-    transform: none !important;
-    visibility: visible !important;
-  }
+  /* Smooth scroll entrance animations - active on viewport entry */
+  .reveal { will-change: opacity, transform; transition: opacity .8s cubic-bezier(.2, .8, .2, 1), transform .8s cubic-bezier(.2, .8, .2, 1); }
+  .reveal.in, .sec.in, .sec.is-revealed { opacity: 1 !important; transform: none !important; }
+  .rs-pair.seen > * { opacity: 1 !important; transform: none !important; }
+  .rs-trio.seen img { opacity: 1 !important; transform: none !important; }
+  .rs-cal.seen { opacity: 1 !important; transform: none !important; }
+  .rs-tl.seen li { opacity: 1 !important; transform: none !important; }
+  .rs-album.seen .alb { opacity: 1 !important; transform: none !important; }
 
   @media (pointer: coarse), (max-width: 768px) {
     html { scroll-behavior: auto !important; -webkit-overflow-scrolling: touch !important; }
