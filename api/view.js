@@ -53,9 +53,10 @@ export default async function handler(req, res) {
 
     // Self-healing: if redseal card has envelope inside hero without #cover, promote to true intro cover
     if (!html.includes('id="cover"') || html.includes('id="cover" hidden')) {
-      const match = html.match(/<div class=["']rs-top\s*["']>([\s\S]*?)<\/div>\s*<\/section>/i);
+      const match = html.match(/<div[^>]*class=["'][^"']*rs-top[^"']*["'][^>]*>([\s\S]*?)<\/div>\s*<\/section>/i);
       if (match) {
-        const rsTopContent = match[1].replace(/\bopen-btn\b/g, '');
+        let rsTopContent = match[1].replace(/\bopen-btn\b/g, '');
+        rsTopContent = rsTopContent.replace(/style=["'][^"']*translate:[^"']*["']/gi, '');
         const coverHtml = `
   <div id="cover" class="cover rs-cover">
     <div class="rs-top">
@@ -73,8 +74,49 @@ export default async function handler(req, res) {
       }
     }
 
+    // Strip accidental translate styles from sections and containers that break document flow
+    html = html.replace(/<([a-zA-Z0-9]+)([^>]*?)style=["']([^"']*translate:[^"']*)["']([^>]*?)>/gi, (m, tag, pre, style, post) => {
+      const tagLower = tag.toLowerCase();
+      if (tagLower === 'section' || tagLower === 'main' || tagLower === 'body' || pre.includes('class="sec') || post.includes('class="sec') || /translate:\s*[^;]*-([3-9]\d|[1-9]\d{2,})px/i.test(style)) {
+        const newStyle = style.replace(/translate:\s*[^;]+;?/gi, '').trim();
+        return newStyle ? `<${tag}${pre}style="${newStyle}"${post}>` : `<${tag}${pre}${post}>`;
+      }
+      return m;
+    });
+
+    // Sync couple names from .rs-names into #families .rs-pair
+    const namesMatch = html.match(/<p[^>]*class=["'][^"']*rs-names[^"']*["'][^>]*>([\s\S]*?)<\/p>/i);
+    if (namesMatch) {
+      const parts = namesMatch[1].split(/<span[^>]*class=["'][^"']*heart[^"']*["'][^>]*>[\s\S]*?<\/span>/i);
+      if (parts.length === 2) {
+        const gName = parts[0].replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim();
+        const bName = parts[1].replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim();
+        if (gName) html = html.replace(/<p class=["']n1["']>[\s\S]*?<\/p>/i, `<p class="n1">${gName}</p>`);
+        if (bName) html = html.replace(/<p class=["']n2["']>[\s\S]*?<\/p>/i, `<p class="n2">${bName}</p>`);
+      }
+    }
+
+    // Ensure floral SVGs inside #invitation .wrap narrow for redseal
+    if (html.includes('data-style="redseal"') || html.includes('rs-cover') || html.includes('rs-top')) {
+      const invMatch = html.match(/(<section[^>]*id=["']invitation["'][^>]*><div class=["']wrap narrow["']>)/i);
+      if (invMatch) {
+        const afterInv = html.slice(invMatch.index, invMatch.index + 350);
+        if (!afterInv.includes('class="floral"')) {
+          const FLORAL_SVG = `<svg class="floral" viewBox="0 0 160 110" aria-hidden="true"><g fill="none" stroke="#9b8657" stroke-width="1.3" stroke-linecap="round"><path d="M2 4 C40 10 70 26 96 52 C112 68 128 80 158 86"/><path d="M30 12 C36 26 34 40 24 52"/><path d="M62 30 C74 34 80 46 78 60"/><path d="M104 60 C104 72 98 82 88 90"/></g><g fill="#b7a578"><ellipse cx="22" cy="8" rx="9" ry="3.6" transform="rotate(18 22 8)"/><ellipse cx="46" cy="20" rx="9" ry="3.4" transform="rotate(34 46 20)"/><ellipse cx="34" cy="34" rx="8" ry="3.2" transform="rotate(-70 34 34)"/><ellipse cx="80" cy="44" rx="9" ry="3.4" transform="rotate(50 80 44)"/><ellipse cx="78" cy="58" rx="8" ry="3" transform="rotate(-80 78 58)"/><ellipse cx="118" cy="72" rx="9" ry="3.2" transform="rotate(26 118 72)"/><ellipse cx="100" cy="80" rx="7" ry="3" transform="rotate(-60 100 80)"/><ellipse cx="140" cy="82" rx="8" ry="3" transform="rotate(10 140 82)"/></g></svg><svg class="floral r" viewBox="0 0 160 110" aria-hidden="true"><g fill="none" stroke="#9b8657" stroke-width="1.3" stroke-linecap="round"><path d="M2 4 C40 10 70 26 96 52 C112 68 128 80 158 86"/><path d="M30 12 C36 26 34 40 24 52"/><path d="M62 30 C74 34 80 46 78 60"/><path d="M104 60 C104 72 98 82 88 90"/></g><g fill="#b7a578"><ellipse cx="22" cy="8" rx="9" ry="3.6" transform="rotate(18 22 8)"/><ellipse cx="46" cy="20" rx="9" ry="3.4" transform="rotate(34 46 20)"/><ellipse cx="34" cy="34" rx="8" ry="3.2" transform="rotate(-70 34 34)"/><ellipse cx="80" cy="44" rx="9" ry="3.4" transform="rotate(50 80 44)"/><ellipse cx="78" cy="58" rx="8" ry="3" transform="rotate(-80 78 58)"/><ellipse cx="118" cy="72" rx="9" ry="3.2" transform="rotate(26 118 72)"/><ellipse cx="100" cy="80" rx="7" ry="3" transform="rotate(-60 100 80)"/><ellipse cx="140" cy="82" rx="8" ry="3" transform="rotate(10 140 82)"/></g></svg>`;
+          html = html.slice(0, invMatch.index + invMatch[0].length) + '\n  ' + FLORAL_SVG + html.slice(invMatch.index + invMatch[0].length);
+        }
+      }
+    }
+
+    // Ensure .seen class on redseal animated modules
+    html = html.replace(/class=["']rs-pair["']/gi, 'class="rs-pair seen"');
+    html = html.replace(/class=["']rs-trio["']/gi, 'class="rs-trio seen"');
+    html = html.replace(/class=["']rs-cal["']/gi, 'class="rs-cal seen"');
+    html = html.replace(/class=["']rs-tl["']/gi, 'class="rs-tl seen"');
+    html = html.replace(/class=["']rs-album["']/gi, 'class="rs-album seen"');
+
     // Normalize any legacy .rs-cover-inner to .rs-top and remove non-original #hero on redseal cards
-    html = html.replace(/openButtons\.forEach\(function\(btn\)\s*\{\s*btn\.addEventListener/, 'openButtons.forEach(function(btn) {\n    btn.__bound = true;\n    btn.addEventListener');
+    html = html.replace(/openButtons\.forEach\(function\(btn\)\s*\{\s*(?:btn\.__bound\s*=\s*true;\s*)?btn\.addEventListener/, 'openButtons.forEach(function(btn) {\n    btn.__bound = true;\n    btn.addEventListener');
     if (html.includes('data-style="redseal"') || html.includes('rs-cover')) {
       html = html.replace(/<div class=["']rs-cover-inner["']>/g, '<div class="rs-top">');
       html = html.replace(/<section[^>]*id=["']hero["'][^>]*>[\s\S]*?<\/section>/i, '');
@@ -113,6 +155,18 @@ export default async function handler(req, res) {
   .heart svg { width: 24px !important; height: 24px !important; fill: var(--wine, #7b0f1e); stroke: none; display: inline-block; vertical-align: middle; }
   [data-style="redseal"] #hero, .rs-page #hero, #hero:empty, .m-hero:empty { display: none !important; padding: 0 !important; }
   [data-style="redseal"] .m-invitation, .rs-page .m-invitation { position: relative; padding-top: 58px !important; overflow: hidden; }
+
+  /* Ensure all content in redseal is 100% visible even if scroll observer hasn't fired yet */
+  .rs-pair > *, .rs-pair.seen > *,
+  .rs-trio img, .rs-trio.seen img,
+  .rs-cal, .rs-cal.seen,
+  .rs-tl li, .rs-tl.seen li,
+  .rs-album .alb, .rs-album.seen .alb {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+  }
+
   @media (pointer: coarse), (max-width: 768px) {
     html { scroll-behavior: auto !important; -webkit-overflow-scrolling: touch !important; }
     .rs-wishes, .wish-list { max-height: none !important; overflow: visible !important; }

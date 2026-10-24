@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi" id="top" data-style="redseal" class="rs-page"><head>
+<html lang="vi" id="top" data-style="redseal" class="rs-page locked"><head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Ngọc Linh &amp; Gia Bảo — 20.10.2026</title>
@@ -14,11 +14,38 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=Noto+Serif+TC:wght@700&amp;display=swap"><link rel="stylesheet" href="https://wedding-templates-lyart.vercel.app/everafter_UI_UX_edit/styles/redseal/style.css"><link rel="stylesheet" href="https://wedding-templates-lyart.vercel.app/interaction.css"><style id="ea-guard-style">
   [hidden] { display: none !important; }
   #cover[hidden], .cover[hidden] { display: none !important; visibility: hidden !important; pointer-events: none !important; }
+  html.locked, html.locked body, body.locked { overflow: hidden !important; height: 100% !important; touch-action: none !important; overscroll-behavior: none !important; }
+  .cover.rs-cover { position: fixed; inset: 0; z-index: 100; display: block; padding: 0; background: var(--bg, #f7e6ec); overflow: hidden; transition: opacity .7s cubic-bezier(.2, .8, .2, 1), visibility .7s; }
+  .cover.rs-cover.is-leaving { opacity: 0; visibility: hidden; pointer-events: none; }
+  .cover.rs-cover .rs-top, .cover.rs-cover .rs-cover-inner { width: 100%; max-width: 480px; margin: 0 auto; min-height: 100svh; background: #fff; position: relative; display: grid; justify-items: center; align-content: start; text-align: center; padding: 58px 16px 36px; overflow: hidden; box-shadow: 0 0 50px rgba(163, 29, 52, .06); }
+  .opening .env-flap, .is-open .env-flap { transform: perspective(700px) rotateX(180deg) !important; z-index: 0 !important; }
+  .opening .tap, .is-open .tap { opacity: 0 !important; visibility: hidden !important; transition: opacity .3s; }
+  .is-open .env-photo { height: 158% !important; }
+  .heart svg { width: 24px !important; height: 24px !important; fill: var(--wine, #7b0f1e); stroke: none; display: inline-block; vertical-align: middle; }
+  [data-style="redseal"] #hero, .rs-page #hero, #hero:empty, .m-hero:empty { display: none !important; padding: 0 !important; }
+  [data-style="redseal"] .m-invitation, .rs-page .m-invitation { position: relative; padding-top: 58px !important; overflow: hidden; }
+
+  /* Ensure all content in redseal is 100% visible even if scroll observer hasn't fired yet */
+  .rs-pair > *, .rs-pair.seen > *,
+  .rs-trio img, .rs-trio.seen img,
+  .rs-cal, .rs-cal.seen,
+  .rs-tl li, .rs-tl.seen li,
+  .rs-album .alb, .rs-album.seen .alb {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+  }
+
+  @media (pointer: coarse), (max-width: 768px) {
+    html { scroll-behavior: auto !important; -webkit-overflow-scrolling: touch !important; }
+    .rs-wishes, .wish-list { max-height: none !important; overflow: visible !important; }
+    .sec, .wrap, .inv { touch-action: pan-y !important; -webkit-overflow-scrolling: touch !important; }
+  }
 </style>
 </head>
 <body class="ready"><div class="hearts" aria-hidden="true"><span class="fh o" style="--x:0%;--d:10s;--delay:-0s;--s:0.45"></span><span class="fh " style="--x:47%;--d:11s;--delay:-1.9s;--s:0.67"></span><span class="fh " style="--x:94%;--d:12s;--delay:-3.8s;--s:0.89"></span><span class="fh " style="--x:41%;--d:13s;--delay:-5.699999999999999s;--s:1.11"></span><span class="fh o" style="--x:88%;--d:14s;--delay:-7.6s;--s:1.33"></span><span class="fh " style="--x:35%;--d:15s;--delay:-9.5s;--s:0.45"></span><span class="fh " style="--x:82%;--d:16s;--delay:-11.399999999999999s;--s:0.67"></span><span class="fh " style="--x:29%;--d:10s;--delay:-13.299999999999999s;--s:0.89"></span><span class="fh o" style="--x:76%;--d:11s;--delay:-1.1999999999999993s;--s:1.11"></span><span class="fh " style="--x:23%;--d:12s;--delay:-3.099999999999998s;--s:1.33"></span><span class="fh " style="--x:70%;--d:13s;--delay:-5s;--s:0.45"></span><span class="fh " style="--x:17%;--d:14s;--delay:-6.899999999999999s;--s:0.67"></span><span class="fh o" style="--x:64%;--d:15s;--delay:-8.799999999999997s;--s:0.89"></span><span class="fh " style="--x:11%;--d:16s;--delay:-10.7s;--s:1.11"></span><span class="fh " style="--x:58%;--d:10s;--delay:-12.599999999999998s;--s:1.33"></span><span class="fh " style="--x:5%;--d:11s;--delay:-0.5s;--s:0.45"></span><span class="fh o" style="--x:52%;--d:12s;--delay:-2.3999999999999986s;--s:0.67"></span><span class="fh " style="--x:99%;--d:13s;--delay:-4.299999999999997s;--s:0.89"></span><span class="fh " style="--x:46%;--d:14s;--delay:-6.199999999999996s;--s:1.11"></span><span class="fh " style="--x:93%;--d:15s;--delay:-8.100000000000001s;--s:1.33"></span><span class="fh o" style="--x:40%;--d:16s;--delay:-10s;--s:0.45"></span><span class="fh " style="--x:87%;--d:10s;--delay:-11.899999999999999s;--s:0.67"></span></div>
   
-  <main id="inv" class="inv is-entered"><section id="hero" class="sec m-hero custom in is-revealed" style="opacity: 1; transform: none;"><div class="rs-top " style="translate: 3.33334px 16px;">
+  <div id="cover" class="cover rs-cover"><div class="rs-top">
   <svg class="floral" viewBox="0 0 160 110" aria-hidden="true">
   <g fill="none" stroke="#9b8657" stroke-width="1.3" stroke-linecap="round">
     <path d="M2 4 C40 10 70 26 96 52 C112 68 128 80 158 86"></path>
@@ -44,9 +71,9 @@
   </g>
   <g transform="translate(24 52)"><ellipse rx="3.8500000000000005" ry="7" cy="-5.6000000000000005" transform="rotate(0)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.8500000000000005" ry="7" cy="-5.6000000000000005" transform="rotate(72)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.8500000000000005" ry="7" cy="-5.6000000000000005" transform="rotate(144)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.8500000000000005" ry="7" cy="-5.6000000000000005" transform="rotate(216)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.8500000000000005" ry="7" cy="-5.6000000000000005" transform="rotate(288)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><circle r="2.66" fill="#c9a45c"></circle></g><g transform="translate(66 30)"><ellipse rx="3.0250000000000004" ry="5.5" cy="-4.4" transform="rotate(0)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.0250000000000004" ry="5.5" cy="-4.4" transform="rotate(72)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.0250000000000004" ry="5.5" cy="-4.4" transform="rotate(144)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.0250000000000004" ry="5.5" cy="-4.4" transform="rotate(216)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.0250000000000004" ry="5.5" cy="-4.4" transform="rotate(288)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><circle r="2.09" fill="#c9a45c"></circle></g><g transform="translate(90 90)"><ellipse rx="3.575" ry="6.5" cy="-5.2" transform="rotate(0)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.575" ry="6.5" cy="-5.2" transform="rotate(72)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.575" ry="6.5" cy="-5.2" transform="rotate(144)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.575" ry="6.5" cy="-5.2" transform="rotate(216)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.575" ry="6.5" cy="-5.2" transform="rotate(288)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><circle r="2.47" fill="#c9a45c"></circle></g><g transform="translate(128 78)"><ellipse rx="2.475" ry="4.5" cy="-3.6" transform="rotate(0)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="2.475" ry="4.5" cy="-3.6" transform="rotate(72)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="2.475" ry="4.5" cy="-3.6" transform="rotate(144)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="2.475" ry="4.5" cy="-3.6" transform="rotate(216)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="2.475" ry="4.5" cy="-3.6" transform="rotate(288)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><circle r="1.71" fill="#c9a45c"></circle></g><g transform="translate(8 26)"><ellipse rx="2.2" ry="4" cy="-3.2" transform="rotate(0)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="2.2" ry="4" cy="-3.2" transform="rotate(72)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="2.2" ry="4" cy="-3.2" transform="rotate(144)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="2.2" ry="4" cy="-3.2" transform="rotate(216)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="2.2" ry="4" cy="-3.2" transform="rotate(288)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><circle r="1.52" fill="#c9a45c"></circle></g>
 </svg>
-  <p class="rs-kicker" style="font-size: 23px; translate: 9.33334px 21.3333px;">Thiệp</p>
-  <h1 class="rs-title" style="translate: 2.00004px 34px;">Mời Cưới</h1>
-  <button class="env-btn" type="button" aria-label="Chạm vào thiệp để mở" style="translate: 2px -42.6667px;">
+  <p class="rs-kicker" >Thiệp</p>
+  <h1 class="rs-title" >Mời Cưới</h1>
+  <button class="env-btn" type="button" aria-label="Chạm vào thiệp để mở" >
     <span class="env" aria-hidden="true">
       <span class="env-back"></span>
       <span class="env-photo"><img src="https://picsum.photos/seed/everafter-hero/1400/1800" alt="" fetchpriority="high"></span>
@@ -58,13 +85,15 @@
 </g></svg></span>
     </span>
   </button>
-  <p class="tap" style="translate: 14px -20.6667px; font-size: 15px; font-weight: 700;">Chạm vào thiệp để mở</p>
+  <p class="tap" >Chạm vào thiệp để mở</p>
   <p class="rs-names" style="font-size: 44px;">Trùng Dương<br><span class="heart"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span>Kim Loan</p>
-  <p class="rs-date"><span class="hy" aria-hidden="true" style="color: rgb(218, 43, 86); translate: 0px 15.3333px;">囍</span><b style="font-size: 26px; color: rgb(218, 43, 86); translate: -2px 15.3333px;">28&amp;29.11.2026</b><span class="hy" aria-hidden="true" style="color: rgb(218, 43, 86); translate: -7.33337px 14px;">囍</span></p>
-</div></section><section id="invitation" class="sec m-invitation letter custom in is-revealed" style="translate: 0px -0.666687px; opacity: 1; transform: none;"><div class="wrap narrow">
+  <p class="rs-date"><span class="hy" aria-hidden="true" >囍</span><b >28&amp;29.11.2026</b><span class="hy" aria-hidden="true" >囍</span></p>
+</div></div>
+  <main id="inv" class="inv"><section id="invitation" class="sec m-invitation letter custom in is-revealed" style="opacity: 1; transform: none;"><div class="wrap narrow">
+  <svg class="floral" viewBox="0 0 160 110" aria-hidden="true"><g fill="none" stroke="#9b8657" stroke-width="1.3" stroke-linecap="round"><path d="M2 4 C40 10 70 26 96 52 C112 68 128 80 158 86"/><path d="M30 12 C36 26 34 40 24 52"/><path d="M62 30 C74 34 80 46 78 60"/><path d="M104 60 C104 72 98 82 88 90"/></g><g fill="#b7a578"><ellipse cx="22" cy="8" rx="9" ry="3.6" transform="rotate(18 22 8)"/><ellipse cx="46" cy="20" rx="9" ry="3.4" transform="rotate(34 46 20)"/><ellipse cx="34" cy="34" rx="8" ry="3.2" transform="rotate(-70 34 34)"/><ellipse cx="80" cy="44" rx="9" ry="3.4" transform="rotate(50 80 44)"/><ellipse cx="78" cy="58" rx="8" ry="3" transform="rotate(-80 78 58)"/><ellipse cx="118" cy="72" rx="9" ry="3.2" transform="rotate(26 118 72)"/><ellipse cx="100" cy="80" rx="7" ry="3" transform="rotate(-60 100 80)"/><ellipse cx="140" cy="82" rx="8" ry="3" transform="rotate(10 140 82)"/></g></svg><svg class="floral r" viewBox="0 0 160 110" aria-hidden="true"><g fill="none" stroke="#9b8657" stroke-width="1.3" stroke-linecap="round"><path d="M2 4 C40 10 70 26 96 52 C112 68 128 80 158 86"/><path d="M30 12 C36 26 34 40 24 52"/><path d="M62 30 C74 34 80 46 78 60"/><path d="M104 60 C104 72 98 82 88 90"/></g><g fill="#b7a578"><ellipse cx="22" cy="8" rx="9" ry="3.6" transform="rotate(18 22 8)"/><ellipse cx="46" cy="20" rx="9" ry="3.4" transform="rotate(34 46 20)"/><ellipse cx="34" cy="34" rx="8" ry="3.2" transform="rotate(-70 34 34)"/><ellipse cx="80" cy="44" rx="9" ry="3.4" transform="rotate(50 80 44)"/><ellipse cx="78" cy="58" rx="8" ry="3" transform="rotate(-80 78 58)"/><ellipse cx="118" cy="72" rx="9" ry="3.2" transform="rotate(26 118 72)"/><ellipse cx="100" cy="80" rx="7" ry="3" transform="rotate(-60 100 80)"/><ellipse cx="140" cy="82" rx="8" ry="3" transform="rotate(10 140 82)"/></g></svg>
   <p class="rs-h" style="font-weight: 700; font-style: normal; font-size: 21px;">Trân trọng kính mời!</p>
   <p class="rs-p" style="text-align: center; font-size: 15px;">Ngày hôm ấy sẽ có hoa, có nhạc, và có rất nhiều điều đặc biệt !</p><p></p><p class="rs-p" style="text-align: center; font-size: 15px;">Nhưng điều khiến ngày ấy trở thành một kỹ niệm trọn vẹn là sự hiện diện của những người chúng mình trân quý.<br>Một lời chúc của bạn chắc chắn sẽ làm cho ngày cưới của chúng mình có thêm một niềm hạnh phúc!</p><p></p><div></div><p></p><div><span style="background-color: transparent;">&nbsp;</span></div><p></p>
-</div></section><section id="families" class="sec m-families announce custom in is-revealed" style="translate: -2px -57.3334px; opacity: 1; transform: none;"><div class="rs-fam-block">
+</div></section><section id="families" class="sec m-families announce custom in is-revealed" style="opacity: 1; transform: none;"><div class="rs-fam-block">
   <div class="rs-banner" aria-hidden="true"><i class="hole"></i><span>囍</span></div>
   <div class="rs-fam-right">
     <p class="rs-vert" style="translate: 5.33331px 7.99997px;">Thiệp<br>Mời<br>Cưới</p>
@@ -75,12 +104,12 @@
     </div>
   </div>
 </div>
-<div class="rs-pair">
-  <p class="n1">Gia Bảo</p><p class="amp">&amp;</p><p class="n2">Ngọc Linh</p>
+<div class="rs-pair seen">
+  <p class="n1">Trùng Dương</p><p class="amp">&amp;</p><p class="n2">Kim Loan</p>
 </div>
-<figure class="rs-portrait"><img src="https://picsum.photos/seed/everafter1/800/1000" alt="" loading="lazy" style="translate: 2px -104px;"></figure>
+<figure class="rs-portrait"><img src="https://picsum.photos/seed/everafter1/800/1000" alt="" loading="lazy" ></figure>
 <p class="rs-tagline" style="translate: 7.33334px -97.3333px;">Hai con người, một hành trình, và một ngày chúng mình muốn có bạn ở bên.</p>
-<div class="rs-trio"><img src="https://picsum.photos/seed/everafter2/800/1000" alt="" loading="lazy" style="--i:0"><img src="https://picsum.photos/seed/everafter3/800/1000" alt="" loading="lazy" style="--i:1"><img src="https://picsum.photos/seed/everafter4/800/1000" alt="" loading="lazy" style="--i:2"></div></section><section id="story" class="sec m-story in is-revealed" style="translate: 2.66667px -370px; font-size: 15px; opacity: 1; transform: none;"><div class="wrap">
+<div class="rs-trio seen"><img src="https://picsum.photos/seed/everafter2/800/1000" alt="" loading="lazy" style="--i:0"><img src="https://picsum.photos/seed/everafter3/800/1000" alt="" loading="lazy" style="--i:1"><img src="https://picsum.photos/seed/everafter4/800/1000" alt="" loading="lazy" style="--i:2"></div></section><section id="story" class="sec m-story in is-revealed" style="font-size: 15px; opacity: 1; transform: none;"><div class="wrap">
         <header class="head">
           <p class="eyebrow">Love story</p>
           <h2 class="title">Chuyện của chúng mình</h2>
@@ -106,7 +135,7 @@
             </li>
         </ol>
         <p class="story-quote" style="translate: 0.666656px 24.6666px;">Hôn nhân là chuyện cả đời<br>Yêu người vừa ý, Cưới người mình thương.</p><p></p><div><br></div><p></p><p></p>
-      </div></section><section id="events" class="sec m-events events custom in is-revealed" style="translate: 9.3337px -316px; opacity: 1; transform: none;"><div class="wrap narrow">
+      </div></section><section id="events" class="sec m-events events custom in is-revealed" style="opacity: 1; transform: none;"><div class="wrap narrow">
   <div class="rs-tabs" role="tablist" aria-label="Chọn nhà">
     <button type="button" role="tab" data-tab="bride" aria-selected="true">Nhà gái</button>
     <button type="button" role="tab" data-tab="groom" aria-selected="false">Nhà trai</button>
@@ -143,12 +172,12 @@
   </div>
 </div></section><section id="schedule" class="sec m-schedule itinerary custom in is-revealed" style="opacity: 1; transform: none;"><div class="wrap narrow">
   <p class="rs-script big">Timeline</p>
-  <ol class="rs-tl">
+  <ol class="rs-tl seen">
     <li><time>08:00</time><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 14l2-5.5h14L21 14v4.5h-2.5v-2h-13v2H3z"></path><circle cx="7.5" cy="14.5" r="1.2"></circle><circle cx="16.5" cy="14.5" r="1.2"></circle></svg></span><span class="tt">Lễ Gia Tiên</span></li><li><time>10:00</time><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 11.5 12 4l9 7.5"></path><path d="M5.5 10v10h13V10"></path><path d="M10 20v-5h4v5"></path></svg></span><span class="tt">Lễ Đón Dâu</span></li><li><time>17:30</time><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 14l2-5.5h14L21 14v4.5h-2.5v-2h-13v2H3z"></path><circle cx="7.5" cy="14.5" r="1.2"></circle><circle cx="16.5" cy="14.5" r="1.2"></circle></svg></span><span class="tt">Đón Khách</span></li><li><time>18:30</time><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><circle cx="12" cy="14.5" r="5.5"></circle><path d="M9 5.5 12 3l3 2.5-3 3z"></path></svg></span><span class="tt">Khai Tiệc</span></li><li><time>21:00</time><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><rect x="3" y="7.5" width="18" height="12" rx="2"></rect><circle cx="12" cy="13.5" r="3.4"></circle><path d="M8.5 7.5 10 5h4l1.5 2.5"></path></svg></span><span class="tt">Lời Cảm Ơn</span></li>
   </ol>
 </div></section><section id="saveDate" class="sec m-saveDate custom in is-revealed" style="opacity: 1; transform: none;"><div class="wrap narrow">
   <div class="rs-cal-head"><p class="rs-script">Tháng 11</p><p class="yr">2026</p></div>
-  <div class="rs-cal">
+  <div class="rs-cal seen">
     <div class="rs-cal-grid" role="table" aria-label="Tháng 10 năm 2026">
       <span class="w">Mon</span><span class="w">Tue</span><span class="w">Wed</span><span class="w">Thu</span><span class="w">Fri</span><span class="w we">Sat</span><span class="w we">Sun</span>
       <span class=""></span><span class=""></span><span class=""></span><span class="">01</span><span class="">02</span><span class="we">03</span><span class="we">04</span><span class="">05</span><span class="">06</span><span class="">07</span><span class="">08</span><span class="">09</span><span class="we">10</span><span class="we">11</span><span class="">12</span><span class="">13</span><span class="">14</span><span class="">15</span><span class="">16</span><span class="we">17</span><span class="we">18</span><span class="">19</span><span class=" on">20<i><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></i></span><span class="">21</span><span class="">22</span><span class="">23</span><span class="we">24</span><span class="we">25</span><span class="">26</span><span class="">27</span><span class="">28</span><span class="">29</span><span class="">30</span><span class="we">31</span>
@@ -172,7 +201,7 @@
         <p class="video-soon" hidden="">Video sẽ sớm được cập nhật.</p>
       </div>
       <p class="fine">Trailer pre-wedding&nbsp;</p>
-    </div></section><section id="gallery" class="sec m-gallery gallery custom in is-revealed" style="opacity: 1; transform: none;"><div class="rs-album"><div class="alb full">
+    </div></section><section id="gallery" class="sec m-gallery gallery custom in is-revealed" style="opacity: 1; transform: none;"><div class="rs-album seen"><div class="alb full">
         <button class="photo" type="button" data-i="0" aria-label="Xem ảnh: Trước ngày mình thành đôi">
           <img src="https://picsum.photos/seed/everafter1/800/1000" alt="" loading="lazy" decoding="async">
           <span class="cap">Trước ngày mình thành đôi</span>
@@ -296,9 +325,9 @@
   <button class="rs-reopen" type="button" id="reopen" aria-label="Về đầu trang">↑</button>
 </figure></section></main>
 
-  <nav class="sides" aria-label="Xem theo nhà">
+  <nav class="sides" hidden aria-label="Xem theo nhà">
       <a href="?style=redseal&amp;draft=1" aria-current="page">Chung</a><a href="?style=redseal&amp;draft=1&amp;side=groom">Nhà trai</a><a href="?style=redseal&amp;draft=1&amp;side=bride">Nhà gái</a>
-    </nav><nav id="dock" class="dock" aria-label="Điều hướng nhanh">
+    </nav><nav id="dock" hidden class="dock" aria-label="Điều hướng nhanh">
     <div id="dock-nav" class="dock-nav"><a href="#events">Sự kiện</a><a href="#rsvp">RSVP</a><a href="#gift">Mừng cưới</a><a href="#gallery">Ảnh</a></div>
     <div class="dock-music">
       <button id="music-btn" class="music-btn" type="button" aria-pressed="false" aria-label="Bật nhạc">
@@ -392,6 +421,7 @@
   }
 
   openButtons.forEach(function(btn) {
+    btn.__bound = true;
     btn.addEventListener('click', function(e) {
       e.preventDefault();
       playMusic();
@@ -407,17 +437,13 @@
       }
 
       // B. Redseal / Envelope opening animation
-      const topSec = document.querySelector('.rs-top, .envelope-wrapper, #envelope-scene');
+      const topSec = (cover && cover.querySelector('.rs-top, .rs-cover-inner')) || document.querySelector('.rs-top, .rs-cover-inner, .envelope-wrapper, #envelope-scene');
       if (topSec && !topSec.classList.contains('is-open')) {
-        topSec.classList.add('opening', 'opened');
+        topSec.classList.add('opening');
         setTimeout(function() { topSec.classList.add('is-open'); }, 650);
-        const photo = document.querySelector('.env-photo');
-        if (photo) photo.style.height = '140%';
         setTimeout(function() {
           finishOpen();
-          const next = document.querySelector('.sec:not(.m-hero), .module:not(.m-hero)');
-          if (next) next.scrollIntoView({ behavior: 'smooth' });
-        }, 1200);
+        }, 2400);
         return;
       }
 

@@ -89,6 +89,21 @@ body { background: var(--bg); font-family: var(--f-body); }
 .m-invitation { position: relative; padding-top: 58px !important; overflow: hidden; }
 .heart svg { width: 24px; height: 24px; fill: var(--wine); stroke: none; display: inline-block; vertical-align: middle; }
 
+/* Ensure all elements are visible when card is open / entered, even if scroll observer hasn't fired */
+.ready:not(.locked) .rs-pair > *,
+.ready:not(.locked) .rs-trio img,
+.ready:not(.locked) .rs-cal,
+.ready:not(.locked) .rs-tl li,
+.ready:not(.locked) .rs-album .alb,
+.is-entered .rs-pair > *,
+.is-entered .rs-trio img,
+.is-entered .rs-cal,
+.is-entered .rs-tl li,
+.is-entered .rs-album .alb {
+  opacity: 1;
+  transform: none;
+}
+
 /* envelope component styles */
 .rs-top { position: relative; min-height: 100svh; display: grid; justify-items: center; align-content: start; text-align: center; padding: 58px 16px 36px; overflow: hidden; }
 .floral { position: absolute; top: 4px; left: 4px; width: 118px; pointer-events: none; }

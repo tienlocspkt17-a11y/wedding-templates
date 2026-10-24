@@ -1858,7 +1858,7 @@
     function dragMove() {
       let start = null;
       doc.addEventListener('pointerdown', e => {
-        if (!sel || !sel.contains(e.target) || sel.isContentEditable) return;
+        if (!sel || !sel.contains(e.target) || sel.isContentEditable || sel.tagName === 'SECTION' || sel.classList.contains('sec') || sel.id === 'inv' || sel.tagName === 'MAIN' || sel.tagName === 'BODY') return;
         const [x = 0, y = 0] = (sel.style.translate || '0px 0px').split(' ').map(parseFloat);
         start = { px: e.clientX, py: e.clientY, x, y, moved: false };
       });
@@ -2280,19 +2280,23 @@
       const activeCover = clone.querySelector('#cover, .cover');
       const hasCoverInteractive = activeCover?.querySelector('button, [role="button"], a, input, select, textarea, .open-btn, .env-btn, .btn-open, .ml-stage, .handscroll, .roller, .bottle, .curtain, .letter-peek, .notebook');
       
+      // Strip accidental translate styles from sections and containers that break vertical document flow
+      clone.querySelectorAll('section, .sec, main, body, #inv').forEach(el => {
+        if (el.style?.translate) el.style.translate = '';
+      });
+
       // Upgrade redseal if envelope was rendered inside #hero or as .rs-cover-inner
       if (currentStyleId === 'redseal') {
         const legacyEnv = clone.querySelector('.rs-top, .rs-cover-inner');
         if (legacyEnv) {
           let cov = clone.querySelector('#cover');
           if (!cov) {
-            cov = doc.createElement('div');
-            cov.id = 'cover';
-            clone.querySelector('body')?.insertAdjacentElement('afterbegin', cov);
+            clone.querySelector('body')?.insertAdjacentHTML('afterbegin', '<div id="cover" class="cover rs-cover"></div>');
+            cov = clone.querySelector('#cover');
           }
           cov.className = 'cover rs-cover';
           cov.removeAttribute('hidden');
-          const envHtml = legacyEnv.innerHTML;
+          const envHtml = legacyEnv.innerHTML.replace(/\bopen-btn\b/g, '').replace(/style=["'][^"']*translate:[^"']*["']/gi, '');
           cov.innerHTML = `<div class="rs-top">${envHtml}</div>`;
           cov.querySelector('.env-btn')?.classList.remove('open-btn');
           // Sync edited couple names from envelope cover into #families .rs-pair if needed
@@ -2300,12 +2304,12 @@
           if (namesEl) {
             const rawParts = namesEl.innerHTML.split(/<span[^>]*class=["'][^"']*heart[^"']*["'][^>]*>[\s\S]*?<\/span>/i);
             if (rawParts.length === 2) {
-              const gText = rawParts[0].replace(/<[^>]+>/g, '').trim();
-              const bText = rawParts[1].replace(/<[^>]+>/g, '').trim();
+              const gText = rawParts[0].replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim();
+              const bText = rawParts[1].replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim();
               const n1 = clone.querySelector('.rs-pair .n1');
               const n2 = clone.querySelector('.rs-pair .n2');
-              if (n1 && gText && n1.textContent.trim() === 'Gia Bảo' && gText !== 'Gia Bảo') n1.textContent = gText;
-              if (n2 && bText && n2.textContent.trim() === 'Ngọc Linh' && bText !== 'Ngọc Linh') n2.textContent = bText;
+              if (n1 && gText) n1.textContent = gText;
+              if (n2 && bText) n2.textContent = bText;
             }
           }
         }
@@ -2335,7 +2339,7 @@
       }
 
       // 6. Pre-reveal sections and modules so content is immediately visible
-      clone.querySelectorAll('.reveal, .sec, .module, [data-module], .rs-pair, .rs-trio').forEach(el => {
+      clone.querySelectorAll('.reveal, .sec, .module, [data-module], .rs-pair, .rs-trio, .rs-cal, .rs-tl, .rs-album').forEach(el => {
         el.classList.add('in', 'is-revealed', 'seen');
         el.style.opacity = '1';
         el.style.transform = 'none';
@@ -2425,6 +2429,7 @@
   .heart svg { width: 24px !important; height: 24px !important; fill: var(--wine, #7b0f1e); stroke: none; display: inline-block; vertical-align: middle; }
   [data-style="redseal"] #hero, .rs-page #hero, #hero:empty, .m-hero:empty { display: none !important; padding: 0 !important; }
   [data-style="redseal"] .m-invitation, .rs-page .m-invitation { position: relative; padding-top: 58px !important; overflow: hidden; }
+  .rs-pair > *, .rs-pair.seen > *, .rs-trio img, .rs-trio.seen img, .rs-cal, .rs-cal.seen, .rs-tl li, .rs-tl.seen li, .rs-album .alb, .rs-album.seen .alb { opacity: 1 !important; transform: none !important; visibility: visible !important; }
   @media (pointer: coarse), (max-width: 768px) {
     html { scroll-behavior: auto !important; -webkit-overflow-scrolling: touch !important; }
     .rs-wishes, .wish-list { max-height: none !important; overflow: visible !important; }
