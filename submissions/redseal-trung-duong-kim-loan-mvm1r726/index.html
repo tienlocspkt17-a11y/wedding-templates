@@ -447,9 +447,9 @@
   <p class="rs-kicker rs-anim-drop">Sổ lưu bút</p>
   <p class="rs-script big rs-anim-drop" style="--delay: 0.05s;">Sổ Lưu Bút Hoàng Gia</p>
   <p class="rs-divider rs-anim-bloom" aria-hidden="true" style="--delay: 0.08s;"><span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span></p>
-  <p class="rs-italic rs-anim-unfurl" style="margin-bottom: 22px; --delay: 0.1s;">Mỗi lời nhắn là một món quà ý nghĩa chúc phúc cho Trùng Dương &amp; Kim Loan 🍬</p>
+  <p class="rs-italic rs-anim-unfurl" style="margin-bottom: 22px; --delay: 0.1s;">Lưu giữ những lời chúc chân thành &amp; khoảnh khắc thiêng liêng nhất 🍬</p>
 
-  <!-- Segmented View Switcher: [ 📜 Sổ Lưu Bút Hoàng Gia (4) ] [ ✍️ Gửi Lời Chúc ] -->
+  <!-- Segmented View Switcher: [ 📜 Sổ Lưu Bút (4) ] [ ✍️ Gửi Lời Chúc ] -->
   <div class="rs-anim-pop" style="display: flex; justify-content: center; margin-bottom: 20px; --delay: 0.12s;">
     <div style="background: rgba(183, 165, 120, 0.15); border: 1.5px solid #b7a578; border-radius: 30px; padding: 4px; display: inline-flex; gap: 4px; box-shadow: 0 4px 14px rgba(0,0,0,0.05);">
       <button type="button" id="btn-tab-wall" class="rs-gb-nav-btn active" style="background: var(--wine, #7b0f1e); color: #FFF; border: none; border-radius: 24px; padding: 8px 22px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: all 0.25s ease; box-shadow: 0 4px 10px rgba(123, 15, 30, 0.3);">
@@ -465,23 +465,59 @@
   <div class="rs-frame rs-anim-flip" style="padding: 24px 18px; border-radius: 22px; background: linear-gradient(180deg, #FFFDF9 0%, #FAF6EE 100%); border: 2px solid #b7a578; box-shadow: 0 12px 36px rgba(107, 7, 16, 0.12); position: relative; --delay: 0.16s;">
     <span class="orn tl"></span><span class="orn tr"></span><span class="orn bl"></span><span class="orn br"></span>
 
-    <!-- PANE 1: SÁCH CHÚC MỪNG HOÀNG GIA (CREATIVE SHOWCASE DECK) -->
+    <!-- PANE 1: SÁCH CHÚC MỪNG HOÀNG GIA (CÓ ẢNH MẪU LƯU NIỆM + SHOWCASE DECK) -->
     <div id="pane-guestbook-wall" style="display: block; text-align: left;">
       
-      <!-- Featured Royal Card Showcase (Sáng tạo & Độc đáo) -->
-      <div id="rs-featured-card-wrapper" style="position: relative; margin-bottom: 18px;">
+      <!-- 1. BẢNG KÝ TÊN & KHUNG ẢNH MẪU HOÀNG GIA (SAMPLE WEDDING PHOTO BOARD) -->
+      <div id="rs-guestbook-photo-board" style="position: relative; margin-bottom: 20px; border-radius: 18px; overflow: hidden; border: 2px solid #b7a578; box-shadow: 0 8px 24px rgba(107, 7, 16, 0.12); background: #2A0409;">
         
-        <!-- Royal Wax Stamp Badge top-right -->
-        <div style="position: absolute; top: -14px; right: 12px; z-index: 10;">
-          <div class="wax-pulse" style="width: 44px; height: 44px; background: radial-gradient(circle at 35% 35%, #ffd768, #d49514 60%, #946200 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: 2px solid #FFF;">
-            <span style="font-size: 18px; color: #5c3c00; font-weight: 800; text-shadow: 0 1px 1px rgba(255,255,255,0.4);">囍</span>
+        <!-- Photo Container -->
+        <div style="position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden;">
+          <img id="gb-board-img" src="./assets/guestbook_sample.webp" onerror="this.src='https://picsum.photos/seed/everafter4/800/1000'" alt="Ảnh mẫu sổ lưu bút cưới" style="width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; filter: brightness(0.96);">
+          
+          <!-- Subtle vignette / warm golden gradient overlay at the bottom -->
+          <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 40%, rgba(30, 2, 6, 0.75) 100%); pointer-events: none;"></div>
+
+          <!-- Top-Left Tag: ⚜️ Bảng Ký Tên Lưu Niệm -->
+          <div style="position: absolute; top: 12px; left: 12px; background: rgba(0, 0, 0, 0.45); backdrop-filter: blur(6px); border: 1px solid rgba(212, 175, 55, 0.5); padding: 4px 12px; border-radius: 20px; font-size: 11.5px; font-weight: 600; color: #FFE7B8; display: flex; align-items: center; gap: 5px; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">
+            <span>⚜️</span> <span>Ảnh Mẫu Lưu Niệm</span>
+          </div>
+
+          <!-- Top-Right 3D Wax Seal Stamp 囍 Badge -->
+          <div style="position: absolute; top: 10px; right: 12px; z-index: 5;">
+            <div class="wax-pulse" style="width: 42px; height: 42px; background: radial-gradient(circle at 35% 35%, #ffd768, #d49514 60%, #946200 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); border: 2px solid #FFF;">
+              <span style="font-size: 18px; color: #5c3c00; font-weight: 800; text-shadow: 0 1px 1px rgba(255,255,255,0.4);">囍</span>
+            </div>
+          </div>
+
+          <!-- Overlay Floating Signatures / Blessing Stickers on the photo -->
+          <div id="rs-photo-stamps" style="position: absolute; inset: 0; pointer-events: none;">
+            <!-- Sticker 1 -->
+            <div style="position: absolute; bottom: 42px; left: 14px; background: rgba(255, 253, 249, 0.92); border: 1px solid #b7a578; padding: 4px 10px; border-radius: 12px; font-size: 11.5px; color: var(--wine, #7b0f1e); font-weight: 600; box-shadow: 0 3px 10px rgba(0,0,0,0.25); transform: rotate(-2deg); display: flex; align-items: center; gap: 4px;">
+              <span>💖</span> <span>Trăm năm hạnh phúc!</span>
+            </div>
+            <!-- Sticker 2 -->
+            <div style="position: absolute; bottom: 42px; right: 14px; background: rgba(255, 253, 249, 0.92); border: 1px solid #b7a578; padding: 4px 10px; border-radius: 12px; font-size: 11.5px; color: var(--wine, #7b0f1e); font-weight: 600; box-shadow: 0 3px 10px rgba(0,0,0,0.25); transform: rotate(2.5deg); display: flex; align-items: center; gap: 4px;">
+              <span>🥂</span> <span>Viên mãn trọn vẹn!</span>
+            </div>
+          </div>
+
+          <!-- Bottom Banner inside photo -->
+          <div style="position: absolute; bottom: 10px; left: 14px; right: 14px; display: flex; justify-content: space-between; align-items: center; pointer-events: none;">
+            <span style="font-family: 'Great Vibes', cursive; font-size: 20px; color: #FFE7B8; text-shadow: 0 2px 4px rgba(0,0,0,0.6);">Trùng Dương &amp; Kim Loan</span>
+            <span style="font-size: 11px; color: #E8D3A8; font-weight: 500; letter-spacing: 0.05em; text-shadow: 0 1px 3px rgba(0,0,0,0.6);">28 · 11 · 2026</span>
           </div>
         </div>
 
+      </div><!-- End Photo Board -->
+
+      <!-- 2. FEATURED ROYAL WISHING CARD CAROUSEL -->
+      <div id="rs-featured-card-wrapper" style="position: relative; margin-bottom: 18px;">
+        
         <!-- Featured Card Box -->
-        <div id="featured-card-box" style="background: #FFFDF9; border: 2px solid #D6C7AE; border-radius: 18px; padding: 22px 18px 18px; box-shadow: 0 6px 20px rgba(107, 7, 16, 0.08); min-height: 200px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);">
+        <div id="featured-card-box" style="background: #FFFDF9; border: 2px solid #D6C7AE; border-radius: 18px; padding: 20px 18px 16px; box-shadow: 0 6px 20px rgba(107, 7, 16, 0.08); min-height: 190px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);">
           <div>
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
               <span id="fc-avatar" style="font-size: 26px; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">🥰</span>
               <div>
                 <strong id="fc-name" style="color: var(--wine, #7b0f1e); font-size: 15px; display: block; line-height: 1.2;">Nguyễn Thảo Nhi</strong>
@@ -494,7 +530,7 @@
           </div>
 
           <!-- Bottom controls of card -->
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 18px; padding-top: 12px; border-top: 1px dashed rgba(183, 165, 120, 0.4);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px dashed rgba(183, 165, 120, 0.4);">
             <div style="display: flex; align-items: center; gap: 8px;">
               <button type="button" onclick="prevWish()" aria-label="Lời chúc trước" style="background: #FFF; border: 1.5px solid #D6C7AE; width: 34px; height: 34px; border-radius: 50%; font-size: 16px; color: var(--wine, #7b0f1e); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; box-shadow: 0 2px 6px rgba(0,0,0,0.06);">‹</button>
               
@@ -527,12 +563,16 @@
 
     </div><!-- End Pane Wall -->
 
-    <!-- PANE 2: FORM GỬI LỜI CHÚC (TINH GỌN, SANG TRỌNG, KHÔNG DƯ THỪA, KHÔNG GỢI Ý CHIP) -->
+    <!-- PANE 2: FORM GỬI LỜI CHÚC (TINH GỌN, SANG TRỌNG, CÓ MINI PHOTO THUMBNAIL) -->
     <div id="pane-guestbook-form" style="display: none; text-align: left;">
       
-      <div style="text-align: center; margin-bottom: 20px;">
-        <p style="font-family: 'Great Vibes', cursive; font-size: 28px; color: var(--wine, #7b0f1e); margin-bottom: 4px;">Gửi Chúc Phúc</p>
-        <p style="font-size: 13px; color: #666;">Lời chúc của bạn sẽ được lưu giữ trang trọng trong sổ lưu niệm hoàng gia</p>
+      <!-- Mini Photo Header Banner -->
+      <div style="display: flex; align-items: center; gap: 12px; background: rgba(183, 165, 120, 0.12); padding: 10px 14px; border-radius: 14px; border: 1px dashed #b7a578; margin-bottom: 18px;">
+        <img src="./assets/guestbook_sample.webp" onerror="this.src='https://picsum.photos/seed/everafter4/800/1000'" alt="" style="width: 52px; height: 52px; border-radius: 10px; object-fit: cover; border: 1.5px solid #b7a578; flex-shrink: 0;">
+        <div>
+          <strong style="color: var(--wine, #7b0f1e); font-size: 14px; display: block; font-family: 'Montserrat', sans-serif;">Gửi Chúc Phúc Hoàng Gia</strong>
+          <span style="font-size: 12px; color: #666; line-height: 1.35; display: block;">Lời chúc của bạn sẽ được lưu giữ trang trọng cùng ảnh kỷ niệm</span>
+        </div>
       </div>
 
       <!-- Pure & Dignified Form (No Quick Chips, No Redundant Default Hints) -->
