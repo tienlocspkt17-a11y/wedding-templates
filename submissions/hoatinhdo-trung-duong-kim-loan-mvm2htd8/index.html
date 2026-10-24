@@ -2334,6 +2334,18 @@ if (window.runScrollEngine) window.runScrollEngine();
           }
         }
 
+        // Proactive scroll reveals on every frame
+        const vh = window.innerHeight;
+        const revs = document.querySelectorAll('.comic-scroll-reveal, .comic-slide-left, .comic-slide-right');
+        revs.forEach(el => {
+          const r = el.getBoundingClientRect();
+          if (r.top < vh + 30 && r.bottom > -30) {
+            el.classList.add('is-revealed');
+          } else if (r.top > vh + 120 || r.bottom < -180) {
+            el.classList.remove('is-revealed');
+          }
+        });
+
         ticking = false;
       }
 
