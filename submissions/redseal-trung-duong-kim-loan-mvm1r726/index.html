@@ -2,10 +2,10 @@
 <html lang="vi" id="top" data-style="redseal" class="rs-page locked"><head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Ngọc Linh &amp; Gia Bảo — 20.10.2026</title>
+  <title>Trùng Dương &amp; Kim Loan — 28.11.2026 | Thiệp Hồng Hoàng Gia</title>
   <meta name="description" content="Thiệp mời lễ thành hôn">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Thiệp mời cưới">
+  <meta property="og:title" content="Trùng Dương &amp; Kim Loan — Thiệp Mời Cưới">
   <meta property="og:description" content="Trân trọng kính mời bạn đến chung vui cùng chúng mình.">
   <!-- og:image: add an absolute URL to a 1200x630 image when deploying -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,6 +39,48 @@
     .rs-wishes, .wish-list { max-height: none !important; overflow: visible !important; }
     .sec, .wrap, .inv { touch-action: pan-y !important; -webkit-overflow-scrolling: touch !important; }
   }
+
+  /* SINGLE LINE COUPLE TITLE ON COVER */
+  .rs-names {
+    font-size: clamp(20px, 5.8vw, 36px) !important;
+    white-space: nowrap !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    max-width: 95vw !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    margin: 8px 0 !important;
+  }
+  .rs-names span { white-space: nowrap; }
+
+  /* IDENTICAL VENUE & ADDRESS TYPOGRAPHY IN BOTH EVENTS */
+  .rs-venue-title,
+  .rs-venue-address {
+    font-family: inherit !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    color: var(--wine, #7b0f1e) !important;
+    margin: 3px 0 !important;
+    line-height: 1.4 !important;
+    text-align: center !important;
+  }
+
+  /* GUESTBOOK WISHING WALL STYLING */
+  .rs-mood-btn.active {
+    border-color: var(--wine, #7b0f1e) !important;
+    background: #FFF5F5 !important;
+    transform: scale(1.08);
+  }
+  .rs-quick-chip {
+    transition: all 0.2s ease;
+  }
+  .rs-quick-chip:hover, .rs-quick-chip:active {
+    background: #FFE8EC !important;
+    transform: scale(0.96);
+  }
+
 </style>
 </head>
 <body class="ready"><div class="hearts" aria-hidden="true"><span class="fh o" style="--x:0%;--d:10s;--delay:-0s;--s:0.45"></span><span class="fh " style="--x:47%;--d:11s;--delay:-1.9s;--s:0.67"></span><span class="fh " style="--x:94%;--d:12s;--delay:-3.8s;--s:0.89"></span><span class="fh " style="--x:41%;--d:13s;--delay:-5.699999999999999s;--s:1.11"></span><span class="fh o" style="--x:88%;--d:14s;--delay:-7.6s;--s:1.33"></span><span class="fh " style="--x:35%;--d:15s;--delay:-9.5s;--s:0.45"></span><span class="fh " style="--x:82%;--d:16s;--delay:-11.399999999999999s;--s:0.67"></span><span class="fh " style="--x:29%;--d:10s;--delay:-13.299999999999999s;--s:0.89"></span><span class="fh o" style="--x:76%;--d:11s;--delay:-1.1999999999999993s;--s:1.11"></span><span class="fh " style="--x:23%;--d:12s;--delay:-3.099999999999998s;--s:1.33"></span><span class="fh " style="--x:70%;--d:13s;--delay:-5s;--s:0.45"></span><span class="fh " style="--x:17%;--d:14s;--delay:-6.899999999999999s;--s:0.67"></span><span class="fh o" style="--x:64%;--d:15s;--delay:-8.799999999999997s;--s:0.89"></span><span class="fh " style="--x:11%;--d:16s;--delay:-10.7s;--s:1.11"></span><span class="fh " style="--x:58%;--d:10s;--delay:-12.599999999999998s;--s:1.33"></span><span class="fh " style="--x:5%;--d:11s;--delay:-0.5s;--s:0.45"></span><span class="fh o" style="--x:52%;--d:12s;--delay:-2.3999999999999986s;--s:0.67"></span><span class="fh " style="--x:99%;--d:13s;--delay:-4.299999999999997s;--s:0.89"></span><span class="fh " style="--x:46%;--d:14s;--delay:-6.199999999999996s;--s:1.11"></span><span class="fh " style="--x:93%;--d:15s;--delay:-8.100000000000001s;--s:1.33"></span><span class="fh o" style="--x:40%;--d:16s;--delay:-10s;--s:0.45"></span><span class="fh " style="--x:87%;--d:10s;--delay:-11.899999999999999s;--s:0.67"></span></div>
@@ -74,7 +116,7 @@
   <button class="env-btn" type="button" aria-label="Chạm vào thiệp để mở" >
     <span class="env" aria-hidden="true">
       <span class="env-back"></span>
-      <span class="env-photo"><img src="https://picsum.photos/seed/everafter-hero/1400/1800" alt="" fetchpriority="high"></span>
+      <span class="env-photo"><img src="./assets/photo_video.webp" alt="" fetchpriority="high"></span>
       <span class="env-front"></span>
       <span class="env-flap"></span>
       <span class="wax" style="clip-path:polygon(100.00% 50.00%,95.61% 56.00%,98.30% 62.94%,92.50% 67.60%,93.30% 75.00%,86.49% 78.00%,85.36% 85.36%,78.00% 86.49%,75.00% 93.30%,67.60% 92.50%,62.94% 98.30%,56.00% 95.61%,50.00% 100.00%,44.00% 95.61%,37.06% 98.30%,32.40% 92.50%,25.00% 93.30%,22.00% 86.49%,14.64% 85.36%,13.51% 78.00%,6.70% 75.00%,7.50% 67.60%,1.70% 62.94%,4.39% 56.00%,0.00% 50.00%,4.39% 44.00%,1.70% 37.06%,7.50% 32.40%,6.70% 25.00%,13.51% 22.00%,14.64% 14.64%,22.00% 13.51%,25.00% 6.70%,32.40% 7.50%,37.06% 1.70%,44.00% 4.39%,50.00% 0.00%,56.00% 4.39%,62.94% 1.70%,67.60% 7.50%,75.00% 6.70%,78.00% 13.51%,85.36% 14.64%,86.49% 22.00%,93.30% 25.00%,92.50% 32.40%,98.30% 37.06%,95.61% 44.00%)"><svg viewBox="0 0 40 40" aria-hidden="true"><g fill="none" stroke="#8a6526" stroke-width="1.4" stroke-linecap="round">
@@ -84,11 +126,35 @@
     </span>
   </button>
   <p class="tap" >Chạm vào thiệp để mở</p>
-  <p class="rs-names" style="font-size: 44px;">Trùng Dương<br><span class="heart"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span>Kim Loan</p>
-  <p class="rs-date"><span class="hy" aria-hidden="true" >囍</span><b >28&amp;29.11.2026</b><span class="hy" aria-hidden="true" >囍</span></p>
+  <p class="rs-names">
+    <span>Trùng Dương</span>
+    <span class="heart" style="display: inline-flex; align-items: center;"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span>
+    <span>Kim Loan</span>
+  </p>
+  <p class="rs-date"><span class="hy" aria-hidden="true">囍</span><b>28.11.2026</b><span class="hy" aria-hidden="true">囍</span></p>
 </div></div>
   <main id="inv" class="inv"><section id="invitation" class="sec m-invitation letter custom in is-revealed" style="opacity: 1; transform: none;"><div class="wrap narrow">
   <svg class="floral" viewBox="0 0 160 110" aria-hidden="true"><g fill="none" stroke="#9b8657" stroke-width="1.3" stroke-linecap="round"><path d="M2 4 C40 10 70 26 96 52 C112 68 128 80 158 86"/><path d="M30 12 C36 26 34 40 24 52"/><path d="M62 30 C74 34 80 46 78 60"/><path d="M104 60 C104 72 98 82 88 90"/></g><g fill="#b7a578"><ellipse cx="22" cy="8" rx="9" ry="3.6" transform="rotate(18 22 8)"/><ellipse cx="46" cy="20" rx="9" ry="3.4" transform="rotate(34 46 20)"/><ellipse cx="34" cy="34" rx="8" ry="3.2" transform="rotate(-70 34 34)"/><ellipse cx="80" cy="44" rx="9" ry="3.4" transform="rotate(50 80 44)"/><ellipse cx="78" cy="58" rx="8" ry="3" transform="rotate(-80 78 58)"/><ellipse cx="118" cy="72" rx="9" ry="3.2" transform="rotate(26 118 72)"/><ellipse cx="100" cy="80" rx="7" ry="3" transform="rotate(-60 100 80)"/><ellipse cx="140" cy="82" rx="8" ry="3" transform="rotate(10 140 82)"/></g></svg><svg class="floral r" viewBox="0 0 160 110" aria-hidden="true"><g fill="none" stroke="#9b8657" stroke-width="1.3" stroke-linecap="round"><path d="M2 4 C40 10 70 26 96 52 C112 68 128 80 158 86"/><path d="M30 12 C36 26 34 40 24 52"/><path d="M62 30 C74 34 80 46 78 60"/><path d="M104 60 C104 72 98 82 88 90"/></g><g fill="#b7a578"><ellipse cx="22" cy="8" rx="9" ry="3.6" transform="rotate(18 22 8)"/><ellipse cx="46" cy="20" rx="9" ry="3.4" transform="rotate(34 46 20)"/><ellipse cx="34" cy="34" rx="8" ry="3.2" transform="rotate(-70 34 34)"/><ellipse cx="80" cy="44" rx="9" ry="3.4" transform="rotate(50 80 44)"/><ellipse cx="78" cy="58" rx="8" ry="3" transform="rotate(-80 78 58)"/><ellipse cx="118" cy="72" rx="9" ry="3.2" transform="rotate(26 118 72)"/><ellipse cx="100" cy="80" rx="7" ry="3" transform="rotate(-60 100 80)"/><ellipse cx="140" cy="82" rx="8" ry="3" transform="rotate(10 140 82)"/></g></svg>
+  
+  <!-- SPOTLIGHT ẢNH CÔ DÂU CHÚ RỂ (Trước phần Trân trọng kính mời) -->
+  <div class="rs-couple-spotlight" style="width: 100%; max-width: 380px; margin: 0 auto 26px; position: relative; text-align: center;">
+    <div style="position: relative; padding: 12px; background: #FFFDF9; border: 2px solid #b7a578; border-radius: 18px; box-shadow: 0 10px 30px rgba(107, 7, 16, 0.15);">
+      <!-- Golden Corner Ornaments -->
+      <span style="position: absolute; top: 6px; left: 6px; width: 14px; height: 14px; border-top: 2px solid #9b8657; border-left: 2px solid #9b8657;"></span>
+      <span style="position: absolute; top: 6px; right: 6px; width: 14px; height: 14px; border-top: 2px solid #9b8657; border-right: 2px solid #9b8657;"></span>
+      <span style="position: absolute; bottom: 6px; left: 6px; width: 14px; height: 14px; border-bottom: 2px solid #9b8657; border-left: 2px solid #9b8657;"></span>
+      <span style="position: absolute; bottom: 6px; right: 6px; width: 14px; height: 14px; border-bottom: 2px solid #9b8657; border-right: 2px solid #9b8657;"></span>
+      
+      <div style="position: relative; width: 100%; padding-bottom: 110%; overflow: hidden; border-radius: 12px; border: 1px solid rgba(183, 165, 120, 0.4);">
+        <img src="./assets/photo_album1.webp" alt="Cô dâu Kim Loan &amp; Chú rể Trùng Dương" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center; padding: 0 6px;">
+        <span style="font-family: 'Great Vibes', cursive; font-size: 26px; color: var(--wine, #7b0f1e);">Trùng Dương &amp; Kim Loan</span>
+        <span style="font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 600; color: #9b8657; letter-spacing: 0.08em;">28 · 11 · 2026</span>
+      </div>
+    </div>
+  </div>
+
   <p class="rs-h" style="font-weight: 700; font-style: normal; font-size: 21px;">Trân trọng kính mời!</p>
   <p class="rs-p" style="text-align: center; font-size: 15px;">Ngày hôm ấy sẽ có hoa, có nhạc, và có rất nhiều điều đặc biệt !</p><p></p><p class="rs-p" style="text-align: center; font-size: 15px;">Nhưng điều khiến ngày ấy trở thành một kỹ niệm trọn vẹn là sự hiện diện của những người chúng mình trân quý.<br>Một lời chúc của bạn chắc chắn sẽ làm cho ngày cưới của chúng mình có thêm một niềm hạnh phúc!</p><p></p><div></div><p></p><div><span style="background-color: transparent;">&nbsp;</span></div><p></p>
 </div></section><section id="families" class="sec m-families announce custom in is-revealed" style="opacity: 1; transform: none;"><div class="rs-fam-block">
@@ -105,9 +171,42 @@
 <div class="rs-pair">
   <p class="n1">Trùng Dương</p><p class="amp">&amp;</p><p class="n2">Kim Loan</p>
 </div>
-<figure class="rs-portrait"><img src="https://picsum.photos/seed/everafter1/800/1000" alt="" loading="lazy" ></figure>
+<figure class="rs-portrait"><img src="./assets/photo_story4.webp" alt="" loading="lazy" ></figure>
 <p class="rs-tagline" style="translate: 7.33334px -97.3333px;">Hai con người, một hành trình, và một ngày chúng mình muốn có bạn ở bên.</p>
-<div class="rs-trio"><img src="https://picsum.photos/seed/everafter2/800/1000" alt="" loading="lazy" style="--i:0"><img src="https://picsum.photos/seed/everafter3/800/1000" alt="" loading="lazy" style="--i:1"><img src="https://picsum.photos/seed/everafter4/800/1000" alt="" loading="lazy" style="--i:2"></div></section><section id="story" class="sec m-story reveal" style="font-size: 15px;"><div class="wrap">
+<div class="rs-trio"><img src="./assets/photo_album2.webp" alt="" loading="lazy" style="--i:0"><img src="./assets/photo_album3.webp" alt="" loading="lazy" style="--i:1"><img src="./assets/photo_album4.webp" alt="" loading="lazy" style="--i:2"></div></section><section id="events" class="sec m-events events custom reveal"><div class="wrap narrow">
+  <div class="rs-tabs" role="tablist" aria-label="Chọn sự kiện">
+    <button type="button" role="tab" data-tab="bride" aria-selected="true">Lễ Vu Quy</button>
+    <button type="button" role="tab" data-tab="groom" aria-selected="false">Tiệc Cưới</button>
+  </div>
+  <div class="rs-evcard" data-show="bride">
+    
+      <article class="rs-ev" data-side="bride" id="sec-5">
+        <h3>Lễ Vu Quy</h3>
+        <p class="at">Vào lúc: 09:00</p>
+        <p class="dow">Thứ Bảy</p>
+        <p class="strip">Tháng 11&nbsp;<i>|</i> <b>28</b>&nbsp;<i>|</i> 2026</p>
+        <p class="lunar">(Nhằm ngày 20 tháng 10 năm Bính Ngọ)</p>
+        <div style="margin: 12px 0; padding: 10px 14px; background: rgba(183, 165, 120, 0.08); border-radius: 10px; border: 1px dashed rgba(183, 165, 120, 0.45);">
+          <p class="rs-venue-title">Tư gia nhà gái:</p>
+          <p class="rs-venue-address">322, Tà Lài, Phú Lộc 14, Tân Phú, Đồng Nai</p>
+        </div>
+        <a class="map" href="https://maps.google.com/?q=322+Tà+Lài+Phú+Lộc+14+Tân+Phú+Đồng+Nai" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-6-5.6-6-11a6 6 0 0 1 12 0c0 5.4-6 11-6 11z"></path><circle cx="12" cy="10" r="2.2"></circle></svg>Xem bản đồ</a>
+      </article>
+
+      <article class="rs-ev" data-side="groom" id="sec-7">
+        <h3>Tiệc Cưới Thân Mật</h3>
+        <p class="at">Đón khách: 11:00 · Khai tiệc: 11:30</p>
+        <p class="dow">Thứ Bảy</p>
+        <p class="strip">Tháng 11&nbsp;<i>|</i> <b>28</b>&nbsp;<i>|</i> 2026</p>
+        <p class="lunar">(Nhằm ngày 20 tháng 10 năm Bính Ngọ)</p>
+        <div style="margin: 12px 0; padding: 10px 14px; background: rgba(183, 165, 120, 0.08); border-radius: 10px; border: 1px dashed rgba(183, 165, 120, 0.45);">
+          <p class="rs-venue-title">Tư gia nhà gái:</p>
+          <p class="rs-venue-address">322, Tà Lài, Phú Lộc 14, Tân Phú, Đồng Nai</p>
+        </div>
+        <a class="map" href="https://maps.google.com/?q=322+Tà+Lài+Phú+Lộc+14+Tân+Phú+Đồng+Nai" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-6-5.6-6-11a6 6 0 0 1 12 0c0 5.4-6 11-6 11z"></path><circle cx="12" cy="10" r="2.2"></circle></svg>Xem bản đồ</a>
+      </article>
+  </div>
+</div></section><section id="story" class="sec m-story reveal" style="font-size: 15px;"><div class="wrap">
         <header class="head">
           <p class="eyebrow">Love story</p>
           <h2 class="title">Chuyện của chúng mình</h2>
@@ -116,59 +215,24 @@
         <ol class="story-line">
           
             <li class="chapter">
-              <img src="https://picsum.photos/seed/ea-story1/900/700" alt="" loading="lazy">
+              <img src="./assets/photo_story1.webp" alt="" loading="lazy">
               <div><p class="label" style="translate: 1.33334px -5.33333px;">05 · 2025</p><h3>Lần đầu gặp gỡ</h3><p style="font-size: 15px;">Anh nói là : ngày ấy, anh cố tình sắp xếp lại cuộc đời anh.</p></div>
             </li>
             <li class="chapter">
-              <img src="https://picsum.photos/seed/ea-story2/900/700" alt="" loading="lazy">
+              <img src="./assets/photo_story2.webp" alt="" loading="lazy">
               <div><p class="label" style="translate: 0px -6.66667px;">08 · 2026</p><h3>Chuyến đi đầu tiên</h3><p style="font-size: 15px;">Đà Lạt, sương sớm và một lời hứa sẽ cùng nhau đi thật nhiều nơi.</p></div>
             </li>
             <li class="chapter">
-              <img src="https://picsum.photos/seed/ea-story3/900/700" alt="" loading="lazy">
+              <img src="./assets/photo_story3.webp" alt="" loading="lazy">
               <div><p class="label" style="translate: 0.666687px -4px;">09 · 2026</p><h3>Lời cầu hôn</h3><p style="font-size: 15px;">Không nến, không hoa, không lời cầu hôn ngôn tình. Nhưng với đủ sự thấu hiểu, yêu thương. Chúng mình quyết định cùng nắm tay nhau về nhà !</p></div>
             </li>
             <li class="chapter">
-              <img src="https://picsum.photos/seed/ea-story4/900/700" alt="" loading="lazy">
+              <img src="./assets/photo_story4.webp" alt="" loading="lazy">
               <div><p class="label" style="translate: 0.666687px -6.66669px;">11 · 2026</p><h3>Ngày chung đôi</h3><p style="font-size: 15px;">Thật vui vì được gặp và đón tiếp bạn trong ngày cưới của chúng mình.</p></div>
             </li>
         </ol>
         <p class="story-quote" style="translate: 0.666656px 24.6666px;">Hôn nhân là chuyện cả đời<br>Yêu người vừa ý, Cưới người mình thương.</p><p></p><div><br></div><p></p><p></p>
-      </div></section><section id="events" class="sec m-events events custom reveal"><div class="wrap narrow">
-  <div class="rs-tabs" role="tablist" aria-label="Chọn nhà">
-    <button type="button" role="tab" data-tab="bride" aria-selected="true">Nhà gái</button>
-    <button type="button" role="tab" data-tab="groom" aria-selected="false">Nhà trai</button>
-  </div>
-  <div class="rs-evcard" data-show="bride">
-    
-      <article class="rs-ev" data-side="bride" id="sec-5" style="font-size: 11px;">
-        <h3>Lễ Vu Quy</h3>
-        <p class="at">Vào lúc: 09:00</p>
-        <p class="dow">Thứ Bảy</p>
-        <p class="strip">Tháng 11&nbsp;<i>|</i> <b>28</b>&nbsp;<i>|</i> 2026</p>
-        <p class="lunar">(Nhằm ngày 20 tháng 10 năm Bính Ngọ)</p>
-        <p class="addr" style="font-size: 15px; translate: -4.66666px -1.33333px;">Tư gia nhà gái:</p><div>322, Tà Lài, Phú Lộc 14, Tân Phú, Đồng Nai</div><p></p>
-        <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=T%C6%B0%20gia%20Nh%C3%A0%20g%C3%A1i%2C%2012%20L%C3%AA%20L%E1%BB%A3i%2C%20Qu%E1%BA%ADn%201%2C%20TP.HCM" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-6-5.6-6-11a6 6 0 0 1 12 0c0 5.4-6 11-6 11z"></path><circle cx="12" cy="10" r="2.2"></circle></svg>Xem bản đồ</a>
-      </article>
-      <article class="rs-ev" data-side="groom" id="sec-6">
-        <h3>Lễ Thành Hôn</h3>
-        <p class="at">Vào lúc: 10:30</p>
-        <p class="dow">Thứ Ba</p>
-        <p class="strip">Tháng 10 <i>|</i> <b>20</b> <i>|</i> 2026</p>
-        <p class="lunar">(Nhằm ngày 10 tháng 09 năm Bính Ngọ)</p>
-        <p class="addr">45 Hai Bà Trưng, Quận 3, TP.HCM</p>
-        <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=T%C6%B0%20gia%20Nh%C3%A0%20trai%2C%2045%20Hai%20B%C3%A0%20Tr%C6%B0ng%2C%20Qu%E1%BA%ADn%203%2C%20TP.HCM" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-6-5.6-6-11a6 6 0 0 1 12 0c0 5.4-6 11-6 11z"></path><circle cx="12" cy="10" r="2.2"></circle></svg>Xem bản đồ</a>
-      </article>
-      <article class="rs-ev" data-side="both" id="sec-7">
-        <h3>Tiệc Cưới</h3>
-        <p class="at">Vào lúc: 11:00</p>
-        <p class="dow">Thứ Bảy</p>
-        <p class="strip">Tháng 11&nbsp;<i>|</i> <b>28</b>&nbsp;<i>|</i> 2026</p>
-        <p class="lunar">(Nhằm ngày 20 tháng 10 năm Bính Ngọ)</p>
-        <p class="addr">Tư gia nhà gái:</p><div>322, Tà Lài, Phú Lộc 14, Tân Phú, Đồng Nai</div><p></p>
-        <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Trung%20t%C3%A2m%20Ti%E1%BB%87c%20c%C6%B0%E1%BB%9Bi%20White%20Palace%2C%20194%20Ho%C3%A0ng%20V%C4%83n%20Th%E1%BB%A5%2C%20Ph%C3%BA%20Nhu%E1%BA%ADn%2C%20TP.HCM" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-6-5.6-6-11a6 6 0 0 1 12 0c0 5.4-6 11-6 11z"></path><circle cx="12" cy="10" r="2.2"></circle></svg>Xem bản đồ</a>
-      </article>
-  </div>
-</div></section><section id="schedule" class="sec m-schedule itinerary custom reveal"><div class="wrap narrow">
+      </div></section><section id="schedule" class="sec m-schedule itinerary custom reveal"><div class="wrap narrow">
   <p class="rs-script big">Timeline</p>
   <ol class="rs-tl">
     <li><time>08:00</time><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 14l2-5.5h14L21 14v4.5h-2.5v-2h-13v2H3z"></path><circle cx="7.5" cy="14.5" r="1.2"></circle><circle cx="16.5" cy="14.5" r="1.2"></circle></svg></span><span class="tt">Lễ Gia Tiên</span></li><li><time>10:00</time><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 11.5 12 4l9 7.5"></path><path d="M5.5 10v10h13V10"></path><path d="M10 20v-5h4v5"></path></svg></span><span class="tt">Lễ Đón Dâu</span></li><li><time>17:30</time><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 14l2-5.5h14L21 14v4.5h-2.5v-2h-13v2H3z"></path><circle cx="7.5" cy="14.5" r="1.2"></circle><circle cx="16.5" cy="14.5" r="1.2"></circle></svg></span><span class="tt">Đón Khách</span></li><li><time>18:30</time><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><circle cx="12" cy="14.5" r="5.5"></circle><path d="M9 5.5 12 3l3 2.5-3 3z"></path></svg></span><span class="tt">Khai Tiệc</span></li><li><time>21:00</time><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><rect x="3" y="7.5" width="18" height="12" rx="2"></rect><circle cx="12" cy="13.5" r="3.4"></circle><path d="M8.5 7.5 10 5h4l1.5 2.5"></path></svg></span><span class="tt">Lời Cảm Ơn</span></li>
@@ -176,17 +240,34 @@
 </div></section><section id="saveDate" class="sec m-saveDate custom reveal"><div class="wrap narrow">
   <div class="rs-cal-head"><p class="rs-script">Tháng 11</p><p class="yr">2026</p></div>
   <div class="rs-cal">
-    <div class="rs-cal-grid" role="table" aria-label="Tháng 10 năm 2026">
+    <div class="rs-cal-grid" role="table" aria-label="Tháng 11 năm 2026">
       <span class="w">Mon</span><span class="w">Tue</span><span class="w">Wed</span><span class="w">Thu</span><span class="w">Fri</span><span class="w we">Sat</span><span class="w we">Sun</span>
-      <span class=""></span><span class=""></span><span class=""></span><span class="">01</span><span class="">02</span><span class="we">03</span><span class="we">04</span><span class="">05</span><span class="">06</span><span class="">07</span><span class="">08</span><span class="">09</span><span class="we">10</span><span class="we">11</span><span class="">12</span><span class="">13</span><span class="">14</span><span class="">15</span><span class="">16</span><span class="we">17</span><span class="we">18</span><span class="">19</span><span class=" on">20<i><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></i></span><span class="">21</span><span class="">22</span><span class="">23</span><span class="we">24</span><span class="we">25</span><span class="">26</span><span class="">27</span><span class="">28</span><span class="">29</span><span class="">30</span><span class="we">31</span>
+      
+      <!-- Week 1: 1st Nov is Sunday (CN) -->
+      <span></span><span></span><span></span><span></span><span></span><span></span><span class="we">01</span>
+      
+      <!-- Week 2 -->
+      <span>02</span><span>03</span><span>04</span><span>05</span><span>06</span><span class="we">07</span><span class="we">08</span>
+      
+      <!-- Week 3 -->
+      <span>09</span><span>10</span><span>11</span><span>12</span><span>13</span><span class="we">14</span><span class="we">15</span>
+      
+      <!-- Week 4 -->
+      <span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span class="we">21</span><span class="we">22</span>
+      
+      <!-- Week 5: Day 28 is Saturday (Sat) -->
+      <span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span class="we on">28<i><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></i></span><span class="we">29</span>
+      
+      <!-- Week 6: Nov 30 is Monday -->
+      <span>30</span><span></span><span></span><span></span><span></span><span></span><span></span>
     </div>
   </div>
   <p class="rs-hearts" aria-hidden="true"><span class=""><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span><span class="o"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span><span class=""><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span><span class="o"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span><span class=""><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span><span class="o"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span><span class=""><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span></p>
   <p class="rs-count-lead">Cùng đếm ngược thời gian với chúng tôi nha!</p>
   
-        <div class="countdown" role="timer" aria-label="Đếm ngược đến ngày cưới">
-          <div><span class="n">00</span><span class="u">Ngày</span></div><div><span class="n">00</span><span class="u">Giờ</span></div><div><span class="n">00</span><span class="u">Phút</span></div><div><span class="n">00</span><span class="u">Giây</span></div>
-        </div>
+  <div class="countdown" role="timer" aria-label="Đếm ngược đến ngày cưới">
+    <div><span class="n">00</span><span class="u">Ngày</span></div><div><span class="n">00</span><span class="u">Giờ</span></div><div><span class="n">00</span><span class="u">Phút</span></div><div><span class="n">00</span><span class="u">Giây</span></div>
+  </div>
 </div></section><section id="video" class="sec m-video reveal"><div class="wrap">
       <header class="head">
           <p class="eyebrow">Wedding film</p>
@@ -201,103 +282,152 @@
       <p class="fine">Trailer pre-wedding&nbsp;</p>
     </div></section><section id="gallery" class="sec m-gallery gallery custom reveal"><div class="rs-album"><div class="alb full">
         <button class="photo" type="button" data-i="0" aria-label="Xem ảnh: Trước ngày mình thành đôi">
-          <img src="https://picsum.photos/seed/everafter1/800/1000" alt="" loading="lazy" decoding="async">
+          <img src="./assets/photo_story4.webp" alt="" loading="lazy" decoding="async">
           <span class="cap">Trước ngày mình thành đôi</span>
         </button></div><div class="alb third">
         <button class="photo" type="button" data-i="1" aria-label="Xem ảnh: Một ngày rất gần">
-          <img src="https://picsum.photos/seed/everafter2/800/1000" alt="" loading="lazy" decoding="async">
+          <img src="./assets/photo_album2.webp" alt="" loading="lazy" decoding="async">
           <span class="cap">Một ngày rất gần</span>
         </button></div><div class="alb-title"><p class="rs-script big">Album</p><span></span><p class="alb-sub">Ảnh cưới</p></div><div class="alb tall">
         <button class="photo" type="button" data-i="2" aria-label="Xem ảnh: Chúng mình · 2026">
-          <img src="https://picsum.photos/seed/everafter3/800/1000" alt="" loading="lazy" decoding="async">
+          <img src="./assets/photo_album3.webp" alt="" loading="lazy" decoding="async">
           <span class="cap">Chúng mình · 2026</span>
         </button></div><div class="alb wide">
         <button class="photo" type="button" data-i="3" aria-label="Xem ảnh: Và rất nhiều ngày sau">
-          <img src="https://picsum.photos/seed/everafter4/800/1000" alt="" loading="lazy" decoding="async">
+          <img src="./assets/photo_album4.webp" alt="" loading="lazy" decoding="async">
           <span class="cap">Và rất nhiều ngày sau</span>
         </button></div></div></section><section id="quote" class="sec m-quote quote reveal"><div class="wrap narrow">
       <p class="eyebrow">A note from us</p>
       <blockquote>Chúng mình đã đi cùng nhau qua rất nhiều ngày bình thường để đến ngày đặc biệt này. Ngày hôm ấy sẽ trọn vẹn hơn khi có những người mình thương ở bên.</blockquote>
-    </div></section><section id="rsvp" class="sec m-rsvp custom reveal"><div class="wrap narrow">
-  <div class="rs-frame"><span class="orn tl"></span><span class="orn tr"></span><span class="orn bl"></span><span class="orn br"></span>
-    <p class="rs-thin">Xác Nhận Tham Dự</p>
-    <div class="rs-rsvp"><form class="rsvp-form" novalidate="">
-          <label class="field"><span>Tên của bạn</span>
-            <input name="name" autocomplete="name" required="" value="" placeholder="Nguyễn Minh Anh"></label>
-          <fieldset class="field choice"><legend>Bạn sẽ tham dự chứ?</legend>
-            <label><input type="radio" name="attending" value="yes" required=""> <i class="ok">✓</i><small>Có, tôi sẽ</small> tham dự</label>
-            <label><input type="radio" name="attending" value="no"> <i class="no">✕</i><small>Rất tiếc,</small> chưa sắp xếp được</label>
-          </fieldset>
-          <label class="field when-yes"><span>Số người đi cùng (không tính bạn)</span>
-            <select name="plus"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></label>
-          <fieldset class="field choice when-yes"><legend>Bạn dự phần nào?</legend>
-            <label><input type="checkbox" name="events" value="0" checked=""> Lễ Vu Quy · 08:00</label><label><input type="checkbox" name="events" value="1" checked=""> Lễ Thành Hôn · 10:30</label><label><input type="checkbox" name="events" value="2" checked=""> Tiệc Cưới · 17:30</label>
-          </fieldset>
-          <label class="field"><span>Lời nhắn (không bắt buộc)</span>
-            <textarea name="note" rows="3" maxlength="500" placeholder="Ăn chay, dị ứng, hay một lời chúc nhỏ…"></textarea></label>
-          <p class="form-error" role="alert" hidden=""></p>
-          <button class="btn" type="submit">Gửi phản hồi</button>
-          <p class="fine">Vui lòng phản hồi trước ngày 05/10/2026</p>
-        </form>
-        <div class="form-done" hidden="" role="status"></div></div>
-  </div>
-</div></section><section id="gift" class="sec m-gift custom reveal"><div class="wrap narrow">
-  <div class="rs-frame"><span class="orn tl"></span><span class="orn tr"></span><span class="orn bl"></span><span class="orn br"></span>
-    <p class="rs-thin">Hộp Mừng Cưới</p>
-    <button class="packet-btn" type="button" aria-haspopup="dialog" aria-label="Mở hộp mừng cưới">
-      <span class="coins" aria-hidden="true"><i style="--i:0">$</i><i style="--i:1">$</i><i style="--i:2">$</i><i style="--i:3">$</i><i style="--i:4">$</i><i style="--i:5">$</i></span>
-      <span class="packet" aria-hidden="true"><span class="p-roof"></span><span class="p-ring"><span>囍</span></span><i class="d1"></i><i class="d2"></i><i class="d3"></i><i class="d4"></i></span>
-    </button>
-    <p class="rs-p small">Sự hiện diện của bạn là món quà lớn nhất. Nếu bạn muốn gửi lời chúc phúc từ xa, chúng mình xin trân trọng.</p>
-  </div>
-  <dialog class="gift-dlg" aria-label="Mừng cưới">
-    <button class="gift-x" type="button" aria-label="Đóng">×</button>
-    <p class="gift-title">Mừng Cưới</p>
-    <div class="qr-cols">
-    <div class="qr-col">
-      <p class="qr-lbl">Chú rể</p>
-      <div class="qr-card"><div class="qr-none"><b>Techcombank</b><span>1903 5555 6666</span><small>Phạm Gia Bảo</small></div></div>
-      <button class="qr-dl" type="button" data-copy="190355556666"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v11"></path><path d="m7 11 5 5 5-5"></path><path d="M5 20h14"></path></svg> Sao chép số TK</button>
-      <p class="qr-name">Gia Bảo</p>
-    </div>
-    <div class="qr-col">
-      <p class="qr-lbl">Cô dâu</p>
-      <div class="qr-card"><div class="qr-none"><b>Vietcombank</b><span>0123 456 789</span><small>Nguyễn Ngọc Linh</small></div></div>
-      <button class="qr-dl" type="button" data-copy="0123456789"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v11"></path><path d="m7 11 5 5 5-5"></path><path d="M5 20h14"></path></svg> Sao chép số TK</button>
-      <p class="qr-name">Ngọc Linh</p>
-    </div></div>
-  </dialog>
-</div></section><section id="guestbook" class="sec m-guestbook custom reveal"><div class="wrap narrow">
+    </div></section><section id="guestbook" class="sec m-guestbook custom reveal"><div class="wrap narrow">
   <p class="rs-kicker">Sổ lưu bút</p>
   <p class="rs-script big">Gửi Lời Chúc</p>
   <p class="rs-divider" aria-hidden="true"><span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span></p>
-  <p class="rs-italic">Những lời chúc mừng hạnh phúc</p>
-  <div class="rs-book">
-    <div class="board"><img src="https://picsum.photos/seed/everafter4/800/1000" alt="Ảnh để khách ký tên"><div class="sigs"></div><p class="board-hint">Hãy là người đầu tiên ký tên!</p></div>
-    <div class="place-bar" hidden="">
-      <label>Cỡ chữ ký <input type="range" min="14" max="50" step="1" aria-label="Cỡ chữ ký"></label>
-      <div class="row"><button class="btn ghost" type="button" data-act="redo">Ký lại</button><button class="btn" type="button" data-act="here">Đặt ở đây</button></div>
+  <p class="rs-italic" style="margin-bottom: 22px;">Mỗi lời nhắn là một món quà ý nghĩa chúc phúc cho Trùng Dương &amp; Kim Loan 🍬</p>
+
+  <!-- Interactive Guestbook Card -->
+  <div class="rs-frame" style="padding: 24px 18px; border-radius: 20px; background: #FFFDF9; border: 2px solid #b7a578; box-shadow: 0 10px 30px rgba(107, 7, 16, 0.1);">
+    <span class="orn tl"></span><span class="orn tr"></span><span class="orn bl"></span><span class="orn br"></span>
+
+    <!-- 1. Interactive Mood / Avatar Selector -->
+    <div style="margin-bottom: 16px; text-align: left;">
+      <label style="font-size: 13px; font-weight: 600; color: #555; display: block; margin-bottom: 8px;">
+        Chọn cảm xúc của bạn:
+      </label>
+      <div id="rs-mood-picker" style="display: flex; gap: 8px; justify-content: space-between;">
+        <button type="button" class="rs-mood-btn active" data-mood="🥰" style="flex: 1; padding: 8px 4px; border: 1.5px solid var(--wine, #7b0f1e); background: #FFF5F5; border-radius: 12px; font-size: 20px; cursor: pointer; transition: all 0.2s;" title="Yêu thương">🥰</button>
+        <button type="button" class="rs-mood-btn" data-mood="🥂" style="flex: 1; padding: 8px 4px; border: 1.5px solid #E5E0D8; background: #FFF; border-radius: 12px; font-size: 20px; cursor: pointer; transition: all 0.2s;" title="Nâng ly chúc mừng">🥂</button>
+        <button type="button" class="rs-mood-btn" data-mood="💖" style="flex: 1; padding: 8px 4px; border: 1.5px solid #E5E0D8; background: #FFF; border-radius: 12px; font-size: 20px; cursor: pointer; transition: all 0.2s;" title="Hạnh phúc tròn đầy">💖</button>
+        <button type="button" class="rs-mood-btn" data-mood="🎉" style="flex: 1; padding: 8px 4px; border: 1.5px solid #E5E0D8; background: #FFF; border-radius: 12px; font-size: 20px; cursor: pointer; transition: all 0.2s;" title="Quẩy hết mình">🎉</button>
+        <button type="button" class="rs-mood-btn" data-mood="💐" style="flex: 1; padding: 8px 4px; border: 1.5px solid #E5E0D8; background: #FFF; border-radius: 12px; font-size: 20px; cursor: pointer; transition: all 0.2s;" title="Trăm năm gắn kết">💐</button>
+      </div>
+      <input type="hidden" id="rs-gb-mood" value="🥰">
     </div>
-    <button class="btn sign-btn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg> Ký tên</button>
-    <p class="steps"><b>1</b> Ký tên · <b>2</b> Chọn vị trí · <b>3</b> Viết lời chúc &amp; gửi</p>
-    <ul class="rs-wishes"><li><p>Chúc hai em trăm năm hạnh phúc, sớm có tin vui nhé!</p><p class="by">— Chị Hương</p></li><li><p>Cuối cùng cũng đến ngày này! Hẹn gặp ở tiệc, không say không về.</p><p class="by">— Nhóm lớp 12A1</p></li></ul>
+
+    <!-- 2. Form Inputs -->
+    <form id="rs-form-guestbook" style="display: flex; flex-direction: column; gap: 12px; text-align: left;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div>
+          <label for="rs-gb-name" style="font-size: 13px; font-weight: 600; color: #444; display: block; margin-bottom: 4px;">Tên của bạn *</label>
+          <input type="text" id="rs-gb-name" required placeholder="Ví dụ: Bé Lan, Hoàng IT..." style="width: 100%; padding: 9px 12px; border: 1.5px solid #DDD3C1; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; background: #FFF;">
+        </div>
+        <div>
+          <label for="rs-gb-relation" style="font-size: 13px; font-weight: 600; color: #444; display: block; margin-bottom: 4px;">Bạn là ai nè?</label>
+          <select id="rs-gb-relation" style="width: 100%; padding: 9px 12px; border: 1.5px solid #DDD3C1; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; background: #FFF;">
+            <option value="Bạn thân cô dâu">Bạn thân cô dâu</option>
+            <option value="Hội bạn chú rể">Hội bạn chú rể</option>
+            <option value="Bạn chung cả hai">Bạn chung cả hai</option>
+            <option value="Đồng nghiệp vui vẻ">Đồng nghiệp vui vẻ</option>
+            <option value="Người thân gia đình">Người thân gia đình</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Quick Wish Chips -->
+      <div>
+        <span style="font-size: 12px; font-weight: 600; color: #777; margin-bottom: 6px; display: block;">Gợi ý câu chúc nhanh:</span>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <button type="button" class="rs-quick-chip" style="background: #FFF5F5; border: 1px dashed rgba(123, 15, 30, 0.4); border-radius: 14px; padding: 4px 10px; font-size: 12px; color: var(--wine, #7b0f1e); cursor: pointer;">Trăm năm hạnh phúc! 💖</button>
+          <button type="button" class="rs-quick-chip" style="background: #FFF5F5; border: 1px dashed rgba(123, 15, 30, 0.4); border-radius: 14px; padding: 4px 10px; font-size: 12px; color: var(--wine, #7b0f1e); cursor: pointer;">Sớm có thiên thần nhỏ! 👶</button>
+          <button type="button" class="rs-quick-chip" style="background: #FFF5F5; border: 1px dashed rgba(123, 15, 30, 0.4); border-radius: 14px; padding: 4px 10px; font-size: 12px; color: var(--wine, #7b0f1e); cursor: pointer;">Mãi ngọt ngào như ngày đầu! 🍯</button>
+        </div>
+      </div>
+
+      <div>
+        <label for="rs-gb-message" style="font-size: 13px; font-weight: 600; color: #444; display: block; margin-bottom: 4px;">Lời nhắn gửi *</label>
+        <textarea id="rs-gb-message" rows="3" required placeholder="Gửi những lời chúc ấm áp nhất đến hai bạn nhé..." style="width: 100%; padding: 10px 12px; border: 1.5px solid #DDD3C1; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; background: #FFF; resize: none;"></textarea>
+      </div>
+
+      <button type="submit" class="btn" style="background: var(--wine, #7b0f1e); color: #FFF; border: none; border-radius: 24px; padding: 12px; font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 14px rgba(123, 15, 30, 0.3); display: flex; align-items: center; justify-content: center; gap: 8px;">
+        <span>Gửi Lời Chúc Phúc</span>
+        <span>💌</span>
+      </button>
+    </form>
+
+    <!-- 3. Bức Tường Lời Chúc (Wishing Wall) -->
+    <div style="margin-top: 24px; border-top: 1.5px dashed rgba(183, 165, 120, 0.4); padding-top: 18px; text-align: left;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <span style="font-size: 14px; font-weight: 700; color: var(--wine, #7b0f1e); display: flex; align-items: center; gap: 6px;">
+          <span>📌</span> Lời Chúc Gần Đây
+        </span>
+        <span id="rs-wishes-counter" style="font-size: 12px; color: #777; background: #FFF; padding: 2px 8px; border-radius: 10px; border: 1px solid #E5E0D8;">
+          4 lời chúc
+        </span>
+      </div>
+
+      <div id="rs-wishes-list" style="display: flex; flex-direction: column; gap: 12px; max-height: 420px; overflow-y: auto; padding-right: 4px;">
+        
+        <!-- Note 1 -->
+        <div class="rs-wish-item" style="background: #FFFDF9; border: 1px solid rgba(183, 165, 120, 0.5); border-radius: 12px; padding: 12px 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 18px;">🥰</span>
+              <strong style="color: var(--wine, #7b0f1e); font-size: 14px;">Nguyễn Thảo Nhi</strong>
+            </div>
+            <span style="font-size: 11px; background: rgba(123, 15, 30, 0.08); color: var(--wine, #7b0f1e); padding: 1px 8px; border-radius: 8px;">Bạn thân cô dâu</span>
+          </div>
+          <p style="font-size: 13.5px; color: #333; line-height: 1.4; margin: 0;">Loan ơi, nhìn mày bước vào lễ đường tao xúc động muốn rớt nước mắt! Chúc hai vợ chồng luôn yêu thương, nhường nhịn và đồng hành cùng nhau suốt chặng đường dài phía trước nhé! Love you cả hai!</p>
+        </div>
+
+        <!-- Note 2 -->
+        <div class="rs-wish-item" style="background: #FFFDF9; border: 1px solid rgba(183, 165, 120, 0.5); border-radius: 12px; padding: 12px 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 18px;">🥂</span>
+              <strong style="color: var(--wine, #7b0f1e); font-size: 14px;">Trần Minh Quang</strong>
+            </div>
+            <span style="font-size: 11px; background: rgba(123, 15, 30, 0.08); color: var(--wine, #7b0f1e); padding: 1px 8px; border-radius: 8px;">Hội bạn chú rể</span>
+          </div>
+          <p style="font-size: 13.5px; color: #333; line-height: 1.4; margin: 0;">Chúc mừng người anh em chí cốt Trùng Dương đã rước được nàng về dinh! Chúc hai bạn trăm năm hạnh phúc, gia đình viên mãn và sớm đón thiên thần nhỏ nhé!</p>
+        </div>
+
+        <!-- Note 3 -->
+        <div class="rs-wish-item" style="background: #FFFDF9; border: 1px solid rgba(183, 165, 120, 0.5); border-radius: 12px; padding: 12px 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 18px;">💖</span>
+              <strong style="color: var(--wine, #7b0f1e); font-size: 14px;">Gia đình Dì Bảy</strong>
+            </div>
+            <span style="font-size: 11px; background: rgba(123, 15, 30, 0.08); color: var(--wine, #7b0f1e); padding: 1px 8px; border-radius: 8px;">Người thân gia đình</span>
+          </div>
+          <p style="font-size: 13.5px; color: #333; line-height: 1.4; margin: 0;">Mừng hạnh phúc hai cháu Trùng Dương và Kim Loan. Chúc hai cháu trăm năm đầu bạc, cùng nhau xây đắp mái ấm thật ấm áp và tràn ngập tiếng cười!</p>
+        </div>
+
+        <!-- Note 4 -->
+        <div class="rs-wish-item" style="background: #FFFDF9; border: 1px solid rgba(183, 165, 120, 0.5); border-radius: 12px; padding: 12px 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 18px;">🎉</span>
+              <strong style="color: var(--wine, #7b0f1e); font-size: 14px;">Team Đồng Nghiệp IT</strong>
+            </div>
+            <span style="font-size: 11px; background: rgba(123, 15, 30, 0.08); color: var(--wine, #7b0f1e); padding: 1px 8px; border-radius: 8px;">Đồng nghiệp vui vẻ</span>
+          </div>
+          <p style="font-size: 13.5px; color: #333; line-height: 1.4; margin: 0;">Happy Wedding Trùng Dương &amp; Kim Loan! Chúc code tình yêu của hai bạn luôn "0 bugs, 100% test coverage" và mãi chạy mượt mà theo năm tháng!</p>
+        </div>
+
+      </div>
+    </div>
   </div>
-  <dialog class="sig-dlg">
-    <form method="dialog" class="sig-step s1">
-      <p class="rs-h">Ký tên của bạn</p>
-      <canvas class="pad" width="600" height="300" aria-label="Khung ký tên, dùng ngón tay hoặc chuột để ký"></canvas>
-      <div class="row"><button class="btn ghost" type="button" data-act="clear">Ký lại</button><button class="btn" type="button" data-act="next">Tiếp tục</button></div>
-      <button class="x" value="cancel" aria-label="Đóng">×</button>
-    </form>
-    <form method="dialog" class="sig-step s3" hidden="">
-      <p class="rs-h">Lời chúc</p>
-      <label class="field"><span>Tên của bạn</span><input name="name" required="" maxlength="60" autocomplete="name"></label>
-      <label class="field"><span>Lời chúc</span><textarea name="message" rows="3" required="" maxlength="300"></textarea></label>
-      <p class="form-error" role="alert" hidden=""></p>
-      <button class="btn" type="button" data-act="send">Gửi lời chúc</button>
-      <button class="x" value="cancel" aria-label="Đóng">×</button>
-    </form>
-  </dialog>
 </div></section><section id="contact" class="sec m-contact contact reveal"><div class="wrap">
       <header class="head">
           <p class="eyebrow">Contact</p>
@@ -318,7 +448,7 @@
           </div>
       </div>
     </div></section><section id="thanks" class="sec m-thanks thanks custom reveal"><figure class="rs-end">
-  <img src="https://picsum.photos/seed/ea-thanks/1200/800" alt="" loading="lazy">
+  <img src="./assets/thanks.webp" alt="" loading="lazy">
   <figcaption>Rất hân hạnh được đón tiếp</figcaption>
   <button class="rs-reopen" type="button" id="reopen" aria-label="Về đầu trang">↑</button>
 </figure></section></main>
@@ -326,7 +456,7 @@
   <nav class="sides" hidden aria-label="Xem theo nhà">
       <a href="?style=redseal&amp;draft=1" aria-current="page">Chung</a><a href="?style=redseal&amp;draft=1&amp;side=groom">Nhà trai</a><a href="?style=redseal&amp;draft=1&amp;side=bride">Nhà gái</a>
     </nav><nav id="dock" hidden class="dock" aria-label="Điều hướng nhanh">
-    <div id="dock-nav" class="dock-nav"><a href="#events">Sự kiện</a><a href="#rsvp">RSVP</a><a href="#gift">Mừng cưới</a><a href="#gallery">Ảnh</a></div>
+    <div id="dock-nav" class="dock-nav"><a href="#events">Sự kiện</a><a href="#story">Chuyện tình</a><a href="#gallery">Ảnh</a><a href="#guestbook">Lời chúc</a></div>
     <div class="dock-music">
       <button id="music-btn" class="music-btn" type="button" aria-pressed="false" aria-label="Bật nhạc">
         <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -724,6 +854,87 @@
     });
   });
 })();
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // A. Event Tabs switching (Lễ Vu Quy & Tiệc Cưới)
+  const tabBtns = document.querySelectorAll('.rs-tabs button');
+  const evCard = document.querySelector('.rs-evcard');
+  if (tabBtns.length && evCard) {
+    tabBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        tabBtns.forEach(function(b) { b.setAttribute('aria-selected', 'false'); });
+        btn.setAttribute('aria-selected', 'true');
+        evCard.setAttribute('data-show', btn.dataset.tab);
+      });
+    });
+  }
+
+  // B. Guestbook Interactive Logic
+  const moodBtns = document.querySelectorAll('.rs-mood-btn');
+  const inputMood = document.getElementById('rs-gb-mood');
+  moodBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      moodBtns.forEach(function(b) {
+        b.classList.remove('active');
+        b.style.borderColor = '#E5E0D8';
+        b.style.background = '#FFF';
+      });
+      btn.classList.add('active');
+      btn.style.borderColor = 'var(--wine, #7b0f1e)';
+      btn.style.background = '#FFF5F5';
+      if (inputMood) inputMood.value = btn.dataset.mood;
+    });
+  });
+
+  const chips = document.querySelectorAll('.rs-quick-chip');
+  chips.forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      const msg = document.getElementById('rs-gb-message');
+      if (msg) {
+        msg.value = chip.innerText;
+        msg.focus();
+      }
+    });
+  });
+
+  const formGb = document.getElementById('rs-form-guestbook');
+  const listGb = document.getElementById('rs-wishes-list');
+  const counterGb = document.getElementById('rs-wishes-counter');
+  let countWishes = 4;
+
+  if (formGb && listGb) {
+    formGb.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('rs-gb-name').value;
+      const relation = document.getElementById('rs-gb-relation').value;
+      const msg = document.getElementById('rs-gb-message').value;
+      const mood = (inputMood && inputMood.value) ? inputMood.value : '🥰';
+
+      const card = document.createElement('div');
+      card.className = 'rs-wish-item';
+      card.style.cssText = 'background: #FFFDF9; border: 1.5px solid var(--wine, #7b0f1e); border-radius: 12px; padding: 12px 14px; box-shadow: 0 4px 12px rgba(107, 7, 16, 0.08); margin-bottom: 4px; animation: fadeIn 0.4s ease;';
+      card.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 18px;">${mood}</span>
+            <strong style="color: var(--wine, #7b0f1e); font-size: 14px;">${name}</strong>
+          </div>
+          <span style="font-size: 11px; background: rgba(123, 15, 30, 0.08); color: var(--wine, #7b0f1e); padding: 1px 8px; border-radius: 8px;">${relation}</span>
+        </div>
+        <p style="font-size: 13.5px; color: #333; line-height: 1.4; margin: 0;">${msg}</p>
+      `;
+
+      listGb.insertBefore(card, listGb.firstChild);
+      countWishes++;
+      if (counterGb) counterGb.innerText = `${countWishes} lời chúc`;
+      alert('✨ Cảm ơn bạn! Lời chúc tốt đẹp đã được gửi thành công!');
+      formGb.reset();
+    });
+  }
+});
 </script>
 
 </body></html>
