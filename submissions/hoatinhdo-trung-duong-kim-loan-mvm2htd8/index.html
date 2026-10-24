@@ -2348,6 +2348,45 @@ if (window.runScrollEngine) window.runScrollEngine();
       update();
     })();
 
+    // ============================================================
+    // COMIC SCROLL REVEAL OBSERVER WITH RE-REVEAL ON SCROLL
+    // ============================================================
+    function initComicScrollObserver() {
+      const revealElements = document.querySelectorAll('.comic-scroll-reveal, .comic-slide-left, .comic-slide-right');
+      if (!revealElements.length) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            const stamps = entry.target.querySelectorAll('.calendar-day-stamp');
+            stamps.forEach(s => s.classList.add('stamp-slam'));
+          } else {
+            // When scrolled far out of view, remove is-revealed so scrolling back re-animates!
+            const rect = entry.boundingClientRect;
+            if (rect.top > window.innerHeight * 1.05 || rect.bottom < -window.innerHeight * 0.3) {
+              entry.target.classList.remove('is-revealed');
+            }
+          }
+        });
+      }, {
+        threshold: 0.08,
+        rootMargin: '0px 0px -25px 0px'
+      });
+
+      revealElements.forEach(el => observer.observe(el));
+
+      window.refreshReveals = () => {
+        revealElements.forEach(el => {
+          const r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) {
+            el.classList.add('is-revealed');
+          }
+        });
+      };
+    }
+    initComicScrollObserver();
+
     // 4. Event Tabs Switcher
     const tabBtns = document.querySelectorAll('.event-tab-btn');
     const tabCards = document.querySelectorAll('.event-card-item');
