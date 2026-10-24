@@ -81,6 +81,155 @@
     transform: scale(0.96);
   }
 
+
+  /* ================================================================ */
+  /* ROYAL RED SEAL COMPREHENSIVE ANIMATION SUITE                      */
+  /* ================================================================ */
+
+  /* 1. Silk Unfurl (Parchment & Letter Unfurling) */
+  .rs-anim-unfurl {
+    opacity: 0;
+    transform: scaleY(0.7) translateY(24px);
+    filter: blur(4px);
+    transition: opacity 0.65s ease-out, transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.65s ease-out;
+    transition-delay: var(--delay, 0s);
+  }
+  .rs-anim-unfurl.in-view {
+    opacity: 1;
+    transform: scaleY(1) translateY(0);
+    filter: blur(0px);
+  }
+
+  /* 2. Royal Wax Seal Slam */
+  .rs-anim-seal-slam {
+    opacity: 0;
+    transform: scale(2.2) rotate(-22deg) translateY(-30px);
+    transition: opacity 0.4s ease-out, transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition-delay: var(--delay, 0s);
+  }
+  .rs-anim-seal-slam.in-view {
+    opacity: 1;
+    transform: scale(1) rotate(0deg) translateY(0);
+  }
+
+  /* 3. Royal Slide Left */
+  .rs-anim-slide-left {
+    opacity: 0;
+    transform: translateX(-50px) rotate(-2deg);
+    transition: opacity 0.55s ease-out, transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition-delay: var(--delay, 0s);
+  }
+  .rs-anim-slide-left.in-view {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg);
+  }
+
+  /* 4. Royal Slide Right */
+  .rs-anim-slide-right {
+    opacity: 0;
+    transform: translateX(50px) rotate(2deg);
+    transition: opacity 0.55s ease-out, transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition-delay: var(--delay, 0s);
+  }
+  .rs-anim-slide-right.in-view {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg);
+  }
+
+  /* 5. Royal Drop Badge */
+  .rs-anim-drop {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.9);
+    transition: opacity 0.5s ease-out, transform 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-delay: var(--delay, 0s);
+  }
+  .rs-anim-drop.in-view {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  /* 6. Royal 3D Perspective Flip */
+  .rs-anim-flip {
+    opacity: 0;
+    transform: perspective(800px) rotateX(25deg) translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition-delay: var(--delay, 0s);
+  }
+  .rs-anim-flip.in-view {
+    opacity: 1;
+    transform: perspective(800px) rotateX(0deg) translateY(0);
+  }
+
+  /* 7. Royal Stamp Pop */
+  .rs-anim-pop {
+    opacity: 0;
+    transform: scale(0.7) rotate(-4deg);
+    transition: opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition-delay: var(--delay, 0s);
+  }
+  .rs-anim-pop.in-view {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  /* 8. Royal Bloom */
+  .rs-anim-bloom {
+    opacity: 0;
+    transform: scale(0.4) rotate(-30deg);
+    transition: opacity 0.6s ease-out, transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition-delay: var(--delay, 0s);
+  }
+  .rs-anim-bloom.in-view {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  /* 9. Continuous Gentle Floating */
+  .rs-motion-float.in-view {
+    animation: royalFloat 4.2s ease-in-out infinite 0.75s;
+  }
+  @keyframes royalFloat {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-7px) rotate(0.8deg); }
+  }
+
+  /* 10. Golden Wax Pulse & Shimmer */
+  .wax-pulse {
+    animation: waxPulse 2.2s ease-in-out infinite;
+  }
+  @keyframes waxPulse {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 2px 6px rgba(107, 7, 16, 0.4)); }
+    50% { transform: scale(1.08); filter: drop-shadow(0 4px 14px rgba(212, 175, 55, 0.7)); }
+  }
+
+  /* Heartbeat Pulse for Calendar Day 28 */
+  .heart-beat-pulse {
+    animation: heartPulse 1.6s ease-in-out infinite;
+    transform-origin: center;
+  }
+  @keyframes heartPulse {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.25); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+    60% { transform: scale(1); }
+  }
+
+  /* Keepsake Dot Indicators */
+  .rs-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #D6C7AE;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .rs-dot.active {
+    width: 22px;
+    border-radius: 10px;
+    background: var(--wine, #7b0f1e);
+  }
+
 </style>
 </head>
 <body class="ready"><div class="hearts" aria-hidden="true"><span class="fh o" style="--x:0%;--d:10s;--delay:-0s;--s:0.45"></span><span class="fh " style="--x:47%;--d:11s;--delay:-1.9s;--s:0.67"></span><span class="fh " style="--x:94%;--d:12s;--delay:-3.8s;--s:0.89"></span><span class="fh " style="--x:41%;--d:13s;--delay:-5.699999999999999s;--s:1.11"></span><span class="fh o" style="--x:88%;--d:14s;--delay:-7.6s;--s:1.33"></span><span class="fh " style="--x:35%;--d:15s;--delay:-9.5s;--s:0.45"></span><span class="fh " style="--x:82%;--d:16s;--delay:-11.399999999999999s;--s:0.67"></span><span class="fh " style="--x:29%;--d:10s;--delay:-13.299999999999999s;--s:0.89"></span><span class="fh o" style="--x:76%;--d:11s;--delay:-1.1999999999999993s;--s:1.11"></span><span class="fh " style="--x:23%;--d:12s;--delay:-3.099999999999998s;--s:1.33"></span><span class="fh " style="--x:70%;--d:13s;--delay:-5s;--s:0.45"></span><span class="fh " style="--x:17%;--d:14s;--delay:-6.899999999999999s;--s:0.67"></span><span class="fh o" style="--x:64%;--d:15s;--delay:-8.799999999999997s;--s:0.89"></span><span class="fh " style="--x:11%;--d:16s;--delay:-10.7s;--s:1.11"></span><span class="fh " style="--x:58%;--d:10s;--delay:-12.599999999999998s;--s:1.33"></span><span class="fh " style="--x:5%;--d:11s;--delay:-0.5s;--s:0.45"></span><span class="fh o" style="--x:52%;--d:12s;--delay:-2.3999999999999986s;--s:0.67"></span><span class="fh " style="--x:99%;--d:13s;--delay:-4.299999999999997s;--s:0.89"></span><span class="fh " style="--x:46%;--d:14s;--delay:-6.199999999999996s;--s:1.11"></span><span class="fh " style="--x:93%;--d:15s;--delay:-8.100000000000001s;--s:1.33"></span><span class="fh o" style="--x:40%;--d:16s;--delay:-10s;--s:0.45"></span><span class="fh " style="--x:87%;--d:10s;--delay:-11.899999999999999s;--s:0.67"></span></div>
@@ -111,9 +260,9 @@
   </g>
   <g transform="translate(24 52)"><ellipse rx="3.8500000000000005" ry="7" cy="-5.6000000000000005" transform="rotate(0)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.8500000000000005" ry="7" cy="-5.6000000000000005" transform="rotate(72)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.8500000000000005" ry="7" cy="-5.6000000000000005" transform="rotate(144)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.8500000000000005" ry="7" cy="-5.6000000000000005" transform="rotate(216)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.8500000000000005" ry="7" cy="-5.6000000000000005" transform="rotate(288)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><circle r="2.66" fill="#c9a45c"></circle></g><g transform="translate(66 30)"><ellipse rx="3.0250000000000004" ry="5.5" cy="-4.4" transform="rotate(0)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.0250000000000004" ry="5.5" cy="-4.4" transform="rotate(72)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.0250000000000004" ry="5.5" cy="-4.4" transform="rotate(144)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.0250000000000004" ry="5.5" cy="-4.4" transform="rotate(216)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.0250000000000004" ry="5.5" cy="-4.4" transform="rotate(288)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><circle r="2.09" fill="#c9a45c"></circle></g><g transform="translate(90 90)"><ellipse rx="3.575" ry="6.5" cy="-5.2" transform="rotate(0)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.575" ry="6.5" cy="-5.2" transform="rotate(72)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.575" ry="6.5" cy="-5.2" transform="rotate(144)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.575" ry="6.5" cy="-5.2" transform="rotate(216)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="3.575" ry="6.5" cy="-5.2" transform="rotate(288)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><circle r="2.47" fill="#c9a45c"></circle></g><g transform="translate(128 78)"><ellipse rx="2.475" ry="4.5" cy="-3.6" transform="rotate(0)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="2.475" ry="4.5" cy="-3.6" transform="rotate(72)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="2.475" ry="4.5" cy="-3.6" transform="rotate(144)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="2.475" ry="4.5" cy="-3.6" transform="rotate(216)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="2.475" ry="4.5" cy="-3.6" transform="rotate(288)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><circle r="1.71" fill="#c9a45c"></circle></g><g transform="translate(8 26)"><ellipse rx="2.2" ry="4" cy="-3.2" transform="rotate(0)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="2.2" ry="4" cy="-3.2" transform="rotate(72)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="2.2" ry="4" cy="-3.2" transform="rotate(144)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="2.2" ry="4" cy="-3.2" transform="rotate(216)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><ellipse rx="2.2" ry="4" cy="-3.2" transform="rotate(288)" fill="#f4efe6" stroke="#cbbd97" stroke-width=".6"></ellipse><circle r="1.52" fill="#c9a45c"></circle></g>
 </svg>
-  <p class="rs-kicker" >Thiệp</p>
-  <h1 class="rs-title" >Mời Cưới</h1>
-  <button class="env-btn" type="button" aria-label="Chạm vào thiệp để mở" >
+  <p class="rs-kicker rs-anim-drop">Thiệp</p>
+  <h1 class="rs-title rs-anim-drop" style="--delay: 0.08s;">Mời Cưới</h1>
+  <button class="env-btn rs-anim-pop" type="button" style="--delay: 0.12s;" aria-label="Chạm vào thiệp để mở" >
     <span class="env" aria-hidden="true">
       <span class="env-back"></span>
       <span class="env-photo"><img src="./assets/photo_video.webp" alt="" fetchpriority="high"></span>
@@ -125,19 +274,19 @@
 </g></svg></span>
     </span>
   </button>
-  <p class="tap" >Chạm vào thiệp để mở</p>
-  <p class="rs-names">
+  <p class="tap rs-anim-unfurl" style="--delay: 0.15s;">Chạm vào thiệp để mở</p>
+  <p class="rs-names rs-anim-drop" style="--delay: 0.18s;">
     <span>Trùng Dương</span>
     <span class="heart" style="display: inline-flex; align-items: center;"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span>
     <span>Kim Loan</span>
   </p>
-  <p class="rs-date"><span class="hy" aria-hidden="true">囍</span><b>28.11.2026</b><span class="hy" aria-hidden="true">囍</span></p>
+  <p class="rs-date rs-anim-unfurl" style="--delay: 0.22s;"><span class="hy" aria-hidden="true">囍</span><b>28.11.2026</b><span class="hy" aria-hidden="true">囍</span></p>
 </div></div>
   <main id="inv" class="inv"><section id="invitation" class="sec m-invitation letter custom in is-revealed" style="opacity: 1; transform: none;"><div class="wrap narrow">
   <svg class="floral" viewBox="0 0 160 110" aria-hidden="true"><g fill="none" stroke="#9b8657" stroke-width="1.3" stroke-linecap="round"><path d="M2 4 C40 10 70 26 96 52 C112 68 128 80 158 86"/><path d="M30 12 C36 26 34 40 24 52"/><path d="M62 30 C74 34 80 46 78 60"/><path d="M104 60 C104 72 98 82 88 90"/></g><g fill="#b7a578"><ellipse cx="22" cy="8" rx="9" ry="3.6" transform="rotate(18 22 8)"/><ellipse cx="46" cy="20" rx="9" ry="3.4" transform="rotate(34 46 20)"/><ellipse cx="34" cy="34" rx="8" ry="3.2" transform="rotate(-70 34 34)"/><ellipse cx="80" cy="44" rx="9" ry="3.4" transform="rotate(50 80 44)"/><ellipse cx="78" cy="58" rx="8" ry="3" transform="rotate(-80 78 58)"/><ellipse cx="118" cy="72" rx="9" ry="3.2" transform="rotate(26 118 72)"/><ellipse cx="100" cy="80" rx="7" ry="3" transform="rotate(-60 100 80)"/><ellipse cx="140" cy="82" rx="8" ry="3" transform="rotate(10 140 82)"/></g></svg><svg class="floral r" viewBox="0 0 160 110" aria-hidden="true"><g fill="none" stroke="#9b8657" stroke-width="1.3" stroke-linecap="round"><path d="M2 4 C40 10 70 26 96 52 C112 68 128 80 158 86"/><path d="M30 12 C36 26 34 40 24 52"/><path d="M62 30 C74 34 80 46 78 60"/><path d="M104 60 C104 72 98 82 88 90"/></g><g fill="#b7a578"><ellipse cx="22" cy="8" rx="9" ry="3.6" transform="rotate(18 22 8)"/><ellipse cx="46" cy="20" rx="9" ry="3.4" transform="rotate(34 46 20)"/><ellipse cx="34" cy="34" rx="8" ry="3.2" transform="rotate(-70 34 34)"/><ellipse cx="80" cy="44" rx="9" ry="3.4" transform="rotate(50 80 44)"/><ellipse cx="78" cy="58" rx="8" ry="3" transform="rotate(-80 78 58)"/><ellipse cx="118" cy="72" rx="9" ry="3.2" transform="rotate(26 118 72)"/><ellipse cx="100" cy="80" rx="7" ry="3" transform="rotate(-60 100 80)"/><ellipse cx="140" cy="82" rx="8" ry="3" transform="rotate(10 140 82)"/></g></svg>
   
   <!-- SPOTLIGHT ẢNH CÔ DÂU CHÚ RỂ (Trước phần Trân trọng kính mời) -->
-  <div class="rs-couple-spotlight" style="width: 100%; max-width: 380px; margin: 0 auto 26px; position: relative; text-align: center;">
+  <div class="rs-couple-spotlight rs-anim-flip rs-motion-float" style="width: 100%; max-width: 380px; margin: 0 auto 26px; position: relative; text-align: center;">
     <div style="position: relative; padding: 12px; background: #FFFDF9; border: 2px solid #b7a578; border-radius: 18px; box-shadow: 0 10px 30px rgba(107, 7, 16, 0.15);">
       <!-- Golden Corner Ornaments -->
       <span style="position: absolute; top: 6px; left: 6px; width: 14px; height: 14px; border-top: 2px solid #9b8657; border-left: 2px solid #9b8657;"></span>
@@ -155,10 +304,10 @@
     </div>
   </div>
 
-  <p class="rs-h" style="font-weight: 700; font-style: normal; font-size: 21px;">Trân trọng kính mời!</p>
-  <p class="rs-p" style="text-align: center; font-size: 15px;">Ngày hôm ấy sẽ có hoa, có nhạc, và có rất nhiều điều đặc biệt !</p><p></p><p class="rs-p" style="text-align: center; font-size: 15px;">Nhưng điều khiến ngày ấy trở thành một kỹ niệm trọn vẹn là sự hiện diện của những người chúng mình trân quý.<br>Một lời chúc của bạn chắc chắn sẽ làm cho ngày cưới của chúng mình có thêm một niềm hạnh phúc!</p><p></p><div></div><p></p><div><span style="background-color: transparent;">&nbsp;</span></div><p></p>
-</div></section><section id="families" class="sec m-families announce custom in is-revealed" style="opacity: 1; transform: none;"><div class="rs-fam-block">
-  <div class="rs-banner" aria-hidden="true"><i class="hole"></i><span>囍</span></div>
+  <p class="rs-h rs-anim-drop" style="font-weight: 700; font-style: normal; font-size: 22px; --delay: 0.08s;">Trân trọng kính mời!</p>
+  <p class="rs-p rs-anim-unfurl" style="text-align: center; font-size: 15px; --delay: 0.12s;">Ngày hôm ấy sẽ có hoa, có nhạc, và có rất nhiều điều đặc biệt !</p><p></p><p class="rs-p" style="text-align: center; font-size: 15px;">Nhưng điều khiến ngày ấy trở thành một kỹ niệm trọn vẹn là sự hiện diện của những người chúng mình trân quý.<br>Một lời chúc của bạn chắc chắn sẽ làm cho ngày cưới của chúng mình có thêm một niềm hạnh phúc!</p><p></p><div></div><p></p><div><span style="background-color: transparent;">&nbsp;</span></div><p></p>
+</div></section><section id="families" class="sec m-families announce custom in is-revealed" style="opacity: 1; transform: none;"><div class="rs-fam-block rs-anim-flip">
+  <div class="rs-banner rs-anim-seal-slam" aria-hidden="true"><i class="hole"></i><span>囍</span></div>
   <div class="rs-fam-right">
     <p class="rs-vert" style="translate: 5.33331px 7.99997px;">Thiệp<br>Mời<br>Cưới</p>
     <div class="rs-fams">
@@ -168,19 +317,19 @@
     </div>
   </div>
 </div>
-<div class="rs-pair">
+<div class="rs-pair rs-anim-pop" style="--delay: 0.1s;">
   <p class="n1">Trùng Dương</p><p class="amp">&amp;</p><p class="n2">Kim Loan</p>
 </div>
-<figure class="rs-portrait"><img src="./assets/photo_story4.webp" alt="" loading="lazy" ></figure>
-<p class="rs-tagline" style="translate: 7.33334px -97.3333px;">Hai con người, một hành trình, và một ngày chúng mình muốn có bạn ở bên.</p>
-<div class="rs-trio"><img src="./assets/photo_album2.webp" alt="" loading="lazy" style="--i:0"><img src="./assets/photo_album3.webp" alt="" loading="lazy" style="--i:1"><img src="./assets/photo_album4.webp" alt="" loading="lazy" style="--i:2"></div></section><section id="events" class="sec m-events events custom reveal"><div class="wrap narrow">
-  <div class="rs-tabs" role="tablist" aria-label="Chọn sự kiện">
+<figure class="rs-portrait rs-anim-flip rs-motion-float" style="--delay: 0.14s;"><img src="./assets/photo_story4.webp" alt="" loading="lazy" ></figure>
+<p class="rs-tagline rs-anim-unfurl" style="--delay: 0.18s;" style="translate: 7.33334px -97.3333px;">Hai con người, một hành trình, và một ngày chúng mình muốn có bạn ở bên.</p>
+<div class="rs-trio rs-anim-pop" style="--delay: 0.22s;"><img src="./assets/photo_album2.webp" alt="" loading="lazy" style="--i:0"><img src="./assets/photo_album3.webp" alt="" loading="lazy" style="--i:1"><img src="./assets/photo_album4.webp" alt="" loading="lazy" style="--i:2"></div></section><section id="events" class="sec m-events events custom reveal"><div class="wrap narrow">
+  <div class="rs-tabs rs-anim-pop" style="--delay: 0.05s;" role="tablist" aria-label="Chọn sự kiện">
     <button type="button" role="tab" data-tab="bride" aria-selected="true">Lễ Vu Quy</button>
     <button type="button" role="tab" data-tab="groom" aria-selected="false">Tiệc Cưới</button>
   </div>
   <div class="rs-evcard" data-show="bride">
     
-      <article class="rs-ev" data-side="bride" id="sec-5">
+      <article class="rs-ev rs-anim-slide-left" data-side="bride" id="sec-5" style="--delay: 0.12s;">
         <h3>Lễ Vu Quy</h3>
         <p class="at">Vào lúc: 09:00</p>
         <p class="dow">Thứ Bảy</p>
@@ -193,7 +342,7 @@
         <a class="map" href="https://maps.google.com/?q=322+Tà+Lài+Phú+Lộc+14+Tân+Phú+Đồng+Nai" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-6-5.6-6-11a6 6 0 0 1 12 0c0 5.4-6 11-6 11z"></path><circle cx="12" cy="10" r="2.2"></circle></svg>Xem bản đồ</a>
       </article>
 
-      <article class="rs-ev" data-side="groom" id="sec-7">
+      <article class="rs-ev rs-anim-slide-right" data-side="groom" id="sec-7" style="--delay: 0.12s;">
         <h3>Tiệc Cưới Thân Mật</h3>
         <p class="at">Đón khách: 11:00 · Khai tiệc: 11:30</p>
         <p class="dow">Thứ Bảy</p>
@@ -207,39 +356,34 @@
       </article>
   </div>
 </div></section><section id="story" class="sec m-story reveal" style="font-size: 15px;"><div class="wrap">
-        <header class="head">
+        <header class="head rs-anim-drop">
           <p class="eyebrow">Love story</p>
           <h2 class="title">Chuyện của chúng mình</h2>
           
         </header>
         <ol class="story-line">
           
-            <li class="chapter">
+            <li class="chapter rs-anim-slide-left" style="--delay: 0.08s;">
               <img src="./assets/photo_story1.webp" alt="" loading="lazy">
               <div><p class="label" style="translate: 1.33334px -5.33333px;">05 · 2025</p><h3>Lần đầu gặp gỡ</h3><p style="font-size: 15px;">Anh nói là : ngày ấy, anh cố tình sắp xếp lại cuộc đời anh.</p></div>
             </li>
-            <li class="chapter">
+            <li class="chapter rs-anim-slide-right" style="--delay: 0.14s;">
               <img src="./assets/photo_story2.webp" alt="" loading="lazy">
               <div><p class="label" style="translate: 0px -6.66667px;">08 · 2026</p><h3>Chuyến đi đầu tiên</h3><p style="font-size: 15px;">Đà Lạt, sương sớm và một lời hứa sẽ cùng nhau đi thật nhiều nơi.</p></div>
             </li>
-            <li class="chapter">
+            <li class="chapter rs-anim-slide-left" style="--delay: 0.20s;">
               <img src="./assets/photo_story3.webp" alt="" loading="lazy">
               <div><p class="label" style="translate: 0.666687px -4px;">09 · 2026</p><h3>Lời cầu hôn</h3><p style="font-size: 15px;">Không nến, không hoa, không lời cầu hôn ngôn tình. Nhưng với đủ sự thấu hiểu, yêu thương. Chúng mình quyết định cùng nắm tay nhau về nhà !</p></div>
             </li>
-            <li class="chapter">
+            <li class="chapter rs-anim-slide-right" style="--delay: 0.26s;">
               <img src="./assets/photo_story4.webp" alt="" loading="lazy">
               <div><p class="label" style="translate: 0.666687px -6.66669px;">11 · 2026</p><h3>Ngày chung đôi</h3><p style="font-size: 15px;">Thật vui vì được gặp và đón tiếp bạn trong ngày cưới của chúng mình.</p></div>
             </li>
         </ol>
-        <p class="story-quote" style="translate: 0.666656px 24.6666px;">Hôn nhân là chuyện cả đời<br>Yêu người vừa ý, Cưới người mình thương.</p><p></p><div><br></div><p></p><p></p>
-      </div></section><section id="schedule" class="sec m-schedule itinerary custom reveal"><div class="wrap narrow">
-  <p class="rs-script big">Timeline</p>
-  <ol class="rs-tl">
-    <li><time>08:00</time><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 14l2-5.5h14L21 14v4.5h-2.5v-2h-13v2H3z"></path><circle cx="7.5" cy="14.5" r="1.2"></circle><circle cx="16.5" cy="14.5" r="1.2"></circle></svg></span><span class="tt">Lễ Gia Tiên</span></li><li><time>10:00</time><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 11.5 12 4l9 7.5"></path><path d="M5.5 10v10h13V10"></path><path d="M10 20v-5h4v5"></path></svg></span><span class="tt">Lễ Đón Dâu</span></li><li><time>17:30</time><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 14l2-5.5h14L21 14v4.5h-2.5v-2h-13v2H3z"></path><circle cx="7.5" cy="14.5" r="1.2"></circle><circle cx="16.5" cy="14.5" r="1.2"></circle></svg></span><span class="tt">Đón Khách</span></li><li><time>18:30</time><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><circle cx="12" cy="14.5" r="5.5"></circle><path d="M9 5.5 12 3l3 2.5-3 3z"></path></svg></span><span class="tt">Khai Tiệc</span></li><li><time>21:00</time><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><rect x="3" y="7.5" width="18" height="12" rx="2"></rect><circle cx="12" cy="13.5" r="3.4"></circle><path d="M8.5 7.5 10 5h4l1.5 2.5"></path></svg></span><span class="tt">Lời Cảm Ơn</span></li>
-  </ol>
-</div></section><section id="saveDate" class="sec m-saveDate custom reveal"><div class="wrap narrow">
-  <div class="rs-cal-head"><p class="rs-script">Tháng 11</p><p class="yr">2026</p></div>
-  <div class="rs-cal">
+        <p class="story-quote rs-anim-unfurl" style="--delay: 0.15s;" style="translate: 0.666656px 24.6666px;">Hôn nhân là chuyện cả đời<br>Yêu người vừa ý, Cưới người mình thương.</p><p></p><div><br></div><p></p><p></p>
+      </div></section><section id="saveDate" class="sec m-saveDate custom reveal"><div class="wrap narrow">
+  <div class="rs-cal-head rs-anim-drop"><p class="rs-script">Tháng 11</p><p class="yr">2026</p></div>
+  <div class="rs-cal rs-anim-flip" style="--delay: 0.1s;">
     <div class="rs-cal-grid" role="table" aria-label="Tháng 11 năm 2026">
       <span class="w">Mon</span><span class="w">Tue</span><span class="w">Wed</span><span class="w">Thu</span><span class="w">Fri</span><span class="w we">Sat</span><span class="w we">Sun</span>
       
@@ -256,16 +400,16 @@
       <span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span class="we">21</span><span class="we">22</span>
       
       <!-- Week 5: Day 28 is Saturday (Sat) -->
-      <span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span class="we on">28<i><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></i></span><span class="we">29</span>
+      <span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span class="we on heart-beat-pulse" id="cal-day28-stamp" style="display:inline-flex; align-items:center; justify-content:center;">28<i><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></i></span><span class="we">29</span>
       
       <!-- Week 6: Nov 30 is Monday -->
       <span>30</span><span></span><span></span><span></span><span></span><span></span><span></span>
     </div>
   </div>
-  <p class="rs-hearts" aria-hidden="true"><span class=""><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span><span class="o"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span><span class=""><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span><span class="o"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span><span class=""><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span><span class="o"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span><span class=""><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span></p>
-  <p class="rs-count-lead">Cùng đếm ngược thời gian với chúng tôi nha!</p>
+  <p class="rs-hearts rs-anim-bloom" aria-hidden="true" style="--delay: 0.12s;"><span class=""><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span><span class="o"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span><span class=""><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span><span class="o"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span><span class=""><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span><span class="o"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span><span class=""><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span></p>
+  <p class="rs-count-lead rs-anim-unfurl" style="--delay: 0.15s;">Cùng đếm ngược thời gian với chúng tôi nha!</p>
   
-  <div class="countdown" role="timer" aria-label="Đếm ngược đến ngày cưới">
+  <div class="countdown rs-anim-pop" style="--delay: 0.18s;" role="timer" aria-label="Đếm ngược đến ngày cưới">
     <div><span class="n">00</span><span class="u">Ngày</span></div><div><span class="n">00</span><span class="u">Giờ</span></div><div><span class="n">00</span><span class="u">Phút</span></div><div><span class="n">00</span><span class="u">Giây</span></div>
   </div>
 </div></section><section id="video" class="sec m-video reveal"><div class="wrap">
@@ -274,13 +418,13 @@
           <h2 class="title">Thước phim của chúng mình</h2>
           
         </header>
-      <div class="video-frame" data-embed="">
-        <img src="https://picsum.photos/seed/ea-video/1600/900" alt="" loading="lazy">
+      <div class="video-frame rs-anim-flip" style="--delay: 0.1s;" data-embed="">
+        <img src="./assets/photo_video.webp" alt="" loading="lazy">
         <button class="play" type="button" aria-label="Phát video"><span aria-hidden="true">▶</span></button>
         <p class="video-soon" hidden="">Video sẽ sớm được cập nhật.</p>
       </div>
       <p class="fine">Trailer pre-wedding&nbsp;</p>
-    </div></section><section id="gallery" class="sec m-gallery gallery custom reveal"><div class="rs-album"><div class="alb full">
+    </div></section><section id="gallery" class="sec m-gallery gallery custom reveal"><div class="rs-album rs-anim-pop" style="--delay: 0.08s;"><div class="alb full">
         <button class="photo" type="button" data-i="0" aria-label="Xem ảnh: Trước ngày mình thành đôi">
           <img src="./assets/photo_story4.webp" alt="" loading="lazy" decoding="async">
           <span class="cap">Trước ngày mình thành đôi</span>
@@ -298,216 +442,140 @@
           <span class="cap">Và rất nhiều ngày sau</span>
         </button></div></div></section><section id="quote" class="sec m-quote quote reveal"><div class="wrap narrow">
       <p class="eyebrow">A note from us</p>
-      <blockquote>Chúng mình đã đi cùng nhau qua rất nhiều ngày bình thường để đến ngày đặc biệt này. Ngày hôm ấy sẽ trọn vẹn hơn khi có những người mình thương ở bên.</blockquote>
+      <blockquote class="rs-anim-unfurl" style="--delay: 0.1s;">Chúng mình đã đi cùng nhau qua rất nhiều ngày bình thường để đến ngày đặc biệt này. Ngày hôm ấy sẽ trọn vẹn hơn khi có những người mình thương ở bên.</blockquote>
     </div></section><section id="guestbook" class="sec m-guestbook custom reveal"><div class="wrap narrow">
-  <p class="rs-kicker">Sổ lưu bút</p>
-  <p class="rs-script big">Gửi Lời Chúc</p>
-  <p class="rs-divider" aria-hidden="true"><span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span></p>
-  <p class="rs-italic" style="margin-bottom: 20px;">Mỗi lời nhắn là một món quà ý nghĩa chúc phúc cho Trùng Dương &amp; Kim Loan 🍬</p>
+  <p class="rs-kicker rs-anim-drop">Sổ lưu bút</p>
+  <p class="rs-script big rs-anim-drop" style="--delay: 0.05s;">Sổ Lưu Bút Hoàng Gia</p>
+  <p class="rs-divider rs-anim-bloom" aria-hidden="true" style="--delay: 0.08s;"><span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg></span></p>
+  <p class="rs-italic rs-anim-unfurl" style="margin-bottom: 22px; --delay: 0.1s;">Mỗi lời nhắn là một món quà ý nghĩa chúc phúc cho Trùng Dương &amp; Kim Loan 🍬</p>
 
-  <!-- Segmented Navigation Switcher: [ ✍️ Gửi lời chúc ] [ 💌 Lời chúc mừng (4) ] -->
-  <div class="rs-gb-switcher" style="display: flex; justify-content: center; margin-bottom: 18px;">
-    <div style="background: rgba(183, 165, 120, 0.15); border: 1.5px solid #b7a578; border-radius: 30px; padding: 4px; display: inline-flex; gap: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.04);">
-      <button type="button" id="btn-tab-form" class="rs-gb-nav-btn active" style="background: var(--wine, #7b0f1e); color: #FFF; border: none; border-radius: 24px; padding: 8px 20px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: all 0.25s ease; box-shadow: 0 4px 10px rgba(123, 15, 30, 0.3);">
-        ✍️ Gửi lời chúc
+  <!-- Segmented View Switcher: [ 📜 Sổ Lưu Bút Hoàng Gia (4) ] [ ✍️ Gửi Lời Chúc ] -->
+  <div class="rs-anim-pop" style="display: flex; justify-content: center; margin-bottom: 20px; --delay: 0.12s;">
+    <div style="background: rgba(183, 165, 120, 0.15); border: 1.5px solid #b7a578; border-radius: 30px; padding: 4px; display: inline-flex; gap: 4px; box-shadow: 0 4px 14px rgba(0,0,0,0.05);">
+      <button type="button" id="btn-tab-wall" class="rs-gb-nav-btn active" style="background: var(--wine, #7b0f1e); color: #FFF; border: none; border-radius: 24px; padding: 8px 22px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: all 0.25s ease; box-shadow: 0 4px 10px rgba(123, 15, 30, 0.3);">
+        📜 Sổ Lưu Bút (<span id="rs-tab-counter">4</span>)
       </button>
-      <button type="button" id="btn-tab-wall" class="rs-gb-nav-btn" style="background: transparent; color: var(--wine, #7b0f1e); border: none; border-radius: 24px; padding: 8px 20px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: all 0.25s ease;">
-        💌 Lời chúc mừng (<span id="rs-tab-counter">4</span>)
+      <button type="button" id="btn-tab-form" class="rs-gb-nav-btn" style="background: transparent; color: var(--wine, #7b0f1e); border: none; border-radius: 24px; padding: 8px 22px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; font-weight: 600; cursor: pointer; transition: all 0.25s ease;">
+        ✍️ Gửi Lời Chúc
       </button>
     </div>
   </div>
 
   <!-- Main Gilded Guestbook Parchment Container -->
-  <div class="rs-frame" style="padding: 24px 18px; border-radius: 22px; background: linear-gradient(180deg, #FFFDF9 0%, #FAF6EE 100%); border: 2px solid #b7a578; box-shadow: 0 12px 36px rgba(107, 7, 16, 0.12); position: relative;">
+  <div class="rs-frame rs-anim-flip" style="padding: 24px 18px; border-radius: 22px; background: linear-gradient(180deg, #FFFDF9 0%, #FAF6EE 100%); border: 2px solid #b7a578; box-shadow: 0 12px 36px rgba(107, 7, 16, 0.12); position: relative; --delay: 0.16s;">
     <span class="orn tl"></span><span class="orn tr"></span><span class="orn bl"></span><span class="orn br"></span>
 
-    <!-- PANE 1: FORM GỬI LỜI CHÚC -->
-    <div id="pane-guestbook-form" style="display: block;">
+    <!-- PANE 1: SÁCH CHÚC MỪNG HOÀNG GIA (CREATIVE SHOWCASE DECK) -->
+    <div id="pane-guestbook-wall" style="display: block; text-align: left;">
       
-      <!-- Mood Selector with Cute Labels -->
-      <div style="margin-bottom: 18px; text-align: left;">
-        <label style="font-size: 13px; font-weight: 700; color: #444; display: block; margin-bottom: 8px; letter-spacing: 0.02em;">
-          1. Chọn cảm xúc chúc phúc của bạn:
-        </label>
-        <div id="rs-mood-picker" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px;">
-          <button type="button" class="rs-mood-btn active" data-mood="🥰" style="padding: 8px 2px; border: 1.5px solid var(--wine, #7b0f1e); background: #FFF5F5; border-radius: 12px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 2px;">
-            <span style="font-size: 22px; line-height: 1;">🥰</span>
-            <span style="font-size: 10px; font-weight: 600; color: var(--wine, #7b0f1e);">Thương</span>
-          </button>
-          <button type="button" class="rs-mood-btn" data-mood="🥂" style="padding: 8px 2px; border: 1.5px solid #E5E0D8; background: #FFF; border-radius: 12px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 2px;">
-            <span style="font-size: 22px; line-height: 1;">🥂</span>
-            <span style="font-size: 10px; font-weight: 600; color: #666;">Nâng ly</span>
-          </button>
-          <button type="button" class="rs-mood-btn" data-mood="💖" style="padding: 8px 2px; border: 1.5px solid #E5E0D8; background: #FFF; border-radius: 12px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 2px;">
-            <span style="font-size: 22px; line-height: 1;">💖</span>
-            <span style="font-size: 10px; font-weight: 600; color: #666;">Hạnh phúc</span>
-          </button>
-          <button type="button" class="rs-mood-btn" data-mood="🎉" style="padding: 8px 2px; border: 1.5px solid #E5E0D8; background: #FFF; border-radius: 12px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 2px;">
-            <span style="font-size: 22px; line-height: 1;">🎉</span>
-            <span style="font-size: 10px; font-weight: 600; color: #666;">Quẩy</span>
-          </button>
-          <button type="button" class="rs-mood-btn" data-mood="💐" style="padding: 8px 2px; border: 1.5px solid #E5E0D8; background: #FFF; border-radius: 12px; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 2px;">
-            <span style="font-size: 22px; line-height: 1;">💐</span>
-            <span style="font-size: 10px; font-weight: 600; color: #666;">Trăm năm</span>
-          </button>
+      <!-- Featured Royal Card Showcase (Sáng tạo & Độc đáo) -->
+      <div id="rs-featured-card-wrapper" style="position: relative; margin-bottom: 18px;">
+        
+        <!-- Royal Wax Stamp Badge top-right -->
+        <div style="position: absolute; top: -14px; right: 12px; z-index: 10;">
+          <div class="wax-pulse" style="width: 44px; height: 44px; background: radial-gradient(circle at 35% 35%, #ffd768, #d49514 60%, #946200 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: 2px solid #FFF;">
+            <span style="font-size: 18px; color: #5c3c00; font-weight: 800; text-shadow: 0 1px 1px rgba(255,255,255,0.4);">囍</span>
+          </div>
         </div>
-        <input type="hidden" id="rs-gb-mood" value="🥰">
+
+        <!-- Featured Card Box -->
+        <div id="featured-card-box" style="background: #FFFDF9; border: 2px solid #D6C7AE; border-radius: 18px; padding: 22px 18px 18px; box-shadow: 0 6px 20px rgba(107, 7, 16, 0.08); min-height: 200px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+              <span id="fc-avatar" style="font-size: 26px; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">🥰</span>
+              <div>
+                <strong id="fc-name" style="color: var(--wine, #7b0f1e); font-size: 15px; display: block; line-height: 1.2;">Nguyễn Thảo Nhi</strong>
+                <span id="fc-meta" style="font-size: 11.5px; color: #888;">Bạn thân cô dâu · Lời chúc yêu thương</span>
+              </div>
+            </div>
+            <p id="fc-quote" style="font-size: 14.5px; color: #333; line-height: 1.6; margin: 0; font-style: italic; position: relative; padding-left: 14px; border-left: 3px solid #b7a578;">
+              "Loan ơi, nhìn mày bước vào lễ đường tao xúc động muốn rớt nước mắt! Chúc hai vợ chồng luôn yêu thương, nhường nhịn và đồng hành cùng nhau suốt chặng đường dài phía trước nhé! Love you cả hai!"
+            </p>
+          </div>
+
+          <!-- Bottom controls of card -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 18px; padding-top: 12px; border-top: 1px dashed rgba(183, 165, 120, 0.4);">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <button type="button" onclick="prevWish()" aria-label="Lời chúc trước" style="background: #FFF; border: 1.5px solid #D6C7AE; width: 34px; height: 34px; border-radius: 50%; font-size: 16px; color: var(--wine, #7b0f1e); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; box-shadow: 0 2px 6px rgba(0,0,0,0.06);">‹</button>
+              
+              <!-- Dot indicators -->
+              <div id="fc-dots" style="display: flex; align-items: center; gap: 5px;"></div>
+              
+              <button type="button" onclick="nextWish()" aria-label="Lời chúc kế tiếp" style="background: #FFF; border: 1.5px solid #D6C7AE; width: 34px; height: 34px; border-radius: 50%; font-size: 16px; color: var(--wine, #7b0f1e); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; box-shadow: 0 2px 6px rgba(0,0,0,0.06);">›</button>
+            </div>
+            
+            <button type="button" id="btn-like-featured" onclick="toggleLikeFeatured()" style="background: #FFF5F5; border: 1.5px solid var(--wine, #7b0f1e); border-radius: 20px; padding: 5px 14px; font-size: 12.5px; font-weight: 600; color: var(--wine, #7b0f1e); cursor: pointer; display: flex; align-items: center; gap: 5px; transition: transform 0.15s ease;">
+              <span>❤️</span> <span id="fc-likes">12</span>
+            </button>
+          </div>
+        </div>
+
+      </div><!-- End Featured Card Wrapper -->
+
+      <!-- Unfold All Wishes Button -->
+      <div style="text-align: center; margin-top: 10px;">
+        <button type="button" id="btn-toggle-all" onclick="toggleAllWishes()" style="background: transparent; color: var(--wine, #7b0f1e); border: 1.5px solid #b7a578; border-radius: 20px; padding: 8px 20px; font-family: 'Montserrat', sans-serif; font-size: 12.5px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;">
+          <span id="toggle-all-text">📜 Mở xem toàn bộ lời chúc</span>
+          <span id="toggle-all-arrow">▾</span>
+        </button>
       </div>
 
-      <!-- Quick Wish Chips -->
-      <div style="margin-bottom: 16px; text-align: left;">
-        <span style="font-size: 12px; font-weight: 600; color: #666; margin-bottom: 6px; display: block;">
-          2. Gợi ý lời chúc một chạm:
-        </span>
-        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-          <button type="button" class="rs-quick-chip" style="background: #FFF5F5; border: 1px dashed rgba(123, 15, 30, 0.45); border-radius: 16px; padding: 5px 12px; font-size: 12px; color: var(--wine, #7b0f1e); font-weight: 500; cursor: pointer;">Trăm năm hạnh phúc! 💖</button>
-          <button type="button" class="rs-quick-chip" style="background: #FFF5F5; border: 1px dashed rgba(123, 15, 30, 0.45); border-radius: 16px; padding: 5px 12px; font-size: 12px; color: var(--wine, #7b0f1e); font-weight: 500; cursor: pointer;">Sớm đón thiên thần nhỏ! 👶</button>
-          <button type="button" class="rs-quick-chip" style="background: #FFF5F5; border: 1px dashed rgba(123, 15, 30, 0.45); border-radius: 16px; padding: 5px 12px; font-size: 12px; color: var(--wine, #7b0f1e); font-weight: 500; cursor: pointer;">Mãi ngọt ngào như ngày đầu! 🍯</button>
-          <button type="button" class="rs-quick-chip" style="background: #FFF5F5; border: 1px dashed rgba(123, 15, 30, 0.45); border-radius: 16px; padding: 5px 12px; font-size: 12px; color: var(--wine, #7b0f1e); font-weight: 500; cursor: pointer;">Vạn sự như ý, gia đình viên mãn! ✨</button>
-        </div>
+      <!-- Expandable List of All Wishes (Initially Hidden) -->
+      <div id="all-wishes-container" style="display: none; margin-top: 16px; flex-direction: column; gap: 12px;">
+        <div id="rs-wishes-list" style="display: flex; flex-direction: column; gap: 12px;"></div>
       </div>
 
-      <!-- Form Inputs -->
-      <form id="rs-form-guestbook" style="display: flex; flex-direction: column; gap: 12px; text-align: left;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-          <div>
-            <label for="rs-gb-name" style="font-size: 13px; font-weight: 700; color: #444; display: block; margin-bottom: 4px;">Tên của bạn *</label>
-            <input type="text" id="rs-gb-name" required placeholder="Ví dụ: Bé Lan, Hoàng IT..." style="width: 100%; padding: 10px 12px; border: 1.5px solid #DDD3C1; border-radius: 12px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; background: #FFF; outline: none; transition: border-color 0.2s;">
-          </div>
-          <div>
-            <label for="rs-gb-relation" style="font-size: 13px; font-weight: 700; color: #444; display: block; margin-bottom: 4px;">Bạn là ai nè?</label>
-            <select id="rs-gb-relation" style="width: 100%; padding: 10px 12px; border: 1.5px solid #DDD3C1; border-radius: 12px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; background: #FFF; outline: none; transition: border-color 0.2s;">
-              <option value="Bạn thân cô dâu">Bạn thân cô dâu</option>
-              <option value="Hội bạn chú rể">Hội bạn chú rể</option>
-              <option value="Bạn chung cả hai">Bạn chung cả hai</option>
-              <option value="Đồng nghiệp vui vẻ">Đồng nghiệp vui vẻ</option>
-              <option value="Người thân gia đình">Người thân gia đình</option>
-            </select>
-          </div>
+    </div><!-- End Pane Wall -->
+
+    <!-- PANE 2: FORM GỬI LỜI CHÚC (TINH GỌN, SANG TRỌNG, KHÔNG DƯ THỪA, KHÔNG GỢI Ý CHIP) -->
+    <div id="pane-guestbook-form" style="display: none; text-align: left;">
+      
+      <div style="text-align: center; margin-bottom: 20px;">
+        <p style="font-family: 'Great Vibes', cursive; font-size: 28px; color: var(--wine, #7b0f1e); margin-bottom: 4px;">Gửi Chúc Phúc</p>
+        <p style="font-size: 13px; color: #666;">Lời chúc của bạn sẽ được lưu giữ trang trọng trong sổ lưu niệm hoàng gia</p>
+      </div>
+
+      <!-- Pure & Dignified Form (No Quick Chips, No Redundant Default Hints) -->
+      <form id="rs-form-guestbook" style="display: flex; flex-direction: column; gap: 14px;">
+        
+        <div>
+          <label for="rs-gb-name" style="font-size: 13px; font-weight: 700; color: #444; display: block; margin-bottom: 6px;">Quý danh của bạn *</label>
+          <input type="text" id="rs-gb-name" required placeholder="Nhập tên hoặc biệt danh của bạn..." style="width: 100%; padding: 12px 14px; border: 1.5px solid #D6C7AE; border-radius: 12px; font-family: 'Montserrat', sans-serif; font-size: 14px; background: #FFF; outline: none; transition: border-color 0.2s;">
         </div>
 
         <div>
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-            <label for="rs-gb-message" style="font-size: 13px; font-weight: 700; color: #444;">Lời nhắn gửi *</label>
-            <span id="char-counter" style="font-size: 11px; color: #888;">0/300</span>
-          </div>
-          <textarea id="rs-gb-message" rows="3" maxlength="300" required placeholder="Gửi những lời chúc ấm áp nhất đến Trùng Dương &amp; Kim Loan nhé..." style="width: 100%; padding: 10px 12px; border: 1.5px solid #DDD3C1; border-radius: 12px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; background: #FFF; resize: none; outline: none; transition: border-color 0.2s;"></textarea>
+          <label for="rs-gb-relation" style="font-size: 13px; font-weight: 700; color: #444; display: block; margin-bottom: 6px;">Mối quan hệ với cô dâu chú rể</label>
+          <select id="rs-gb-relation" style="width: 100%; padding: 12px 14px; border: 1.5px solid #D6C7AE; border-radius: 12px; font-family: 'Montserrat', sans-serif; font-size: 14px; background: #FFF; outline: none;">
+            <option value="Bạn thân cô dâu">Bạn thân cô dâu</option>
+            <option value="Hội bạn chú rể">Hội bạn chú rể</option>
+            <option value="Bạn chung cả hai">Bạn chung cả hai</option>
+            <option value="Đồng nghiệp vui vẻ">Đồng nghiệp vui vẻ</option>
+            <option value="Người thân gia đình">Người thân gia đình</option>
+          </select>
         </div>
 
-        <button type="submit" class="btn" style="background: linear-gradient(135deg, var(--wine, #7b0f1e) 0%, #520510 100%); color: #FFF; border: 1px solid #b7a578; border-radius: 28px; padding: 13px; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; box-shadow: 0 6px 18px rgba(123, 15, 30, 0.35); display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 4px; transition: transform 0.15s ease;">
-          <span>Gửi Lời Chúc Phúc</span>
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <label for="rs-gb-message" style="font-size: 13px; font-weight: 700; color: #444;">Lời chúc phúc chân thành *</label>
+            <span id="char-counter" style="font-size: 11px; color: #888;">0/300</span>
+          </div>
+          <textarea id="rs-gb-message" rows="4" maxlength="300" required placeholder="Gửi những lời chúc tốt đẹp nhất đến Trùng Dương &amp; Kim Loan..." style="width: 100%; padding: 12px 14px; border: 1.5px solid #D6C7AE; border-radius: 12px; font-family: 'Montserrat', sans-serif; font-size: 14px; background: #FFF; resize: none; outline: none; line-height: 1.5;"></textarea>
+        </div>
+
+        <!-- Royal Seal Submit Button -->
+        <button type="submit" class="btn" style="background: linear-gradient(135deg, var(--wine, #7b0f1e) 0%, #4f030e 100%); color: #FFF; border: 1.5px solid #b7a578; border-radius: 30px; padding: 13px; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; box-shadow: 0 6px 20px rgba(123, 15, 30, 0.35); display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 4px; transition: all 0.2s ease;">
+          <span>⚜️ Đóng Dấu Chúc Phúc</span>
           <span style="font-size: 18px;">💌</span>
         </button>
       </form>
 
     </div><!-- End Pane Form -->
 
-    <!-- PANE 2: DANH SÁCH LỜI CHÚC (WISHING WALL) -->
-    <div id="pane-guestbook-wall" style="display: none; text-align: left;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px dashed rgba(183, 165, 120, 0.4);">
-        <span style="font-size: 14px; font-weight: 700; color: var(--wine, #7b0f1e); display: flex; align-items: center; gap: 6px;">
-          <span>💌</span> Lời Chúc Từ Trái Tim
-        </span>
-        <button type="button" id="btn-write-another" style="background: #FFF5F5; border: 1px solid var(--wine, #7b0f1e); color: var(--wine, #7b0f1e); font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 16px; cursor: pointer;">
-          + Viết lời chúc
-        </button>
-      </div>
-
-      <!-- Wish Cards Stream -->
-      <div id="rs-wishes-list" style="display: flex; flex-direction: column; gap: 14px;">
-        
-        <!-- Wish Card 1 -->
-        <div class="rs-wish-item" style="background: #FFFDF9; border: 1.5px solid #E2D7C3; border-radius: 16px; padding: 14px 16px; box-shadow: 0 4px 14px rgba(107, 7, 16, 0.05); position: relative; transition: transform 0.2s ease;">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <div style="width: 36px; height: 36px; border-radius: 50%; background: #FFF0F3; border: 1px solid rgba(123, 15, 30, 0.2); display: flex; align-items: center; justify-content: center; font-size: 19px;">
-                🥰
-              </div>
-              <div>
-                <strong style="color: var(--wine, #7b0f1e); font-size: 14px; display: block; line-height: 1.2;">Nguyễn Thảo Nhi</strong>
-                <span style="font-size: 11px; color: #888;">Bạn thân cô dâu · Vừa xong</span>
-              </div>
-            </div>
-            <button type="button" class="like-btn" onclick="toggleLike(this)" style="background: none; border: 1px solid #EED; border-radius: 12px; padding: 2px 8px; font-size: 11.5px; color: #777; cursor: pointer; display: flex; align-items: center; gap: 3px;">
-              <span>❤️</span> <span class="like-cnt">12</span>
-            </button>
-          </div>
-          <p style="font-size: 13.5px; color: #333; line-height: 1.45; margin: 0; padding-left: 44px; font-style: italic;">
-            "Loan ơi, nhìn mày bước vào lễ đường tao xúc động muốn rớt nước mắt! Chúc hai vợ chồng luôn yêu thương, nhường nhịn và đồng hành cùng nhau suốt chặng đường dài phía trước nhé! Love you cả hai!"
-          </p>
-        </div>
-
-        <!-- Wish Card 2 -->
-        <div class="rs-wish-item" style="background: #FFFDF9; border: 1.5px solid #E2D7C3; border-radius: 16px; padding: 14px 16px; box-shadow: 0 4px 14px rgba(107, 7, 16, 0.05); position: relative; transition: transform 0.2s ease;">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <div style="width: 36px; height: 36px; border-radius: 50%; background: #FFF0F3; border: 1px solid rgba(123, 15, 30, 0.2); display: flex; align-items: center; justify-content: center; font-size: 19px;">
-                🥂
-              </div>
-              <div>
-                <strong style="color: var(--wine, #7b0f1e); font-size: 14px; display: block; line-height: 1.2;">Trần Minh Quang</strong>
-                <span style="font-size: 11px; color: #888;">Hội bạn chú rể · Hôm nay</span>
-              </div>
-            </div>
-            <button type="button" class="like-btn" onclick="toggleLike(this)" style="background: none; border: 1px solid #EED; border-radius: 12px; padding: 2px 8px; font-size: 11.5px; color: #777; cursor: pointer; display: flex; align-items: center; gap: 3px;">
-              <span>❤️</span> <span class="like-cnt">9</span>
-            </button>
-          </div>
-          <p style="font-size: 13.5px; color: #333; line-height: 1.45; margin: 0; padding-left: 44px; font-style: italic;">
-            "Chúc mừng người anh em chí cốt Trùng Dương đã rước được nàng về dinh! Chúc hai bạn trăm năm hạnh phúc, gia đình viên mãn và sớm đón thiên thần nhỏ nhé!"
-          </p>
-        </div>
-
-        <!-- Wish Card 3 -->
-        <div class="rs-wish-item" style="background: #FFFDF9; border: 1.5px solid #E2D7C3; border-radius: 16px; padding: 14px 16px; box-shadow: 0 4px 14px rgba(107, 7, 16, 0.05); position: relative; transition: transform 0.2s ease;">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <div style="width: 36px; height: 36px; border-radius: 50%; background: #FFF0F3; border: 1px solid rgba(123, 15, 30, 0.2); display: flex; align-items: center; justify-content: center; font-size: 19px;">
-                💖
-              </div>
-              <div>
-                <strong style="color: var(--wine, #7b0f1e); font-size: 14px; display: block; line-height: 1.2;">Gia đình Dì Bảy</strong>
-                <span style="font-size: 11px; color: #888;">Người thân gia đình · Hôm nay</span>
-              </div>
-            </div>
-            <button type="button" class="like-btn" onclick="toggleLike(this)" style="background: none; border: 1px solid #EED; border-radius: 12px; padding: 2px 8px; font-size: 11.5px; color: #777; cursor: pointer; display: flex; align-items: center; gap: 3px;">
-              <span>❤️</span> <span class="like-cnt">15</span>
-            </button>
-          </div>
-          <p style="font-size: 13.5px; color: #333; line-height: 1.45; margin: 0; padding-left: 44px; font-style: italic;">
-            "Mừng hạnh phúc hai cháu Trùng Dương và Kim Loan. Chúc hai cháu trăm năm đầu bạc, cùng nhau xây đắp mái ấm thật ấm áp và tràn ngập tiếng cười!"
-          </p>
-        </div>
-
-        <!-- Wish Card 4 -->
-        <div class="rs-wish-item" style="background: #FFFDF9; border: 1.5px solid #E2D7C3; border-radius: 16px; padding: 14px 16px; box-shadow: 0 4px 14px rgba(107, 7, 16, 0.05); position: relative; transition: transform 0.2s ease;">
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <div style="width: 36px; height: 36px; border-radius: 50%; background: #FFF0F3; border: 1px solid rgba(123, 15, 30, 0.2); display: flex; align-items: center; justify-content: center; font-size: 19px;">
-                🎉
-              </div>
-              <div>
-                <strong style="color: var(--wine, #7b0f1e); font-size: 14px; display: block; line-height: 1.2;">Team Đồng Nghiệp IT</strong>
-                <span style="font-size: 11px; color: #888;">Đồng nghiệp vui vẻ · Hôm nay</span>
-              </div>
-            </div>
-            <button type="button" class="like-btn" onclick="toggleLike(this)" style="background: none; border: 1px solid #EED; border-radius: 12px; padding: 2px 8px; font-size: 11.5px; color: #777; cursor: pointer; display: flex; align-items: center; gap: 3px;">
-              <span>❤️</span> <span class="like-cnt">7</span>
-            </button>
-          </div>
-          <p style="font-size: 13.5px; color: #333; line-height: 1.45; margin: 0; padding-left: 44px; font-style: italic;">
-            "Happy Wedding Trùng Dương &amp; Kim Loan! Chúc code tình yêu của hai bạn luôn '0 bugs, 100% test coverage' và mãi chạy mượt mà theo năm tháng!"
-          </p>
-        </div>
-
-      </div>
-    </div><!-- End Pane Wall -->
-
   </div><!-- End Main Parchment Frame -->
 
   <!-- Toast Notification Overlay -->
   <div id="rs-toast" style="position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(80px); background: #1a0205; color: #FFE7B8; border: 1.5px solid #b7a578; padding: 12px 24px; border-radius: 30px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; font-weight: 600; z-index: 10000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); opacity: 0; transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease; pointer-events: none; white-space: nowrap; display: flex; align-items: center; gap: 8px;">
-    <span>✨</span> <span id="rs-toast-text">Đã gửi lời chúc thành công!</span>
+    <span>⚜️</span> <span id="rs-toast-text">Đã đóng dấu lời chúc thành công!</span>
   </div>
 
 </div></section><section id="contact" class="sec m-contact contact reveal"><div class="wrap">
@@ -518,18 +586,18 @@
         </header>
       <div class="contacts">
         
-          <div class="person">
+          <div class="person rs-anim-slide-right" style="--delay: 0.1s;">
             <p class="label">Cô dâu</p>
             <p class="pname">Kim Loan</p>
             <a class="btn" href="tel:0901234567">0973 721 700</a>
           </div>
-          <div class="person">
+          <div class="person rs-anim-slide-left" style="--delay: 0.15s;">
             <p class="label">Chú rể</p>
             <p class="pname">Trùng Dương</p>
             <a class="btn" href="tel:0907654321">0917 133 611</a>
           </div>
       </div>
-    </div></section><section id="thanks" class="sec m-thanks thanks custom reveal"><figure class="rs-end">
+    </div></section><section id="thanks" class="sec m-thanks thanks custom reveal"><figure class="rs-end rs-anim-flip rs-motion-float">
   <img src="./assets/thanks.webp" alt="" loading="lazy">
   <figcaption>Rất hân hạnh được đón tiếp</figcaption>
   <button class="rs-reopen" type="button" id="reopen" aria-label="Về đầu trang">↑</button>
@@ -941,7 +1009,10 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // A. Event Tabs switching (Lễ Vu Quy & Tiệc Cưới)
+  
+  // ==============================================================
+  // 1. EVENT TABS SWITCHING (Lễ Vu Quy & Tiệc Cưới)
+  // ==============================================================
   const tabBtns = document.querySelectorAll('.rs-tabs button');
   const evCard = document.querySelector('.rs-evcard');
   if (tabBtns.length && evCard) {
@@ -954,12 +1025,185 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // B. Guestbook Segmented Switcher (Form vs Wall)
+  // ==============================================================
+  // 2. CREATIVE ROYAL GUESTBOOK SHOWCASE & FORM LOGIC
+  // ==============================================================
+  const wishesData = [
+    {
+      avatar: '🥰',
+      name: 'Nguyễn Thảo Nhi',
+      relation: 'Bạn thân cô dâu',
+      quote: 'Loan ơi, nhìn mày bước vào lễ đường tao xúc động muốn rớt nước mắt! Chúc hai vợ chồng luôn yêu thương, nhường nhịn và đồng hành cùng nhau suốt chặng đường dài phía trước nhé! Love you cả hai!',
+      likes: 12,
+      liked: false
+    },
+    {
+      avatar: '🥂',
+      name: 'Trần Minh Quang',
+      relation: 'Hội bạn chú rể',
+      quote: 'Chúc mừng người anh em chí cốt Trùng Dương đã rước được nàng về dinh! Chúc hai bạn trăm năm hạnh phúc, gia đình viên mãn và sớm đón thiên thần nhỏ nhé!',
+      likes: 9,
+      liked: false
+    },
+    {
+      avatar: '💖',
+      name: 'Gia đình Dì Bảy',
+      relation: 'Người thân gia đình',
+      quote: 'Mừng hạnh phúc hai cháu Trùng Dương và Kim Loan. Chúc hai cháu trăm năm đầu bạc, cùng nhau xây đắp mái ấm thật ấm áp và tràn ngập tiếng cười!',
+      likes: 15,
+      liked: false
+    },
+    {
+      avatar: '🎉',
+      name: 'Team Đồng Nghiệp IT',
+      relation: 'Đồng nghiệp vui vẻ',
+      quote: 'Happy Wedding Trùng Dương & Kim Loan! Chúc code tình yêu của hai bạn luôn "0 bugs, 100% test coverage" và mãi chạy mượt mà theo năm tháng!',
+      likes: 7,
+      liked: false
+    }
+  ];
+
+  let currentWishIdx = 0;
+
+  function renderDots() {
+    const dotsWrap = document.getElementById('fc-dots');
+    if (!dotsWrap) return;
+    dotsWrap.innerHTML = '';
+    wishesData.forEach(function(_, idx) {
+      const dot = document.createElement('span');
+      dot.className = 'rs-dot' + (idx === currentWishIdx ? ' active' : '');
+      dot.onclick = function() {
+        currentWishIdx = idx;
+        renderFeaturedWish();
+      };
+      dotsWrap.appendChild(dot);
+    });
+  }
+
+  function renderFeaturedWish() {
+    const w = wishesData[currentWishIdx];
+    if (!w) return;
+
+    const fcBox = document.getElementById('featured-card-box');
+    if (fcBox) {
+      fcBox.style.opacity = '0';
+      fcBox.style.transform = 'translateY(8px) scale(0.98)';
+      setTimeout(function() {
+        document.getElementById('fc-avatar').innerText = w.avatar;
+        document.getElementById('fc-name').innerText = w.name;
+        document.getElementById('fc-meta').innerText = w.relation + ' · Lời chúc yêu thương';
+        document.getElementById('fc-quote').innerText = `"${w.quote}"`;
+        
+        const likeBtn = document.getElementById('btn-like-featured');
+        const likeCnt = document.getElementById('fc-likes');
+        if (likeCnt) likeCnt.innerText = w.likes;
+        if (likeBtn) {
+          likeBtn.style.background = w.liked ? '#FFF0F3' : '#FFF5F5';
+          likeBtn.style.borderColor = 'var(--wine, #7b0f1e)';
+        }
+
+        renderDots();
+
+        fcBox.style.opacity = '1';
+        fcBox.style.transform = 'translateY(0) scale(1)';
+      }, 140);
+    }
+  }
+
+  window.nextWish = function() {
+    currentWishIdx = (currentWishIdx + 1) % wishesData.length;
+    renderFeaturedWish();
+  };
+
+  window.prevWish = function() {
+    currentWishIdx = (currentWishIdx - 1 + wishesData.length) % wishesData.length;
+    renderFeaturedWish();
+  };
+
+  window.toggleLikeFeatured = function() {
+    const w = wishesData[currentWishIdx];
+    if (!w) return;
+    w.liked = !w.liked;
+    w.likes += w.liked ? 1 : -1;
+    document.getElementById('fc-likes').innerText = w.likes;
+    const btn = document.getElementById('btn-like-featured');
+    if (btn) {
+      btn.style.transform = 'scale(1.22)';
+      btn.style.background = w.liked ? '#FFF0F3' : '#FFF5F5';
+      setTimeout(() => { btn.style.transform = 'scale(1)'; }, 180);
+    }
+  };
+
+  // Render All Wishes List
+  function renderAllWishesList() {
+    const list = document.getElementById('rs-wishes-list');
+    if (!list) return;
+    list.innerHTML = '';
+    wishesData.forEach(function(w, idx) {
+      const card = document.createElement('div');
+      card.className = 'rs-wish-item';
+      card.style.cssText = 'background: #FFFDF9; border: 1.5px solid #E2D7C3; border-radius: 16px; padding: 14px 16px; box-shadow: 0 4px 14px rgba(107, 7, 16, 0.05); position: relative;';
+      card.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <div style="width: 34px; height: 34px; border-radius: 50%; background: #FFF0F3; border: 1px solid rgba(123, 15, 30, 0.2); display: flex; align-items: center; justify-content: center; font-size: 18px;">
+              ${w.avatar}
+            </div>
+            <div>
+              <strong style="color: var(--wine, #7b0f1e); font-size: 14px; display: block; line-height: 1.2;">${w.name}</strong>
+              <span style="font-size: 11px; color: #888;">${w.relation}</span>
+            </div>
+          </div>
+          <button type="button" onclick="toggleWishItemLike(${idx}, this)" style="background: none; border: 1px solid #EED; border-radius: 12px; padding: 2px 8px; font-size: 11.5px; color: var(--wine, #7b0f1e); cursor: pointer; display: flex; align-items: center; gap: 3px;">
+            <span>❤️</span> <span>${w.likes}</span>
+          </button>
+        </div>
+        <p style="font-size: 13.5px; color: #333; line-height: 1.5; margin: 0; padding-left: 42px; font-style: italic;">
+          "${w.quote}"
+        </p>
+      `;
+      list.appendChild(card);
+    });
+  }
+
+  window.toggleWishItemLike = function(idx, btn) {
+    const w = wishesData[idx];
+    if (!w) return;
+    w.liked = !w.liked;
+    w.likes += w.liked ? 1 : -1;
+    btn.querySelector('span:last-child').innerText = w.likes;
+    btn.style.transform = 'scale(1.2)';
+    setTimeout(() => { btn.style.transform = 'scale(1)'; }, 180);
+    if (idx === currentWishIdx) {
+      document.getElementById('fc-likes').innerText = w.likes;
+    }
+  };
+
+  let isAllOpen = false;
+  window.toggleAllWishes = function() {
+    const container = document.getElementById('all-wishes-container');
+    const txt = document.getElementById('toggle-all-text');
+    const arrow = document.getElementById('toggle-all-arrow');
+    if (!container) return;
+    isAllOpen = !isAllOpen;
+    if (isAllOpen) {
+      renderAllWishesList();
+      container.style.display = 'flex';
+      if (txt) txt.innerText = 'Thu gọn danh sách lời chúc';
+      if (arrow) arrow.innerText = '▴';
+    } else {
+      container.style.display = 'none';
+      if (txt) txt.innerText = '📜 Mở xem toàn bộ lời chúc';
+      if (arrow) arrow.innerText = '▾';
+    }
+  };
+
+  // Tab Switcher (Wall vs Form)
   const btnTabForm = document.getElementById('btn-tab-form');
   const btnTabWall = document.getElementById('btn-tab-wall');
   const paneForm = document.getElementById('pane-guestbook-form');
   const paneWall = document.getElementById('pane-guestbook-wall');
-  const btnWriteAnother = document.getElementById('btn-write-another');
+  const tabCounter = document.getElementById('rs-tab-counter');
 
   function showPane(pane) {
     if (pane === 'form') {
@@ -980,6 +1224,7 @@ document.addEventListener('DOMContentLoaded', function() {
       btnTabForm.style.background = 'transparent';
       btnTabForm.style.color = 'var(--wine, #7b0f1e)';
       btnTabForm.style.boxShadow = 'none';
+      renderFeaturedWish();
     }
   }
 
@@ -987,53 +1232,17 @@ document.addEventListener('DOMContentLoaded', function() {
     btnTabForm.addEventListener('click', function() { showPane('form'); });
     btnTabWall.addEventListener('click', function() { showPane('wall'); });
   }
-  if (btnWriteAnother) {
-    btnWriteAnother.addEventListener('click', function() { showPane('form'); });
-  }
 
-  // C. Mood Selector
-  const moodBtns = document.querySelectorAll('.rs-mood-btn');
-  const inputMood = document.getElementById('rs-gb-mood');
-  moodBtns.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      moodBtns.forEach(function(b) {
-        b.classList.remove('active');
-        b.style.borderColor = '#E5E0D8';
-        b.style.background = '#FFF';
-        const label = b.querySelector('span:last-child');
-        if (label) label.style.color = '#666';
-      });
-      btn.classList.add('active');
-      btn.style.borderColor = 'var(--wine, #7b0f1e)';
-      btn.style.background = '#FFF5F5';
-      const activeLabel = btn.querySelector('span:last-child');
-      if (activeLabel) activeLabel.style.color = 'var(--wine, #7b0f1e)';
-      if (inputMood) inputMood.value = btn.dataset.mood;
-    });
-  });
-
-  // D. Quick Wish Chips
-  const chips = document.querySelectorAll('.rs-quick-chip');
+  // Character Counter for Message
   const msgInput = document.getElementById('rs-gb-message');
   const charCounter = document.getElementById('char-counter');
-
-  chips.forEach(function(chip) {
-    chip.addEventListener('click', function() {
-      if (msgInput) {
-        msgInput.value = chip.innerText;
-        if (charCounter) charCounter.innerText = `${msgInput.value.length}/300`;
-        msgInput.focus();
-      }
-    });
-  });
-
   if (msgInput && charCounter) {
     msgInput.addEventListener('input', function() {
       charCounter.innerText = `${msgInput.value.length}/300`;
     });
   }
 
-  // E. Toast Notification
+  // Toast Helper
   function showToast(msg) {
     const toast = document.getElementById('rs-toast');
     const toastText = document.getElementById('rs-toast-text');
@@ -1047,80 +1256,179 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 2800);
   }
 
-  // F. Form Submission & Smooth Auto-Switch to Wall
+  // Form Submission
   const formGb = document.getElementById('rs-form-guestbook');
-  const listGb = document.getElementById('rs-wishes-list');
-  const tabCounter = document.getElementById('rs-tab-counter');
-  let totalWishes = 4;
-
-  if (formGb && listGb) {
+  if (formGb) {
     formGb.addEventListener('submit', function(e) {
       e.preventDefault();
       const name = document.getElementById('rs-gb-name').value.trim();
       const relation = document.getElementById('rs-gb-relation').value;
       const msg = document.getElementById('rs-gb-message').value.trim();
-      const mood = (inputMood && inputMood.value) ? inputMood.value : '🥰';
 
       if (!name || !msg) return;
 
-      const card = document.createElement('div');
-      card.className = 'rs-wish-item';
-      card.style.cssText = 'background: #FFFDF9; border: 1.5px solid var(--wine, #7b0f1e); border-radius: 16px; padding: 14px 16px; box-shadow: 0 6px 18px rgba(107, 7, 16, 0.12); margin-bottom: 4px; animation: fadeIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);';
-      card.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <div style="width: 36px; height: 36px; border-radius: 50%; background: #FFF0F3; border: 1px solid rgba(123, 15, 30, 0.2); display: flex; align-items: center; justify-content: center; font-size: 19px;">
-              ${mood}
-            </div>
-            <div>
-              <strong style="color: var(--wine, #7b0f1e); font-size: 14px; display: block; line-height: 1.2;">${name}</strong>
-              <span style="font-size: 11px; color: #888;">${relation} · Vừa xong</span>
-            </div>
-          </div>
-          <button type="button" class="like-btn" onclick="toggleLike(this)" style="background: none; border: 1px solid #EED; border-radius: 12px; padding: 2px 8px; font-size: 11.5px; color: #777; cursor: pointer; display: flex; align-items: center; gap: 3px;">
-            <span>❤️</span> <span class="like-cnt">1</span>
-          </button>
-        </div>
-        <p style="font-size: 13.5px; color: #333; line-height: 1.45; margin: 0; padding-left: 44px; font-style: italic;">
-          "${msg}"
-        </p>
-      `;
+      const randomMoods = ['🥰', '🥂', '💖', '💐', '🎉'];
+      const pickedMood = randomMoods[Math.floor(Math.random() * randomMoods.length)];
 
-      listGb.insertBefore(card, listGb.firstChild);
-      totalWishes++;
-      if (tabCounter) tabCounter.innerText = totalWishes;
+      const newWish = {
+        avatar: pickedMood,
+        name: name,
+        relation: relation,
+        quote: msg,
+        likes: 1,
+        liked: true
+      };
 
-      showToast('✨ Lời chúc phúc của bạn đã được ghi lại!');
+      wishesData.unshift(newWish);
+      currentWishIdx = 0;
+      if (tabCounter) tabCounter.innerText = wishesData.length;
+
+      showToast('⚜️ Lời chúc của bạn đã được đóng dấu hoàng gia!');
       formGb.reset();
       if (charCounter) charCounter.innerText = '0/300';
 
-      // Smoothly switch to Wall so user sees their new wish!
+      // Auto switch to showcase deck
       setTimeout(function() {
         showPane('wall');
-        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 400);
+        renderFeaturedWish();
+        if (isAllOpen) renderAllWishesList();
+      }, 350);
     });
   }
 
-  // G. Toggle Heart Like Functionality
-  window.toggleLike = function(btn) {
-    const cntEl = btn.querySelector('.like-cnt');
-    if (!cntEl) return;
-    let count = parseInt(cntEl.innerText, 10) || 0;
-    if (btn.classList.contains('liked')) {
-      btn.classList.remove('liked');
-      btn.style.borderColor = '#EED';
-      btn.style.background = 'none';
-      btn.style.color = '#777';
-      cntEl.innerText = Math.max(0, count - 1);
-    } else {
-      btn.classList.add('liked');
-      btn.style.borderColor = 'var(--wine, #7b0f1e)';
-      btn.style.background = '#FFF0F3';
-      btn.style.color = 'var(--wine, #7b0f1e)';
-      cntEl.innerText = count + 1;
+  // Initial render of featured wish
+  renderFeaturedWish();
+
+  // ==============================================================
+  // 3. CONTINUOUS SCROLL MOTION & PARALLAX ENGINE
+  // ==============================================================
+  function initRoyalScrollEngine() {
+    const floras = document.querySelectorAll('.floral');
+    const coupleSpotlight = document.querySelector('.rs-couple-spotlight');
+    const calSection = document.getElementById('saveDate');
+    const calDay28 = document.getElementById('cal-day28-stamp');
+    const storyLine = document.querySelector('.story-line');
+    const storyItems = document.querySelectorAll('.story-line .chapter');
+
+    function getProgress(el) {
+      if (!el) return -1;
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      return (vh - rect.top) / (vh + rect.height);
     }
-  };
+
+    let ticking = false;
+
+    function onScroll() {
+      // A. Floral Branches Swaying
+      floras.forEach(function(fl, idx) {
+        const p = getProgress(fl);
+        if (p >= 0 && p <= 1) {
+          const rot = Math.sin(p * Math.PI * 2) * (idx % 2 === 0 ? 5 : -5);
+          const ty = (p - 0.5) * 15;
+          fl.style.transform = `translateY(${ty}px) rotate(${rot}deg)`;
+        }
+      });
+
+      // B. Spotlight Couple Photo Depth Float
+      if (coupleSpotlight) {
+        const p = getProgress(coupleSpotlight);
+        if (p >= 0 && p <= 1) {
+          const ty = (p - 0.5) * 18;
+          coupleSpotlight.style.transform = `translateY(${ty}px)`;
+        }
+      }
+
+      // C. Calendar Day 28: Heart Stamp Slam on Scroll
+      if (calSection && calDay28) {
+        const p = getProgress(calSection);
+        if (p >= 0 && p <= 1) {
+          if (p < 0.22) {
+            calDay28.style.transform = 'scale(2.2) translateY(-18px) rotate(-15deg)';
+          } else if (p < 0.48) {
+            const t = (p - 0.22) / 0.26;
+            const sc = 2.2 - t * 1.2;
+            const ty = -18 + t * 18;
+            const rot = -15 + t * 15;
+            calDay28.style.transform = `scale(${sc}) translateY(${ty}px) rotate(${rot}deg)`;
+          } else {
+            calDay28.style.transform = 'scale(1) translateY(0px) rotate(0deg)';
+          }
+        }
+      }
+
+      // D. Story Chapters Gentle Sway
+      if (storyLine && storyItems.length) {
+        storyItems.forEach(function(item, idx) {
+          const p = getProgress(item);
+          if (p >= 0.2 && p <= 0.8) {
+            const rot = Math.sin((p - 0.2) * Math.PI) * (idx % 2 === 0 ? -1.5 : 1.5);
+            item.style.transform = `rotate(${rot}deg)`;
+          }
+        });
+      }
+
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(onScroll);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    onScroll();
+  }
+
+  // ==============================================================
+  // 4. ROYAL ENTRANCE MOTION INTERSECTION OBSERVER
+  // ==============================================================
+  function initRoyalEntranceObserver() {
+    const entranceElements = document.querySelectorAll(
+      '.rs-anim-unfurl, .rs-anim-seal-slam, .rs-anim-slide-left, ' +
+      '.rs-anim-slide-right, .rs-anim-drop, .rs-anim-flip, ' +
+      '.rs-anim-pop, .rs-anim-bloom, .chapter, .contact-card, .person'
+    );
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, {
+      threshold: 0.08,
+      rootMargin: '0px 0px -20px 0px'
+    });
+
+    entranceElements.forEach(function(el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        el.classList.add('in-view');
+      }
+      observer.observe(el);
+    });
+
+    // Also trigger when envelope is opened
+    const envBtns = document.querySelectorAll('.env-btn, .rs-reopen');
+    envBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        setTimeout(function() {
+          entranceElements.forEach(function(el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+              el.classList.add('in-view');
+            }
+          });
+        }, 800);
+      });
+    });
+  }
+
+  // Initialize both engines
+  initRoyalScrollEngine();
+  initRoyalEntranceObserver();
 });
 </script>
 
