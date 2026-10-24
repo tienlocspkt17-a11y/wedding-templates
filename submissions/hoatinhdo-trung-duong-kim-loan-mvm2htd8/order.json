@@ -1,0 +1,33 @@
+{
+  "cardId": "hoatinhdo-trung-duong-kim-loan-mvm2htd8",
+  "templateId": "hoatinhdo",
+  "templateName": "Hoạ Tình Đỏ (Comic Romance)",
+  "couple": {
+    "groom": "Trùng Dương",
+    "groomFull": "Lưu Trùng Dương",
+    "groomRole": "Trưởng Nam",
+    "groomFather": "Lưu Ngọc Thắng",
+    "groomMother": "Huỳnh Thị Hạnh",
+    "groomAddress": "Tổ 5, TP. Hồ Chí Minh",
+    "groomPhone": "0917 133 611",
+    "groomBank": "Techcombank",
+    "groomAccount": "1903 5555 6666",
+    "bride": "Kim Loan",
+    "brideFull": "Nguyễn Thị Kim Loan",
+    "brideRole": "Thứ Nữ",
+    "brideFather": "Nguyễn Thanh Long",
+    "brideMother": "Nguyễn Thị Kim Tuyết",
+    "brideAddress": "322, Tà Lài, Phú Lộc 14, Tân Phú, Đồng Nai",
+    "bridePhone": "0973 721 700",
+    "brideBank": "Vietcombank",
+    "brideAccount": "0123 456 789",
+    "date": "2026-11-20",
+    "dateDisplay": "20 tháng 11, 2026",
+    "lunarDate": "10 tháng 09 năm Bính Ngọ",
+    "solarDate": "Thứ Bảy, 20/11/2026",
+    "venueName": "Trung Tâm Hội Nghị Tiệc Cưới White Palace",
+    "venueAddress": "194 Hoàng Văn Thụ, Phường 9, Quận Phú Nhuận, TP. Hồ Chí Minh"
+  },
+  "created_at": "2026-10-24T15:29:00+07:00",
+  "updated_at": "2026-10-24T15:29:00+07:00"
+}
