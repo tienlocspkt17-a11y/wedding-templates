@@ -254,6 +254,25 @@
     .bg-red { background-color: var(--red); }
     .border-red { border-color: var(--red); }
 
+    /* Event tab buttons */
+    .event-tab-btn {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-family: var(--f-comic);
+      font-size: 14px;
+      font-weight: 700;
+      border: 1.5px solid var(--red);
+      background: #FFFFFF;
+      color: var(--red);
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .event-tab-btn.active {
+      background: var(--red);
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(215, 12, 27, 0.35);
+    }
+
     /* Modal styles */
     .modal-overlay {
       position: fixed;
@@ -443,19 +462,29 @@
       <div style="height: 570px; width: 100%;"></div>
     </header>
 
-    <!-- Main Content Section -->
-    <div style="position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 36px; padding: 20px 16px 50px;">
+    <!-- Main Content Flow Container -->
+    <div style="position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 20px 16px 50px;">
 
       <!-- ========================================== -->
-      <!-- 4. THÔNG TIN LỄ CƯỚI (CEREMONY & PARENTS) -->
+      <!-- 4. LỜI MỜI & THÔNG TIN LỄ CƯỚI             -->
       <!-- ========================================== -->
       <section style="width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center;">
-        <h2 class="title-font" style="color: var(--red); font-size: 24px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 20px;">
+        <h2 class="title-font" style="color: var(--red); font-size: 24px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px;">
           THÔNG TIN LỄ CƯỚI
         </h2>
 
+        <!-- Invitation Intro Quote -->
+        <div style="background: rgba(215,12,27,0.04); border: 1px dashed rgba(215,12,27,0.3); border-radius: 14px; padding: 14px 18px; margin-bottom: 22px; max-width: 380px;" class="comic-font">
+          <p style="font-size: 14px; color: #333; line-height: 1.5; font-style: italic;">
+            "Ngày hôm ấy sẽ có hoa, có nhạc, và có rất nhiều điều đặc biệt! Nhưng điều khiến ngày ấy trở thành một kỷ niệm trọn vẹn nhất là sự hiện diện của những người chúng mình trân quý."
+          </p>
+          <p style="font-size: 12px; color: var(--red); font-weight: 700; margin-top: 6px;">
+            — Trùng Dương &amp; Kim Loan —
+          </p>
+        </div>
+
         <!-- Parents Grid (Two columns with red divider) -->
-        <div style="display: grid; grid-template-columns: 1fr auto 1fr; width: 100%; max-width: 380px; gap: 12px; margin-bottom: 24px;" class="comic-font">
+        <div style="display: grid; grid-template-columns: 1fr auto 1fr; width: 100%; max-width: 380px; gap: 12px; margin-bottom: 20px;" class="comic-font">
           <!-- Nhà Trai -->
           <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
             <span style="font-size: 13px; font-weight: 300; color: #666;">Nhà Trai</span>
@@ -477,7 +506,7 @@
         </div>
 
         <!-- Couple Banner -->
-        <div style="margin: 8px 0 16px;" class="comic-font">
+        <div style="margin: 6px 0 14px;" class="comic-font">
           <p style="font-size: 13px; color: #555; text-transform: uppercase; letter-spacing: 0.05em;">Hôn Lễ Được Cử Hành Vào Lúc</p>
           <p style="font-size: 32px; font-weight: 700; color: var(--red); margin: 4px 0 2px;">09:00</p>
           
@@ -494,13 +523,160 @@
         </div>
 
         <!-- LOVE Badge doodle -->
-        <div style="margin: 10px 0 6px; width: 100px; pointer-events: none;">
+        <div style="margin: 6px 0 2px; width: 96px; pointer-events: none;">
           <img src="data:image/webp;base64,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91V7PzcN99/8odf/zdwQhFtIm6SxZYAAAABFWElGRwAAAElJKgAIAAAAAgA7AQIACQAAACYAAACYggIAGAAAAC8AAAAAAAAAQ2h1bmdEb2kAQ2h1bmdEb2kgKGNodW5nZG9pLmNvbSkAAFhNUCDJAwAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz48eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIj48cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPjxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBSaWdodHM9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9yaWdodHMvIiB4bWxuczpwbHVzPSJodHRwOi8vbnMudXNlcGx1cy5vcmcvbGRmL3htcC8xLjAvIj48ZGM6Y3JlYXRvcj48cmRmOlNlcT48cmRmOmxpPkNodW5nRG9pPC9yZGY6bGk+PC9yZGY6U2VxPjwvZGM6Y3JlYXRvcj48ZGM6cmlnaHRzPjxyZGY6QWx0PjxyZGY6bGkgeG1sOmxhbmc9IngtZGVmYXVsdCI+Q2h1bmdEb2kgKGNodW5nZG9pLmNvbSk8L3JkZjpsaT48L3JkZjpBbHQ+PC9kYzpyaWdodHM+PHBob3Rvc2hvcDpDcmVkaXQ+Y2h1bmdkb2kuY29tPC9waG90b3Nob3A6Q3JlZGl0Pjx4bXBSaWdodHM6V2ViU3RhdGVtZW50Pmh0dHBzOi8vY2h1bmdkb2kuY29tPC94bXBSaWdodHM6V2ViU3RhdGVtZW50Pjx4bXBSaWdodHM6TWFya2VkPlRydWU8L3htcFJpZ2h0czpNYXJrZWQ+PHBsdXM6TGljZW5zb3I+PHJkZjpTZXE+PHJkZjpsaSByZGY6cGFyc2VUeXBlPSJSZXNvdXJjZSI+PHBsdXM6TGljZW5zb3JOYW1lPkNodW5nRG9pPC9wbHVzOkxpY2Vuc29yTmFtZT48cGx1czpMaWNlbnNvclVSTD5odHRwczovL2NodW5nZG9pLmNvbTwvcGx1czpMaWNlbnNvclVSTD48L3JkZjpsaT48L3JkZjpTZXE+PC9wbHVzOkxpY2Vuc29yPjwvcmRmOkRlc2NyaXB0aW9uPjwvcmRmOlJERj48L3g6eG1wbWV0YT48P3hwYWNrZXQgZW5kPSJ3Ij8+AA==" alt="Love" style="width: 100%; height: auto; object-fit: contain;">
         </div>
       </section>
 
       <!-- ========================================== -->
-      <!-- 5. 3D COVERFLOW PHOTO ALBUM               -->
+      <!-- 5. CHUYỆN CỦA CHÚNG MÌNH (LOVE STORY)      -->
+      <!-- ========================================== -->
+      <section style="width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center;">
+        <p class="comic-font" style="font-size: 13px; color: var(--red); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;">Our Love Story</p>
+        <h2 class="title-font" style="color: var(--red); font-size: 24px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">
+          CHUYỆN CỦA CHÚNG MÌNH
+        </h2>
+        <p class="comic-font" style="font-size: 13px; color: #666; margin-bottom: 24px; max-width: 320px;">
+          Hai con người, một hành trình, và những khoảnh khắc đẹp nhất khi chúng mình tìm thấy nhau ♡
+        </p>
+
+        <!-- 4 Story Cards in Comic Style -->
+        <div style="display: flex; flex-direction: column; gap: 26px; width: 100%; max-width: 380px;">
+          
+          <!-- Story 1: Lần đầu gặp gỡ -->
+          <div style="background: #FFFFFF; border: 1.5px solid rgba(215,12,27,0.22); border-radius: 16px; padding: 14px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); text-align: left;" class="comic-font">
+            <div style="position: relative; width: 100%; padding-bottom: 58%; border-radius: 12px; overflow: hidden; margin-bottom: 12px; border: 1px solid rgba(215,12,27,0.15);">
+              <img src="https://picsum.photos/seed/ea-story1/900/700" alt="Lần đầu gặp gỡ" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+              <span style="position: absolute; top: 8px; left: 8px; background: rgba(215,12,27,0.85); color: #FFF; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px;">05 · 2025</span>
+            </div>
+            <h3 style="font-size: 17px; font-weight: 700; color: var(--red); margin-bottom: 4px;">1. Lần đầu gặp gỡ</h3>
+            <p style="font-size: 13px; color: #444; line-height: 1.45;">
+              "Anh nói là: ngày ấy, anh cố tình sắp xếp lại cuộc đời anh để có thể chạm mặt và bước vào thế giới của em."
+            </p>
+          </div>
+
+          <!-- Story 2: Chuyến đi đầu tiên -->
+          <div style="background: #FFFFFF; border: 1.5px solid rgba(215,12,27,0.22); border-radius: 16px; padding: 14px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); text-align: left;" class="comic-font">
+            <div style="position: relative; width: 100%; padding-bottom: 58%; border-radius: 12px; overflow: hidden; margin-bottom: 12px; border: 1px solid rgba(215,12,27,0.15);">
+              <img src="https://picsum.photos/seed/ea-story2/900/700" alt="Chuyến đi đầu tiên" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+              <span style="position: absolute; top: 8px; left: 8px; background: rgba(215,12,27,0.85); color: #FFF; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px;">08 · 2026</span>
+            </div>
+            <h3 style="font-size: 17px; font-weight: 700; color: var(--red); margin-bottom: 4px;">2. Chuyến đi đầu tiên</h3>
+            <p style="font-size: 13px; color: #444; line-height: 1.45;">
+              "Đà Lạt, sương sớm se lạnh và một lời hứa bình dị: sau này dù đi bất cứ đâu, chúng mình cũng sẽ đi cùng nhau."
+            </p>
+          </div>
+
+          <!-- Story 3: Lời cầu hôn -->
+          <div style="background: #FFFFFF; border: 1.5px solid rgba(215,12,27,0.22); border-radius: 16px; padding: 14px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); text-align: left;" class="comic-font">
+            <div style="position: relative; width: 100%; padding-bottom: 58%; border-radius: 12px; overflow: hidden; margin-bottom: 12px; border: 1px solid rgba(215,12,27,0.15);">
+              <img src="https://picsum.photos/seed/ea-story3/900/700" alt="Lời cầu hôn" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+              <span style="position: absolute; top: 8px; left: 8px; background: rgba(215,12,27,0.85); color: #FFF; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px;">09 · 2026</span>
+            </div>
+            <h3 style="font-size: 17px; font-weight: 700; color: var(--red); margin-bottom: 4px;">3. Lời cầu hôn</h3>
+            <p style="font-size: 13px; color: #444; line-height: 1.45;">
+              "Không nến, không hoa lộng lẫy, không lời nói ngôn tình hoa mỹ. Nhưng với trọn vẹn sự chân thành và thấu hiểu, chúng mình quyết định nắm chặt tay nhau về chung một nhà!"
+            </p>
+          </div>
+
+          <!-- Story 4: Ngày chung đôi -->
+          <div style="background: #FFFFFF; border: 1.5px solid rgba(215,12,27,0.22); border-radius: 16px; padding: 14px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); text-align: left;" class="comic-font">
+            <div style="position: relative; width: 100%; padding-bottom: 58%; border-radius: 12px; overflow: hidden; margin-bottom: 12px; border: 1px solid rgba(215,12,27,0.15);">
+              <img src="https://picsum.photos/seed/ea-story4/900/700" alt="Ngày chung đôi" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+              <span style="position: absolute; top: 8px; left: 8px; background: rgba(215,12,27,0.85); color: #FFF; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px;">11 · 2026</span>
+            </div>
+            <h3 style="font-size: 17px; font-weight: 700; color: var(--red); margin-bottom: 4px;">4. Ngày chung đôi</h3>
+            <p style="font-size: 13px; color: #444; line-height: 1.45;">
+              "Tháng 11 này, chương mới của cuộc đời chính thức bắt đầu. Cảm ơn bạn vì đã luôn ở bên và sẻ chia niềm hạnh phúc này cùng chúng mình!"
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- 6. CÁC SỰ KIỆN CƯỚI (VU QUY, THÀNH HÔN, TIỆC)-->
+      <!-- ========================================== -->
+      <section style="width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center;">
+        <h2 class="title-font" style="color: var(--red); font-size: 24px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 16px;">
+          SỰ KIỆN HÔN LỄ
+        </h2>
+
+        <!-- Event Tab Switcher -->
+        <div style="display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center;">
+          <button type="button" class="event-tab-btn active" data-target="ev-vu-quy">Lễ Vu Quy</button>
+          <button type="button" class="event-tab-btn" data-target="ev-thanh-hon">Lễ Thành Hôn</button>
+          <button type="button" class="event-tab-btn" data-target="ev-tiec-cuoi">Tiệc Cưới</button>
+        </div>
+
+        <!-- Event Cards Container -->
+        <div style="width: 100%; max-width: 380px;">
+          
+          <!-- Event 1: Lễ Vu Quy -->
+          <div id="ev-vu-quy" class="event-card-item" style="display: block; background: #FFF5F5; border: 1.5px solid rgba(215,12,27,0.25); border-radius: 16px; padding: 20px; text-align: center; box-shadow: 0 8px 24px rgba(215,12,27,0.08);" class="comic-font">
+            <span style="background: var(--red); color: #FFF; font-size: 12px; font-weight: 700; padding: 4px 14px; border-radius: 20px; text-transform: uppercase;">Nhà Gái</span>
+            <h3 style="font-size: 22px; font-weight: 700; color: var(--red); margin: 12px 0 6px;">Lễ Vu Quy</h3>
+            <p style="font-size: 15px; color: #111;">Vào lúc: <strong>09:00 · Thứ Bảy</strong></p>
+            <p style="font-size: 18px; font-weight: 700; color: var(--red); margin: 4px 0;">Ngày 28 tháng 11, 2026</p>
+            <p style="font-size: 13px; color: #666; margin-bottom: 12px;">(Nhằm ngày 20 tháng 10 năm Bính Ngọ)</p>
+            
+            <div style="background: #FFF; border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; border: 1px solid rgba(215,12,27,0.15);">
+              <p style="font-size: 12px; color: #777; text-transform: uppercase;">Địa điểm tổ chức</p>
+              <p style="font-size: 14px; font-weight: 700; color: #111; margin-top: 2px;">Tư gia nhà gái</p>
+              <p style="font-size: 13px; color: #555; margin-top: 2px;">322, Tà Lài, Phú Lộc 14, Tân Phú, Đồng Nai</p>
+            </div>
+
+            <a href="https://maps.google.com/?q=322+Tà+Lài+Phú+Lộc+14+Tân+Phú+Đồng+Nai" target="_blank" rel="noopener noreferrer" style="background: var(--red); color: #FFF; text-decoration: none; font-size: 14px; font-weight: 700; padding: 8px 20px; border-radius: 20px; display: inline-flex; align-items: center; gap: 6px;">
+              <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+              <span>Xem Bản Đồ Nhà Gái</span>
+            </a>
+          </div>
+
+          <!-- Event 2: Lễ Thành Hôn -->
+          <div id="ev-thanh-hon" class="event-card-item" style="display: none; background: #FFF5F5; border: 1.5px solid rgba(215,12,27,0.25); border-radius: 16px; padding: 20px; text-align: center; box-shadow: 0 8px 24px rgba(215,12,27,0.08);" class="comic-font">
+            <span style="background: var(--red); color: #FFF; font-size: 12px; font-weight: 700; padding: 4px 14px; border-radius: 20px; text-transform: uppercase;">Nhà Trai</span>
+            <h3 style="font-size: 22px; font-weight: 700; color: var(--red); margin: 12px 0 6px;">Lễ Thành Hôn</h3>
+            <p style="font-size: 15px; color: #111;">Vào lúc: <strong>10:30 · Thứ Ba</strong></p>
+            <p style="font-size: 18px; font-weight: 700; color: var(--red); margin: 4px 0;">Ngày 20 tháng 10, 2026</p>
+            <p style="font-size: 13px; color: #666; margin-bottom: 12px;">(Nhằm ngày 10 tháng 09 năm Bính Ngọ)</p>
+            
+            <div style="background: #FFF; border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; border: 1px solid rgba(215,12,27,0.15);">
+              <p style="font-size: 12px; color: #777; text-transform: uppercase;">Địa điểm tổ chức</p>
+              <p style="font-size: 14px; font-weight: 700; color: #111; margin-top: 2px;">Tư gia nhà trai</p>
+              <p style="font-size: 13px; color: #555; margin-top: 2px;">45 Hai Bà Trưng, Quận 3, TP. Hồ Chí Minh</p>
+            </div>
+
+            <a href="https://maps.google.com/?q=45+Hai+Bà+Trưng+Quận+3+TPHCM" target="_blank" rel="noopener noreferrer" style="background: var(--red); color: #FFF; text-decoration: none; font-size: 14px; font-weight: 700; padding: 8px 20px; border-radius: 20px; display: inline-flex; align-items: center; gap: 6px;">
+              <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+              <span>Xem Bản Đồ Nhà Trai</span>
+            </a>
+          </div>
+
+          <!-- Event 3: Tiệc Cưới -->
+          <div id="ev-tiec-cuoi" class="event-card-item" style="display: none; background: #FFF5F5; border: 1.5px solid rgba(215,12,27,0.25); border-radius: 16px; padding: 20px; text-align: center; box-shadow: 0 8px 24px rgba(215,12,27,0.08);" class="comic-font">
+            <span style="background: var(--red); color: #FFF; font-size: 12px; font-weight: 700; padding: 4px 14px; border-radius: 20px; text-transform: uppercase;">Đãi Tiệc Chung</span>
+            <h3 style="font-size: 22px; font-weight: 700; color: var(--red); margin: 12px 0 6px;">Tiệc Cưới Chính Thức</h3>
+            <p style="font-size: 15px; color: #111;">Đón khách: <strong>17:30</strong> · Khai tiệc: <strong>18:30</strong></p>
+            <p style="font-size: 18px; font-weight: 700; color: var(--red); margin: 4px 0;">Thứ Sáu, 20 tháng 11, 2026</p>
+            <p style="font-size: 13px; color: #666; margin-bottom: 12px;">(Nhằm ngày 12 tháng 10 năm Bính Ngọ)</p>
+            
+            <div style="background: #FFF; border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; border: 1px solid rgba(215,12,27,0.15);">
+              <p style="font-size: 12px; color: #777; text-transform: uppercase;">Trung tâm Tiệc Cưới</p>
+              <p style="font-size: 14px; font-weight: 700; color: #111; margin-top: 2px;">WHITE PALACE (Sảnh Grand Ballroom)</p>
+              <p style="font-size: 13px; color: #555; margin-top: 2px;">194 Hoàng Văn Thụ, Phường 9, Phú Nhuận, TP.HCM</p>
+            </div>
+
+            <a href="https://maps.google.com/?q=White+Palace+194+Hoàng+Văn+Thụ+Phường+9+Phú+Nhuận+TPHCM" target="_blank" rel="noopener noreferrer" style="background: var(--red); color: #FFF; text-decoration: none; font-size: 14px; font-weight: 700; padding: 8px 20px; border-radius: 20px; display: inline-flex; align-items: center; gap: 6px;">
+              <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+              <span>Xem Bản Đồ White Palace</span>
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- 7. 3D COVERFLOW PHOTO ALBUM               -->
       <!-- ========================================== -->
       <section style="width: 100%; display: flex; flex-direction: column; align-items: center; position: relative;">
         <!-- Floating 3 hearts sticker on corner -->
@@ -509,12 +685,12 @@
         </div>
 
         <h2 class="title-font" style="color: var(--red); font-size: 24px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 14px;">
-          Album Ảnh
+          Album Ảnh Cưới
         </h2>
 
         <!-- Coverflow Container -->
         <div class="coverflow-viewport" id="coverflow-album">
-          <!-- Prev / Next arrows for desktop / tablet -->
+          <!-- Prev / Next arrows -->
           <button type="button" id="cf-prev" style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); z-index: 120; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.85); border: 1px solid rgba(215,12,27,0.2); color: var(--red); font-size: 18px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">‹</button>
           <button type="button" id="cf-next" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); z-index: 120; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.85); border: 1px solid rgba(215,12,27,0.2); color: var(--red); font-size: 18px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">›</button>
 
@@ -539,7 +715,63 @@
       </section>
 
       <!-- ========================================== -->
-      <!-- 6. THÔNG TIN TIỆC CƯỚI & DESK CALENDAR     -->
+      <!-- 8. ĐẾM NGƯỢC THỜI GIAN (COUNTDOWN TIMER)   -->
+      <!-- ========================================== -->
+      <section style="width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center;">
+        <h2 class="title-font" style="color: var(--red); font-size: 24px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 6px;">
+          CÙNG ĐẾM NGƯỢC THỜI GIAN NHÉ!
+        </h2>
+        <p class="comic-font" style="font-size: 13px; color: #666; margin-bottom: 18px;">
+          Hẹn gặp bạn trong ngày hạnh phúc của chúng mình ♡
+        </p>
+
+        <!-- 4 Countdown Box Units -->
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; max-width: 360px;" class="comic-font">
+          <div style="background: rgba(215,12,27,0.05); border: 1.5px solid rgba(215,12,27,0.22); border-radius: 14px; padding: 12px 6px; text-align: center;">
+            <span id="cd-days" style="font-size: 28px; font-weight: 800; color: var(--red); line-height: 1; display: block;">00</span>
+            <span style="font-size: 12px; color: #666; text-transform: uppercase; margin-top: 4px; display: block;">Ngày</span>
+          </div>
+          <div style="background: rgba(215,12,27,0.05); border: 1.5px solid rgba(215,12,27,0.22); border-radius: 14px; padding: 12px 6px; text-align: center;">
+            <span id="cd-hours" style="font-size: 28px; font-weight: 800; color: var(--red); line-height: 1; display: block;">00</span>
+            <span style="font-size: 12px; color: #666; text-transform: uppercase; margin-top: 4px; display: block;">Giờ</span>
+          </div>
+          <div style="background: rgba(215,12,27,0.05); border: 1.5px solid rgba(215,12,27,0.22); border-radius: 14px; padding: 12px 6px; text-align: center;">
+            <span id="cd-minutes" style="font-size: 28px; font-weight: 800; color: var(--red); line-height: 1; display: block;">00</span>
+            <span style="font-size: 12px; color: #666; text-transform: uppercase; margin-top: 4px; display: block;">Phút</span>
+          </div>
+          <div style="background: rgba(215,12,27,0.05); border: 1.5px solid rgba(215,12,27,0.22); border-radius: 14px; padding: 12px 6px; text-align: center;">
+            <span id="cd-seconds" style="font-size: 28px; font-weight: 800; color: var(--red); line-height: 1; display: block;">00</span>
+            <span style="font-size: 12px; color: #666; text-transform: uppercase; margin-top: 4px; display: block;">Giây</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- 9. THƯỚC PHIM CƯỚI (WEDDING FILM)          -->
+      <!-- ========================================== -->
+      <section style="width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center;">
+        <p class="comic-font" style="font-size: 13px; color: var(--red); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;">Wedding Film</p>
+        <h2 class="title-font" style="color: var(--red); font-size: 24px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">
+          THƯỚC PHIM CỦA CHÚNG MÌNH
+        </h2>
+        <p class="comic-font" style="font-size: 13px; color: #666; margin-bottom: 16px;">
+          Ghi lại những khoảnh khắc đong đầy nụ cười và cảm xúc
+        </p>
+
+        <!-- Video Preview Container with Play Button -->
+        <div style="position: relative; width: 100%; max-width: 380px; padding-bottom: 56.25%; border-radius: 16px; overflow: hidden; border: 2px solid rgba(215,12,27,0.25); box-shadow: 0 10px 25px rgba(0,0,0,0.12);">
+          <img src="https://picsum.photos/seed/ea-video/1600/900" alt="Wedding Film Poster" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+          <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;">
+            <button type="button" id="btn-play-video" style="width: 60px; height: 60px; border-radius: 50%; background: var(--red); border: 2px solid #FFF; color: #FFF; font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(215,12,27,0.5); transform: scale(1); transition: transform 0.2s;" aria-label="Xem video">
+              <span style="margin-left: 4px;">▶</span>
+            </button>
+          </div>
+          <span class="comic-font" style="position: absolute; bottom: 8px; right: 12px; color: #FFF; font-size: 12px; background: rgba(0,0,0,0.6); padding: 2px 8px; border-radius: 4px;">Trailer Pre-wedding</span>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- 10. THÔNG TIN TIỆC CƯỚI & DESK CALENDAR    -->
       <!-- ========================================== -->
       <section style="width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center;">
         <h2 class="title-font" style="color: var(--red); font-size: 24px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">
@@ -679,7 +911,7 @@
       </section>
 
       <!-- ========================================== -->
-      <!-- 7. DRESS CODE SECTION                      -->
+      <!-- 11. DRESS CODE SECTION                     -->
       <!-- ========================================== -->
       <section style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; width: 100%;">
         <h2 class="title-font" style="color: var(--red); font-size: 24px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;">
@@ -708,7 +940,7 @@
       </section>
 
       <!-- ========================================== -->
-      <!-- 8. TIMELINE WITH CHIBI DRINKERS            -->
+      <!-- 12. TIMELINE WITH CHIBI DRINKERS           -->
       <!-- ========================================== -->
       <section style="position: relative; width: 100%; display: flex; flex-direction: column; align-items: center;">
         
@@ -731,76 +963,114 @@
 
           <!-- Vertical Timeline List shifted right to provide clean margin -->
           <ol style="position: relative; list-style: none; display: flex; flex-direction: column; gap: 22px; padding-left: 64px;" class="comic-font">
-          
-          <!-- Item 1: 17:30 -->
-          <li style="display: grid; grid-template-columns: 75px 24px 1fr; align-items: center; gap: 8px;">
-            <span style="text-align: right; font-size: 17px; font-weight: 700; color: var(--red);">17:30</span>
-            <div style="display: flex; align-items: center; justify-content: center; position: relative; height: 100%;">
-              <div style="width: 10px; height: 10px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 3px rgba(215,12,27,0.2);"></div>
-              <div style="position: absolute; top: 12px; bottom: -28px; width: 1.5px; background: rgba(215,12,27,0.35);"></div>
-            </div>
-            <div style="text-align: left; padding-left: 4px;">
-              <p style="font-size: 15px; font-weight: 700; color: #111;">Đón khách</p>
-              <p style="font-size: 12px; color: #666;">Chụp ảnh lưu niệm cùng dâu rể</p>
-            </div>
-          </li>
+            
+            <!-- Item 1: 08:00 (Lễ Gia Tiên) -->
+            <li style="display: grid; grid-template-columns: 75px 24px 1fr; align-items: center; gap: 8px;">
+              <span style="text-align: right; font-size: 17px; font-weight: 700; color: var(--red);">08:00</span>
+              <div style="display: flex; align-items: center; justify-content: center; position: relative; height: 100%;">
+                <div style="width: 10px; height: 10px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 3px rgba(215,12,27,0.2);"></div>
+                <div style="position: absolute; top: 12px; bottom: -26px; width: 1.5px; background: rgba(215,12,27,0.35);"></div>
+              </div>
+              <div style="text-align: left; padding-left: 4px;">
+                <p style="font-size: 15px; font-weight: 700; color: #111;">Lễ Gia Tiên</p>
+                <p style="font-size: 12px; color: #666;">Nghi thức truyền thống hai họ</p>
+              </div>
+            </li>
 
-          <!-- Item 2: 18:30 -->
-          <li style="display: grid; grid-template-columns: 75px 24px 1fr; align-items: center; gap: 8px;">
-            <span style="text-align: right; font-size: 17px; font-weight: 700; color: var(--red);">18:30</span>
-            <div style="display: flex; align-items: center; justify-content: center; position: relative; height: 100%;">
-              <div style="width: 10px; height: 10px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 3px rgba(215,12,27,0.2);"></div>
-              <div style="position: absolute; top: 12px; bottom: -28px; width: 1.5px; background: rgba(215,12,27,0.35);"></div>
-            </div>
-            <div style="text-align: left; padding-left: 4px;">
-              <p style="font-size: 15px; font-weight: 700; color: #111;">Khai tiệc &amp; Làm lễ</p>
-              <p style="font-size: 12px; color: #666;">Nghi thức thành hôn thiêng liêng</p>
-            </div>
-          </li>
+            <!-- Item 2: 10:00 (Lễ Đón Dâu) -->
+            <li style="display: grid; grid-template-columns: 75px 24px 1fr; align-items: center; gap: 8px;">
+              <span style="text-align: right; font-size: 17px; font-weight: 700; color: var(--red);">10:00</span>
+              <div style="display: flex; align-items: center; justify-content: center; position: relative; height: 100%;">
+                <div style="width: 10px; height: 10px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 3px rgba(215,12,27,0.2);"></div>
+                <div style="position: absolute; top: 12px; bottom: -26px; width: 1.5px; background: rgba(215,12,27,0.35);"></div>
+              </div>
+              <div style="text-align: left; padding-left: 4px;">
+                <p style="font-size: 15px; font-weight: 700; color: #111;">Lễ Đón Dâu</p>
+                <p style="font-size: 12px; color: #666;">Rước dâu về nhà trai</p>
+              </div>
+            </li>
 
-          <!-- Item 3: 18:45 -->
-          <li style="display: grid; grid-template-columns: 75px 24px 1fr; align-items: center; gap: 8px;">
-            <span style="text-align: right; font-size: 17px; font-weight: 700; color: var(--red);">18:45</span>
-            <div style="display: flex; align-items: center; justify-content: center; position: relative; height: 100%;">
-              <div style="width: 10px; height: 10px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 3px rgba(215,12,27,0.2);"></div>
-              <div style="position: absolute; top: 12px; bottom: -28px; width: 1.5px; background: rgba(215,12,27,0.35);"></div>
-            </div>
-            <div style="text-align: left; padding-left: 4px;">
-              <p style="font-size: 15px; font-weight: 700; color: #111;">Rót rượu &amp; Cắt bánh</p>
-              <p style="font-size: 12px; color: #666;">Nâng ly chúc mừng hạnh phúc</p>
-            </div>
-          </li>
+            <!-- Item 3: 17:30 (Đón Khách) -->
+            <li style="display: grid; grid-template-columns: 75px 24px 1fr; align-items: center; gap: 8px;">
+              <span style="text-align: right; font-size: 17px; font-weight: 700; color: var(--red);">17:30</span>
+              <div style="display: flex; align-items: center; justify-content: center; position: relative; height: 100%;">
+                <div style="width: 10px; height: 10px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 3px rgba(215,12,27,0.2);"></div>
+                <div style="position: absolute; top: 12px; bottom: -26px; width: 1.5px; background: rgba(215,12,27,0.35);"></div>
+              </div>
+              <div style="text-align: left; padding-left: 4px;">
+                <p style="font-size: 15px; font-weight: 700; color: #111;">Đón khách</p>
+                <p style="font-size: 12px; color: #666;">Chụp ảnh lưu niệm cùng dâu rể</p>
+              </div>
+            </li>
 
-          <!-- Item 4: 19:00 -->
-          <li style="display: grid; grid-template-columns: 75px 24px 1fr; align-items: center; gap: 8px;">
-            <span style="text-align: right; font-size: 17px; font-weight: 700; color: var(--red);">19:00</span>
-            <div style="display: flex; align-items: center; justify-content: center; position: relative; height: 100%;">
-              <div style="width: 10px; height: 10px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 3px rgba(215,12,27,0.2);"></div>
-              <div style="position: absolute; top: 12px; bottom: -28px; width: 1.5px; background: rgba(215,12,27,0.35);"></div>
-            </div>
-            <div style="text-align: left; padding-left: 4px;">
-              <p style="font-size: 15px; font-weight: 700; color: #111;">Phục vụ tiệc chính</p>
-              <p style="font-size: 12px; color: #666;">Thưởng thức ẩm thực tiệc cưới</p>
-            </div>
-          </li>
+            <!-- Item 4: 18:30 (Khai Tiệc) -->
+            <li style="display: grid; grid-template-columns: 75px 24px 1fr; align-items: center; gap: 8px;">
+              <span style="text-align: right; font-size: 17px; font-weight: 700; color: var(--red);">18:30</span>
+              <div style="display: flex; align-items: center; justify-content: center; position: relative; height: 100%;">
+                <div style="width: 10px; height: 10px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 3px rgba(215,12,27,0.2);"></div>
+                <div style="position: absolute; top: 12px; bottom: -26px; width: 1.5px; background: rgba(215,12,27,0.35);"></div>
+              </div>
+              <div style="text-align: left; padding-left: 4px;">
+                <p style="font-size: 15px; font-weight: 700; color: #111;">Khai tiệc &amp; Làm lễ</p>
+                <p style="font-size: 12px; color: #666;">Rót rượu, cắt bánh cưới</p>
+              </div>
+            </li>
 
-          <!-- Item 5: 21:00 -->
-          <li style="display: grid; grid-template-columns: 75px 24px 1fr; align-items: center; gap: 8px;">
-            <span style="text-align: right; font-size: 17px; font-weight: 700; color: var(--red);">21:00</span>
-            <div style="display: flex; align-items: center; justify-content: center; position: relative; height: 100%;">
-              <div style="width: 10px; height: 10px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 3px rgba(215,12,27,0.2);"></div>
-            </div>
-            <div style="text-align: left; padding-left: 4px;">
-              <p style="font-size: 15px; font-weight: 700; color: #111;">Kết thúc tiệc</p>
-              <p style="font-size: 12px; color: #666;">Chụp ảnh cảm ơn &amp; Tiễn khách</p>
-            </div>
-          </li>
-        </ol>
+            <!-- Item 5: 21:00 (Lời Cảm Ơn) -->
+            <li style="display: grid; grid-template-columns: 75px 24px 1fr; align-items: center; gap: 8px;">
+              <span style="text-align: right; font-size: 17px; font-weight: 700; color: var(--red);">21:00</span>
+              <div style="display: flex; align-items: center; justify-content: center; position: relative; height: 100%;">
+                <div style="width: 10px; height: 10px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 3px rgba(215,12,27,0.2);"></div>
+              </div>
+              <div style="text-align: left; padding-left: 4px;">
+                <p style="font-size: 15px; font-weight: 700; color: #111;">Lời Cảm Ơn</p>
+                <p style="font-size: 12px; color: #666;">Chụp ảnh cảm ơn &amp; Tiễn khách</p>
+              </div>
+            </li>
+          </ol>
         </div>
       </section>
 
       <!-- ========================================== -->
-      <!-- 9. SỔ LƯU BÚT (GUESTBOOK)                  -->
+      <!-- 13. LIÊN HỆ DÂU RỂ (CONTACT / HOTLINE)     -->
+      <!-- ========================================== -->
+      <section style="width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center;">
+        <p class="comic-font" style="font-size: 13px; color: var(--red); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;">Contact Us</p>
+        <h2 class="title-font" style="color: var(--red); font-size: 24px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 6px;">
+          CHÚNG MÌNH LUÔN Ở ĐÂY
+        </h2>
+        <p class="comic-font" style="font-size: 13px; color: #666; margin-bottom: 18px; max-width: 320px;">
+          Nếu bạn cần hỗ trợ tìm đường hoặc có bất kỳ câu hỏi nào, hãy gọi ngay cho chúng mình nhé!
+        </p>
+
+        <!-- 2 Contact cards side by side -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; max-width: 380px;" class="comic-font">
+          <!-- Bride Call Card -->
+          <div style="background: rgba(215,12,27,0.04); border: 1.5px solid rgba(215,12,27,0.2); border-radius: 14px; padding: 14px 10px; display: flex; flex-direction: column; align-items: center; text-align: center;">
+            <p style="font-size: 12px; color: #666;">Cô dâu</p>
+            <p style="font-size: 16px; font-weight: 700; color: var(--red); margin: 2px 0;">Kim Loan</p>
+            <p style="font-size: 14px; font-weight: 600; color: #111; margin-bottom: 10px;">0973 721 700</p>
+            <a href="tel:0973721700" style="background: var(--red); color: #FFF; text-decoration: none; font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 20px; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 4px 10px rgba(215,12,27,0.3);">
+              <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <span>Gọi Cô Dâu</span>
+            </a>
+          </div>
+
+          <!-- Groom Call Card -->
+          <div style="background: rgba(215,12,27,0.04); border: 1.5px solid rgba(215,12,27,0.2); border-radius: 14px; padding: 14px 10px; display: flex; flex-direction: column; align-items: center; text-align: center;">
+            <p style="font-size: 12px; color: #666;">Chú rể</p>
+            <p style="font-size: 16px; font-weight: 700; color: var(--red); margin: 2px 0;">Trùng Dương</p>
+            <p style="font-size: 14px; font-weight: 600; color: #111; margin-bottom: 10px;">0917 133 611</p>
+            <a href="tel:0917133611" style="background: var(--red); color: #FFF; text-decoration: none; font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 20px; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 4px 10px rgba(215,12,27,0.3);">
+              <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <span>Gọi Chú Rể</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- 14. SỔ LƯU BÚT (GUESTBOOK)                 -->
       <!-- ========================================== -->
       <section style="width: 100%; display: flex; flex-direction: column; align-items: center;">
         <h2 class="title-font" style="color: var(--red); font-size: 24px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 6px;">
@@ -834,30 +1104,41 @@
             <!-- Seed wish 1 -->
             <div style="background: #FFFFFF; border: 1px solid rgba(215,12,27,0.12); border-radius: 10px; padding: 10px 12px;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                <span style="font-weight: 700; color: var(--red); font-size: 13px;">Minh Tuấn &amp; Lan Anh</span>
-                <span style="font-size: 11px; color: #888;">Bạn chú rể</span>
+                <span style="font-weight: 700; color: var(--red); font-size: 13px;">Chị Hương</span>
+                <span style="font-size: 11px; color: #888;">Gia đình</span>
               </div>
-              <p style="font-size: 13px; color: #333; line-height: 1.35;">Chúc hai bạn trăm năm hạnh phúc, cùng nhau đi qua thật nhiều chặng đường tươi đẹp nhé!</p>
+              <p style="font-size: 13px; color: #333; line-height: 1.35;">Chúc hai em trăm năm hạnh phúc, sớm có tin vui nhé! Hẹn gặp cả hai trong ngày vui.</p>
             </div>
             <!-- Seed wish 2 -->
             <div style="background: #FFFFFF; border: 1px solid rgba(215,12,27,0.12); border-radius: 10px; padding: 10px 12px;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                <span style="font-weight: 700; color: var(--red); font-size: 13px;">Thuỳ Dương</span>
-                <span style="font-size: 11px; color: #888;">Bạn cô dâu</span>
+                <span style="font-weight: 700; color: var(--red); font-size: 13px;">Nhóm lớp 12A1</span>
+                <span style="font-size: 11px; color: #888;">Bạn bè thân thiết</span>
               </div>
-              <p style="font-size: 13px; color: #333; line-height: 1.35;">Cô dâu Kim Loan hôm nay xinh đẹp nhất! Chúc gia đình nhỏ luôn ngập tràn tiếng cười và yêu thương.</p>
+              <p style="font-size: 13px; color: #333; line-height: 1.35;">Cuối cùng cũng đến ngày này! Hẹn gặp ở tiệc cưới, tụi này quyết tâm không say không về nha!</p>
+            </div>
+            <!-- Seed wish 3 -->
+            <div style="background: #FFFFFF; border: 1px solid rgba(215,12,27,0.12); border-radius: 10px; padding: 10px 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <span style="font-weight: 700; color: var(--red); font-size: 13px;">Minh Tuấn &amp; Lan Anh</span>
+                <span style="font-size: 11px; color: #888;">Bạn chú rể</span>
+              </div>
+              <p style="font-size: 13px; color: #333; line-height: 1.35;">Chúc hai bạn trăm năm hạnh phúc, cùng nhau đi qua thật nhiều chặng đường tươi đẹp nhé!</p>
             </div>
           </div>
         </div>
       </section>
 
       <!-- ========================================== -->
-      <!-- 10. AUTHENTIC CHUNGDOI ANIMATED GIFT BOX   -->
+      <!-- 15. AUTHENTIC CHUNGDOI ANIMATED GIFT BOX   -->
       <!-- ========================================== -->
       <section style="width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center;">
-        <h2 class="title-font" style="color: #000; font-size: 24px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 12px;">
+        <h2 class="title-font" style="color: #000; font-size: 24px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 6px;">
           Hộp Quà Mừng
         </h2>
+        <p class="comic-font" style="font-size: 13px; color: #666; margin-bottom: 14px; max-width: 320px;">
+          "Sự hiện diện của bạn là món quà lớn nhất đối với chúng mình. Nếu bạn muốn gửi lời chúc phúc từ xa, xin gửi qua đây nhé!"
+        </p>
 
         <!-- Interactive Gift Box Button Wrapper -->
         <button type="button" id="btn-open-gift" class="igb-btn" style="position: relative; width: 260px; height: 280px; background: transparent; border: none; cursor: pointer; outline: none; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 24px;" aria-label="Mở hộp quà mừng">
@@ -921,7 +1202,7 @@
       </section>
 
       <!-- ========================================== -->
-      <!-- 11. CUTE FOOTER WITH TOASTING CHIBIS      -->
+      <!-- 16. CUTE FOOTER WITH TOASTING CHIBIS      -->
       <!-- ========================================== -->
       <footer style="display: flex; width: 100%; flex-direction: column; align-items: center; gap: 14px; text-align: center; padding-top: 20px; border-top: 1px solid rgba(215,12,27,0.15);">
         
@@ -1029,23 +1310,37 @@
           </div>
 
           <div>
+            <label style="font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 4px;">Bạn sẽ tham dự chứ?</label>
+            <div style="display: flex; gap: 14px; margin-top: 4px;">
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer;">
+                <input type="radio" name="rsvp-attend" value="yes" checked> ✓ Có, tôi sẽ tham dự
+              </label>
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer;">
+                <input type="radio" name="rsvp-attend" value="no"> ✕ Rất tiếc, chưa xếp được
+              </label>
+            </div>
+          </div>
+
+          <div>
             <label style="font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 4px;">Số lượng người tham dự</label>
             <select id="rsvp-count" style="width: 100%; padding: 10px 14px; border: 1px solid rgba(215,12,27,0.25); border-radius: 10px; font-family: var(--f-comic); font-size: 14px; outline: none; background: #FFF;">
               <option value="1">1 người</option>
               <option value="2">2 người (đi cùng người thương)</option>
               <option value="3">Gia đình (3+ người)</option>
-              <option value="0">Rất tiếc không thể tham dự</option>
             </select>
           </div>
 
           <div>
-            <label style="font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 4px;">Khách mời của</label>
-            <div style="display: flex; gap: 16px; margin-top: 4px;">
-              <label style="display: flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer;">
-                <input type="radio" name="rsvp-side" value="Nhà Trai" checked> Nhà Trai
+            <label style="font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 4px;">Bạn tham dự phần nào?</label>
+            <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 4px;">
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer;">
+                <input type="checkbox" name="rsvp-part" value="vuquy"> Lễ Vu Quy (Nhà gái · 09:00 - 28/11)
               </label>
-              <label style="display: flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer;">
-                <input type="radio" name="rsvp-side" value="Nhà Gái"> Nhà Gái
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer;">
+                <input type="checkbox" name="rsvp-part" value="thanhhon"> Lễ Thành Hôn (Nhà trai · 10:30 - 20/10)
+              </label>
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer;">
+                <input type="checkbox" name="rsvp-part" value="tiec" checked> Tiệc Cưới (White Palace · 17:30 - 20/11)
               </label>
             </div>
           </div>
@@ -1054,6 +1349,28 @@
             Gửi Xác Nhận Tham Dự
           </button>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: VIDEO TRAILER                       -->
+  <!-- ========================================== -->
+  <div class="modal-overlay" id="video-modal">
+    <div class="modal-card" style="max-width: 440px;">
+      <div style="background: #000; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; color: #FFF;">
+        <span class="comic-font" style="font-size: 15px;">Thước phim pre-wedding</span>
+        <button type="button" id="close-video-modal" style="background: transparent; border: none; color: #FFF; font-size: 20px; cursor: pointer;">✕</button>
+      </div>
+      <div style="padding: 24px; text-align: center;" class="comic-font">
+        <p style="font-size: 24px; color: var(--red); margin-bottom: 8px;">🎬✨</p>
+        <p style="font-size: 16px; font-weight: 700; color: #111;">Thước phim kỷ niệm đang được cập nhật!</p>
+        <p style="font-size: 13px; color: #666; margin: 8px 0 16px;">
+          Video chính thức sẽ được trình chiếu tại sảnh tiệc White Palace ngày 20/11/2026. Cùng đón chờ nhé!
+        </p>
+        <button type="button" id="btn-ok-video" style="background: var(--red); color: #FFF; border: none; border-radius: 20px; padding: 8px 24px; font-family: var(--f-comic); font-size: 14px; font-weight: 700; cursor: pointer;">
+          Đã hiểu rồi nè!
+        </button>
       </div>
     </div>
   </div>
@@ -1110,7 +1427,56 @@
       });
     }
 
-    // 3. 3D Coverflow Carousel Logic
+    // 3. Event Tabs Switcher
+    const tabBtns = document.querySelectorAll('.event-tab-btn');
+    const tabCards = document.querySelectorAll('.event-card-item');
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const targetId = btn.getAttribute('data-target');
+        tabCards.forEach(c => {
+          c.style.display = (c.id === targetId) ? 'block' : 'none';
+        });
+      });
+    });
+
+    // 4. Live Countdown Timer to 20/11/2026 18:30:00
+    (function initCountdown() {
+      const weddingDate = new Date('2026-11-20T18:30:00+07:00').getTime();
+      const elDays = document.getElementById('cd-days');
+      const elHours = document.getElementById('cd-hours');
+      const elMinutes = document.getElementById('cd-minutes');
+      const elSeconds = document.getElementById('cd-seconds');
+
+      function updateTimer() {
+        const now = new Date().getTime();
+        const diff = weddingDate - now;
+
+        if (diff <= 0) {
+          if (elDays) elDays.textContent = '00';
+          if (elHours) elHours.textContent = '00';
+          if (elMinutes) elMinutes.textContent = '00';
+          if (elSeconds) elSeconds.textContent = '00';
+          return;
+        }
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+        if (elDays) elDays.textContent = String(d).padStart(2, '0');
+        if (elHours) elHours.textContent = String(h).padStart(2, '0');
+        if (elMinutes) elMinutes.textContent = String(m).padStart(2, '0');
+        if (elSeconds) elSeconds.textContent = String(s).padStart(2, '0');
+      }
+
+      updateTimer();
+      setInterval(updateTimer, 1000);
+    })();
+
+    // 5. 3D Coverflow Carousel Logic
     (function initCoverflow() {
       const track = document.getElementById('cf-track');
       const counter = document.getElementById('cf-counter');
@@ -1223,9 +1589,10 @@
       updateCoverflow();
     })();
 
-    // 4. Modals & Toast Logic
+    // 6. Modals & Toast Logic
     const giftModal = document.getElementById('gift-modal');
     const rsvpModal = document.getElementById('rsvp-modal');
+    const videoModal = document.getElementById('video-modal');
     const toast = document.getElementById('toast');
     const toastText = document.getElementById('toast-text');
 
@@ -1236,6 +1603,25 @@
       setTimeout(() => {
         toast.classList.remove('show');
       }, 2500);
+    }
+
+    // Video modal
+    const btnPlayVideo = document.getElementById('btn-play-video');
+    const closeVideoModal = document.getElementById('close-video-modal');
+    const btnOkVideo = document.getElementById('btn-ok-video');
+    if (btnPlayVideo && videoModal) {
+      btnPlayVideo.addEventListener('click', () => videoModal.classList.add('active'));
+    }
+    if (closeVideoModal && videoModal) {
+      closeVideoModal.addEventListener('click', () => videoModal.classList.remove('active'));
+    }
+    if (btnOkVideo && videoModal) {
+      btnOkVideo.addEventListener('click', () => videoModal.classList.remove('active'));
+    }
+    if (videoModal) {
+      videoModal.addEventListener('click', (e) => {
+        if (e.target === videoModal) videoModal.classList.remove('active');
+      });
     }
 
     // Gift modal openers / closers
@@ -1289,7 +1675,7 @@
         e.preventDefault();
         const name = document.getElementById('rsvp-name').value;
         rsvpModal.classList.remove('active');
-        showToast('Cảm ơn ' + name + ' đã xác nhận tham dự!');
+        showToast('Cảm ơn ' + name + ' đã gửi phản hồi!');
         formRsvp.reset();
       });
     }
