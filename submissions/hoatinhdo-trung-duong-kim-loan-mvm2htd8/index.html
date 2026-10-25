@@ -988,7 +988,16 @@
       pointer-events: none;
       z-index: 9998;
     }
-  </style>
+  
+/* Anti single-word orphan rules */
+h1, h2, h3, h4, h5, h6, .title-font, .comic-font, button, .comic-btn {
+  text-wrap: balance !important;
+}
+p, span, li {
+  text-wrap: pretty;
+}
+
+</style>
 </head>
 <body>
 
@@ -1202,7 +1211,7 @@
         <!-- Invitation Intro Quote -->
         <div class="comic-postit-slap" style="background: rgba(215,12,27,0.04); border: 1.5px dashed rgba(215,12,27,0.3); border-radius: 14px; padding: 14px 18px; margin-bottom: 22px; max-width: 380px; position: relative;" class="comic-font">
           <p style="font-size: 14px; color: #333; line-height: 1.5; font-style: italic;">
-            "Ngày hôm ấy sẽ có hoa, có nhạc, và có rất nhiều điều đặc biệt! Nhưng điều khiến ngày ấy trở thành một kỷ niệm trọn vẹn nhất là sự hiện diện của những người chúng mình trân quý."
+            "Ngày hôm ấy sẽ có hoa, có nhạc, và có rất nhiều điều đặc biệt!<br>Nhưng điều khiến ngày ấy trở thành một kỷ niệm trọn vẹn nhất<br>chính là sự hiện diện của những người chúng mình luôn trân quý."
           </p>
           <p style="font-size: 13px; color: var(--red); font-weight: 700; margin-top: 8px;">
             — Trùng Dương &amp; Kim Loan —
@@ -1218,7 +1227,7 @@
               <span style="font-size: 11px; text-transform: uppercase; color: #888; font-weight: 600;">NHÀ TRAI</span>
               <p style="font-size: 13px; font-weight: 700; color: var(--red); margin: 4px 0 2px;">Lưu Ngọc Thắng</p>
               <p style="font-size: 13px; font-weight: 700; color: var(--red);">Huỳnh Thị Hạnh</p>
-              <p style="font-size: 11px; color: #666; margin-top: 4px; line-height: 1.2;">Tổ 5, Phường 9, TP. Hồ Chí Minh</p>
+              <p style="font-size: 11px; color: #666; margin-top: 4px; line-height: 1.2; white-space: nowrap;">Tổ 5, Phường 9, TP. Hồ Chí Minh</p>
             </div>
           </div>
 
@@ -1235,7 +1244,7 @@
               <span style="font-size: 11px; text-transform: uppercase; color: #888; font-weight: 600;">NHÀ GÁI</span>
               <p style="font-size: 13px; font-weight: 700; color: var(--red); margin: 4px 0 2px;">Nguyễn Thanh Long</p>
               <p style="font-size: 13px; font-weight: 700; color: var(--red);">Nguyễn Thị Kim Tuyết</p>
-              <p style="font-size: 11px; color: #666; margin-top: 4px; line-height: 1.2;">322, Tà Lài, Phú Lộc 14, Tân Phú, Đồng Nai</p>
+              <p style="font-size: 11px; color: #666; margin-top: 4px; line-height: 1.2; white-space: nowrap;">322, Tà Lài, Phú Lộc 14, Tân Phú, Đồng Nai</p>
             </div>
           </div>
         </div>
@@ -1263,7 +1272,7 @@
         <h2 class="title-font comic-pop-stamp" style="color: var(--red); font-size: 24px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px;">
           HÀNH TRÌNH YÊU THƯƠNG
         </h2>
-        <p class="comic-font comic-ink-unfurl" style="font-size: 13px; color: #666; margin-bottom: 24px; max-width: 320px;">
+        <p class="comic-font comic-ink-unfurl" style="font-size: 13px; color: #666; margin-bottom: 24px; max-width: 360px; text-wrap: balance;">
           Từng khoảnh khắc đi qua, gom góp lại thành một chặng đường chung đôi rực rỡ.
         </p>
 
@@ -1437,7 +1446,7 @@
         <h2 class="title-font comic-pop-stamp" style="color: var(--red); font-size: 24px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 6px;">
           ALBUM ẢNH CƯỚI
         </h2>
-        <p class="comic-font comic-ink-unfurl" style="font-size: 13px; color: #666; margin-bottom: 12px;">
+        <p class="comic-font comic-ink-unfurl" style="font-size: 13px; color: #666; margin-bottom: 12px; text-wrap: balance;">
           Vuốt sang trái hoặc phải để cùng ngắm nhìn những nụ cười hạnh phúc nhất nhé!
         </p>
 
@@ -1490,7 +1499,7 @@
       <!-- 8. ĐẾM NGƯỢC (LIVE REAL-TIME COUNTDOWN)     -->
       <!-- ========================================== -->
       <section id="section-countdown" style="width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center;">
-        <h2 class="title-font comic-pop-stamp" style="color: var(--red); font-size: 24px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 6px;">
+        <h2 class="title-font comic-pop-stamp" style="color: var(--red); font-size: clamp(17px, 5.2vw, 22px); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 6px; white-space: nowrap;">
           CÙNG ĐẾM NGƯỢC THỜI GIAN NHÉ!
         </h2>
         <p class="comic-font comic-ink-unfurl" style="font-size: 13px; color: #666; margin-bottom: 18px;">
@@ -1843,7 +1852,7 @@
                 <span style="font-weight: 700; color: var(--red); font-size: 13px;">Trần Minh Quang</span>
                 <span style="font-size: 11px; color: #888;">Bạn chú rể</span>
               </div>
-              <p style="font-size: 13px; color: #333; line-height: 1.35;">Chúc hai bạn trăm năm hạnh phúc, sớm đón thiên thần nhỏ nhé!</p>
+              <p style="font-size: 13px; color: #333; line-height: 1.35; text-wrap: balance;">Chúc hai bạn trăm năm hạnh phúc, sớm đón thiên thần nhỏ nhé!</p>
             </div>
             <div class="comic-step-left" style="background: #FFFFFF; border: 1.5px solid rgba(215,12,27,0.15); border-radius: 10px; padding: 10px 12px;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
@@ -2783,7 +2792,7 @@ if (window.runScrollEngine) window.runScrollEngine();
     const closeVideoModal = document.getElementById('close-video-modal');
     const btnOkVideo = document.getElementById('btn-ok-video');
     if (btnPlayVideo && videoModal) {
-      btnPlayVideo.addEventListener('click', () => videoModal.classList.add('active'));
+      btnPlayVideo.addEventListener('click', () => { btnPlayVideo.innerHTML = '<iframe src=\"https://www.youtube.com/embed/YxUVjCrNaEg?autoplay=1&rel=0\" title=\"Thước phim cưới Trùng Dương & Kim Loan\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen style=\"width: 100%; height: 100%; border: 0; border-radius: 18px;\"></iframe>'; });
     }
     if (closeVideoModal && videoModal) {
       closeVideoModal.addEventListener('click', () => videoModal.classList.remove('active'));
