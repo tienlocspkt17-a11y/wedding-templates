@@ -563,7 +563,7 @@ p, span, figcaption, li {
   <div class="rs-anim-pop" style="display: flex; justify-content: center; margin-bottom: 20px; --delay: 0.12s;">
     <div style="background: rgba(183, 165, 120, 0.15); border: 1.5px solid #b7a578; border-radius: 30px; padding: 4px; display: inline-flex; gap: 4px; box-shadow: 0 4px 14px rgba(0,0,0,0.05);">
       <button type="button" id="btn-tab-wall" class="rs-gb-nav-btn active" style="background: var(--wine, #7b0f1e); color: #FFF; border: none; border-radius: 24px; padding: 8px 14px; font-family: 'Montserrat', sans-serif; font-size: 12.5px; white-space: nowrap; font-weight: 600; cursor: pointer; transition: all 0.25s ease; box-shadow: 0 4px 10px rgba(123, 15, 30, 0.3);">
-        📜 Sổ Lưu Bút (<span id="rs-tab-counter">4</span>)
+        📜 Sổ Lưu Bút (<span id="rs-tab-counter">0</span>)
       </button>
       <button type="button" id="btn-tab-form" class="rs-gb-nav-btn" style="background: transparent; color: var(--wine, #7b0f1e); border: none; border-radius: 24px; padding: 8px 14px; font-family: 'Montserrat', sans-serif; font-size: 12.5px; white-space: nowrap; font-weight: 600; cursor: pointer; transition: all 0.25s ease;">
         ✍️ Gửi Lời Chúc
@@ -575,10 +575,10 @@ p, span, figcaption, li {
   <div class="rs-frame rs-anim-flip" style="padding: 24px 18px; border-radius: 22px; background: linear-gradient(180deg, #FFFDF9 0%, #FAF6EE 100%); border: 2px solid #b7a578; box-shadow: 0 12px 36px rgba(107, 7, 16, 0.12); position: relative; --delay: 0.16s;">
     <span class="orn tl"></span><span class="orn tr"></span><span class="orn bl"></span><span class="orn br"></span>
 
-    <!-- PANE 1: SÁCH CHÚC MỪNG HOÀNG GIA (CÓ ẢNH MẪU LƯU NIỆM + SHOWCASE DECK) -->
+    <!-- PANE 1: SỔ LƯU BÚT -->
     <div id="pane-guestbook-wall" style="display: block; text-align: left;">
       
-      <!-- 1. BẢNG KÝ TÊN & KHUNG ẢNH MẪU HOÀNG GIA (SAMPLE WEDDING PHOTO BOARD) -->
+      <!-- 1. KHUNG ẢNH KỶ NIỆM -->
       <div id="rs-guestbook-photo-board" style="position: relative; margin-bottom: 20px; border-radius: 18px; overflow: hidden; border: 2px solid #b7a578; box-shadow: 0 8px 24px rgba(107, 7, 16, 0.12); background: #2A0409;">
         
         <!-- Photo Container -->
@@ -590,25 +590,13 @@ p, span, figcaption, li {
 
           <!-- Top-Left Tag: ⚜️ Bảng Ký Tên Lưu Niệm -->
           <div style="position: absolute; top: 12px; left: 12px; background: rgba(0, 0, 0, 0.45); backdrop-filter: blur(6px); border: 1px solid rgba(212, 175, 55, 0.5); padding: 4px 12px; border-radius: 20px; font-size: 11.5px; font-weight: 600; color: #FFE7B8; display: flex; align-items: center; gap: 5px; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">
-            <span>⚜️</span> <span>Ảnh Mẫu Lưu Niệm</span>
+            <span>⚜️</span> <span>Sổ lưu bút</span>
           </div>
 
           <!-- Top-Right 3D Wax Seal Stamp 囍 Badge -->
           <div style="position: absolute; top: 10px; right: 12px; z-index: 5;">
             <div class="wax-pulse" style="width: 42px; height: 42px; background: radial-gradient(circle at 35% 35%, #ffd768, #d49514 60%, #946200 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); border: 2px solid #FFF;">
               <span style="font-size: 18px; color: #5c3c00; font-weight: 800; text-shadow: 0 1px 1px rgba(255,255,255,0.4);">囍</span>
-            </div>
-          </div>
-
-          <!-- Overlay Floating Signatures / Blessing Stickers on the photo -->
-          <div id="rs-photo-stamps" style="position: absolute; inset: 0; pointer-events: none;">
-            <!-- Sticker 1 -->
-            <div style="position: absolute; bottom: 42px; left: 14px; background: rgba(255, 253, 249, 0.92); border: 1px solid #b7a578; padding: 4px 10px; border-radius: 12px; font-size: 11.5px; color: var(--wine, #7b0f1e); font-weight: 600; box-shadow: 0 3px 10px rgba(0,0,0,0.25); transform: rotate(-2deg); display: flex; align-items: center; gap: 4px;">
-              <span>💖</span> <span>Trăm năm hạnh phúc!</span>
-            </div>
-            <!-- Sticker 2 -->
-            <div style="position: absolute; bottom: 42px; right: 14px; background: rgba(255, 253, 249, 0.92); border: 1px solid #b7a578; padding: 4px 10px; border-radius: 12px; font-size: 11.5px; color: var(--wine, #7b0f1e); font-weight: 600; box-shadow: 0 3px 10px rgba(0,0,0,0.25); transform: rotate(2.5deg); display: flex; align-items: center; gap: 4px;">
-              <span>🥂</span> <span>Viên mãn trọn vẹn!</span>
             </div>
           </div>
 
@@ -628,19 +616,17 @@ p, span, figcaption, li {
         <div id="featured-card-box" style="background: #FFFDF9; border: 2px solid #D6C7AE; border-radius: 18px; padding: 20px 18px 16px; box-shadow: 0 6px 20px rgba(107, 7, 16, 0.08); min-height: 190px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);">
           <div>
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
-              <span id="fc-avatar" style="font-size: 26px; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">🥰</span>
+              <span id="fc-avatar" style="font-size: 26px; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">💌</span>
               <div>
-                <strong id="fc-name" style="color: var(--wine, #7b0f1e); font-size: 15px; display: block; line-height: 1.2;">Nguyễn Thảo Nhi</strong>
-                <span id="fc-meta" style="font-size: 11px; color: #888; white-space: nowrap;">Bạn thân cô dâu · Lời chúc yêu thương</span>
+                <strong id="fc-name" style="color: var(--wine, #7b0f1e); font-size: 15px; display: block; line-height: 1.2;"></strong>
+                <span id="fc-meta" style="font-size: 11px; color: #888; white-space: nowrap;"></span>
               </div>
             </div>
-            <p id="fc-quote" style="font-size: 14.5px; color: #333; line-height: 1.6; margin: 0; font-style: italic; position: relative; padding-left: 14px; border-left: 3px solid #b7a578;">
-              "Loan ơi, nhìn mày bước vào lễ đường tao xúc động muốn rớt nước mắt! Chúc hai vợ chồng luôn yêu thương, nhường nhịn và đồng hành cùng nhau suốt chặng đường dài phía trước nhé! Love you cả hai!"
-            </p>
+            <p id="fc-quote" style="font-size: 14.5px; color: #333; line-height: 1.6; margin: 0; font-style: italic; position: relative; padding-left: 14px; border-left: 3px solid #b7a578;"></p>
           </div>
 
           <!-- Bottom controls of card -->
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px dashed rgba(183, 165, 120, 0.4);">
+          <div id="fc-nav" hidden style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px dashed rgba(183, 165, 120, 0.4);">
             <div style="display: flex; align-items: center; gap: 8px;">
               <button type="button" onclick="prevWish()" aria-label="Lời chúc trước" style="background: #FFF; border: 1.5px solid #D6C7AE; width: 34px; height: 34px; border-radius: 50%; font-size: 16px; color: var(--wine, #7b0f1e); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; box-shadow: 0 2px 6px rgba(0,0,0,0.06);">‹</button>
               
@@ -650,10 +636,8 @@ p, span, figcaption, li {
               <button type="button" onclick="nextWish()" aria-label="Lời chúc kế tiếp" style="background: #FFF; border: 1.5px solid #D6C7AE; width: 34px; height: 34px; border-radius: 50%; font-size: 16px; color: var(--wine, #7b0f1e); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; box-shadow: 0 2px 6px rgba(0,0,0,0.06);">›</button>
             </div>
             
-            <button type="button" id="btn-like-featured" onclick="toggleLikeFeatured()" style="background: #FFF5F5; border: 1.5px solid var(--wine, #7b0f1e); border-radius: 20px; padding: 5px 14px; font-size: 12.5px; font-weight: 600; color: var(--wine, #7b0f1e); cursor: pointer; display: flex; align-items: center; gap: 5px; transition: transform 0.15s ease;">
-              <span>❤️</span> <span id="fc-likes">12</span>
-            </button>
           </div>
+          <p id="fc-empty-state" style="margin: auto; padding: 20px 4px; color: #756b5d; font: 13px/1.6 'Montserrat', sans-serif; text-align: center;">Chưa có lời chúc nào được cập nhật từ sổ lưu bút.</p>
         </div>
 
       </div><!-- End Featured Card Wrapper -->
@@ -1202,40 +1186,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // ==============================================================
   // 2. CREATIVE ROYAL GUESTBOOK SHOWCASE & FORM LOGIC
   // ==============================================================
-  const wishesData = [
-    {
-      avatar: '🥰',
-      name: 'Nguyễn Thảo Nhi',
-      relation: 'Bạn thân cô dâu',
-      quote: 'Loan ơi, nhìn mày bước vào lễ đường tao xúc động muốn rớt nước mắt! Chúc hai vợ chồng luôn yêu thương, nhường nhịn và đồng hành cùng nhau suốt chặng đường dài phía trước nhé! Love you cả hai!',
-      likes: 12,
-      liked: false
-    },
-    {
-      avatar: '🥂',
-      name: 'Trần Minh Quang',
-      relation: 'Hội bạn chú rể',
-      quote: 'Chúc mừng người anh em chí cốt Trùng Dương đã rước được nàng về dinh! Chúc hai bạn trăm năm hạnh phúc, gia đình viên mãn và sớm đón thiên thần nhỏ nhé!',
-      likes: 9,
-      liked: false
-    },
-    {
-      avatar: '💖',
-      name: 'Gia đình Dì Bảy',
-      relation: 'Người thân gia đình',
-      quote: 'Mừng hạnh phúc hai cháu Trùng Dương và Kim Loan. Chúc hai cháu trăm năm đầu bạc, cùng nhau xây đắp mái ấm thật ấm áp và tràn ngập tiếng cười!',
-      likes: 15,
-      liked: false
-    },
-    {
-      avatar: '🎉',
-      name: 'Team Đồng Nghiệp IT',
-      relation: 'Đồng nghiệp vui vẻ',
-      quote: 'Happy Wedding Trùng Dương & Kim Loan! Chúc code tình yêu của hai bạn luôn "0 bugs, 100% test coverage" và mãi chạy mượt mà theo năm tháng!',
-      likes: 7,
-      liked: false
-    }
-  ];
+  const wishesData = [];
 
   let currentWishIdx = 0;
 
@@ -1256,26 +1207,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function renderFeaturedWish() {
     const w = wishesData[currentWishIdx];
-    if (!w) return;
-
     const fcBox = document.getElementById('featured-card-box');
+    const emptyState = document.getElementById('fc-empty-state');
+    const nav = document.getElementById('fc-nav');
+    if (!fcBox) return;
+    if (!w) {
+      if (emptyState) emptyState.hidden = false;
+      if (nav) nav.hidden = true;
+      renderDots();
+      return;
+    }
+
+    if (emptyState) emptyState.hidden = true;
+    if (nav) nav.hidden = false;
     if (fcBox) {
       fcBox.style.opacity = '0';
       fcBox.style.transform = 'translateY(8px) scale(0.98)';
       setTimeout(function() {
         document.getElementById('fc-avatar').innerText = w.avatar;
         document.getElementById('fc-name').innerText = w.name;
-        document.getElementById('fc-meta').innerText = w.relation + ' · Lời chúc yêu thương';
+        document.getElementById('fc-meta').innerText = w.relation || '';
         document.getElementById('fc-quote').innerText = `"${w.quote}"`;
         
-        const likeBtn = document.getElementById('btn-like-featured');
-        const likeCnt = document.getElementById('fc-likes');
-        if (likeCnt) likeCnt.innerText = w.likes;
-        if (likeBtn) {
-          likeBtn.style.background = w.liked ? '#FFF0F3' : '#FFF5F5';
-          likeBtn.style.borderColor = 'var(--wine, #7b0f1e)';
-        }
-
         renderDots();
 
         fcBox.style.opacity = '1';
@@ -1285,27 +1238,15 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   window.nextWish = function() {
+    if (!wishesData.length) return;
     currentWishIdx = (currentWishIdx + 1) % wishesData.length;
     renderFeaturedWish();
   };
 
   window.prevWish = function() {
+    if (!wishesData.length) return;
     currentWishIdx = (currentWishIdx - 1 + wishesData.length) % wishesData.length;
     renderFeaturedWish();
-  };
-
-  window.toggleLikeFeatured = function() {
-    const w = wishesData[currentWishIdx];
-    if (!w) return;
-    w.liked = !w.liked;
-    w.likes += w.liked ? 1 : -1;
-    document.getElementById('fc-likes').innerText = w.likes;
-    const btn = document.getElementById('btn-like-featured');
-    if (btn) {
-      btn.style.transform = 'scale(1.22)';
-      btn.style.background = w.liked ? '#FFF0F3' : '#FFF5F5';
-      setTimeout(() => { btn.style.transform = 'scale(1)'; }, 180);
-    }
   };
 
   function escapeGuestbookText(value) {
@@ -1319,6 +1260,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const list = document.getElementById('rs-wishes-list');
     if (!list) return;
     list.innerHTML = '';
+    if (!wishesData.length) {
+      list.innerHTML = '<p style="margin: 0; color: #756b5d; font: 13px/1.6 Montserrat, sans-serif; text-align: center;">Chưa có lời chúc nào được cập nhật từ sổ lưu bút.</p>';
+      return;
+    }
     wishesData.forEach(function(w, idx) {
       const card = document.createElement('div');
       card.className = 'rs-wish-item';
@@ -1331,12 +1276,9 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             <div>
               <strong style="color: var(--wine, #7b0f1e); font-size: 14px; display: block; line-height: 1.2;">${escapeGuestbookText(w.name)}</strong>
-              <span style="font-size: 11px; color: #888;">${escapeGuestbookText(w.relation)}</span>
+              ${w.relation ? `<span style="font-size: 11px; color: #888;">${escapeGuestbookText(w.relation)}</span>` : ''}
             </div>
           </div>
-          <button type="button" onclick="toggleWishItemLike(${idx}, this)" style="background: none; border: 1px solid #EED; border-radius: 12px; padding: 2px 8px; font-size: 11.5px; color: var(--wine, #7b0f1e); cursor: pointer; display: flex; align-items: center; gap: 3px;">
-            <span>❤️</span> <span>${w.likes}</span>
-          </button>
         </div>
         <p style="font-size: 13.5px; color: #333; line-height: 1.5; margin: 0; padding-left: 42px; font-style: italic;">
           "${escapeGuestbookText(w.quote)}"
@@ -1345,19 +1287,6 @@ document.addEventListener('DOMContentLoaded', function() {
       list.appendChild(card);
     });
   }
-
-  window.toggleWishItemLike = function(idx, btn) {
-    const w = wishesData[idx];
-    if (!w) return;
-    w.liked = !w.liked;
-    w.likes += w.liked ? 1 : -1;
-    btn.querySelector('span:last-child').innerText = w.likes;
-    btn.style.transform = 'scale(1.2)';
-    setTimeout(() => { btn.style.transform = 'scale(1)'; }, 180);
-    if (idx === currentWishIdx) {
-      document.getElementById('fc-likes').innerText = w.likes;
-    }
-  };
 
   let isAllOpen = false;
   window.toggleAllWishes = function() {
@@ -1454,22 +1383,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
 
-      const randomMoods = ['🥰', '🥂', '💖', '💐', '🎉'];
-      const pickedMood = randomMoods[Math.floor(Math.random() * randomMoods.length)];
-
-      const newWish = {
-        avatar: pickedMood,
-        name: name,
-        relation: relation,
-        quote: msg,
-        likes: 1,
-        liked: true
-      };
-
-      wishesData.unshift(newWish);
-      currentWishIdx = 0;
-      if (tabCounter) tabCounter.innerText = wishesData.length;
-
       formGb.reset();
       if (charCounter) charCounter.innerText = '0/300';
 
@@ -1495,10 +1408,8 @@ document.addEventListener('DOMContentLoaded', function() {
           remoteId: entry.id,
           avatar: '💌',
           name: entry.name,
-          relation: entry.relation || 'Khách mời',
-          quote: entry.message,
-          likes: 0,
-          liked: false
+          relation: entry.relation || '',
+          quote: entry.message
         });
         changed = true;
       });

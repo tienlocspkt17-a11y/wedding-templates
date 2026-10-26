@@ -267,13 +267,7 @@
       "content": {
         "eyebrow": "",
         "title": "Sổ lưu bút",
-        "prompt": "",
-        "samples": [
-          {
-            "name": "Nguyễn Thảo Nhi",
-            "message": "Loan ơi, nhìn mày bước vào lễ đường tao xúc động muốn rớt nước mắt! Chúc hai vợ chồng luôn yêu thương, nhường nhịn và đồng hành cùng nhau suốt chặng đường dài phía trước nhé! Love you cả hai!"
-          }
-        ]
+        "prompt": ""
       }
     },
     {

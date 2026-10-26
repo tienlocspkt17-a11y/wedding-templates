@@ -795,13 +795,14 @@
 
   function wireGuestbook(c) {
     const samples = c.mods.guestbook?.content?.samples || [];
+    const formConfig = c.mods.guestbook?.content?.googleForm;
     let remoteEntries = [];
     const entryKey = entry => `${String(entry.name || '').trim()}\u0000${String(entry.message || '').trim()}`;
     const draw = list => {
-      const localEntries = EA.list('guestbook').slice().reverse();
+      const localEntries = formConfig ? [] : EA.list('guestbook').slice().reverse();
       const localKeys = new Set(localEntries.map(entryKey));
       const sharedEntries = remoteEntries.filter(entry => !localKeys.has(entryKey(entry)));
-      const all = [...localEntries, ...sharedEntries, ...samples];
+      const all = formConfig ? remoteEntries : [...localEntries, ...sharedEntries, ...samples];
       list.innerHTML = all.map(w => `<li class="wish-item"><p>${esc(w.message)}</p><p class="by">— ${esc(w.name)}</p></li>`).join('');
     };
     main.querySelectorAll('.wish-list').forEach(draw);
@@ -823,7 +824,7 @@
           formError(form, 'Chưa gửi được lời chúc. Bạn thử lại sau nhé.');
           return;
         }
-        await EA.store('guestbook', { name, message });
+        if (!formConfig) await EA.store('guestbook', { name, message });
         form.message.value = '';
         if (status) {
           status.textContent = formConfig ? 'Lời chúc đã được gửi vào sổ lưu bút.' : 'Lời chúc đã được lưu trên thiết bị này.';
@@ -833,7 +834,6 @@
       });
     });
 
-    const formConfig = c.mods.guestbook?.content?.googleForm;
     if (formConfig) {
       window.WeddingGuestbook?.load({
         cardId: formConfig.cardId,
