@@ -803,7 +803,38 @@
       const localKeys = new Set(localEntries.map(entryKey));
       const sharedEntries = remoteEntries.filter(entry => !localKeys.has(entryKey(entry)));
       const all = formConfig ? remoteEntries : [...localEntries, ...sharedEntries, ...samples];
-      list.innerHTML = all.map(w => `<li class="wish-item"><p>${esc(w.message)}</p><p class="by">— ${esc(w.name)}</p></li>`).join('');
+      const fragment = document.createDocumentFragment();
+      all.forEach(w => {
+        const item = document.createElement('li');
+        item.className = 'wish-item';
+        const disclosure = document.createElement('details');
+        disclosure.className = 'wish-disclosure';
+        const summary = document.createElement('summary');
+        summary.className = 'wish-summary';
+        const meta = document.createElement('span');
+        meta.className = 'wish-meta';
+        const name = document.createElement('strong');
+        name.className = 'wish-name';
+        name.textContent = String(w.name || 'Khách mời');
+        meta.appendChild(name);
+        if (w.relation) {
+          const relation = document.createElement('span');
+          relation.className = 'wish-relation';
+          relation.textContent = String(w.relation);
+          meta.appendChild(relation);
+        }
+        const preview = document.createElement('span');
+        preview.className = 'wish-preview';
+        preview.textContent = String(w.message || '').replace(/\s+/g, ' ').trim();
+        const message = document.createElement('p');
+        message.className = 'wish-full';
+        message.textContent = String(w.message || '');
+        summary.append(meta, preview);
+        disclosure.append(summary, message);
+        item.appendChild(disclosure);
+        fragment.appendChild(item);
+      });
+      list.replaceChildren(fragment);
     };
     main.querySelectorAll('.wish-list').forEach(draw);
     main.querySelectorAll('form.wish-form').forEach(form => {

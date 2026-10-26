@@ -562,49 +562,46 @@ p, span, figcaption, li {
       <p class="rs-book-intro">Một lời chúc nhỏ sẽ làm ngày vui của Trùng Dương &amp; Kim Loan thêm trọn vẹn.</p>
     </div>
 
-    <div class="rs-book-tabs" role="tablist" aria-label="Sổ lưu bút">
-      <button type="button" id="btn-tab-wall" class="rs-book-tab is-active" role="tab" aria-selected="true" aria-controls="pane-guestbook-wall">
-        Lời chúc <span id="rs-tab-counter">0</span>
-      </button>
-      <button type="button" id="btn-tab-form" class="rs-book-tab" role="tab" aria-selected="false" aria-controls="pane-guestbook-form">
-        Gửi lời chúc
-      </button>
-    </div>
-
     <div class="rs-book-panel">
-      <div id="pane-guestbook-wall" role="tabpanel" aria-labelledby="btn-tab-wall">
-        <div id="rs-wishes-list" class="rs-wishes-list" aria-live="polite"></div>
-      </div>
-
-      <div id="pane-guestbook-form" role="tabpanel" aria-labelledby="btn-tab-form" hidden>
-        <p class="rs-book-form-intro">Gửi lời chúc đến Trùng Dương &amp; Kim Loan</p>
-        <form id="rs-form-guestbook" class="rs-book-form">
-          <div class="rs-book-field-group">
-            <label for="rs-gb-name">Tên của bạn <span aria-hidden="true">*</span></label>
-            <input type="text" id="rs-gb-name" name="name" required maxlength="80" autocomplete="name" placeholder="Nhập tên của bạn">
-          </div>
-
-          <div class="rs-book-field-group">
-            <label for="rs-gb-relation">Bạn là</label>
-            <select id="rs-gb-relation" name="relation">
-              <option value="Bạn thân cô dâu">Bạn thân cô dâu</option>
-              <option value="Hội bạn chú rể">Hội bạn chú rể</option>
-              <option value="Bạn chung cả hai">Bạn chung cả hai</option>
-              <option value="Đồng nghiệp vui vẻ">Đồng nghiệp</option>
-              <option value="Người thân gia đình">Người thân gia đình</option>
-            </select>
-          </div>
-
-          <div class="rs-book-field-group">
-            <div class="rs-book-label-row">
-              <label for="rs-gb-message">Lời chúc <span aria-hidden="true">*</span></label>
-              <span id="char-counter" aria-live="polite">0/300</span>
+      <div class="rs-book-layout">
+        <div class="rs-book-form-column">
+          <p class="rs-book-form-intro">Gửi lời chúc đến Trùng Dương &amp; Kim Loan</p>
+          <form id="rs-form-guestbook" class="rs-book-form">
+            <div class="rs-book-field-group">
+              <label for="rs-gb-name">Tên của bạn <span aria-hidden="true">*</span></label>
+              <input type="text" id="rs-gb-name" name="name" required maxlength="80" autocomplete="name" placeholder="Nhập tên của bạn">
             </div>
-            <textarea id="rs-gb-message" name="message" rows="4" maxlength="300" required placeholder="Viết lời chúc của bạn..."></textarea>
-          </div>
 
-          <button type="submit" class="rs-book-submit">Gửi lời chúc</button>
-        </form>
+            <div class="rs-book-field-group">
+              <label for="rs-gb-relation">Bạn là</label>
+              <select id="rs-gb-relation" name="relation">
+                <option value="Bạn thân cô dâu">Bạn thân cô dâu</option>
+                <option value="Hội bạn chú rể">Hội bạn chú rể</option>
+                <option value="Bạn chung cả hai">Bạn chung cả hai</option>
+                <option value="Đồng nghiệp vui vẻ">Đồng nghiệp</option>
+                <option value="Người thân gia đình">Người thân gia đình</option>
+              </select>
+            </div>
+
+            <div class="rs-book-field-group">
+              <div class="rs-book-label-row">
+                <label for="rs-gb-message">Lời chúc <span aria-hidden="true">*</span></label>
+                <span id="char-counter" aria-live="polite">0/300</span>
+              </div>
+              <textarea id="rs-gb-message" name="message" rows="4" maxlength="300" required placeholder="Viết lời chúc của bạn..."></textarea>
+            </div>
+
+            <button type="submit" class="rs-book-submit">Gửi lời chúc</button>
+          </form>
+        </div>
+
+        <div class="rs-book-wall-column">
+          <div class="rs-book-wall-title">
+            <h3>Lời chúc</h3>
+            <span id="rs-wish-count" aria-label="0 lời chúc">0</span>
+          </div>
+          <div id="rs-wishes-list" class="rs-wishes-list" aria-live="polite"></div>
+        </div>
       </div>
     </div>
 
@@ -1089,11 +1086,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // ==============================================================
   let wishesData = [];
   const wishesList = document.getElementById('rs-wishes-list');
-  const btnTabForm = document.getElementById('btn-tab-form');
-  const btnTabWall = document.getElementById('btn-tab-wall');
-  const paneForm = document.getElementById('pane-guestbook-form');
-  const paneWall = document.getElementById('pane-guestbook-wall');
-  const tabCounter = document.getElementById('rs-tab-counter');
+  const wishCount = document.getElementById('rs-wish-count');
 
   function renderAllWishesList() {
     if (!wishesList) return;
@@ -1108,8 +1101,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const fragment = document.createDocumentFragment();
     wishesData.forEach(function(wish) {
-      const card = document.createElement('article');
+      const card = document.createElement('details');
       card.className = 'rs-wish-item';
+      const summary = document.createElement('summary');
+      summary.className = 'rs-wish-summary';
       const header = document.createElement('div');
       header.className = 'rs-wish-header';
       const name = document.createElement('strong');
@@ -1122,29 +1117,17 @@ document.addEventListener('DOMContentLoaded', function() {
         relation.textContent = wish.relation;
         header.appendChild(relation);
       }
+      const preview = document.createElement('span');
+      preview.className = 'rs-wish-preview';
+      preview.textContent = wish.message.replace(/\s+/g, ' ').trim();
       const message = document.createElement('p');
       message.className = 'rs-wish-message';
       message.textContent = wish.message;
-      card.append(header, message);
+      summary.append(header, preview);
+      card.append(summary, message);
       fragment.appendChild(card);
     });
     wishesList.appendChild(fragment);
-  }
-
-  function showPane(pane) {
-    const isForm = pane === 'form';
-    paneForm.hidden = !isForm;
-    paneWall.hidden = isForm;
-    btnTabForm.classList.toggle('is-active', isForm);
-    btnTabWall.classList.toggle('is-active', !isForm);
-    btnTabForm.setAttribute('aria-selected', String(isForm));
-    btnTabWall.setAttribute('aria-selected', String(!isForm));
-    if (!isForm) renderAllWishesList();
-  }
-
-  if (btnTabForm && btnTabWall) {
-    btnTabForm.addEventListener('click', function() { showPane('form'); });
-    btnTabWall.addEventListener('click', function() { showPane('wall'); });
   }
 
   // Character Counter for Message
@@ -1190,11 +1173,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       formGb.reset();
       if (charCounter) charCounter.innerText = '0/300';
-
-      // Return to the wishes list after sending.
-      setTimeout(function() {
-        showPane('wall');
-      }, 350);
+      showToast('Cảm ơn bạn, lời chúc đã được gửi.');
     });
   }
 
@@ -1204,7 +1183,8 @@ document.addEventListener('DOMContentLoaded', function() {
       wishesData = entries
         .filter(entry => entry?.name && entry?.message)
         .map(entry => ({ name: entry.name, relation: entry.relation || '', message: entry.message }));
-      if (tabCounter) tabCounter.textContent = String(wishesData.length);
+      if (wishCount) wishCount.textContent = String(wishesData.length);
+      if (wishCount) wishCount.setAttribute('aria-label', `${wishesData.length} lời chúc`);
       renderAllWishesList();
     }
   });

@@ -1276,6 +1276,35 @@ p, span, li {
   text-wrap: pretty;
 }
 
+/* Keep the opening composition on the visual center at every viewport size. */
+#intro-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+#intro-screen .intro-surround { width: 100%; max-width: 680px; margin-inline: auto; align-items: center; }
+#intro-screen .intro-stage { margin-inline: auto; }
+
+/* The wish list keeps every entry visible; open a row to read its full message. */
+#wishes-list { max-height: none !important; overflow: visible !important; padding-right: 0 !important; gap: 6px !important; }
+#wishes-list .guestbook-compact-wish { overflow: hidden; border: 1px solid rgba(215, 12, 27, .18); border-radius: 11px; background: #fff; text-align: left; }
+#wishes-list .guestbook-wish-summary { position: relative; display: grid; gap: 3px; padding: 9px 30px 9px 12px; cursor: pointer; list-style: none; }
+#wishes-list .guestbook-wish-summary::after { content: '+'; position: absolute; top: 8px; right: 12px; color: var(--red); font: 500 16px/1 var(--f-comic); }
+#wishes-list .guestbook-compact-wish[open] .guestbook-wish-summary::after { content: '−'; }
+#wishes-list .guestbook-wish-summary::-webkit-details-marker { display: none; }
+#wishes-list .guestbook-wish-summary:focus-visible { outline: 2px solid var(--red); outline-offset: -2px; }
+#wishes-list .guestbook-wish-meta { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+#wishes-list .guestbook-wish-name { color: var(--red); font: 700 12px/1.35 var(--f-comic); }
+#wishes-list .guestbook-wish-relation { color: #888; font: 400 10px/1.35 var(--f-comic); }
+#wishes-list .guestbook-wish-preview { overflow: hidden; color: #555; font: 400 12px/1.4 var(--f-comic); text-overflow: ellipsis; white-space: nowrap; }
+#wishes-list .guestbook-compact-wish[open] .guestbook-wish-preview { display: none; }
+#wishes-list .guestbook-wish-full { margin: 0 12px 10px; color: #333; font: 400 13px/1.5 var(--f-comic); overflow-wrap: anywhere; white-space: pre-wrap; }
+
+/* Hide scrollbar chrome but keep normal page and touch scrolling. */
+*, *::before, *::after { scrollbar-width: none; -ms-overflow-style: none; }
+*::-webkit-scrollbar { display: none; width: 0; height: 0; }
+
 
 </style>
 </head>
@@ -1959,7 +1988,7 @@ p, span, li {
           </form>
 
           <!-- Wishes list stream -->
-          <div id="wishes-list" style="margin-top: 18px; display: flex; flex-direction: column; gap: 10px; max-height: 240px; overflow-y: auto; padding-right: 4px;">
+          <div id="wishes-list" style="margin-top: 18px; display: flex; flex-direction: column; gap: 6px; max-height: none; overflow: visible; padding-right: 0;">
           </div>
         </div>
       </section>
@@ -2746,12 +2775,6 @@ p, span, li {
       });
     }
 
-    function escapeGuestbookText(value) {
-      return String(value).replace(/[&<>"']/g, character => ({
-        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-      })[character]);
-    }
-
     // Form Guestbook submit
     const formGuestbook = document.getElementById('form-guestbook');
     const wishesList = document.getElementById('wishes-list');
@@ -2775,21 +2798,35 @@ p, span, li {
       window.WeddingGuestbook?.load({
         cardId: 'hoatinhdo-trung-duong-kim-loan-mvm2htd8',
         onUpdate(entries) {
-          const existing = () => Array.from(wishesList.children);
-          entries.slice().reverse().forEach(entry => {
-            const alreadyShown = existing().some(card => card.textContent.includes(entry.name) && card.textContent.includes(entry.message));
-            if (alreadyShown) return;
-            const wishCard = document.createElement('div');
-            wishCard.style.cssText = 'background: #FFFFFF; border: 1.5px solid rgba(215,12,27,0.3); border-radius: 10px; padding: 10px 12px;';
-            wishCard.innerHTML = `
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                <span style="font-weight: 700; color: var(--red); font-size: 13px;">${escapeGuestbookText(entry.name)}</span>
-                <span style="font-size: 11px; color: #888;">${escapeGuestbookText(entry.relation)}</span>
-              </div>
-              <p style="font-size: 13px; color: #333; line-height: 1.35;">${escapeGuestbookText(entry.message)}</p>
-            `;
-            wishesList.insertBefore(wishCard, wishesList.firstChild);
+          const fragment = document.createDocumentFragment();
+          entries.forEach(entry => {
+            const wishCard = document.createElement('details');
+            wishCard.className = 'guestbook-compact-wish';
+            const summary = document.createElement('summary');
+            summary.className = 'guestbook-wish-summary';
+            const meta = document.createElement('div');
+            meta.className = 'guestbook-wish-meta';
+            const name = document.createElement('strong');
+            name.className = 'guestbook-wish-name';
+            name.textContent = entry.name;
+            meta.appendChild(name);
+            if (entry.relation) {
+              const relation = document.createElement('span');
+              relation.className = 'guestbook-wish-relation';
+              relation.textContent = entry.relation;
+              meta.appendChild(relation);
+            }
+            const preview = document.createElement('span');
+            preview.className = 'guestbook-wish-preview';
+            preview.textContent = entry.message.replace(/\s+/g, ' ').trim();
+            const fullMessage = document.createElement('p');
+            fullMessage.className = 'guestbook-wish-full';
+            fullMessage.textContent = entry.message;
+            summary.append(meta, preview);
+            wishCard.append(summary, fullMessage);
+            fragment.appendChild(wishCard);
           });
+          wishesList.replaceChildren(fragment);
         }
       });
     }
