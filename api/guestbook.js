@@ -79,9 +79,9 @@ export default async function handler(req, res) {
       name: String(cells[2] || '').trim().slice(0, 80),
       relation: String(cells[3] || '').trim().slice(0, 80),
       message: String(cells[4] || '').trim().slice(0, 1000)
-    })).filter(entry => entry.cardId === cardId && entry.name && entry.message);
+    })).filter(entry => entry.name && entry.message);
 
-    return json(res, 200, { ok: true, cardId, entries: entries.slice(-100).reverse() });
+    return json(res, 200, { ok: true, cardId, entries: entries.reverse() });
   } catch (error) {
     console.error('Guestbook feed error:', error.message);
     return json(res, 502, { ok: false, error: 'guestbook_feed_unavailable' });

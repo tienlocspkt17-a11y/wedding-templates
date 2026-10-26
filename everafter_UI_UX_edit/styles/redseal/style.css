@@ -388,3 +388,45 @@ body { background: var(--bg); font-family: var(--f-body); }
 @media (max-width: 480px) {
   .rs-pair .n2 { margin-right: 10px; }
 }
+
+/* ---------- simple, shared guestbook ---------- */
+#guestbook .rs-book-heading { margin: 0 auto 22px; text-align: center; }
+#guestbook .rs-book-heading .rs-script { margin: 0 0 2px; color: var(--wine); font-size: clamp(36px, 8vw, 44px); line-height: 1.15; }
+#guestbook .rs-book-rule { display: block; width: 38px; height: 1px; margin: 8px auto 12px; background: var(--gold); }
+#guestbook .rs-book-intro { max-width: 340px; margin: 0 auto; color: var(--ink-soft); font: 400 14px/1.65 var(--f-body); }
+#guestbook .rs-book-tabs { display: flex; justify-content: center; gap: 8px; margin: 0 0 16px; }
+#guestbook .rs-book-tab { min-width: 128px; min-height: 44px; padding: 9px 16px; border: 1px solid rgba(123, 15, 30, .24); border-radius: 999px; background: #fff; color: var(--wine); font: 500 13px/1.3 var(--f-body); cursor: pointer; transition: background-color .18s ease, color .18s ease, border-color .18s ease; }
+#guestbook .rs-book-tab:hover { border-color: var(--wine); }
+#guestbook .rs-book-tab.is-active { border-color: var(--wine); background: var(--wine); color: #fff; }
+#guestbook .rs-book-tab:focus-visible, #guestbook .rs-book-submit:focus-visible, #guestbook .rs-book-field-group input:focus-visible, #guestbook .rs-book-field-group select:focus-visible, #guestbook .rs-book-field-group textarea:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+#guestbook .rs-book-panel { padding: clamp(16px, 4vw, 22px); border: 1px solid rgba(123, 15, 30, .14); border-radius: 16px; background: #fffdfc; }
+#guestbook .rs-book-panel [hidden] { display: none !important; }
+#guestbook .rs-wishes-list { display: grid; gap: 10px; }
+#guestbook .rs-book-empty { margin: 0; padding: 20px 12px; border: 1px dashed rgba(123, 15, 30, .2); border-radius: 12px; color: var(--ink-soft); font: 400 13px/1.6 var(--f-body); text-align: center; }
+#guestbook .rs-wish-item { padding: 14px 15px; border: 1px solid #eee5e4; border-radius: 12px; background: #fff; }
+#guestbook .rs-wish-header { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+#guestbook .rs-wish-name { color: var(--wine); font: 600 14px/1.35 var(--f-body); }
+#guestbook .rs-wish-relation { color: var(--ink-soft); font: 400 11px/1.4 var(--f-body); text-align: right; }
+#guestbook .rs-wish-message { margin: 0; color: var(--ink); font: 400 14px/1.65 var(--f-body); overflow-wrap: anywhere; white-space: pre-wrap; }
+#guestbook .rs-book-form-intro { margin: 0 0 18px; color: var(--ink-soft); font: 400 14px/1.6 var(--f-body); text-align: center; }
+#guestbook .rs-book-form { display: grid; gap: 14px; }
+#guestbook .rs-book-field-group { display: grid; gap: 6px; }
+#guestbook .rs-book-field-group label { color: var(--ink); font: 600 12px/1.4 var(--f-body); }
+#guestbook .rs-book-label-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+#guestbook #char-counter { color: var(--ink-soft); font: 400 11px/1.4 var(--f-body); }
+#guestbook .rs-book-field-group input, #guestbook .rs-book-field-group select, #guestbook .rs-book-field-group textarea { width: 100%; min-height: 44px; padding: 11px 12px; border: 1px solid #e6d9d8; border-radius: 9px; background: #fff; color: var(--ink); font: 400 14px/1.5 var(--f-body); }
+#guestbook .rs-book-field-group textarea { min-height: 108px; resize: vertical; }
+#guestbook .rs-book-field-group input::placeholder, #guestbook .rs-book-field-group textarea::placeholder { color: #8b8081; }
+#guestbook .rs-book-submit { min-height: 46px; margin-top: 2px; padding: 12px 18px; border: 0; border-radius: 999px; background: var(--wine); color: #fff; font: 600 14px/1.4 var(--f-body); cursor: pointer; transition: background-color .18s ease; }
+#guestbook .rs-book-submit:hover { background: #650b18; }
+#guestbook .rs-book-toast { position: fixed; z-index: 10000; left: 50%; bottom: max(20px, env(safe-area-inset-bottom)); width: max-content; max-width: calc(100vw - 32px); padding: 12px 18px; transform: translateX(-50%) translateY(80px); border: 1px solid #eadbdd; border-radius: 12px; background: #fff; color: var(--wine); box-shadow: 0 8px 24px rgba(47, 27, 29, .12); font: 500 13px/1.5 var(--f-body); opacity: 0; pointer-events: none; transition: transform .25s ease, opacity .25s ease; }
+
+@media (max-width: 480px) {
+  #guestbook .rs-book-tab { min-width: 0; flex: 1; }
+  #guestbook .rs-wish-header { align-items: flex-start; flex-direction: column; gap: 2px; }
+  #guestbook .rs-wish-relation { text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #guestbook .rs-book-tab, #guestbook .rs-book-submit, #guestbook .rs-book-toast { transition: none; }
+}
