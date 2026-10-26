@@ -105,14 +105,14 @@
           width: min(420px, calc(100vw - 24px)); box-sizing: border-box; padding: 12px 16px 13px;
           color: #482731; background: rgba(255, 253, 248, .97); border: 1px solid rgba(183, 165, 120, .66);
           border-left: 3px solid #a38b58; border-radius: 15px; box-shadow: 0 12px 34px rgba(57, 30, 34, .16);
-          font-family: Georgia, 'Times New Roman', serif; text-align: left; pointer-events: none;
+          font-family: inherit; text-align: left; pointer-events: none;
           opacity: 0; visibility: hidden; transform: translate3d(-50%, -12px, 0) scale(.985);
           transition: opacity .32s ease, transform .38s cubic-bezier(.2,.75,.25,1), visibility .32s;
         }
         #${NOTICE_ID}.is-visible { opacity: 1; visibility: visible; transform: translate3d(-50%, 0, 0) scale(1); }
-        #${NOTICE_ID} .guestbook-notice-label { display: block; margin-bottom: 4px; color: #967a43; font: 600 9px/1.3 system-ui, sans-serif; letter-spacing: .13em; text-transform: uppercase; }
-        #${NOTICE_ID} .guestbook-notice-name { display: block; overflow: hidden; color: #512936; font: 600 15px/1.35 Georgia, 'Times New Roman', serif; text-overflow: ellipsis; white-space: nowrap; }
-        #${NOTICE_ID} .guestbook-notice-message { display: -webkit-box; overflow: hidden; margin: 3px 0 0; color: #55464a; font: 13px/1.45 system-ui, sans-serif; overflow-wrap: anywhere; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+        #${NOTICE_ID} .guestbook-notice-label { display: block; margin-bottom: 4px; color: #967a43; font-size: 9px; font-weight: 600; line-height: 1.3; letter-spacing: .13em; text-transform: uppercase; }
+        #${NOTICE_ID} .guestbook-notice-name { display: block; overflow: hidden; color: #512936; font-size: 15px; font-weight: 600; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }
+        #${NOTICE_ID} .guestbook-notice-message { display: -webkit-box; overflow: hidden; margin: 3px 0 0; color: #55464a; font-size: 13px; line-height: 1.45; overflow-wrap: anywhere; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
         @media (prefers-reduced-motion: reduce) {
           #${NOTICE_ID} { transition: opacity .15s ease, visibility .15s; transform: translateX(-50%); }
           #${NOTICE_ID}.is-visible { transform: translateX(-50%); }

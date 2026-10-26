@@ -50,6 +50,14 @@ export default async function handler(req, res) {
 
     let html = await fetchRes.text();
 
+    // Invitation links are served from /s/:cardId, so relative `assets/...`
+    // paths resolve under /s/ instead of the card's own submission folder.
+    // Rebase card-local assets for the hosted response while leaving each
+    // submission untouched so local file:// previews keep working.
+    const hostedAssetBase = `/submissions/${safeCardId}/assets/`;
+    html = html.replace(/(\b(?:src|poster|href)\s*=\s*["'])\.?\/?assets\//gi, `$1${hostedAssetBase}`);
+    html = html.replace(/(url\(\s*["']?)\.?\/?assets\//gi, `$1${hostedAssetBase}`);
+
     // Define the guestbook bridge before inline invitation scripts try to start polling.
     // Some hand-authored cards call WeddingGuestbook.load() during parsing, while
     // their script tag is stored at the end of the page. Moving it into the head
