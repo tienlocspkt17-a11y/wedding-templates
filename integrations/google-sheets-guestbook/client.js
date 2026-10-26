@@ -54,6 +54,18 @@
     historyEntries.push(entry);
   }
 
+  function sortHistoryEntries() {
+    historyEntries.sort((left, right) => {
+      const leftId = Number(left.id);
+      const rightId = Number(right.id);
+      return (Number.isFinite(leftId) ? leftId : Number.MAX_SAFE_INTEGER) -
+        (Number.isFinite(rightId) ? rightId : Number.MAX_SAFE_INTEGER);
+    });
+    historyBySignature.clear();
+    historyEntries.forEach((entry, index) => historyBySignature.set(entrySignature(entry), index));
+    if (historyEntries.length) historyCursor %= historyEntries.length;
+  }
+
   function takePendingLocal(signature) {
     const count = pendingLocal.get(signature) || 0;
     if (!count) return false;
@@ -150,7 +162,7 @@
     noticeHideTimer = window.setTimeout(() => {
       node.classList.remove('is-visible');
       noticeIsVisible = false;
-      scheduleNoticePump(kind === 'history' ? HISTORY_GAP_MS : 700);
+      scheduleNoticePump(kind === 'history' && !newEntryQueue.length ? HISTORY_GAP_MS : 700);
     }, visibleFor);
   }
 
@@ -188,10 +200,10 @@
       feedInitialized = true;
       safeEntries.forEach(entry => seenEntryIds.add(String(entry.id || '')));
       safeEntries.slice().reverse().forEach(entry => {
-        const isOwn = takePendingLocal(entrySignature(entry));
+        takePendingLocal(entrySignature(entry));
         addHistoryEntry(entry);
-        if (isOwn) return;
       });
+      sortHistoryEntries();
       scheduleNoticePump(8500);
       return;
     }
@@ -203,7 +215,10 @@
       addHistoryEntry(entry);
       if (!isOwn) newEntryQueue.push({ entry, kind: 'new' });
     });
-    if (additions.length) scheduleNoticePump(0);
+    if (additions.length) {
+      sortHistoryEntries();
+      scheduleNoticePump(0);
+    }
   }
 
   function notifyLocalWish(entry) {
