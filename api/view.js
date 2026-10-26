@@ -16,14 +16,34 @@ export default async function handler(req, res) {
   const rawGithubUrl = `https://raw.githubusercontent.com/tienlocspkt17-a11y/wedding-templates/refs/heads/main/submissions/${safeCardId}/index.html?refresh=${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
   try {
-    const fetchRes = await fetch(rawGithubUrl, {
-      headers: {
-        'User-Agent': 'Wedding-Templates-Viewer',
-        'Cache-Control': 'no-cache, no-store',
-        'Pragma': 'no-cache'
-      },
-      cache: 'no-store'
-    });
+    const requestHeaders = {
+      'User-Agent': 'Wedding-Templates-Viewer',
+      'Cache-Control': 'no-cache, no-store',
+      'Pragma': 'no-cache'
+    };
+    const publishedCards = new Set([
+      'hoatinhdo-trung-duong-kim-loan-mvm2htd8',
+      'redseal-trung-duong-kim-loan-mvm1r726',
+      'botanical-trung-duong-kim-loan-mvm26y7c'
+    ]);
+    let fetchRes = null;
+
+    // For the three finalized invitations, prefer the files in this deployment.
+    // Vercel's outbound cache can keep an older GitHub raw response for a moved
+    // branch even with a cache-busting query. New cards still fall back to main.
+    if (publishedCards.has(safeCardId)) {
+      try {
+        const deployedCardUrl = `https://wedding-templates-lyart.vercel.app/submissions/${safeCardId}/index.html?refresh=${Date.now()}-${Math.random().toString(36).slice(2)}`;
+        const deployedCardRes = await fetch(deployedCardUrl, { headers: requestHeaders, cache: 'no-store' });
+        if (deployedCardRes.ok) fetchRes = deployedCardRes;
+      } catch (_) {
+        // Continue to the GitHub source if the static deployment is unavailable.
+      }
+    }
+
+    if (!fetchRes) {
+      fetchRes = await fetch(rawGithubUrl, { headers: requestHeaders, cache: 'no-store' });
+    }
 
     if (!fetchRes.ok) {
       return res.status(404).send(`
