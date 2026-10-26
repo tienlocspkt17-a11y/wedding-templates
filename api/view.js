@@ -13,11 +13,15 @@ export default async function handler(req, res) {
   }
 
   const safeCardId = String(id).replace(/[^a-zA-Z0-9_-]/g, '-').slice(0, 60);
-  const rawGithubUrl = `https://raw.githubusercontent.com/tienlocspkt17-a11y/wedding-templates/main/submissions/${safeCardId}/index.html?v=${Date.now()}`;
+  const rawGithubUrl = `https://raw.githubusercontent.com/tienlocspkt17-a11y/wedding-templates/refs/heads/main/submissions/${safeCardId}/index.html?refresh=${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
   try {
     const fetchRes = await fetch(rawGithubUrl, {
-      headers: { 'User-Agent': 'Wedding-Templates-Viewer' },
+      headers: {
+        'User-Agent': 'Wedding-Templates-Viewer',
+        'Cache-Control': 'no-cache, no-store',
+        'Pragma': 'no-cache'
+      },
       cache: 'no-store'
     });
 
