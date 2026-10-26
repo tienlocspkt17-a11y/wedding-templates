@@ -562,7 +562,7 @@
     guestbook: ({ esc: e, ui, mod }) => `<div class="wrap narrow">
       ${ui.head('Guestbook', 'Sổ lưu bút')}
       ${mod.content.prompt ? `<p class="sub">${e(mod.content.prompt)}</p>` : ''}
-      <div class="book">${ui.wishForm()}<ul class="wish-list"></ul></div>
+      <div class="book">${ui.wishForm()}<ul class="wish-list"></ul><nav class="wish-pagination" aria-label="Phân trang lời chúc" hidden></nav></div>
     </div>`,
 
     contact: ({ esc: e, ui, mod }) => `<div class="wrap">
@@ -796,15 +796,20 @@
   function wireGuestbook(c) {
     const samples = c.mods.guestbook?.content?.samples || [];
     const formConfig = c.mods.guestbook?.content?.googleForm;
+    const pageSize = 5;
+    let currentPage = 0;
     let remoteEntries = [];
     const entryKey = entry => `${String(entry.name || '').trim()}\u0000${String(entry.message || '').trim()}`;
     const draw = list => {
       const localEntries = formConfig ? [] : EA.list('guestbook').slice().reverse();
       const localKeys = new Set(localEntries.map(entryKey));
       const sharedEntries = remoteEntries.filter(entry => !localKeys.has(entryKey(entry)));
-      const all = formConfig ? remoteEntries : [...localEntries, ...sharedEntries, ...samples];
+      const all = formConfig ? remoteEntries.slice().reverse() : [...localEntries, ...sharedEntries, ...samples];
+      const pageCount = Math.ceil(all.length / pageSize);
+      currentPage = Math.max(0, Math.min(currentPage, pageCount - 1));
+      const visible = all.slice(currentPage * pageSize, (currentPage + 1) * pageSize);
       const fragment = document.createDocumentFragment();
-      all.forEach(w => {
+      visible.forEach(w => {
         const item = document.createElement('li');
         item.className = 'wish-item';
         const disclosure = document.createElement('details');
@@ -835,6 +840,28 @@
         fragment.appendChild(item);
       });
       list.replaceChildren(fragment);
+      const book = list.closest('.book');
+      const pagination = book?.querySelector('.wish-pagination');
+      if (!pagination) return;
+      pagination.hidden = pageCount <= 1;
+      if (pageCount <= 1) { pagination.replaceChildren(); return; }
+      const previous = document.createElement('button');
+      previous.type = 'button';
+      previous.textContent = '← Trước';
+      previous.disabled = currentPage === 0;
+      previous.setAttribute('aria-label', 'Xem lời chúc trước');
+      previous.addEventListener('click', () => { currentPage = Math.max(0, currentPage - 1); draw(list); });
+      const status = document.createElement('span');
+      status.setAttribute('role', 'status');
+      status.setAttribute('aria-live', 'polite');
+      status.textContent = `Trang ${currentPage + 1} / ${pageCount}`;
+      const next = document.createElement('button');
+      next.type = 'button';
+      next.textContent = 'Sau →';
+      next.disabled = currentPage >= pageCount - 1;
+      next.setAttribute('aria-label', 'Xem lời chúc tiếp theo');
+      next.addEventListener('click', () => { currentPage = Math.min(pageCount - 1, currentPage + 1); draw(list); });
+      pagination.replaceChildren(previous, status, next);
     };
     main.querySelectorAll('.wish-list').forEach(draw);
     main.querySelectorAll('form.wish-form').forEach(form => {

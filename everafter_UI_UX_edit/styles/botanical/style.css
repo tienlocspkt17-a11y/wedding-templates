@@ -319,6 +319,11 @@ body { font-weight: 300; }
 [data-style="botanical"] #guestbook .wish-preview { overflow: hidden; color: var(--ink-soft); font-size: 12px; line-height: 1.4; text-overflow: ellipsis; white-space: nowrap; }
 [data-style="botanical"] #guestbook .wish-disclosure[open] .wish-preview { display: none; }
 [data-style="botanical"] #guestbook .wish-full { margin: 0 12px 10px; color: var(--ink); font-size: 13px; line-height: 1.55; overflow-wrap: anywhere; white-space: pre-wrap; }
+[data-style="botanical"] #guestbook .wish-pagination { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 12px 0 0; color: var(--ink-soft); font-size: 12px; line-height: 1.4; }
+[data-style="botanical"] #guestbook .wish-pagination[hidden] { display: none !important; }
+[data-style="botanical"] #guestbook .wish-pagination button { min-height: 36px; padding: 7px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--accent); font: inherit; font-weight: 600; cursor: pointer; }
+[data-style="botanical"] #guestbook .wish-pagination button:disabled { opacity: .42; cursor: default; }
+[data-style="botanical"] #guestbook .wish-pagination button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* Hide scrollbar chrome while keeping page and touch scrolling available. */
 *, *::before, *::after { scrollbar-width: none; -ms-overflow-style: none; }

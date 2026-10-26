@@ -601,6 +601,7 @@ p, span, figcaption, li {
             <span id="rs-wish-count" aria-label="0 lời chúc">0</span>
           </div>
           <div id="rs-wishes-list" class="rs-wishes-list" aria-live="polite"></div>
+          <nav id="rs-wishes-pagination" class="rs-wishes-pagination" aria-label="Phân trang lời chúc" hidden></nav>
         </div>
       </div>
     </div>
@@ -1086,7 +1087,33 @@ document.addEventListener('DOMContentLoaded', function() {
   // ==============================================================
   let wishesData = [];
   const wishesList = document.getElementById('rs-wishes-list');
+  const wishesPagination = document.getElementById('rs-wishes-pagination');
   const wishCount = document.getElementById('rs-wish-count');
+  const wishesPerPage = 5;
+  let wishPage = 0;
+
+  function renderWishPagination(totalPages) {
+    if (!wishesPagination) return;
+    wishesPagination.hidden = totalPages <= 1;
+    if (totalPages <= 1) { wishesPagination.replaceChildren(); return; }
+    const previous = document.createElement('button');
+    previous.type = 'button';
+    previous.textContent = '← Trước';
+    previous.disabled = wishPage === 0;
+    previous.setAttribute('aria-label', 'Xem lời chúc trước');
+    previous.addEventListener('click', function() { wishPage = Math.max(0, wishPage - 1); renderAllWishesList(); });
+    const status = document.createElement('span');
+    status.setAttribute('role', 'status');
+    status.setAttribute('aria-live', 'polite');
+    status.textContent = `Trang ${wishPage + 1} / ${totalPages}`;
+    const next = document.createElement('button');
+    next.type = 'button';
+    next.textContent = 'Sau →';
+    next.disabled = wishPage >= totalPages - 1;
+    next.setAttribute('aria-label', 'Xem lời chúc tiếp theo');
+    next.addEventListener('click', function() { wishPage = Math.min(totalPages - 1, wishPage + 1); renderAllWishesList(); });
+    wishesPagination.replaceChildren(previous, status, next);
+  }
 
   function renderAllWishesList() {
     if (!wishesList) return;
@@ -1096,11 +1123,15 @@ document.addEventListener('DOMContentLoaded', function() {
       empty.className = 'rs-book-empty';
       empty.textContent = 'Chưa có lời chúc nào. Bạn có thể gửi lời chúc đầu tiên.';
       wishesList.appendChild(empty);
+      renderWishPagination(0);
       return;
     }
 
+    const totalPages = Math.ceil(wishesData.length / wishesPerPage);
+    wishPage = Math.max(0, Math.min(wishPage, totalPages - 1));
+    const pageWishes = wishesData.slice(wishPage * wishesPerPage, (wishPage + 1) * wishesPerPage);
     const fragment = document.createDocumentFragment();
-    wishesData.forEach(function(wish) {
+    pageWishes.forEach(function(wish) {
       const card = document.createElement('details');
       card.className = 'rs-wish-item';
       const summary = document.createElement('summary');
@@ -1128,6 +1159,7 @@ document.addEventListener('DOMContentLoaded', function() {
       fragment.appendChild(card);
     });
     wishesList.appendChild(fragment);
+    renderWishPagination(totalPages);
   }
 
   // Character Counter for Message
@@ -1182,7 +1214,8 @@ document.addEventListener('DOMContentLoaded', function() {
     onUpdate(entries) {
       wishesData = entries
         .filter(entry => entry?.name && entry?.message)
-        .map(entry => ({ name: entry.name, relation: entry.relation || '', message: entry.message }));
+        .map(entry => ({ name: entry.name, relation: entry.relation || '', message: entry.message }))
+        .reverse();
       if (wishCount) wishCount.textContent = String(wishesData.length);
       if (wishCount) wishCount.setAttribute('aria-label', `${wishesData.length} lời chúc`);
       renderAllWishesList();

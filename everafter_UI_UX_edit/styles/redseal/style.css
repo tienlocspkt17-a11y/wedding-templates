@@ -413,6 +413,11 @@ body { background: var(--bg); font-family: var(--f-body); }
 #guestbook .rs-wish-relation { color: var(--ink-soft); font: 400 10px/1.4 var(--f-body); text-align: right; }
 #guestbook .rs-wish-preview { display: -webkit-box; overflow: hidden; color: var(--ink-soft); font: 400 12px/1.45 var(--f-body); -webkit-box-orient: vertical; -webkit-line-clamp: 1; }
 #guestbook .rs-wish-message { margin: 0; padding: 0 0 10px; color: var(--ink); font: 400 13px/1.6 var(--f-body); overflow-wrap: anywhere; white-space: pre-wrap; }
+#guestbook .rs-wishes-pagination { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 12px 0 0; color: var(--ink-soft); font: 400 12px/1.4 var(--f-body); }
+#guestbook .rs-wishes-pagination[hidden] { display: none !important; }
+#guestbook .rs-wishes-pagination button { min-height: 36px; padding: 7px 12px; border: 1px solid rgba(123, 15, 30, .18); border-radius: 999px; background: #fff; color: var(--wine); font: 600 12px/1.3 var(--f-body); cursor: pointer; }
+#guestbook .rs-wishes-pagination button:disabled { opacity: .42; cursor: default; }
+#guestbook .rs-wishes-pagination button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 #guestbook .rs-book-form-intro { margin: 0 0 14px; color: var(--ink-soft); font: 400 14px/1.6 var(--f-body); text-align: center; }
 #guestbook .rs-book-form { display: grid; gap: 14px; }
 #guestbook .rs-book-field-group { display: grid; gap: 6px; }
