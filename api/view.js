@@ -1,13 +1,19 @@
 // Vercel Serverless Function: Instantly renders finalized wedding cards from GitHub
 // Zero build delay - eliminates GitHub Pages 1-minute 404 lag
 export default async function handler(req, res) {
+  // Card HTML is read from the moving `main` branch. Bypass both GitHub's raw
+  // branch cache and Vercel's response cache so a newly published card is live.
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+
   const { id } = req.query;
   if (!id) {
     return res.status(400).send('Missing card id parameter.');
   }
 
   const safeCardId = String(id).replace(/[^a-zA-Z0-9_-]/g, '-').slice(0, 60);
-  const rawGithubUrl = `https://raw.githubusercontent.com/tienlocspkt17-a11y/wedding-templates/main/submissions/${safeCardId}/index.html`;
+  const rawGithubUrl = `https://raw.githubusercontent.com/tienlocspkt17-a11y/wedding-templates/main/submissions/${safeCardId}/index.html?v=${Date.now()}`;
 
   try {
     const fetchRes = await fetch(rawGithubUrl, {
