@@ -139,19 +139,225 @@ const fx = (() => { const l = document.createElement('div'); l.className = 'fx-l
 
 // ---- wow: the vine grows as you scroll; tap empty space and a flower blooms there ----
 EA.afterRender((c, main) => {
+  const reduced = c.reduced || !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  if (c.config.siteSettings?.showDockNavigation === false) {
+    document.getElementById('dock-nav')?.remove();
+    document.getElementById('dock')?.setAttribute('aria-label', 'Điều khiển nhạc');
+  }
+  const motionSelector = [
+    '.album figure', '.specimen', '.page-ep', '.packet', '.leafy li', '.framed', '.garden-card', '.vine li',
+    '#invitation > .wrap', '#families .fam', '#families .datebox', '#video .video-frame',
+    '#saveDate .cal', '#saveDate .countdown > div', '#contact .person', '#guestbook .book',
+    '#guestbook .wish-item', '#thanks .thanks-img'
+  ].join(', ');
+  const motionItems = Array.from(main.querySelectorAll(motionSelector));
+  motionItems.forEach(el => el.classList.add('botanical-motion-item'));
+  const sections = Array.from(main.querySelectorAll('.sec'));
+  main.querySelectorAll('#hero .bt-oval .wreath').forEach(wreath => {
+    Array.from(wreath.children).forEach((petal, i) => petal.style.setProperty('--bloom-order', i));
+  });
+
+  const siblingIndex = (el, selector) => Array.from(el.parentElement?.children || []).filter(node => node.matches(selector)).indexOf(el);
+  const motionFor = (el) => {
+    const narrow = innerWidth < 720;
+    if (el.matches('.album figure')) {
+      const i = siblingIndex(el, '.album figure');
+      return { y: 88, angle: i % 2 ? 8 : -8, scale: .86, stagger: Math.min(i * .055, .16), type: 'album' };
+    }
+    if (el.matches('.specimen')) {
+      const i = siblingIndex(el, '.specimen'), side = i % 2 ? 1 : -1;
+      return { x: side * (narrow ? 44 : 82), y: 32, angle: side * 4, scale: .9, stagger: i * .05, type: 'specimen' };
+    }
+    if (el.matches('.page-ep')) {
+      const i = siblingIndex(el, '.page-ep');
+      return { y: 78, angle: i % 2 ? 5 : -5, rotX: 15, scale: .88, stagger: Math.min(i * .06, .15), type: 'story' };
+    }
+    if (el.matches('.packet')) {
+      const i = siblingIndex(el, '.packet');
+      return { y: 66, angle: i % 2 ? 12 : -12, scale: .84, stagger: Math.min(i * .07, .18), type: 'packet' };
+    }
+    if (el.matches('.leafy li')) {
+      const i = siblingIndex(el, '.leafy li');
+      return { x: i % 2 ? 20 : -20, y: 34, angle: i % 2 ? 2 : -2, scale: .96, stagger: Math.min(i * .04, .12), type: 'note' };
+    }
+    if (el.matches('#invitation > .wrap')) return { x: -34, y: 70, angle: -1.4, scale: .96, stagger: 0, type: 'letter' };
+    if (el.matches('#families .fam')) {
+      const i = siblingIndex(el, '.fam'), side = i % 2 ? 1 : -1;
+      return { x: side * (narrow ? 28 : 48), y: 34, angle: side * 2.5, scale: .94, stagger: i * .12, type: 'family' };
+    }
+    if (el.matches('#families .datebox')) return { y: 58, scale: .9, stagger: .1, type: 'datebox' };
+    if (el.matches('#video .video-frame')) return { y: 76, angle: -1.2, scale: .88, stagger: 0, type: 'video' };
+    if (el.matches('#saveDate .cal')) return { y: 64, angle: -1.6, scale: .9, stagger: 0, type: 'calendar' };
+    if (el.matches('#saveDate .countdown > div')) {
+      const i = siblingIndex(el, '#saveDate .countdown > div');
+      return { y: 44, angle: i % 2 ? 3 : -3, scale: .82, stagger: i * .075, type: 'countdown' };
+    }
+    if (el.matches('#contact .person')) {
+      const i = siblingIndex(el, '.person'), side = i % 2 ? 1 : -1;
+      return { x: side * (narrow ? 30 : 54), y: 30, angle: side * 2, scale: .92, stagger: i * .1, type: 'contact' };
+    }
+    if (el.matches('#guestbook .book')) return { y: 54, scale: .96, stagger: 0, type: 'book' };
+    if (el.matches('#guestbook .wish-item')) {
+      const i = siblingIndex(el, '.wish-item');
+      return { x: i % 2 ? 22 : -22, y: 24, angle: i % 2 ? .8 : -.8, scale: .97, stagger: Math.min(i * .1, .35), type: 'wish' };
+    }
+    if (el.matches('#thanks .thanks-img')) return { y: 70, angle: 1.4, scale: .9, stagger: 0, type: 'thanks' };
+    if (el.matches('.framed')) return { y: 56, angle: -1, scale: .91, stagger: 0, type: 'quote' };
+    if (el.matches('.garden-card')) return { y: 64, scale: .93, stagger: 0, type: 'rsvp' };
+    if (el.matches('.vine li')) {
+      const i = siblingIndex(el, '.vine li'), side = i % 2 ? 1 : -1;
+      return { x: side * 42, y: 28, angle: side * 2, scale: .94, stagger: Math.min(i * .025, .09), type: 'vine' };
+    }
+    return { y: 42, scale: .94, stagger: 0, type: 'default' };
+  };
+  const clamp = value => Math.max(0, Math.min(1, value));
+  const easeInOut = value => value * value * (3 - 2 * value);
+  const pageTop = el => {
+    let top = 0, node = el;
+    while (node && node !== document.documentElement) {
+      top += node.offsetTop || 0;
+      node = node.offsetParent;
+    }
+    return top;
+  };
+  const entries = motionItems.map(el => ({ el, top: 0, height: 0, motion: motionFor(el) }));
+  const sectionEntries = sections.map(el => ({ el, top: 0, height: 0 }));
   const vine = main.querySelector('.vine');
-  if (vine && !c.reduced) {
-    const items = vine.querySelectorAll('li');
-    let raf = 0;
-    const upd = () => {
-      raf = 0;
-      const r = vine.getBoundingClientRect(), p = Math.min(1, Math.max(0, (innerHeight * .8 - r.top) / r.height));
-      vine.style.setProperty('--grow', p.toFixed(3));
-      items.forEach(li => li.classList.toggle('grown', li.offsetTop / vine.offsetHeight < p));
+  if (reduced) {
+    motionItems.forEach(el => el.style.setProperty('--motion-opacity', '1'));
+    sections.forEach(el => {
+      el.style.setProperty('--wash-before-y', '0px');
+      el.style.setProperty('--wash-after-y', '0px');
+    });
+    if (vine) vine.style.setProperty('--grow', '1');
+  } else {
+    let vineTop = 0, vineHeight = 1, raf = 0;
+    const measure = () => {
+      entries.forEach(entry => { entry.top = pageTop(entry.el); entry.height = entry.el.offsetHeight; });
+      sectionEntries.forEach(entry => { entry.top = pageTop(entry.el); entry.height = entry.el.offsetHeight; });
+      if (vine) { vineTop = pageTop(vine); vineHeight = Math.max(vine.offsetHeight, 1); }
     };
-    addEventListener('scroll', () => { raf ||= requestAnimationFrame(upd); }, { passive: true }); upd();
-  } else vine?.querySelectorAll('li').forEach(li => li.classList.add('grown'));
-  if (c.reduced) return;
+    const writeMotion = (el, progress, motion) => {
+      const remaining = 1 - progress;
+      el.style.setProperty('--motion-opacity', progress.toFixed(3));
+      el.style.setProperty('--motion-x', `${((motion.x || 0) * remaining).toFixed(2)}px`);
+      el.style.setProperty('--motion-y', `${(motion.y * remaining).toFixed(2)}px`);
+      el.style.setProperty('--motion-angle', `${((motion.angle || 0) * remaining).toFixed(2)}deg`);
+      el.style.setProperty('--motion-rot-x', `${((motion.rotX || 0) * remaining).toFixed(2)}deg`);
+      el.style.setProperty('--motion-scale', (motion.scale + (1 - motion.scale) * progress).toFixed(3));
+
+      if (motion.type === 'album') {
+        const settle = easeInOut(clamp((progress - .12) / .88));
+        el.style.setProperty('--photo-lift', `${(remaining * 18).toFixed(2)}px`);
+        el.style.setProperty('--caption-lift', `${(remaining * 16).toFixed(2)}px`);
+        el.style.setProperty('--photo-scale', (1.1 - .1 * settle).toFixed(3));
+        el.style.setProperty('--photo-angle', `${((settle - 1) * 2.2).toFixed(2)}deg`);
+      } else if (motion.type === 'specimen') {
+        const stage = easeInOut(clamp((progress - .18) / .82));
+        el.style.setProperty('--sprig-opacity', stage.toFixed(3));
+        el.style.setProperty('--sprig-y', `${((1 - stage) * 24).toFixed(2)}px`);
+        el.style.setProperty('--sprig-scale', (.55 + .45 * stage).toFixed(3));
+        el.style.setProperty('--sprig-angle', `${((1 - stage) * -16).toFixed(2)}deg`);
+        el.querySelectorAll('.sprig svg path').forEach(path => path.style.setProperty('--stem-growth', stage.toFixed(3)));
+        el.querySelectorAll('.sprig svg ellipse, .sprig svg circle').forEach((leaf, i) => {
+          const bloom = easeInOut(clamp((stage - i * .095) / Math.max(1 - i * .095, .1)));
+          leaf.style.setProperty('--sprout-opacity', bloom.toFixed(3));
+          leaf.style.setProperty('--sprout-scale', (.3 + .7 * bloom).toFixed(3));
+        });
+      } else if (motion.type === 'story') {
+        const bloom = easeInOut(clamp((progress - .22) / .78));
+        el.style.setProperty('--petal-opacity', (.8 * bloom).toFixed(3));
+        el.style.setProperty('--petal-y', `${((1 - bloom) * -8).toFixed(2)}px`);
+        el.style.setProperty('--petal-scale', (.18 + .82 * bloom).toFixed(3));
+        el.style.setProperty('--petal-angle', `${(-92 + 72 * bloom).toFixed(2)}deg`);
+        el.style.setProperty('--story-image-scale', (1.1 - .1 * bloom).toFixed(3));
+        el.style.setProperty('--story-image-y', `${((1 - bloom) * 10).toFixed(2)}px`);
+      } else if (motion.type === 'packet') {
+        const unfold = easeInOut(clamp((progress - .16) / .84));
+        el.style.setProperty('--flap-angle', `${(-66 * (1 - unfold)).toFixed(2)}deg`);
+      } else if (motion.type === 'letter') {
+        const reveal = easeInOut(clamp((progress - .12) / .88));
+        el.style.setProperty('--rule-scale', (.18 + .82 * reveal).toFixed(3));
+        el.style.setProperty('--highlight-opacity', (.45 + .55 * reveal).toFixed(3));
+        el.style.setProperty('--highlight-y', `${((1 - reveal) * 12).toFixed(2)}px`);
+      } else if (motion.type === 'video') {
+        const reveal = easeInOut(clamp((progress - .12) / .88));
+        el.style.setProperty('--video-image-scale', (1.14 - .14 * reveal).toFixed(3));
+        el.style.setProperty('--play-scale', (.72 + .28 * reveal).toFixed(3));
+        el.style.setProperty('--play-opacity', reveal.toFixed(3));
+      } else if (motion.type === 'calendar') {
+        const reveal = easeInOut(clamp((progress - .16) / .84));
+        el.style.setProperty('--calendar-mark-scale', (.25 + .75 * reveal).toFixed(3));
+        el.style.setProperty('--calendar-mark-rotate', `${((1 - reveal) * -44).toFixed(2)}deg`);
+      } else if (motion.type === 'countdown') {
+        const reveal = easeInOut(clamp((progress - .18) / .82));
+        el.style.setProperty('--countdown-number-y', `${((1 - reveal) * 10).toFixed(2)}px`);
+      } else if (motion.type === 'thanks') {
+        const reveal = easeInOut(clamp((progress - .12) / .88));
+        el.style.setProperty('--thanks-image-scale', (1.12 - .12 * reveal).toFixed(3));
+        el.style.setProperty('--thanks-image-clip', `${(8 * (1 - reveal)).toFixed(2)}%`);
+      } else if (motion.type === 'quote') {
+        const bloom = easeInOut(clamp((progress - .28) / .72));
+        el.style.setProperty('--corner-opacity', bloom.toFixed(3));
+        el.style.setProperty('--corner-scale', (.48 + .52 * bloom).toFixed(3));
+      } else if (motion.type === 'rsvp') {
+        const bloom = easeInOut(clamp((progress - .2) / .8));
+        el.style.setProperty('--wreath-opacity', (.6 * bloom).toFixed(3));
+        el.style.setProperty('--wreath-scale', (.62 + .38 * bloom).toFixed(3));
+        el.style.setProperty('--wreath-angle', `${(-30 * (1 - bloom)).toFixed(2)}deg`);
+      } else if (motion.type === 'vine') {
+        const leaf = easeInOut(clamp((progress - .15) / .85));
+        el.style.setProperty('--leaf-opacity', leaf.toFixed(3));
+        el.style.setProperty('--leaf-scale', (.12 + .88 * leaf).toFixed(3));
+        el.style.setProperty('--leaf-angle', `${(-32 * (1 - leaf)).toFixed(2)}deg`);
+      }
+    };
+    const update = () => {
+      raf = 0;
+      const vh = innerHeight || document.documentElement.clientHeight;
+      const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+      const start = vh * .9, span = Math.max(vh * .68, 1);
+      const progress = entries.map(entry => {
+        const screenTop = entry.top - scrollY;
+        entry.el.classList.toggle('botanical-near', screenTop < vh * 1.2 && screenTop + entry.height > -vh * .2);
+        return easeInOut(clamp((start - screenTop) / span - entry.motion.stagger));
+      });
+      entries.forEach((entry, i) => writeMotion(entry.el, progress[i], entry.motion));
+      sectionEntries.forEach(entry => {
+        const distance = entry.top + entry.height / 2 - scrollY - vh / 2;
+        const drift = Math.max(-52, Math.min(52, distance * .075));
+        const turn = Math.max(-4, Math.min(4, distance * .006));
+        entry.el.style.setProperty('--wash-before-y', `${(-drift).toFixed(1)}px`);
+        entry.el.style.setProperty('--wash-after-y', `${drift.toFixed(1)}px`);
+        entry.el.style.setProperty('--wash-before-rotate', `${turn.toFixed(2)}deg`);
+        entry.el.style.setProperty('--wash-after-rotate', `${(-turn).toFixed(2)}deg`);
+      });
+      if (vine) {
+        const line = easeInOut(clamp((vh * .84 - (vineTop - scrollY)) / (vineHeight + vh * .64)));
+        vine.style.setProperty('--grow', line.toFixed(3));
+      }
+    };
+    const schedule = () => { raf ||= requestAnimationFrame(update); };
+    measure();
+    update();
+    addEventListener('scroll', schedule, { passive: true });
+    addEventListener('resize', () => {
+      entries.forEach(entry => { entry.motion = motionFor(entry.el); });
+      measure();
+      schedule();
+    }, { passive: true });
+    if ('ResizeObserver' in window) {
+      const layoutObserver = new ResizeObserver(() => { measure(); schedule(); });
+      layoutObserver.observe(main);
+    }
+    if (document.fonts?.ready) document.fonts.ready.then(() => { measure(); schedule(); });
+  }
+  if (reduced) return;
+  const driftingPetals = document.createElement('div');
+  driftingPetals.className = 'botanical-petal-drift';
+  driftingPetals.setAttribute('aria-hidden', 'true');
+  driftingPetals.innerHTML = Array.from({ length: 8 }, (_, i) => `<span style="--petal-index:${i}"></span>`).join('');
+  document.body.appendChild(driftingPetals);
   const colors = ['#e3a8a0', '#f3c7c0', '#c9d8b6', '#f6e3b8'];
   onEmptyTap(main, (x, y) => {
     const f = document.createElement('span');

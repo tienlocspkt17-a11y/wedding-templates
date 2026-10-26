@@ -15,13 +15,30 @@ body { font-weight: 300; }
 .sec { position: relative; overflow: hidden; }
 .sec::before, .sec::after {
   content: ''; position: absolute; width: 60vmin; height: 60vmin; border-radius: 50%; z-index: 0;
-  filter: blur(40px); opacity: .35; pointer-events: none;
+  opacity: .72; pointer-events: none; transition: none;
 }
-.sec::before { background: var(--blush); top: -20vmin; left: -20vmin; }
-.sec::after { background: var(--sage); bottom: -24vmin; right: -20vmin; }
+.sec::before { background: radial-gradient(circle, rgba(227, 168, 160, .42) 0 18%, rgba(227, 168, 160, .2) 42%, transparent 72%); top: -20vmin; left: -20vmin; transform: translate3d(0, var(--wash-before-y, 0px), 0) rotate(var(--wash-before-rotate, 0deg)); }
+.sec::after { background: radial-gradient(circle, rgba(143, 166, 122, .4) 0 18%, rgba(143, 166, 122, .18) 42%, transparent 72%); bottom: -24vmin; right: -20vmin; transform: translate3d(0, var(--wash-after-y, 0px), 0) rotate(var(--wash-after-rotate, 0deg)); }
 .sec > .wrap { position: relative; z-index: 1; }
 .sec:nth-child(3n)::before { opacity: 0; }
 .sec:nth-child(3n+1)::after { opacity: 0; }
+/* Titles arrive as a three-beat botanical letterpress reveal. */
+[data-style="botanical"] .sec.reveal .wrap > .head > .eyebrow,
+[data-style="botanical"] .sec.reveal .wrap > .head > .title,
+[data-style="botanical"] .sec.reveal .wrap > .head > .sub {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .46s ease, transform .78s cubic-bezier(.16, .82, .24, 1);
+}
+[data-style="botanical"] .sec.reveal.in .wrap > .head > .eyebrow,
+[data-style="botanical"] .sec.reveal.in .wrap > .head > .title,
+[data-style="botanical"] .sec.reveal.in .wrap > .head > .sub {
+  opacity: 1;
+  transform: translateY(0) rotateX(0deg);
+}
+[data-style="botanical"] .sec.reveal .wrap > .head > .title { transform: translateY(40px) rotateX(14deg) scale(.96); transform-origin: center bottom; }
+[data-style="botanical"] .sec.reveal.in .wrap > .head > .title { transition-delay: 120ms; }
+[data-style="botanical"] .sec.reveal.in .wrap > .head > .sub { transition-delay: 250ms; }
 .letter .salute, .letter .names, .couple .amp, .photo .cap { font-family: var(--f-script); font-style: normal; }
 .letter .names { font-size: clamp(28px, 4vw, 38px); }
 .couple .amp { font-size: .6em; }
@@ -94,7 +111,7 @@ body { font-weight: 300; }
 .specimen .actions { margin-top: 16px; }
 .packets { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-bottom: 32px; }
 .packet { width: 110px; background: #fbf6ea; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; box-shadow: 0 6px 14px rgba(61, 70, 54, .1); }
-.packet .flap { display: block; height: 70px; clip-path: polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%); }
+.packet .flap { position: relative; inset: auto; display: block; height: 70px; clip-path: polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%); }
 .packet p { font: 400 20px/1 var(--f-script); padding: 12px 6px 14px; color: var(--ink); }
 .leafy { list-style: none; padding: 0; max-width: 560px; margin: 0 auto; }
 .leafy li { padding-left: 28px; position: relative; }
@@ -126,17 +143,165 @@ body { font-weight: 300; }
 .garden-card .field input:not([type=radio]):not([type=checkbox]), .garden-card .field select, .garden-card .field textarea { border-radius: 999px; padding-inline: 18px; }
 .garden-card .field textarea { border-radius: 20px; }
 
+/* Scroll choreography: the pressed-flower wreath unfolds, then each paper element settles with the scroll. */
+[data-style="botanical"] #hero .bt-oval .wreath {
+  opacity: 0;
+  scale: .76;
+  rotate: -18deg;
+  transition: opacity 1s ease, scale 1.25s cubic-bezier(.18, .8, .22, 1), rotate 1.35s cubic-bezier(.18, .8, .22, 1);
+}
+[data-style="botanical"] #hero.in .bt-oval .wreath { opacity: .9; scale: 1; rotate: 0deg; }
+[data-style="botanical"] #hero .bt-oval .wreath > * {
+  opacity: 0;
+  scale: .08;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity .4s ease, scale .72s cubic-bezier(.2, 1.55, .35, 1);
+  transition-delay: calc(var(--bloom-order, 0) * 22ms);
+}
+[data-style="botanical"] #hero.in .bt-oval .wreath > * { opacity: 1; scale: 1; }
+[data-style="botanical"] #hero .bt-oval img { transform: translateY(10px) scale(.95); transition: transform 1s cubic-bezier(.18, .8, .22, 1); }
+[data-style="botanical"] #hero.in .bt-oval img { transform: translateY(0) scale(1); }
+
+.album figure, .specimen, .page-ep, .packet, .leafy li, .framed, .garden-card,
+#invitation > .wrap, .fam, .datebox, .video-frame, .cal, .countdown > div, .person, .book, .wish-item, .thanks-img {
+  opacity: var(--motion-opacity, 1);
+  transition: transform .52s cubic-bezier(.22, .72, .22, 1), opacity .36s ease-out;
+}
+[data-style="botanical"] .botanical-near { will-change: transform, opacity; }
+.album figure {
+  transform-origin: 50% 85%;
+  transform: translate3d(var(--motion-x, 0px), var(--motion-y, 0px), 0) rotate(var(--motion-angle, 0deg)) scale(var(--motion-scale, 1));
+}
+.album .photo { transform: translateY(var(--photo-lift, 0px)) scale(var(--photo-scale, 1)) rotate(var(--photo-angle, 0deg)); transition: transform .56s cubic-bezier(.22, .72, .22, 1); }
+.album figcaption { transform: translateY(var(--caption-lift, 0px)); transition: transform .36s cubic-bezier(.22, .72, .22, 1); }
+.specimen { transform: translate3d(var(--motion-x, 0px), var(--motion-y, 0px), 0) rotate(var(--motion-angle, 0deg)) scale(var(--motion-scale, 1)); }
+.specimen .sprig svg {
+  opacity: var(--sprig-opacity, 1);
+  transform: translateY(var(--sprig-y, 0px)) scale(var(--sprig-scale, 1)) rotate(var(--sprig-angle, 0deg));
+  transform-origin: 50% 100%;
+  transition: transform .48s cubic-bezier(.2, .8, .2, 1), opacity .3s ease-out;
+}
+.specimen .sprig svg path { scale: 1 var(--stem-growth, 1); transform-box: fill-box; transform-origin: center bottom; transition: scale .48s cubic-bezier(.2, .8, .2, 1); }
+.specimen .sprig svg ellipse, .specimen .sprig svg circle {
+  opacity: var(--sprout-opacity, 1); scale: var(--sprout-scale, 1);
+  transform-box: fill-box; transform-origin: center; transition: scale .42s cubic-bezier(.2, 1.45, .3, 1), opacity .3s ease-out;
+}
+.page-ep {
+  transform-origin: 50% 100%;
+  backface-visibility: hidden;
+  transform: perspective(1000px) translate3d(var(--motion-x, 0px), var(--motion-y, 0px), 0) rotateX(var(--motion-rot-x, 0deg)) rotate(var(--motion-angle, 0deg)) scale(var(--motion-scale, 1));
+}
+.page-ep img { transform: translateY(var(--story-image-y, 0px)) scale(var(--story-image-scale, 1)); transform-origin: center 60%; transition: transform .64s cubic-bezier(.18, .8, .22, 1); }
+.page-ep .petal {
+  opacity: var(--petal-opacity, .8);
+  rotate: none;
+  transform-origin: 50% 80%;
+  transform: translateY(var(--petal-y, 0px)) scale(var(--petal-scale, 1)) rotate(var(--petal-angle, -20deg));
+  transition: transform .42s cubic-bezier(.2, .8, .2, 1), opacity .3s ease-out;
+}
+.packet { transform-origin: 50% 100%; transform: translate3d(var(--motion-x, 0px), var(--motion-y, 0px), 0) rotate(var(--motion-angle, 0deg)) scale(var(--motion-scale, 1)); }
+.packet .flap {
+  transform-origin: top center;
+  transform: perspective(700px) rotateX(var(--flap-angle, 0deg));
+  backface-visibility: hidden;
+  transition: transform .5s cubic-bezier(.2, .8, .2, 1);
+}
+.framed { transform: translate3d(var(--motion-x, 0px), var(--motion-y, 0px), 0) rotate(var(--motion-angle, 0deg)) scale(var(--motion-scale, 1)); }
+.framed .corner {
+  opacity: var(--corner-opacity, 1);
+  transform: scale(var(--corner-scale, 1));
+  transition: transform .44s cubic-bezier(.2, 1.35, .3, 1), opacity .3s ease-out;
+}
+.garden-card { transform: translate3d(var(--motion-x, 0px), var(--motion-y, 0px), 0) rotate(var(--motion-angle, 0deg)) scale(var(--motion-scale, 1)); }
+.garden-card .wreath {
+  opacity: var(--wreath-opacity, .6);
+  transform: rotate(var(--wreath-angle, 0deg)) scale(var(--wreath-scale, 1));
+  transition: transform .62s cubic-bezier(.2, .8, .2, 1), opacity .42s ease-out;
+}
+#invitation > .wrap { transform: translate3d(var(--motion-x, 0px), var(--motion-y, 0px), 0) rotate(var(--motion-angle, 0deg)) scale(var(--motion-scale, 1)); }
+.letter .rule { transform: scaleX(var(--rule-scale, 1)); transform-origin: left center; transition: transform .6s cubic-bezier(.18, .8, .22, 1); }
+.letter .highlight { opacity: var(--highlight-opacity, 1); transform: translateY(var(--highlight-y, 0px)); transition: transform .48s cubic-bezier(.18, .8, .22, 1), opacity .42s ease; }
+.fam, .datebox, .video-frame, .cal, .countdown > div, .person, .book, .wish-item, .thanks-img {
+  transform: translate3d(var(--motion-x, 0px), var(--motion-y, 0px), 0) rotate(var(--motion-angle, 0deg)) scale(var(--motion-scale, 1));
+  will-change: transform, opacity;
+}
+.datebox { transform-origin: 50% 0; }
+.video-frame { transform-origin: 50% 70%; }
+.video-frame > img { transform: scale(var(--video-image-scale, 1.14)); transition: transform .9s cubic-bezier(.18, .8, .22, 1); }
+.video-frame .play { scale: var(--play-scale, 1); opacity: var(--play-opacity, 1); transition: scale .55s cubic-bezier(.2, 1.4, .3, 1), opacity .4s ease, transform .2s; }
+.cal-grid .on::after { transform: rotate(var(--calendar-mark-rotate, -44deg)) scale(var(--calendar-mark-scale, .25)); transform-origin: 50% 80%; transition: transform .52s cubic-bezier(.2, 1.4, .3, 1); }
+.countdown > div { transform-origin: 50% 100%; }
+.countdown > div .n { display: inline-block; transform: translateY(var(--countdown-number-y, 10px)); transition: transform .44s cubic-bezier(.18, .8, .22, 1); }
+.person { transform-origin: 50% 100%; }
+.book { transform-origin: 50% 0; }
+.wish-item { transform-origin: 0 50%; }
+.thanks-img {
+  width: min(100%, 420px); aspect-ratio: 4 / 5; object-fit: cover;
+  border-radius: 48% 48% 18px 18px; margin: 0 auto 32px;
+  box-shadow: 0 18px 42px rgba(61, 70, 54, .18);
+  transform: translate3d(var(--motion-x, 0px), var(--motion-y, 0px), 0) rotate(var(--motion-angle, 0deg)) scale(var(--thanks-image-scale, var(--motion-scale, 1)));
+  clip-path: inset(var(--thanks-image-clip, 0%) 5% 0 round 48% 48% 18px 18px);
+  transition: transform .78s cubic-bezier(.18, .8, .22, 1), clip-path .7s cubic-bezier(.18, .8, .22, 1), opacity .36s ease;
+}
+
 
 /* wow */
 .fx-layer { position: absolute; left: 0; top: 0; width: 100%; height: 0; pointer-events: none; z-index: 30; }
-.vine::before { transform-origin: top; transform: scaleY(var(--grow, 1)); transition: transform .2s linear; }
-.vine li { opacity: .15; transform: scale(.94); transition: opacity .6s, transform .6s; }
-.vine li.grown { opacity: 1; transform: none; }
-.vine li .leaf { transition: transform .6s cubic-bezier(.3, 1.6, .5, 1); }
-.vine li:not(.grown) .leaf { transform: scale(0); }
+.botanical-petal-drift { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 28; }
+.botanical-petal-drift span {
+  position: absolute; top: -8vh; left: var(--petal-left, 8%); width: 9px; height: 17px;
+  border-radius: 0 100% 0 100%; opacity: 0;
+  background: linear-gradient(145deg, rgba(227, 168, 160, .72), rgba(243, 199, 192, .46));
+  box-shadow: 0 1px 5px rgba(111, 138, 92, .12);
+  animation: botanical-fall var(--fall-duration, 23s) linear var(--fall-delay, 0s) infinite;
+}
+.botanical-petal-drift span:nth-child(1) { --petal-left: 4%; --drift-x: 7vw; --fall-duration: 24s; --fall-delay: -17s; }
+.botanical-petal-drift span:nth-child(2) { --petal-left: 17%; --drift-x: -4vw; --fall-duration: 29s; --fall-delay: -7s; background: linear-gradient(145deg, rgba(143, 166, 122, .62), rgba(201, 216, 182, .42)); }
+.botanical-petal-drift span:nth-child(3) { --petal-left: 31%; --drift-x: 10vw; --fall-duration: 27s; --fall-delay: -22s; }
+.botanical-petal-drift span:nth-child(4) { --petal-left: 47%; --drift-x: -8vw; --fall-duration: 32s; --fall-delay: -11s; background: linear-gradient(145deg, rgba(246, 227, 184, .72), rgba(227, 168, 160, .36)); }
+.botanical-petal-drift span:nth-child(5) { --petal-left: 63%; --drift-x: 5vw; --fall-duration: 25s; --fall-delay: -4s; background: linear-gradient(145deg, rgba(143, 166, 122, .58), rgba(201, 216, 182, .38)); }
+.botanical-petal-drift span:nth-child(6) { --petal-left: 78%; --drift-x: -10vw; --fall-duration: 30s; --fall-delay: -19s; }
+.botanical-petal-drift span:nth-child(7) { --petal-left: 91%; --drift-x: -5vw; --fall-duration: 26s; --fall-delay: -13s; background: linear-gradient(145deg, rgba(246, 227, 184, .66), rgba(227, 168, 160, .42)); }
+.botanical-petal-drift span:nth-child(8) { --petal-left: 54%; --drift-x: 4vw; --fall-duration: 34s; --fall-delay: -27s; }
+@keyframes botanical-fall {
+  0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-30deg); }
+  12% { opacity: .52; }
+  80% { opacity: .36; }
+  100% { opacity: 0; transform: translate3d(var(--drift-x, 6vw), 116vh, 0) rotate(640deg); }
+}
+.vine::before { transform-origin: top; transform: scaleY(var(--grow, 1)); transition: transform .24s linear; }
+.vine::before { width: 4px; margin-left: -2px; box-shadow: 0 0 12px rgba(111, 138, 92, .32); }
+.vine li { z-index: 1; opacity: var(--motion-opacity, 1); transform: translate3d(var(--motion-x, 0px), var(--motion-y, 0px), 0) rotate(var(--motion-angle, 0deg)) scale(var(--motion-scale, 1)); transition: transform .3s cubic-bezier(.22, .72, .22, 1), opacity .24s ease-out; }
+.vine li .leaf { opacity: var(--leaf-opacity, 1); transform-origin: 100% 50%; transform: scale(var(--leaf-scale, 1)) rotate(var(--leaf-angle, 0deg)); transition: transform .46s cubic-bezier(.2, 1.35, .3, 1), opacity .28s ease-out; }
 .bloom { position: absolute; width: 0; height: 0; rotate: var(--r); animation: bloomfade 2.6s ease-out forwards; }
 .bloom i { position: absolute; left: -7px; top: -22px; width: 14px; height: 22px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; background: var(--c); transform-origin: 7px 22px; animation: petal .7s cubic-bezier(.2, 1.6, .4, 1) both; }
 .bloom i:nth-child(2) { rotate: 72deg; } .bloom i:nth-child(3) { rotate: 144deg; } .bloom i:nth-child(4) { rotate: 216deg; } .bloom i:nth-child(5) { rotate: 288deg; }
 .bloom b { position: absolute; left: -5px; top: -5px; width: 10px; height: 10px; border-radius: 50%; background: #d9a441; }
 @keyframes petal { from { scale: 0; } }
 @keyframes bloomfade { 0%, 70% { opacity: 1; } 100% { opacity: 0; transform: translateY(18px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-style="botanical"] .sec.reveal .wrap > .head,
+  .album figure, .specimen, .page-ep, .packet, .leafy li, .framed, .garden-card,
+  #invitation > .wrap, .fam, .datebox, .video-frame, .cal, .countdown > div, .person, .book, .wish-item, .thanks-img,
+  #hero .bt-oval .wreath, #hero .bt-oval .wreath > *, #hero .bt-oval img, .vine li, .vine li .leaf,
+  .packet .flap, .page-ep .petal, .framed .corner, .garden-card .wreath, .album .photo, .album figcaption, .specimen .sprig svg,
+  .specimen .sprig svg path, .specimen .sprig svg ellipse, .specimen .sprig svg circle, .page-ep img,
+  .video-frame > img, .video-frame .play, .cal-grid .on::after, .countdown > div .n, .letter .rule, .letter .highlight {
+    opacity: 1 !important;
+    transform: none !important;
+    scale: 1 !important;
+    rotate: 0deg !important;
+    will-change: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+  .botanical-petal-drift { display: none !important; }
+  .thanks-img { clip-path: none !important; }
+}
+
+/* Keep the guestbook heading simple when no eyebrow is configured. */
+[data-style="botanical"] #guestbook .head > .eyebrow:empty { display: none; }
+[data-style="botanical"] .bt-hero .headline:empty { display: none; }

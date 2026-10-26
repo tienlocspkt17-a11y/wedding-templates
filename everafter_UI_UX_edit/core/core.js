@@ -105,13 +105,15 @@
 
   configP.then(config => {
     const style = EA_STYLES.find(s => s.id === (params.get('style') || config.templateId)) || EA_STYLES[0];
+    const assetVersion = params.get('assetVersion');
+    const assetSuffix = assetVersion ? `?v=${encodeURIComponent(assetVersion)}` : '';
     document.documentElement.dataset.style = style.id;
     load('link', { rel: 'stylesheet', href: `https://fonts.googleapis.com/css2?${style.fonts}&display=swap` }).catch(() => {});
     return Promise.all([
       config,
-      load('link', { rel: 'stylesheet', href: `styles/${style.id}/style.css` }).catch(() => {}),
+      load('link', { rel: 'stylesheet', href: `styles/${style.id}/style.css${assetSuffix}` }).catch(() => {}),
       load('link', { rel: 'stylesheet', href: '../interaction.css' }).catch(() => {}),
-      load('script', { src: `styles/${style.id}/style.js` }),
+      load('script', { src: `styles/${style.id}/style.js${assetSuffix}` }),
       customP.then(card => {
         const localCard = cardId && readJSON(`everafter:card:${cardId}`, null);
         const value = card ?? localCard;
@@ -282,7 +284,14 @@
         });
         return `https://calendar.google.com/calendar/render?${q}`;
       },
-      mapUrl: ev => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${ev.place}, ${ev.address}`)}`,
+      mapUrl(ev) {
+        const custom = String(ev.mapUrl || '').trim();
+        try {
+          const url = new URL(custom);
+          if (url.protocol === 'https:' && ['maps.app.goo.gl', 'maps.google.com', 'www.google.com'].includes(url.hostname)) return e(url.href);
+        } catch {}
+        return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${ev.place}, ${ev.address}`)}`;
+      },
       // Section header. Module content `eyebrow` / `title` / `sub` override the layout's defaults.
       head(eyebrow, title, sub) {
         const mc = c.mod?.content || {};
@@ -350,6 +359,7 @@
           <label class="field"><span>Tên của bạn</span><input name="name" required maxlength="60" autocomplete="name"></label>
           <label class="field"><span>Lời chúc</span><textarea name="message" rows="3" required maxlength="400"></textarea></label>
           <p class="form-error" role="alert" hidden></p>
+          <p class="form-status" role="status" hidden></p>
           <button class="btn" type="submit">Gửi lời chúc</button>
         </form>`;
       }
@@ -792,13 +802,28 @@
     main.querySelectorAll('.wish-list').forEach(draw);
     main.querySelectorAll('form.wish-form').forEach(form => {
       if (c.guest !== c.data.defaultGuest) form.elements['name'].value = c.guest;
-      form.addEventListener('input', () => formError(form, ''));
+      const status = form.querySelector('.form-status');
+      form.addEventListener('input', () => {
+        formError(form, '');
+        if (status) { status.hidden = true; status.textContent = ''; }
+      });
       form.addEventListener('submit', async ev => {
         ev.preventDefault();
         const name = form.elements['name'].value.trim(), message = form.message.value.trim();
         if (!name || !message) { formError(form, 'Điền tên và lời chúc giúp chúng mình nhé.'); return; }
+        const formConfig = c.mods.guestbook?.content?.googleForm;
+        if (formConfig && !window.WeddingGuestbook?.submit({
+          cardId: formConfig.cardId, name, message
+        })) {
+          formError(form, 'Chưa gửi được lời chúc. Bạn thử lại sau nhé.');
+          return;
+        }
         await EA.store('guestbook', { name, message });
         form.message.value = '';
+        if (status) {
+          status.textContent = formConfig ? 'Lời chúc đã được gửi vào sổ lưu bút.' : 'Lời chúc đã được lưu trên thiết bị này.';
+          status.hidden = false;
+        }
         main.querySelectorAll('.wish-list').forEach(draw);
       });
     });
