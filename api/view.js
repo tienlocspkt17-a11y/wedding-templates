@@ -185,7 +185,6 @@ export default async function handler(req, res) {
     }
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.setHeader('Cache-Control', 'public, max-age=10, s-maxage=30');
     return res.status(200).send(html);
   } catch (err) {
     return res.status(500).send('Lỗi máy chủ khi tải thiệp: ' + err.message);
