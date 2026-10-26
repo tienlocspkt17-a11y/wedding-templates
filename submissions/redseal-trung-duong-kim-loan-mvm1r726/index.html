@@ -1483,6 +1483,34 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  window.WeddingGuestbook?.load({
+    cardId: 'redseal-trung-duong-kim-loan-mvm1r726',
+    onUpdate(entries) {
+      let changed = false;
+      entries.slice().reverse().forEach(entry => {
+        const exists = wishesData.some(wish => wish.remoteId === entry.id || (
+          wish.name === entry.name && wish.relation === entry.relation && wish.quote === entry.message
+        ));
+        if (exists) return;
+        wishesData.unshift({
+          remoteId: entry.id,
+          avatar: '💌',
+          name: entry.name,
+          relation: entry.relation || 'Khách mời',
+          quote: entry.message,
+          likes: 0,
+          liked: false
+        });
+        changed = true;
+      });
+      if (!changed) return;
+      currentWishIdx = 0;
+      if (tabCounter) tabCounter.innerText = wishesData.length;
+      renderFeaturedWish();
+      if (isAllOpen) renderAllWishesList();
+    }
+  });
+
   // Initial render of featured wish
   renderFeaturedWish();
 

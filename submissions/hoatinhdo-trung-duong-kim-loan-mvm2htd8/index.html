@@ -2790,6 +2790,27 @@ p, span, li {
         showToast('Đã đóng dấu lời chúc thành công!');
         formGuestbook.reset();
       });
+
+      window.WeddingGuestbook?.load({
+        cardId: 'hoatinhdo-trung-duong-kim-loan-mvm2htd8',
+        onUpdate(entries) {
+          const existing = () => Array.from(wishesList.children);
+          entries.slice().reverse().forEach(entry => {
+            const alreadyShown = existing().some(card => card.textContent.includes(entry.name) && card.textContent.includes(entry.message));
+            if (alreadyShown) return;
+            const wishCard = document.createElement('div');
+            wishCard.style.cssText = 'background: #FFFFFF; border: 1.5px solid rgba(215,12,27,0.3); border-radius: 10px; padding: 10px 12px;';
+            wishCard.innerHTML = `
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <span style="font-weight: 700; color: var(--red); font-size: 13px;">${escapeGuestbookText(entry.name)}</span>
+                <span style="font-size: 11px; color: #888;">${escapeGuestbookText(entry.relation)}</span>
+              </div>
+              <p style="font-size: 13px; color: #333; line-height: 1.35;">${escapeGuestbookText(entry.message)}</p>
+            `;
+            wishesList.insertBefore(wishCard, wishesList.firstChild);
+          });
+        }
+      });
     }
   </script>
   <script src="../../integrations/google-sheets-guestbook/client.js"></script>

@@ -795,8 +795,13 @@
 
   function wireGuestbook(c) {
     const samples = c.mods.guestbook?.content?.samples || [];
+    let remoteEntries = [];
+    const entryKey = entry => `${String(entry.name || '').trim()}\u0000${String(entry.message || '').trim()}`;
     const draw = list => {
-      const all = [...EA.list('guestbook').slice().reverse(), ...samples];
+      const localEntries = EA.list('guestbook').slice().reverse();
+      const localKeys = new Set(localEntries.map(entryKey));
+      const sharedEntries = remoteEntries.filter(entry => !localKeys.has(entryKey(entry)));
+      const all = [...localEntries, ...sharedEntries, ...samples];
       list.innerHTML = all.map(w => `<li class="wish-item"><p>${esc(w.message)}</p><p class="by">— ${esc(w.name)}</p></li>`).join('');
     };
     main.querySelectorAll('.wish-list').forEach(draw);
@@ -827,5 +832,16 @@
         main.querySelectorAll('.wish-list').forEach(draw);
       });
     });
+
+    const formConfig = c.mods.guestbook?.content?.googleForm;
+    if (formConfig) {
+      window.WeddingGuestbook?.load({
+        cardId: formConfig.cardId,
+        onUpdate(entries) {
+          remoteEntries = entries;
+          main.querySelectorAll('.wish-list').forEach(draw);
+        }
+      });
+    }
   }
 })();

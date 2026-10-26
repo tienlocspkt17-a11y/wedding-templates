@@ -1,5 +1,5 @@
 /*
- * Write-only Google Forms bridge for the public wedding guestbooks.
+ * Google Forms submission and near-live published-feed bridge for the public guestbooks.
  * The form owner controls responder access; publishing it allows link-holders
  * to add responses, while the linked spreadsheet remains private.
  */
@@ -19,6 +19,62 @@
     'hoatinhdo-trung-duong-kim-loan-mvm2htd8',
     'redseal-trung-duong-kim-loan-mvm1r726'
   ]);
+
+  function load({ cardId, onUpdate, intervalMs = 15000 } = {}) {
+    const id = String(cardId || '').trim();
+    if (!CARD_IDS.has(id) || typeof onUpdate !== 'function') return () => {};
+
+    let stopped = false;
+    let fetching = false;
+    let timer = 0;
+    let lastPayload = '';
+
+    const schedule = () => {
+      if (stopped) return;
+      timer = window.setTimeout(refresh, document.hidden ? 60000 : intervalMs);
+    };
+
+    const refresh = async () => {
+      if (stopped || fetching) return;
+      if (document.hidden) { schedule(); return; }
+      fetching = true;
+      try {
+        const query = new URLSearchParams({ cardId: id });
+        const response = await fetch(`/api/guestbook?${query}`, {
+          cache: 'no-store',
+          headers: { Accept: 'application/json' }
+        });
+        if (!response.ok) throw new Error('Guestbook feed unavailable');
+        const payload = await response.json();
+        if (!payload?.ok || !Array.isArray(payload.entries)) throw new Error('Invalid guestbook feed');
+        const serialized = JSON.stringify(payload.entries);
+        if (serialized !== lastPayload) {
+          lastPayload = serialized;
+          onUpdate(payload.entries);
+        }
+      } catch (_) {
+        // Keep the invitation usable when the public feed is temporarily unavailable.
+      } finally {
+        fetching = false;
+        schedule();
+      }
+    };
+
+    const onVisibility = () => {
+      if (!document.hidden) {
+        window.clearTimeout(timer);
+        refresh();
+      }
+    };
+
+    document.addEventListener('visibilitychange', onVisibility);
+    refresh();
+    return () => {
+      stopped = true;
+      window.clearTimeout(timer);
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
+  }
 
   function submit({ cardId, name, relation = '', message, signature = '' } = {}) {
     const values = {
@@ -63,5 +119,5 @@
     return true;
   }
 
-  window.WeddingGuestbook = Object.freeze({ submit });
+  window.WeddingGuestbook = Object.freeze({ submit, load });
 })();
