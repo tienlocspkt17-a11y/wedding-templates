@@ -50,6 +50,19 @@ export default async function handler(req, res) {
 
     let html = await fetchRes.text();
 
+    // Define the guestbook bridge before inline invitation scripts try to start polling.
+    // Some hand-authored cards call WeddingGuestbook.load() during parsing, while
+    // their script tag is stored at the end of the page. Moving it into the head
+    // keeps the initial feed request from being skipped.
+    const guestbookClient = html.match(/<script\b[^>]*\bsrc=(["'])[^"']*integrations\/google-sheets-guestbook\/client\.js(?:\?[^"']*)?\1[^>]*>\s*<\/script>/i);
+    if (guestbookClient) {
+      html = html.replace(guestbookClient[0], '');
+      const firstScript = html.search(/<script\b/i);
+      if (firstScript >= 0) {
+        html = `${html.slice(0, firstScript)}${guestbookClient[0]}\n${html.slice(firstScript)}`;
+      }
+    }
+
     // Self-healing sanitization for any card submissions
     html = html.replace(/<\\\/script>/g, '</script>');
     html = html.replace(/\beverafter-editor-mode\b/g, '');
